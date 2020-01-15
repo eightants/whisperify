@@ -1,7 +1,6 @@
 backend/node_modules/
 
 frontend/node_modules/
-frontend/.sass-cache/
 frontend/README.md
 
 .env
