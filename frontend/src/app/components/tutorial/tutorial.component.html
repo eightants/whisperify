@@ -1,0 +1,57 @@
+<div class="reg-div col-md-10 offset-1">
+    <div>
+      <div>
+        <div *ngIf="started">
+          <div class="tut-module absoluteCenter">
+            <div class="popup-title">
+                <h2>Welcome to Whisper!</h2>
+                <p>Listen to the whisper by clicking on the 'Play' button. </p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="played">
+          <div class="tut-module absoluteCenter">
+            <div class="popup-title">
+                <h2>Got it?</h2>
+                <p>
+                  Start typing the song name or artists to search your top songs. Submit your answer when ready. Click 'Play' again for another listen. You will have 20 seconds to answer each question. 
+                  <br><i>Hint: Whisper</i></p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="done">
+          <div class="tut-module absoluteCenter">
+            <div class="popup-title">
+              <h2>Tutorial Complete!</h2>
+              <p>Some information about the song will be shown next. Click 'Continue' there to start testing yourself on your favourite songs. </p>
+            </div>
+            <div class="centering"><button class="btn done-btn" (click)="done = false">Finish</button></div>
+          </div>
+        </div>
+        <div *ngIf="submitted && !done">
+          <app-answer [isCorrect]="isCorrect" [ind]="ind" [tracks]="examples" (nextPg)="nextPage();"></app-answer>
+          <div class="overlay"></div>
+        </div>
+        <h1 class="ques-num">Ex.</h1>
+        <div class="sound-div col-md-10 offset-1">
+          <div (click)="playAudio()" class="sw relative">
+            <img class="soundwave-white" src="assets/soundwave-white.svg">
+            <img #blueWave class="soundwave-blue" src="assets/soundwave-blue.svg">
+          </div>
+          <audio controls #musicAudio id="musicPlayer1">
+            <source allow="autoplay" src="assets/whisper.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+          </audio>
+          <button class="btn audio-btn" (click)="playAudio()">Play</button>
+          <button class="btn audio-btn" (click)="stopAudio()">Stop</button>
+        </div>
+        <div class="timer">
+          <div [ngClass]="cycle[1]==1 ? 'smallcircle' : ''"><img id="circle-1" *ngIf="timeLess(30)" src="assets/circle.png"></div>
+          <div [ngClass]="cycle[0]==1 ? 'smallcircle' : ''"><img id="circle-2" *ngIf="timeLess(40)" src="assets/circle.png"></div>
+          <div [ngClass]="cycle[2]==1 ? 'smallcircle' : ''"><img id="circle-3" *ngIf="timeLess(20)" src="assets/circle.png"></div>
+          <div [ngClass]="cycle[3]==1 ? 'smallcircle' : ''"><img id="circle-4" *ngIf="timeLess(10)" src="assets/circle.png"></div>
+        </div>
+        <app-search [tracks]="examples" (clickSubmit)="checkAns($event, examples[ind]);"></app-search>
+      </div>
+    </div>
+</div>
