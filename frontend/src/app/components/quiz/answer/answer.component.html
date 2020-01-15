@@ -1,0 +1,38 @@
+<div>
+  <audio controls #answerAudio id="answerPlayer1">
+    <source allow="autoplay" src="{{tracks[ind].preview_url}}" type="audio/mpeg">
+      Your browser does not support the audio element.
+  </audio>
+  <div *ngIf="isCorrect" class="answer-module green absoluteCenter">
+    <div class="popup-title">
+        <h1>Well Done!</h1>
+        <p>This was your {{ rankStr(ind + 1) }} most played song over the past 6 months. Deservedly so!</p>
+    </div>
+    <div class="popup-player">
+        <img src="{{tracks[ind].album.images[1].url}}">
+        <div>
+            <h3><span title="{{tracks[ind].name}}">{{ ellipsisName() }}</span></h3>
+            <p>{{tracks[ind].artists[0].name}}</p>
+            <button class="btn playback-btn" (click)="playFull()">Play</button>
+            <button class="btn playback-btn" (click)="stopFull()">Stop</button>
+        </div>
+    </div>
+    <button class="btn popup-green" (click)="nextQues()">Continue</button>
+  </div>
+  <div *ngIf="!isCorrect" class="answer-module red absoluteCenter">
+    <div class="popup-title">
+        <h1>Aww.</h1>
+        <p>This was your {{ rankStr(ind + 1) }} most played song over the past 6 months. Maybe you should listen to it more!</p>
+    </div>
+    <div class="popup-player">
+        <img src="{{tracks[ind].album.images[1].url}}">
+        <div>
+            <h3><span title="{{tracks[ind].name}}">{{ ellipsisName() }}</span></h3>
+            <p>{{tracks[ind].artists[0].name}}</p>
+            <button class="btn playback-btn" (click)="playFull()">Play</button>
+            <button class="btn playback-btn" (click)="stopFull()">Stop</button>
+        </div>
+    </div>
+    <button class="btn" (click)="nextQues()">Continue</button>
+  </div>
+</div>
