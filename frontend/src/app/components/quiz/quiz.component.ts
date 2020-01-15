@@ -30,12 +30,6 @@ export class QuizComponent implements OnInit {
   submitted = false;
   isCorrect = false;
   score = 0;
-
-  /*
-  header = {
-    headers: new HttpHeaders({ 'Authorization': 'Bearer ' + this.token })
-  }
-  */
  
 
   ngOnInit() {
@@ -143,6 +137,19 @@ export class QuizComponent implements OnInit {
 
 
   /* AUDIO CODE */
+
+  // function to generate dummy preview_audio links
+  generatePreview() {
+    var chars = "abcdefghijklmnopqrstuvwxyz123456789012345678901234567890"
+    //var ex = "https://p.scdn.co/mp3-preview/01c9683137537772861eff821c08166eacb06301?cid=2847cfc683244615b79a93a6e24f375c"
+    var ret = ""
+    for (var i = 0; i < 40; i++) {
+      ret += chars[getRandomInt(chars.length)];
+    }
+    return ("https://p.scdn.co/mp3-preview/" + ret + "?cid=2807cec683222615b00a93r6e24f375c")
+  }
+
+
   // gets the audio DOM element
   @ViewChild('musicAudio', {static: false}) source;
   @ViewChild('blueWave', {static: false}) blueWave;
