@@ -44,15 +44,6 @@ app.use(express.static(__dirname + '/dist/'))
    .use(cors())
    .use(cookieParser());
 
-
-function getRoot(request, response) {
-  response.sendFile(path.resolve('./dist/index.html'));
-}
-function getUndefined(request, response) {
-  response.sendFile(path.resolve('./dist/index.html'));
-}
-app.get('/', getRoot);
-app.get('/*', getUndefined);
 /* LOGIN WITH SPOTIFY */
 // Handling Log In with Spotify with login path
 app.get('/login', function(req, res) {
@@ -145,6 +136,15 @@ app.get('/callback', function(req, res) {
   }
 });
 
+
+function getRoot(request, response) {
+  response.sendFile(path.resolve('./dist/index.html'));
+}
+function getUndefined(request, response) {
+  response.sendFile(path.resolve('./dist/index.html'));
+}
+app.get('/', getRoot);
+app.get('/*', getUndefined);
 
 
 // requests new token
