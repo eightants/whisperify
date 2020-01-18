@@ -11,6 +11,7 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var path = require("path");
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -39,10 +40,19 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/dist/'))
    .use(cors())
    .use(cookieParser());
 
+
+function getRoot(request, response) {
+  response.sendFile(path.resolve('./dist/index.html'));
+}
+function getUndefined(request, response) {
+  response.sendFile(path.resolve('./dist/index.html'));
+}
+app.get('/', getRoot);
+app.get('/*', getUndefined);
 /* LOGIN WITH SPOTIFY */
 // Handling Log In with Spotify with login path
 app.get('/login', function(req, res) {
@@ -99,7 +109,6 @@ app.get('/callback', function(req, res) {
 
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
-
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
 
@@ -125,9 +134,9 @@ app.get('/callback', function(req, res) {
         });
 
         // redirects back to browser frontend
-        res.redirect('http://localhost:4200/?authorized=true#'+ access_token);
+        res.redirect('http://localhost:8888/?authorized=true#'+ access_token);
       } else {
-        res.redirect('http://localhost:4200/?' +
+        res.redirect('http://localhost:8888/?' +
           querystring.stringify({
             error: 'invalid_token#error'
           }));

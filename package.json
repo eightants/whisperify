@@ -1,8 +1,11 @@
 {
-  "author": "Spotify",
-  "name": "web-api-auth-examples",
-  "description": "Basic examples of the Spotify authorization flows through OAuth 2",
+  "author": "Anthony Teo",
+  "name": "whisperify",
+  "description": "Node backend with Spotify authentication",
   "version": "0.0.2",
+  "scripts": {
+    "build": "node index.js"
+  },
   "dependencies": {
     "@angular/cli": "^8.3.21",
     "angular": "^1.7.9",

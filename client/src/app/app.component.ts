@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
       sessionStorage.setItem("token", this.token);
       sessionStorage.setItem("pageNum", "0");
       // redirects to welcome page if successful
-      this.router.navigate(["/welcome"]);
+      console.log("checking")
+      this.router.navigate(["./welcome"]);
     }
   }
 }
