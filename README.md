@@ -12,3 +12,7 @@ Whisperify is built with Angular, NodeJS, and hosted on Now with a MongoDB datab
 * v0.8.0 - First hosted on Now. 
 * v0.9.0 - Made responsive, style improvements on welcome page. 
 * v1.0.0 - Metadata added, share functionality
+
+## Future Plans
+* Feature to select a playlist to be quizzed on
+* Survey implementation for better prediction
