@@ -1,6 +1,9 @@
 {
-  "name": "whisperify", 
   "version": 2, 
+  "env": {
+    "CLIENT_ID": "@client-id", 
+    "CLIENT_SECRET": "@client-secret"
+  },
   "build": {
     "env": {
       "CLIENT_ID": "@client-id", 

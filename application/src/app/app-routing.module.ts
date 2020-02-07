@@ -6,6 +6,9 @@ import { TutorialComponent } from './components/tutorial/tutorial.component'
 import { HomeComponent } from './components/home/home.component'
 import { ScoreComponent } from './components/score/score.component';
 import { NoInfoComponent } from './components/no-info/no-info.component';
+import { TracksComponent } from './components/tracks/tracks.component';
+import { SurveyComponent } from './components/survey/survey.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 
@@ -18,6 +21,9 @@ const routes: Routes = [
   { path: 'quiz', component: QuizComponent },
   { path: 'results', component: ScoreComponent}, 
   { path: 'no-info', component: NoInfoComponent}, 
+  { path: 'tracks', component: TracksComponent}, 
+  { path: 'about', component: AboutComponent}, 
+  { path: 'survey', component: SurveyComponent}, 
   { path: '**', redirectTo: ''}
 ];
 

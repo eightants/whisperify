@@ -133,11 +133,10 @@
 
 .absoluteCenter {
   margin: auto;
-  margin-top: 70vh;
   position: fixed;
-  top: 0;
   left: 0;
-  right: 0; }
+  right: 0;
+  bottom: 20px; }
 
 .popup-title {
   text-align: left; }

@@ -49,7 +49,7 @@ h1, h2, h3, h4, h5 {
 .btn {
   font-family: 'Open Sans', sans-serif;
   padding: 15px 30px;
-  background-color: $wgrey;
+  background-color: rgb(100, 100, 100);
   border-radius: 40px;
   border-width: 0px;
   margin: 20px;
@@ -69,6 +69,53 @@ h1, h2, h3, h4, h5 {
   background-color: $wgreen;
 }
 
+.about-btn {
+  background-color: $bg-color;
+  border-color: $wgrey;
+  border: 2px solid;
+  color: $wgrey;
+  position: fixed;
+  top: 10px;
+  right: 3%;
+}
+
+.circle-btn {
+  overflow: hidden;
+  height: 30px;
+  padding: 0px;
+  margin-left: 20px;
+  p {
+    display: inline;
+    color: black;
+    margin-left: 10px;
+    vertical-align: middle;
+    filter: invert(0.7);
+  }
+
+  img {
+    width: 30px;
+    filter: invert(0.7);
+    transition: all 0.1s ease-in-out;
+  }
+}
+
+
+.circle-btn:hover {
+  img {
+    filter: invert(1);
+    transition: all 0.1s ease-in-out;
+  }
+  p {
+    filter: invert(1);
+    transition: all 0.1s ease-in-out;
+  }
+}
+
+.signature {
+  margin-top: 20px;
+  max-width: 200px;
+  filter: invert(1);
+}
 
 /* Homepage and Welcome */
 .reg-div {
@@ -91,12 +138,18 @@ h1, h2, h3, h4, h5 {
     margin-bottom: 40px;
 }
 
+.sec-title {
+  font-size: 72px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
 .main-desc {
     font-size: 24px;
 }
 
 .welcome-desc {
-  margin-top: 10%;
+  margin-top: 3%;
 }
 
 .align-left {
@@ -105,6 +158,32 @@ h1, h2, h3, h4, h5 {
 
 .almost-width {
   width: 95%;
+}
+
+.mode-card {
+  border-radius: 40px;
+  padding: 30px 40px;
+  background-color: rgb(65, 65, 65);
+  color: white;
+  width: 260px;
+  text-align: left;
+  margin: 15px;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 300px;
+  transition: all .2s ease-in-out;
+  
+  img {
+    max-height: 50px;
+    max-width: 50px;
+    margin-bottom: 20px;
+  }
+}
+
+a .mode-card:hover {
+  margin-top: 5px;
+  transition: all .2s ease-in-out;
+  background-color: rgb(75, 75, 75);
 }
 
 /*
@@ -152,10 +231,149 @@ Waves Animation
     transform: translate3d(85px, 0, 0);
   }
 }
-/*Shrinking for mobile*/
+
+
+
+/* Mobile responsive styles */
+
 @media (max-width: 768px) {
+  .about-btn {
+    position: relative;
+    display: block;
+    margin: 40px auto 80px!important;
+  }
+
+  .mode-card {
+    width: calc(100% - 40px);
+    text-align: left;
+    margin: 10px 20px;
+    min-height: auto;
+    padding: 20px 40px;
+    
+    img {
+      max-height: 30px;
+      max-width: 30px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      display: inline-block;
+      margin-left: 20px;
+    }
+  }
+  a .mode-card:hover {
+    margin-top: 10px;
+    transition: all .2s ease-in-out;
+    background-color: rgb(75, 75, 75);
+  }
+
+  .offset-2 {
+    margin: 0px!important;
+  }
+  .main-title {
+    font-size: 60px;
+  }
+
+  .main-desc {
+    font-size: 20px;
+  }
+
+  .btn {
+    width: 60%;
+    margin: 10px 20px;
+  }
+
   .waves {
-    height: 40px;
-    min-height: 40px;
+    height: 20vh;
+    min-height: 80px;
+  }
+
+  /* QUIZ PAGE STYLES */
+
+  .ques-num {
+    font-size: 60px!important;
+    margin-left: 15px;
+  }
+
+  .timer {
+    margin-right: 15px;
+  }
+
+  .reg-div {
+    width: calc(100% - 50px)!important;
+    margin: 0px 10px!important;
+  }
+
+  .sound-div {
+    width: calc(100% - 30px)!important;
+    margin: 120px 0px 0px 0px!important;
+    div {
+      width: 200px!important;
+      height: 60px!important;
+    }
+  }
+
+  .soundwave-white, .soundwave-blue {
+    width: 200px!important;
+    height: 60px!important;
+    object-fit: contain!important;
+  }
+
+  .soundwave-blue {
+    display: none!important;
+  }
+
+  .autocomplete {
+    width: 100%!important;
+
+    input {
+      margin-right: 0px!important;
+    }
+  }
+
+  .tut-module {
+    width: 80%!important;
+  }
+
+  .audio-btn {
+    width: auto;
+  }
+
+  .submit {
+    margin-top: 20px;
+  }
+
+  .answer-module {
+    width: calc(90% - 100px)!important;
+    padding: 12px 25px!important;
+    h1 {
+      margin: 0.3em 0px!important;
+    }
+
+    .popup-player {
+      margin-bottom: 20px!important;
+      
+      div {
+        padding-left: 0px!important;
+        text-align: center!important;
+        width: 100%!important;
+      }
+    }
+
+    .playback-btn {
+      display: none!important;
+    }
+  }
+
+  .score-text h1 {
+    font-size: 120px!important;
+  }
+
+  .flavor-text {
+    text-align: center!important;
+    div {
+      max-height: none!important;
+      width: 80%!important;
+      margin: 20px auto!important;
+    }
   }
 }

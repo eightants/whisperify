@@ -19,11 +19,10 @@
 }
 
 .flavor-text {
-    margin-top: 15%;
+    margin-top: 12%;
     text-align: left;
     div {
-        width: 300px;
-        max-height: 120px;
+        width: 360px;
         overflow: hidden;
         background-color: #191919;
         border-radius: 20px;
@@ -31,4 +30,20 @@
         margin: 20px;
         text-align: left;
     }
+
+    .link-mask div:hover {
+        //background-color: rgba(0,153,255,0.7);
+        background-color: #1D5D88;
+        transition: background .25s ease;
+	    -webkit-transition: background .25s ease;
+    }
+}
+
+.link-mask {
+    color: white;
+
+}
+
+.link-mask:hover {
+    color: white;
 }

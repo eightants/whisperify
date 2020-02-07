@@ -77,7 +77,7 @@ export class SearchComponent implements OnInit {
   }
 
   selectVal(artist, name) {
-    console.log("selected");
+    //console.log("selected");
     this.searchVal = artist + " - " + name;
   }
 

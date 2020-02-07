@@ -41,7 +41,7 @@ export class TutorialComponent implements OnInit {
   // when nextPage() is called p++ and bool_arr updated
 
   nextPage() {
-    this.router.navigate(["/"]);
+    this.router.navigate(["/welcome"]);
   }
   
 

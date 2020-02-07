@@ -161,28 +161,28 @@ app.get('/refresh_token', function(req, res) {
 /* WHY DOES IT NOT RETURN THE JS FILES WHEN REQUESTED?
 TEMP SOLUTION: MANUALLY DEFINE JS ROUTES */
 
-app.get('/js/polyfills-es2015.27661dfa98f6332c27dc.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/js/polyfills-es2015.27661dfa98f6332c27dc.js'));
+app.get('/polyfills-es2015.27661dfa98f6332c27dc.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/polyfills-es2015.27661dfa98f6332c27dc.js'));
 });
 
-app.get('/js/runtime-es2015.858f8dd898b75fe86926.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/js/runtime-es2015.858f8dd898b75fe86926.js'));
+app.get('/runtime-es2015.858f8dd898b75fe86926.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/runtime-es2015.858f8dd898b75fe86926.js'));
 });
 
-app.get('/js/runtime-es5.741402d1d47331ce975c.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/js/runtime-es5.741402d1d47331ce975c.js'));
+app.get('/runtime-es5.741402d1d47331ce975c.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/runtime-es5.741402d1d47331ce975c.js'));
 });
 
-app.get('/js/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/js/polyfills-es5.4e06eb653a3c8a2d581f.js'));
+app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
 });
 
-app.get('/js/main-es2015.824787eab2ab191252da.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/js/main-es2015.824787eab2ab191252da.js'));
+app.get('/main-es5.c424bcca5f64129739b1.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es5.c424bcca5f64129739b1.js'));
 });
 
-app.get('/js/main-es5.343330653bb19eede80f.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/js/main-es5.343330653bb19eede80f.js'));
+app.get('/main-es2015.5abd61923614fefc478a.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es2015.5abd61923614fefc478a.js'));
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */

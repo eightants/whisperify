@@ -13,16 +13,25 @@
     line-height: 80px; }
 
 .flavor-text {
-  margin-top: 15%;
+  margin-top: 12%;
   text-align: left; }
   .flavor-text div {
-    width: 300px;
-    max-height: 120px;
+    width: 360px;
     overflow: hidden;
     background-color: #191919;
     border-radius: 20px;
     padding: 15px 30px 15px 30px;
     margin: 20px;
     text-align: left; }
+  .flavor-text .link-mask div:hover {
+    background-color: #1D5D88;
+    transition: background .25s ease;
+    -webkit-transition: background .25s ease; }
+
+.link-mask {
+  color: white; }
+
+.link-mask:hover {
+  color: white; }
 
 /*# sourceMappingURL=score.component.css.map */

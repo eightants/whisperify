@@ -16,5 +16,24 @@ export class SpotifyService {
     .toPromise();
   }
 
+  getProfile(token) {
+    return this.http.get("https://api.spotify.com/v1/me", {headers: { 'Authorization': 'Bearer ' + token }})
+    .toPromise();
+  }
+
+  addEntry(obj) {
+    this.http.post("https://whisperify.now.sh/postuser", obj, {observe: 'response'}).subscribe(response => {
+      // You can access status:
+      //console.log(response.status);
+      // Or any other header:
+      //console.log(response.headers.get('X-Custom-Header'));
+    });
+    //console.log("sent");
+  }
+
+  addScore(score) {
+    return this.http.post("https://whisperify.now.sh/postscore", {score: score}, {observe: 'response'}).toPromise();
+  }
+
   constructor(private http: HttpClient) { }
 }

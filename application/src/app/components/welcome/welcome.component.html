@@ -1,8 +1,30 @@
-<div class="main-div col-md-8-offset-2">
+<div class="main-div col-md-8 offset-2">
+    <button routerLink="/about" class="btn about-btn">About</button>
     <div class="main-text">
         <!--<h1>Welcome</h1>-->
-        <p class="main-desc welcome-desc">Click ‘How to play’ if it’s your first time. <br>When you are familiar with the controls, start the quiz!</p>
+        <p class="main-desc welcome-desc">Choose a quiz mode. </p>
     </div>
-    <button class="btn clr-wgreen" routerLink="/quiz">Start Quiz</button>
-    <button class="btn" routerLink="/tutorial">How To Play</button>
+  <div>
+    <a routerLink="/tutorial"><div class="mode-card">
+        <div>
+            <img src="assets/question.svg">
+            <h2>How To Play</h2>
+        </div>
+        <p>A quick introduction to Whisperify with one of the best songs ever. </p>
+    </div></a>
+    <a routerLink="/quiz"><div class="mode-card">
+        <div>
+            <img src="assets/heart.svg">
+            <h2>Top Tracks</h2>
+        </div>
+        <p>Recommended. Quiz yourself on your top songs over the past 6 months!</p>
+    </div></a>
+    <div class="mode-card">
+        <div>
+            <img src="assets/playlist.svg">
+            <h2>Coming Soon</h2>
+        </div>
+        <p>How well do you know your curations? Quiz yourself on any of your playlists. </p>
+    </div>
+  </div>
 </div>

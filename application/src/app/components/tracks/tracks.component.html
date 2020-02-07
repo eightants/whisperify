@@ -1,0 +1,15 @@
+<div *ngIf=isLoaded class="container">
+    <button routerLink="/about" class="btn about-btn">About</button>
+    <h1 class="sec-title">Tracks</h1>
+    <div class="flavor-text">
+        <div *ngFor="let track of tracks; index as i" class="track-card">
+            <h1>{{i + 1}}</h1>
+            <img src="{{track.album.images[1].url}}">
+            <div class="track-text">
+                <h3>{{track.name}}</h3>
+                <p>{{track.artists[0].name}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="btn-c"><button class="btn" routerLink="/results">Back</button></div>
+</div>

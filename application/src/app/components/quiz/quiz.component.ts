@@ -35,8 +35,9 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     //this.data.currentToken.subscribe(token => this.token = token);
     // alt way to store token, sessionStorage, when quiz is init, get it from storage
+    sessionStorage.setItem("sentDB", "no");
     this.token = sessionStorage.getItem("token");
-    console.log(this.token);
+    //console.log(this.token);
     if (this.token == "" || this.token == null) {
       this.router.navigate(["/"]);
     }
@@ -70,7 +71,7 @@ export class QuizComponent implements OnInit {
               }
             }
           }
-          console.log(this.tracks.length)
+          //console.log(this.tracks.length)
           // checks that more than 10 songs have preview urls
           // generates 10 unique random indexes in the range of the items array returned
           if (this.tracks.length < 20) {
@@ -216,11 +217,11 @@ export class QuizComponent implements OnInit {
       this.isCorrect = true;
       this.score += Math.floor(200 * this.prevTime);
       //console.log(submission + " = " + ans.artists[0].name + " - " + ans.name);
-      console.log("score: " + this.score);
+      //console.log("score: " + this.score);
     } else {
       this.isCorrect = false;
-      console.log(submission + " != " + ans.artists[0].name + " - " + ans.name);
-      console.log("score: " + this.score);
+      //console.log(submission + " != " + ans.artists[0].name + " - " + ans.name);
+      //console.log("score: " + this.score);
     }
   }
 

@@ -14,6 +14,8 @@ import { ScoreComponent } from './components/score/score.component';
 import { AboutComponent } from './components/about/about.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { NoInfoComponent } from './components/no-info/no-info.component';
+import { TracksComponent } from './components/tracks/tracks.component';
+import { SurveyComponent } from './components/survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { NoInfoComponent } from './components/no-info/no-info.component';
     AboutComponent,
     TutorialComponent,
     NoInfoComponent,
+    TracksComponent,
+    SurveyComponent,
   ],
   imports: [
     BrowserModule,
