@@ -25,7 +25,7 @@ export class ScoreComponent implements OnInit {
   sentDB;
 
   ngOnInit() {
-    this.percent = sessionStorage.getItem("percent") || null;
+    this.percent = sessionStorage.getItem("percent") || 50;
     this.sentDB = sessionStorage.getItem("sentDB");
     this.score = sessionStorage.getItem("score");
     this.token = sessionStorage.getItem("token");

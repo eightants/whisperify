@@ -59,6 +59,23 @@ h1, h2, h3, h4, h5 {
   top: 10px;
   right: 3%; }
 
+.about-a {
+  color: #A8A8A8;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  left: 0px;
+  margin: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  transition: all .2s ease-in-out;
+  z-index: 30; }
+
+.about-a:hover {
+  color: white; }
+
 .circle-btn {
   overflow: hidden;
   height: 30px;
@@ -96,12 +113,12 @@ h1, h2, h3, h4, h5 {
   min-height: 70vh; }
 
 .main-text {
-  padding-top: 60px;
+  padding-top: 80px;
   padding-bottom: 40px; }
 
 .main-title {
   font-size: 110px;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: 40px; }
 
 .sec-title {
@@ -142,6 +159,12 @@ a .mode-card:hover {
   margin-top: 5px;
   transition: all .2s ease-in-out;
   background-color: #4b4b4b; }
+
+.mobile {
+  display: none; }
+
+.no-mobile {
+  display: block; }
 
 /*
 ----------
@@ -186,15 +209,19 @@ Waves Animation
     transform: translate3d(85px, 0, 0); } }
 /* Mobile responsive styles */
 @media (max-width: 768px) {
-  .about-btn {
-    position: relative;
-    display: block;
-    margin: 40px auto 80px !important; }
+  .mob-pad {
+    margin-bottom: 60px; }
+
+  .mobile {
+    display: block; }
+
+  .no-mobile {
+    display: none; }
 
   .mode-card {
     width: calc(100% - 40px);
     text-align: left;
-    margin: 10px 20px;
+    margin: 10px 10px;
     min-height: auto;
     padding: 20px 40px; }
     .mode-card img {
@@ -216,11 +243,14 @@ Waves Animation
   .main-title {
     font-size: 60px; }
 
+  .main-text {
+    padding-top: 30%; }
+
   .main-desc {
     font-size: 20px; }
 
   .btn {
-    width: 60%;
+    width: calc(80% - 40px);
     margin: 10px 20px; }
 
   .waves {
@@ -286,10 +316,11 @@ Waves Animation
     font-size: 120px !important; }
 
   .flavor-text {
-    text-align: center !important; }
+    text-align: center !important;
+    padding-bottom: 40px; }
     .flavor-text div {
       max-height: none !important;
-      width: 80% !important;
-      margin: 20px auto !important; } }
+      width: 100% !important;
+      margin: 10px auto !important; } }
 
 /*# sourceMappingURL=styles.css.map */

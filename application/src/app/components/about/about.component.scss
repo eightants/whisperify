@@ -40,9 +40,13 @@ h2 {
 @media (max-width: 768px) {
     .container {
         width: 100%;
-        padding: 0px 40px;
+        padding: 0px 20px;
+    }
+    h1 {
+        margin-top: 30%;
     }
     p {
         width: 100%;
+        font-size: 16px;
     }
 }

@@ -5,10 +5,20 @@ const api = require('./routes/api');
 const port = process.env.PORT || 8888;
 const app = express();
 
+//var admin = require('firebase-admin');
+//var serviceAccount = require('./serviceAccountKey.json');
+/*admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});*/
+
+//let db = admin.firestore();
+
+
+
+
 app.use(express.static(path.join(__dirname, 'dist/')));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use('/api', api);
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+app.use(bodyParser.json({ limit: '10mb'}));
 /**
 Whisper - Backend
 ---
@@ -56,8 +66,6 @@ app.use(cors())
 // Handling Log In with Spotify with login path
 app.get('/login', function(req, res) {
 
-  console.log("hhhhhh")
-  console.log(client_id)
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -119,7 +127,6 @@ app.get('/callback/', function(req, res) {
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-
         // redirects back to browser frontend
         res.redirect(basePath + '/?authorized=true#'+ access_token);
       } else {
@@ -131,7 +138,52 @@ app.get('/callback/', function(req, res) {
     });
   }
 });
+/*
+app.post("/postuser", function(req, res) {
+  // each key in req.body will match the keys in the data object that you passed in
+  //console.log(req.body["at8official"]["tracks"][0]);
+  console.log("success");
+  var obj = req.body;
+  var id = Object.keys(obj)[0];
+  let docRef = db.collection('users').doc(id);
+  let setData = docRef.set(obj[id]);
+});
 
+app.post("/postscore", function(req, res) {
+  // each key in req.body will match the keys in the data object that you passed in
+  //console.log(req.body);
+  var beatusers = 0
+  var obj = req.body["score"];
+  var round = obj - (obj % 100);
+  let docRef = db.collection('scores').doc("scores");
+  let getDoc = docRef.get()
+  .then(doc => {
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      var sc = doc.data();
+      sc["total_plays"] += 1;
+      for (var key of Object.keys(sc)) {
+        if (round >= key && key != 'total_plays') {
+          beatusers += sc[key];
+        }
+        if (round == key) {
+          sc[key] += 1;
+        }
+      }
+      console.log(sc);
+      let setData = docRef.set(sc);
+      return res.json({percent: beatusers / sc['total_plays']});
+    }
+  })
+  .catch(err => {
+    console.log('Error getting document', err);
+  });
+});
+
+*/
+
+/*
 // requests new token
 app.get('/refresh_token', function(req, res) {
   // requesting access token from refresh token
@@ -155,7 +207,7 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
-
+*/
 /*app.use('/js', express.static(path.join(__dirname, 'dist/js')));*/
 
 /* WHY DOES IT NOT RETURN THE JS FILES WHEN REQUESTED?
@@ -177,12 +229,12 @@ app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
 });
 
-app.get('/main-es5.c424bcca5f64129739b1.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es5.c424bcca5f64129739b1.js'));
+app.get('/main-es5.a65c2299b7bf580a8752.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es5.a65c2299b7bf580a8752.js'));
 });
 
-app.get('/main-es2015.5abd61923614fefc478a.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es2015.5abd61923614fefc478a.js'));
+app.get('/main-es2015.7ac77772c49802bcdd68.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es2015.7ac77772c49802bcdd68.js'));
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */

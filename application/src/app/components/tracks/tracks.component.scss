@@ -2,9 +2,10 @@
     box-sizing: border-box;
 }
 
-.btn {
+.ccc {
     margin: 20px auto;
-    width: 25%;
+    max-width: 200px;
+    width: 40%;
 }
 
 .btn-c {
@@ -36,7 +37,7 @@
     }
 
     img {
-        width: 18%;
+        width: 15%;
         display: inline-block;
         vertical-align: top;
         border-radius: 5px;
@@ -53,21 +54,33 @@
 }
 
 @media (max-width: 768px) {
+    h1 {
+        width: 15%;
+        margin-top: 30%;
+    }
 
     .track-card {
         width: 100%!important;
     }
 
     .track-text {
-        width: 66%!important;
+        width: 62%!important;
         margin: 0px!important;
         margin-left: 1% !important;
         padding-top: 0px!important;
         padding-bottom: 0px!important;
+        h3 {
+            font-size: 16px;
+            margin: 2px;
+        }
+        p {
+            font-size: 16px;
+            margin: 2px;
+        }
     }
 
     .flavor-text img {
-        width: 20%;
+        width: 15%;
         margin-left: 2%;
     }
 

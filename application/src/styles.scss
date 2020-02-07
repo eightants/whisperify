@@ -79,6 +79,25 @@ h1, h2, h3, h4, h5 {
   right: 3%;
 }
 
+.about-a {
+  color: $wgrey;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  left: 0px;
+  margin: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 800;
+  transition: all .2s ease-in-out;
+  z-index: 30;
+}
+
+.about-a:hover {
+  color: white;
+}
+
 .circle-btn {
   overflow: hidden;
   height: 30px;
@@ -128,13 +147,13 @@ h1, h2, h3, h4, h5 {
 }
 
 .main-text {
-    padding-top: 60px;
+    padding-top: 80px;
     padding-bottom: 40px;
 }
 
 .main-title {
     font-size: 110px;
-    margin-top: 40px;
+    margin-top: 60px;
     margin-bottom: 40px;
 }
 
@@ -184,6 +203,14 @@ a .mode-card:hover {
   margin-top: 5px;
   transition: all .2s ease-in-out;
   background-color: rgb(75, 75, 75);
+}
+
+.mobile {
+  display: none;
+}
+
+.no-mobile {
+  display: block;
 }
 
 /*
@@ -237,16 +264,19 @@ Waves Animation
 /* Mobile responsive styles */
 
 @media (max-width: 768px) {
-  .about-btn {
-    position: relative;
-    display: block;
-    margin: 40px auto 80px!important;
+  .mob-pad {
+    margin-bottom: 60px;
   }
-
+  .mobile {
+    display: block;
+  }
+  .no-mobile {
+    display: none;
+  }
   .mode-card {
     width: calc(100% - 40px);
     text-align: left;
-    margin: 10px 20px;
+    margin: 10px 10px;
     min-height: auto;
     padding: 20px 40px;
     
@@ -272,13 +302,15 @@ Waves Animation
   .main-title {
     font-size: 60px;
   }
-
+  .main-text {
+    padding-top: 30%;
+  }
   .main-desc {
     font-size: 20px;
   }
 
   .btn {
-    width: 60%;
+    width: calc(80% - 40px);
     margin: 10px 20px;
   }
 
@@ -370,10 +402,11 @@ Waves Animation
 
   .flavor-text {
     text-align: center!important;
+    padding-bottom: 40px;
     div {
       max-height: none!important;
-      width: 80%!important;
-      margin: 20px auto!important;
+      width: 100%!important;
+      margin: 10px auto!important;
     }
   }
 }
