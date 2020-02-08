@@ -1,0 +1,15 @@
+{
+  "version": 2, 
+  "env": {
+    "CLIENT_ID": "@client-id", 
+    "CLIENT_SECRET": "@client-secret"
+  },
+  "build": {
+    "env": {
+      "CLIENT_ID": "@client-id", 
+      "CLIENT_SECRET": "@client-secret"
+    }
+  }, 
+  "builds": [{ "src": "server.js", "use": "@now/node-server" }], 
+  "routes": [{ "src": "/(.*)", "dest": "/server.js" }]
+}

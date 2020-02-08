@@ -1,0 +1,125 @@
+$bg-color: #2E2E2E;
+$wgrey: #A8A8A8;
+$wgreen: #38A275;
+
+
+* {
+    box-sizing: border-box;
+}
+
+form {
+    margin-bottom: 20vh;
+}
+
+
+.btn {
+    border-radius: 40px!important;
+}
+
+.form-field {
+    width: 70%;
+}
+
+.form-field * {
+    box-sizing: content-box;
+}
+
+.form-field ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  margin-bottom: 60px;
+}
+
+ul li{
+  color: $wgrey;
+  display: block;
+  position: relative;
+  float: left;
+  width: 90%;
+}
+
+ul li input[type=radio]{
+  position: absolute;
+  visibility: hidden;
+}
+
+ul li label{
+  display: block;
+  position: relative;
+  font-weight: 400;
+  font-size: 1.1em;
+  padding: 6px 15px 12px 72px;
+  margin: 10px auto;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+ul li:hover label{
+	color: #FFFFFF;
+}
+
+ul li .check{
+  display: block;
+  position: absolute;
+  border: 5px solid $wgrey;
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  top: 15px;
+  left: 20px;
+	z-index: 5;
+	transition: border .25s linear;
+	-webkit-transition: border .25s linear;
+}
+
+ul li:hover .check {
+  border: 5px solid #FFFFFF;
+}
+
+ul li .check::before {
+  display: block;
+  position: absolute;
+	content: '';
+  border-radius: 100%;
+  height: 14px;
+  width: 14px;
+  top: 3px;
+	left: 3px;
+  margin: auto;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+}
+
+input[type=radio]:checked ~ .check {
+  border: 5px solid $wgreen;
+}
+
+input[type=radio]:checked ~ .check::before{
+  background: $wgreen;
+}
+
+input[type=radio]:checked ~ label{
+  color: $wgreen;
+}
+
+.form-btn {
+    width: 20%;
+    margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+    .form-field {
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+    .form-btn {
+        margin: 10px;
+    }
+}

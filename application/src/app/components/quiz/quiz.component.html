@@ -1,0 +1,38 @@
+<div class="reg-div col-md-10 offset-1" *ngIf="isLoaded">
+    <div *ngFor="let ind of indexes; index as i">
+      <div *ngIf="i == page" class="">
+        <div *ngIf="submitted">
+          <app-answer [isCorrect]="isCorrect" [ind]="ind" [tracks]="tracks" (nextPg)="nextPage();"></app-answer>
+          <div class="overlay"></div>
+        </div>
+        <h1 class="ques-num">{{i + 1}}.</h1>
+        <div class="sound-div col-md-10 offset-1">
+          <div (click)="playAudio()" class="sw relative">
+            <img class="soundwave-white" src="assets/soundwave-white.svg">
+            <img #blueWave class="soundwave-blue" src="assets/soundwave-blue.svg">
+          </div>
+          <audio controls #musicAudio class="music-player" id="musicPlayer1">
+            <source allow="autoplay" src="{{tracks[ind].preview_url}}" type="audio/mpeg">
+              Your browser does not support the audio element.
+          </audio>
+          <!--<audio controls #musicAudio2 class="music-player" id="musicPlayer2">
+            <source allow="autoplay" src="{{ generatePreview() }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+          </audio>
+          <audio controls #musicAudio3 class="music-player" id="musicPlayer3">
+            <source allow="autoplay" src="{{ generatePreview() }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+          </audio>-->
+          <button class="btn audio-btn" (click)="playAudio()">Play</button>
+          <button class="btn audio-btn" (click)="stopAudio()">Stop</button>
+        </div>
+        <div class="timer">
+          <div [ngClass]="cycle[1]==1 ? 'smallcircle' : ''"><img id="circle-1" *ngIf="timeLess(15)" src="assets/circle.png"></div>
+          <div [ngClass]="cycle[0]==1 ? 'smallcircle' : ''"><img id="circle-2" *ngIf="timeLess(20)" src="assets/circle.png"></div>
+          <div [ngClass]="cycle[2]==1 ? 'smallcircle' : ''"><img id="circle-3" *ngIf="timeLess(10)" src="assets/circle.png"></div>
+          <div [ngClass]="cycle[3]==1 ? 'smallcircle' : ''"><img id="circle-4" *ngIf="timeLess(5)" src="assets/circle.png"></div>
+        </div>
+        <app-search [tracks]="tracks" (clickSubmit)="checkAns($event, tracks[ind]);"></app-search>
+      </div>
+    </div>
+</div>

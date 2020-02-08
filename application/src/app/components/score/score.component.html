@@ -1,0 +1,23 @@
+<div class="main-div col-md-8 col-md-offset-2">
+    <button routerLink="/about" class="btn about-btn no-mobile">About</button>
+    <a routerLink="/about" class="about-a mobile">About</a>
+    <div class="main-text score-text col-md-6">
+        <h2>Score</h2>
+        <h1 class="main-title">{{ score }}</h1>
+        <button class="btn clr-wgreen" (click)="playAgain()">Play Again</button>
+        <a href="https://twitter.com/intent/tweet?hashtags=Whisperify&text=How%20well%20do%20you%20know%20your%20favourite%20songs?%20I%20scored%20{{score}}%20points!&url=https%3A%2F%2Fwhisperify.now.sh"><button class="btn"><img class="tweet" src="assets/twitter.svg">Share</button></a>
+    </div>
+    <div class="flavor-text col-md-5">
+        <div>
+            <h3>You know your music!</h3>
+            <p>Your score is higher than {{percent}}% of users who tried Whisperify. </p>
+        </div>
+        <div>
+            <h3>Help improve Whisperify</h3>
+            <p>Answer a few questions here to help us provide a better analysis!</p>
+        </div>
+        <a class="link-mask" routerLink="/tracks"><div>
+            <h3>View Tracks</h3>
+        </div></a>
+    </div>
+</div>
