@@ -108,3 +108,39 @@
 #answerPlayer1 {
     display: none;
 }
+
+
+@media (max-width: 768px) {
+    .answer-module {
+        box-sizing: border-box;
+        width: 90%;
+        padding: 12px 25px;
+    }
+
+    .absoluteCenter {
+        top: 12%;
+    }
+
+    .popup-title {
+        p {
+            font-size: 18px;
+            width: 95%;
+        }
+    }
+
+    .popup-player {
+        margin-bottom: 20px;
+      
+        div {
+          padding-left: 20px;
+          width: 70%;
+          font-size: 18px;
+        }
+
+        img {
+            width: 30%;
+        }
+        
+    }
+    
+}

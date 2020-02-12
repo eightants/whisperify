@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^8.9.2",
     "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.2",
     "request": "^2.88.0",
     "supports-color": "^7.1.0"
   }

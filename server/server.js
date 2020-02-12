@@ -1,17 +1,52 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const api = require('./routes/api');
 const port = process.env.PORT || 8888;
 const app = express();
 
-//var admin = require('firebase-admin');
-//var serviceAccount = require('./serviceAccountKey.json');
-/*admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});*/
+const {MongoClient} = require('mongodb');
+// main mongo function
+async function mongo(operation, params) {
+  const uri = process.env.MONGO;
+  const client = new MongoClient(uri);
+  try {
+    // Connect to the MongoDB cluster
+    await client.connect();
+    // Make the appropriate DB calls
+    if (operation == "insert") {
+      await upsertUser(client, params["_id"], params);
+    } else if (operation == "percent") {
+      var p = await  getPercent(client, params);
+      return p;
+    }
+  } catch (e) {
+      console.error(e);
+  } finally {
+      await client.close();
+  }
+}
 
-//let db = admin.firestore();
+async function getPercent(client, myscore){
+  var col = await client.db("whisperify-prod").collection("users").countDocuments( { score: { $lte: myscore } } );
+  col  = col / await client.db("whisperify-prod").collection("users").countDocuments( { score: { $gte: "0" } } );
+  //console.log(col)
+  //col.countDocuments( { score: { $lte: myscore } } ) / col.countDocuments( { score: { $gte: "0" } } )
+  return (col);
+};
+
+async function upsertUser(client, id, updatedData) {
+  result = await client.db("whisperify-prod").collection("users")
+                      .updateOne({ _id: id }, 
+                                 { $set: updatedData }, 
+                                 { upsert: true });
+  console.log(`${result.matchedCount} document(s) matched the query criteria.`);
+
+  if (result.upsertedCount > 0) {
+      console.log(`One document was inserted with the id ${result.upsertedId._id}`);
+  } else {
+      console.log(`${result.modifiedCount} document(s) was/were updated.`);
+  }
+}
 
 
 
@@ -138,50 +173,27 @@ app.get('/callback/', function(req, res) {
     });
   }
 });
-/*
+
 app.post("/postuser", function(req, res) {
   // each key in req.body will match the keys in the data object that you passed in
   //console.log(req.body["at8official"]["tracks"][0]);
   console.log("success");
   var obj = req.body;
-  var id = Object.keys(obj)[0];
-  let docRef = db.collection('users').doc(id);
-  let setData = docRef.set(obj[id]);
+  mongo("insert", obj).catch(console.error);
 });
 
 app.post("/postscore", function(req, res) {
   // each key in req.body will match the keys in the data object that you passed in
   //console.log(req.body);
-  var beatusers = 0
   var obj = req.body["score"];
-  var round = obj - (obj % 100);
-  let docRef = db.collection('scores').doc("scores");
-  let getDoc = docRef.get()
-  .then(doc => {
-    if (!doc.exists) {
-      console.log('No such document!');
-    } else {
-      var sc = doc.data();
-      sc["total_plays"] += 1;
-      for (var key of Object.keys(sc)) {
-        if (round >= key && key != 'total_plays') {
-          beatusers += sc[key];
-        }
-        if (round == key) {
-          sc[key] += 1;
-        }
-      }
-      console.log(sc);
-      let setData = docRef.set(sc);
-      return res.json({percent: beatusers / sc['total_plays']});
+  mongo("percent", obj).then(
+    re => {
+      //console.log("pre", re);
+      return res.json({percent: re})
     }
-  })
-  .catch(err => {
-    console.log('Error getting document', err);
-  });
+  ).catch(console.error)
 });
 
-*/
 
 /*
 // requests new token
@@ -229,12 +241,12 @@ app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
 });
 
-app.get('/main-es5.a65c2299b7bf580a8752.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es5.a65c2299b7bf580a8752.js'));
+app.get('/main-es5.23af995bae9c0f742e83.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es5.23af995bae9c0f742e83.js'));
 });
 
-app.get('/main-es2015.7ac77772c49802bcdd68.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es2015.7ac77772c49802bcdd68.js'));
+app.get('/main-es2015.89046dc872e6e6a5f440.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es2015.89046dc872e6e6a5f440.js'));
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */
