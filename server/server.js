@@ -18,6 +18,8 @@ async function mongo(operation, params) {
     } else if (operation == "percent") {
       var p = await  getPercent(client, params);
       return p;
+    } else if (operation == "survey") {
+      var p = await upsertSurvey(client, params["_id"], params);
     }
   } catch (e) {
       console.error(e);
@@ -28,7 +30,7 @@ async function mongo(operation, params) {
 
 async function getPercent(client, myscore){
   var col = await client.db("whisperify-prod").collection("users").countDocuments( { score: { $lte: myscore } } );
-  col  = col / await client.db("whisperify-prod").collection("users").countDocuments( { score: { $gte: "0" } } );
+  col  = col / await client.db("whisperify-prod").collection("users").countDocuments( { score: { $gte: 0 } } );
   //console.log(col)
   //col.countDocuments( { score: { $lte: myscore } } ) / col.countDocuments( { score: { $gte: "0" } } )
   return (col);
@@ -36,6 +38,20 @@ async function getPercent(client, myscore){
 
 async function upsertUser(client, id, updatedData) {
   result = await client.db("whisperify-prod").collection("users")
+                      .updateOne({ _id: id }, 
+                                 { $set: updatedData }, 
+                                 { upsert: true });
+  console.log(`${result.matchedCount} document(s) matched the query criteria.`);
+
+  if (result.upsertedCount > 0) {
+      console.log(`One document was inserted with the id ${result.upsertedId._id}`);
+  } else {
+      console.log(`${result.modifiedCount} document(s) was/were updated.`);
+  }
+}
+
+async function upsertSurvey(client, id, updatedData) {
+  result = await client.db("whisperify-prod").collection("responses")
                       .updateOne({ _id: id }, 
                                  { $set: updatedData }, 
                                  { upsert: true });
@@ -194,6 +210,12 @@ app.post("/postscore", function(req, res) {
   ).catch(console.error)
 });
 
+app.post("/postsurvey", function(req, res) {
+  // each key in req.body will match the keys in the data object that you passed in
+  var obj = req.body;
+  mongo("survey", obj).catch(console.error);
+});
+
 
 /*
 // requests new token
@@ -241,12 +263,12 @@ app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
 });
 
-app.get('/main-es5.23af995bae9c0f742e83.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es5.23af995bae9c0f742e83.js'));
+app.get('/main-es5.436a86347c6feb9734ed.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es5.436a86347c6feb9734ed.js'));
 });
 
-app.get('/main-es2015.89046dc872e6e6a5f440.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es2015.89046dc872e6e6a5f440.js'));
+app.get('/main-es2015.6fe72f8de929c4d2715c.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es2015.6fe72f8de929c4d2715c.js'));
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */
