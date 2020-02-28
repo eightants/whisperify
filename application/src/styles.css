@@ -298,19 +298,10 @@ Waves Animation
   .submit {
     margin-top: 20px; }
 
-  .answer-module {
-    width: calc(90% - 100px) !important;
-    padding: 12px 25px !important; }
-    .answer-module h1 {
-      margin: 0.3em 0px !important; }
-    .answer-module .popup-player {
-      margin-bottom: 20px !important; }
-      .answer-module .popup-player div {
-        padding-left: 0px !important;
-        text-align: center !important;
-        width: 100% !important; }
-    .answer-module .playback-btn {
-      display: none !important; }
+  .answer-module h1 {
+    margin: 0.3em 0px !important; }
+  .answer-module .playback-btn {
+    display: none !important; }
 
   .score-text h1 {
     font-size: 120px !important; }

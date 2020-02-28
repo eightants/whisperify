@@ -110,6 +110,16 @@ input[type=radio]:checked ~ label{
     margin: 10px;
 }
 
+.btn[disabled] {
+  background-color: rgb(46, 109, 83);
+  color: rgb(173, 173, 173);
+}
+
+.btn[disabled]:hover {
+  transform: scale(1)!important;
+}
+
+
 @media (max-width: 768px) {
     .container {
         width: 100%;

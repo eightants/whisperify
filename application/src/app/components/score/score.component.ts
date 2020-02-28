@@ -12,7 +12,7 @@ export class ScoreComponent implements OnInit {
 
   constructor(private router: Router, private spotify: SpotifyService) { }
 
-  score = "NaN";
+  score = NaN;
   token = "";
   tracks = [];
   trackprev = [];
@@ -27,7 +27,7 @@ export class ScoreComponent implements OnInit {
   ngOnInit() {
     this.percent = sessionStorage.getItem("percent") || 50;
     this.sentDB = sessionStorage.getItem("sentDB");
-    this.score = sessionStorage.getItem("score");
+    this.score = Number(sessionStorage.getItem("score")) || 0;
     this.token = sessionStorage.getItem("token");
     //console.log(this.token);
     // checks that token is present and we haven't already sent this quiz round to DB
@@ -66,11 +66,9 @@ export class ScoreComponent implements OnInit {
                     images: this.trackprev[i].album.images
                   }, 
                   artists: [{
-                    name: this.trackprev[i].artists[0].name, 
-                    id: this.trackprev[i].artists[0].id
+                    name: this.trackprev[i].artists[0].name
                   }], 
-                  external_urls: this.trackprev[i].external_urls, 
-                  id: this.trackprev[i].id, 
+                  external_urls: this.trackprev[i].external_urls,
                   name: this.trackprev[i].name, 
                   preview_url: this.trackprev[i].preview_url, 
                 })
@@ -81,7 +79,7 @@ export class ScoreComponent implements OnInit {
           this.spotify.getProfile(this.token).then(
             useres => {
               //console.log(useres);
-              this.spotify.addEntry({
+              /*this.spotify.addEntry({
                 [useres["id"]]: {
                   name: useres["display_name"], 
                   email: useres["email"], 
@@ -90,13 +88,23 @@ export class ScoreComponent implements OnInit {
                   time: Date.now(), 
                   score: this.score
                 }
+              });*/
+              this.spotify.addEntry({
+                  _id: useres["id"], 
+                  name: useres["display_name"], 
+                  email: useres["email"], 
+                  tracks: this.trimtracks, 
+                  country: useres["country"], 
+                  score: this.score
               });
+              console.log("sent")
               // takes the response from sending score to database and calculates percentage of users beaten
               this.spotify.addScore(this.score).then(
                 resp => {
+                  //console.log(resp)
                   this.percent = Math.floor(100 * resp.body["percent"]);
                   sessionStorage.setItem("percent", this.percent);
-                  //console.log('percent', this.percent);
+                  console.log('percent', this.percent);
                 }
               )
             }
