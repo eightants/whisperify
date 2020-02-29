@@ -16,12 +16,13 @@
     //height: 560px;
     overflow: hidden;
     padding: 10px 42px;
+    box-sizing: content-box;
 }
 
 .absoluteCenter {
  margin:auto;
  position:fixed;
- top: 15%;
+ top: 8%;
  //bottom:0;
  left:0;
  right:0;

@@ -92,19 +92,19 @@ export class ScoreComponent implements OnInit {
               this.spotify.addEntry({
                   _id: useres["id"], 
                   name: useres["display_name"], 
-                  email: useres["email"], 
+                  /*email: useres["email"], */
                   tracks: this.trimtracks, 
                   country: useres["country"], 
                   score: this.score
               });
-              console.log("sent")
+              //console.log("sent")
               // takes the response from sending score to database and calculates percentage of users beaten
               this.spotify.addScore(this.score).then(
                 resp => {
                   //console.log(resp)
                   this.percent = Math.floor(100 * resp.body["percent"]);
                   sessionStorage.setItem("percent", this.percent);
-                  console.log('percent', this.percent);
+                  //console.log('percent', this.percent);
                 }
               )
             }

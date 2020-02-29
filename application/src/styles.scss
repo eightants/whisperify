@@ -191,6 +191,7 @@ h1, h2, h3, h4, h5 {
   vertical-align: top;
   min-height: 300px;
   transition: all .2s ease-in-out;
+  box-sizing: border-box!important;
   
   img {
     max-height: 50px;
