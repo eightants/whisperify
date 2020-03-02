@@ -10,7 +10,7 @@ There is something about song identification that makes an interesting pasttime 
 
 Whisperify is built with Angular, NodeJS, and hosted on Now with a MongoDB database to compare your score against others. 
 
-[[Visit Whisperify]](https://whisperify.now.sh)
+[[Visit Whisperify]](https://whisperify.net)
 
 ## Release Notes
 * v0.8.0 - First hosted on Now. (18/01/2020)

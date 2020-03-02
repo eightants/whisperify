@@ -22,7 +22,7 @@ export class SpotifyService {
   }
 
   addEntry(obj) {
-    this.http.post("https://whisperify.now.sh/postuser", obj, {observe: 'response'}).subscribe(response => {
+    this.http.post("https://whisperify.net/postuser", obj, {observe: 'response'}).subscribe(response => {
       // You can access status:
       //console.log(response.status);
       // Or any other header:
@@ -32,7 +32,7 @@ export class SpotifyService {
   }
 
   addScore(score) {
-    return this.http.post("https://whisperify.now.sh/postscore", {score: score}, {observe: 'response'}).toPromise();
+    return this.http.post("https://whisperify.net/postscore", {score: score}, {observe: 'response'}).toPromise();
   }
 
   constructor(private http: HttpClient) { }
