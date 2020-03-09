@@ -6,7 +6,7 @@
   <div *ngIf="isCorrect" class="answer-module green absoluteCenter">
     <div class="popup-title">
         <h1>Well Done!</h1>
-        <p>This was your {{ rankStr(ind + 1) }} most played song over the past 6 months. Deservedly so!</p>
+        <p><span *ngIf="mode=='top'">This was your {{ rankStr(ind + 1) }} most played song over the past 6 months. Deservedly so!</span><span *ngIf="mode=='playlist'">This song was added to the playlist on {{ time[ind].added_at.slice(0,10) }}. </span></p>
     </div>
     <div class="popup-player">
         <img src="{{tracks[ind].album.images[1].url}}">
@@ -22,7 +22,7 @@
   <div *ngIf="!isCorrect" class="answer-module red absoluteCenter">
     <div class="popup-title">
         <h1>Aww.</h1>
-        <p>This was your {{ rankStr(ind + 1) }} most played song over the past 6 months. Maybe you should listen to it more!</p>
+        <p><span *ngIf="mode=='top'">This was your {{ rankStr(ind + 1) }} most played song over the past 6 months. </span><span *ngIf="mode=='playlist'">This song was added to the playlist on {{ time[ind].added_at.slice(0,10) }}. </span>Maybe you should listen to it more!</p>
     </div>
     <div class="popup-player">
         <img src="{{tracks[ind].album.images[1].url}}">

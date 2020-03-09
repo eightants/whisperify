@@ -21,7 +21,7 @@ export class TracksComponent implements OnInit {
 
   ngOnInit() {
     this.token = sessionStorage.getItem("token");
-    console.log(this.token);
+    //console.log(this.token);
     if (this.token == "" || this.token == null) {
       this.router.navigate(["/"]);
     }
@@ -55,7 +55,7 @@ export class TracksComponent implements OnInit {
               }
             }
           }
-          console.log(this.tracks.length)
+          //console.log(this.tracks.length)
           this.isLoaded = true;
         })
         }

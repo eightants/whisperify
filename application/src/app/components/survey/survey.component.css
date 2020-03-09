@@ -87,6 +87,13 @@ input[type=radio]:checked ~ label {
   width: 20%;
   margin: 10px; }
 
+.btn[disabled] {
+  background-color: #2e6d53;
+  color: #adadad; }
+
+.btn[disabled]:hover {
+  transform: scale(1) !important; }
+
 @media (max-width: 768px) {
   .container {
     width: 100%; }

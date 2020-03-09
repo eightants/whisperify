@@ -23,24 +23,32 @@ export class QuizComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router, private data: DatastoreService, private spotify: SpotifyService) { }
 
   token = "";
+  pid = "";
+  psize = 0;
   tracks = [];
   trackprev = [];
+  playtracks = [];
   isLoaded = false;
   indexes = []
   submitted = false;
   isCorrect = false;
   score = 0;
+  mode = ""
  
 
   ngOnInit() {
     //this.data.currentToken.subscribe(token => this.token = token);
     // alt way to store token, sessionStorage, when quiz is init, get it from storage
     sessionStorage.setItem("sentDB", "no");
+    this.mode = sessionStorage.getItem("choice");
     this.token = sessionStorage.getItem("token");
+    this.pid = sessionStorage.getItem("pid");
     //console.log(this.token);
     if (this.token == "" || this.token == null) {
       this.router.navigate(["/"]);
     }
+    // get playlist or top tracks depending on the selection
+    if (sessionStorage.getItem("choice") == "top") {
     // get request
       this.spotify.getTracks(this.token, "0").then(
         res => {
@@ -109,6 +117,76 @@ export class QuizComponent implements OnInit {
         console.log(e);
       this.router.navigate(["/"]);
       });
+    } else {
+      let off = 0;
+      this.psize = parseInt(sessionStorage.getItem("psize"));
+      if (this.psize > 100) {
+        off = getRandomInt(this.psize - 100);
+      }
+      this.spotify.getPlaylistTracks(this.pid, this.token, off.toString()).then(
+        res => {
+          this.trackprev = res["items"];
+          //console.log(this.trackprev);
+
+          // DEVELOPMENT; for loop to check the number of valid tracks returned
+          for (let i = 0; i < this.trackprev.length; i++) {
+            if (this.trackprev[i].track.preview_url == null) {
+            } else {
+              // checks for duplicate tracks (thanks spotify for multiple versions of the same track)
+              let duplicate = false;
+              for (let j = 0; j < this.tracks.length; j++) {
+                if (this.trackprev[i].track.name == this.tracks[j].name) {
+                  if (this.trackprev[i].track.artists[0].name == this.tracks[j].artists[0].name) {
+                    //console.log("DUP", this.trackprev[i].name)
+                    duplicate = true;
+                    break;
+                  }
+                }
+              }
+              if (duplicate == false) {
+                //console.log(this.trackprev[i].name)
+                this.tracks.push(this.trackprev[i].track);
+                this.playtracks.push(this.trackprev[i]);
+              }
+            }
+          }
+          //console.log(this.tracks.length)
+          //console.log(this.playtracks)
+          // checks that more than 10 songs have preview urls
+          // generates 10 unique random indexes in the range of the items array returned
+          if (this.tracks.length < 20) {
+            // say there's not enough info
+            this.router.navigate(["/no-info"]);
+          }
+          else {
+            while (this.indexes.length < 10) {
+              let temp = getRandomInt(this.tracks.length);
+              //console.log(this.tracks[temp]);
+              let unique = true;
+              // uniqueness check
+              // check that the url has a preview_url
+              if (this.tracks[temp].preview_url == null) {
+                continue
+              }
+              for (let j = 0; j < this.indexes.length; j++) {
+                if (this.indexes[j] == temp) {
+                  unique = false;
+                  break;
+                }
+              }
+              if (unique == true) {
+                this.indexes.push(temp);
+              }
+            }
+          }
+          //console.log(this.pagesActive)
+          this.isLoaded = true;
+        }
+      ).catch((e) => {
+        console.log(e);
+      this.router.navigate(["/"]);
+      });
+    }
   }
 
   // generating quiz questions
