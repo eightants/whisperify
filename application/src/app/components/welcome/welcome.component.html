@@ -5,6 +5,20 @@
         <!--<h1>Welcome</h1>-->
         <p class="main-desc welcome-desc">Choose a quiz mode. </p>
     </div>
+    <div *ngIf="isLoaded">
+        <div class="answer-module absoluteCenter">
+            <div class="popup-title">
+                <h1>Select playlist...</h1>
+            </div>
+            <div class="ans-sel">
+                <div class="p-card" *ngFor="let p of playlists; index as i" (click)="selectPlaylist(p)">
+                    <div class="p-name"><h3>{{p.name}}</h3></div>
+                    <div class="p-len">{{p.owner.display_name}} · {{p.tracks.total}} tracks</div>
+                </div>
+            </div>
+        </div>
+        <div class="overlay" (click)="unLoad()"></div>
+    </div>
   <div class="mob-pad">
     <a routerLink="/tutorial"><div class="mode-card">
         <div>
@@ -20,12 +34,12 @@
         </div>
         <p>Recommended. Quiz yourself on your top songs over the past 6 months!</p>
     </div></a>
-    <div class="mode-card">
+    <a (click)="choosePlaylist()"><div class="mode-card hoverhands">
         <div>
             <img src="assets/playlist.svg">
-            <h2>Coming Soon</h2>
+            <h2>My Playlists</h2>
         </div>
         <p>How well do you know your curations? Quiz yourself on any of your playlists. </p>
-    </div>
+    </div></a>
   </div>
 </div>

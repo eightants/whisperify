@@ -16,6 +16,16 @@ export class SpotifyService {
     .toPromise();
   }
 
+  getPlaylists(token, offset) {
+    return this.http.get('https://api.spotify.com/v1/me/playlists?limit=50&offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})
+    .toPromise();
+  }
+
+  getPlaylistTracks(pid, token, offset) {
+    return this.http.get('https://api.spotify.com/v1/playlists/'+ pid + '/tracks?offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})
+    .toPromise();
+  }
+
   getProfile(token) {
     return this.http.get("https://api.spotify.com/v1/me", {headers: { 'Authorization': 'Bearer ' + token }})
     .toPromise();

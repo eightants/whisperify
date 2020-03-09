@@ -91,7 +91,6 @@ var client_secret = process.env.CLIENT_SECRET; // Your secret
 var basePath = 'https://whisperify.net'
 var redirect_uri = 'https://whisperify.net/callback/'; // Your redirect uri
 
-
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -121,7 +120,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // redirects user to Spotify login page with scopes of information access
-  var scope = 'user-read-private user-top-read';
+  var scope = 'user-read-private user-top-read playlist-read-private playlist-read-collaborative';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -266,12 +265,12 @@ app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
 });
 
-app.get('/main-es5.039b6aaae7a005f7a5c1.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es5.039b6aaae7a005f7a5c1.js'));
+app.get('/main-es5.87df6acd32c7a617d6a9.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es5.87df6acd32c7a617d6a9.js'));
 });
 
-app.get('/main-es2015.69a6cada29606393ae82.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es2015.69a6cada29606393ae82.js'));
+app.get('/main-es2015.2e4075064c9c0a026a36.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es2015.2e4075064c9c0a026a36.js'));
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */

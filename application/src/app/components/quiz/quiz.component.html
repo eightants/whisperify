@@ -2,7 +2,7 @@
     <div *ngFor="let ind of indexes; index as i">
       <div *ngIf="i == page" class="">
         <div *ngIf="submitted">
-          <app-answer [isCorrect]="isCorrect" [ind]="ind" [tracks]="tracks" (nextPg)="nextPage();"></app-answer>
+          <app-answer [isCorrect]="isCorrect" [ind]="ind" [tracks]="tracks" [mode]="mode" [time]="playtracks" (nextPg)="nextPage();"></app-answer>
           <div class="overlay"></div>
         </div>
         <h1 class="ques-num">{{i + 1}}.</h1>

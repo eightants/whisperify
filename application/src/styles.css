@@ -76,6 +76,9 @@ h1, h2, h3, h4, h5 {
 .about-a:hover {
   color: white; }
 
+.hoverhands:hover {
+  cursor: pointer; }
+
 .circle-btn {
   overflow: hidden;
   height: 30px;
@@ -139,17 +142,18 @@ h1, h2, h3, h4, h5 {
   width: 95%; }
 
 .mode-card {
-  border-radius: 40px;
+  border-radius: 30px;
   padding: 30px 40px;
   background-color: #414141;
   color: white;
-  width: 260px;
+  width: 180px;
   text-align: left;
   margin: 15px;
   display: inline-block;
   vertical-align: top;
-  min-height: 300px;
-  transition: all .2s ease-in-out; }
+  min-height: 240px;
+  transition: all .2s ease-in-out;
+  box-sizing: content-box; }
   .mode-card img {
     max-height: 50px;
     max-width: 50px;
@@ -219,7 +223,7 @@ Waves Animation
     display: none; }
 
   .mode-card {
-    width: calc(100% - 40px);
+    width: calc(100% - 120px);
     text-align: left;
     margin: 10px 10px;
     min-height: auto;

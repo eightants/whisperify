@@ -10,6 +10,8 @@ export class AnswerComponent implements OnInit {
   @Input() isCorrect: any;
   @Input() ind: any;
   @Input() tracks: any;
+  @Input() mode: any;
+  @Input() time: any;
   color = null;
 
 
