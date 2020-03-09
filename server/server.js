@@ -265,12 +265,12 @@ app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
 });
 
-app.get('/main-es5.7b2a22a0a0bdb2ea2a86.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es5.7b2a22a0a0bdb2ea2a86.js'));
+app.get('/main-es5.87df6acd32c7a617d6a9.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es5.87df6acd32c7a617d6a9.js'));
 });
 
-app.get('/main-es2015.88d04b08c58db33c7eb0.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es2015.88d04b08c58db33c7eb0.js'));
+app.get('/main-es2015.2e4075064c9c0a026a36.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es2015.2e4075064c9c0a026a36.js'));
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */

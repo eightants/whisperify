@@ -98,6 +98,10 @@ h1, h2, h3, h4, h5 {
   color: white;
 }
 
+.hoverhands:hover {
+  cursor: pointer;
+}
+
 .circle-btn {
   overflow: hidden;
   height: 30px;

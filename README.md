@@ -1,6 +1,6 @@
 # Whisperify
 
-![Landing Page](https://whisperify.now.sh/assets/landing.png)
+![Landing Page](https://whisperify.net/assets/landing.png)
 
 How well do you know your favourite songs? Whisperify is an interactive way to learn about your favourite songs. It chooses 10 songs from your top tracks or a playlist on Spotify, and plays you 5-second snippets, or 'whispers', of each song. You then get time to guess the song and get scored on your speed and accuracy. 
 
@@ -17,7 +17,9 @@ Whisperify is built with Angular, NodeJS, and hosted on Now with a MongoDB datab
 * v0.9.0 - Made responsive, style improvements on welcome page. (09/02/2020)
 * v1.0.0 - Metadata added, share functionality. (11/02/2020)
 * v1.1.0 - Survey implementation, made public. (27/02/2020)
+* v2.0.0 - Playlist quiz feature. (08/03/2020)
 
 ## Future Plans
-* Feature to select a playlist to be quizzed on
+* Handling non-latin characters in song titles
+* Collaborative song guessing
 * Clean and tidy up code
