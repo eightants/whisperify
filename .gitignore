@@ -1,5 +1,4 @@
 dist
-server/server.js
 
 serviceAccountKey.json
 .now
