@@ -15,10 +15,10 @@ Whisperify is built with Angular, NodeJS, and hosted on Now with a MongoDB datab
 ## Release Notes
 * v0.8.0 - First hosted on Now. (18/01/2020)
 * v0.9.0 - Made responsive, style improvements on welcome page. (09/02/2020)
-* v1.0.0 - Metadata added, share functionality. (11/02/2020)
-* v1.1.0 - Survey implementation, made public. (27/02/2020)
-* v2.0.0 - Playlist quiz feature. You can now generate a quiz from one of your playlists with at least 30 songs! (08/03/2020)
-* v2.0.1 - Fixed IOS audio bug. Disabled submit with blank input. Database optimizations. 
+* v0.9.1 - Metadata added, share functionality. (11/02/2020)
+* v1.0.0 - Survey implementation, announced publicly. (27/02/2020)
+* v1.1.0 - Playlist quiz feature. You can now generate a quiz from one of your playlists with at least 30 songs! (08/03/2020)
+* v1.1.1 - Fixed IOS audio bug. Disabled submit with blank input. Database optimizations. 
 
 ## Future Plans
 * Handling non-latin characters in song titles
