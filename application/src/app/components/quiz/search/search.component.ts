@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
+  // these are functions to dynamically change the classes depending on the text in the search field
   expandedClass() {
     if (this.focusDrop == false || this.searchRes == null || this.searchRes.length < 1) {
       return "";

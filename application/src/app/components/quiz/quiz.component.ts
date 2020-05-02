@@ -284,6 +284,10 @@ export class QuizComponent implements OnInit {
               sound.pause();
             }
         }
+        if ((sound.currentTime >= fadePoint + 2) && (sound.volume > 0.0)) {
+          clearInterval(fadeAudio);
+          sound.pause();
+        }
     }, 100);
   }
 

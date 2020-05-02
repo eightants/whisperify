@@ -8,5 +8,5 @@
       </div>
     </div>
   </div>
-  <button class="btn submit clr-wgreen" type="submit" (click)="submitVal()">Submit</button>
+  <button class="btn submit clr-wgreen" type="submit" (click)="submitVal()" [attr.disabled] = "(this.searchStr == '' || this.searchStr == null) ? 'disabled' : null">Submit</button>
 </form>
