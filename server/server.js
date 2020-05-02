@@ -91,6 +91,11 @@ var client_secret = process.env.CLIENT_SECRET; // Your secret
 var basePath = 'https://whisperify.net'
 var redirect_uri = 'https://whisperify.net/callback/'; // Your redirect uri
 
+// FOR LOCAL DEVELOPMENT
+//var basePath = 'http://localhost:4200'
+//var redirect_uri = 'http://localhost:8888/callback/'; // Your redirect uri
+
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -265,12 +270,12 @@ app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
 });
 
-app.get('/main-es5.87df6acd32c7a617d6a9.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es5.87df6acd32c7a617d6a9.js'));
+app.get('/main-es5.8c281cef2dae478af83a.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es5.8c281cef2dae478af83a.js'));
 });
 
-app.get('/main-es2015.2e4075064c9c0a026a36.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es2015.2e4075064c9c0a026a36.js'));
+app.get('/main-es2015.84cbc21e5ab4ee37d799.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/main-es2015.84cbc21e5ab4ee37d799.js'));
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */

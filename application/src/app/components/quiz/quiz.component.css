@@ -124,5 +124,9 @@
     width: 0%; }
   100% {
     width: 100%; } }
+@media (max-width: 768px) {
+  .audio-btn {
+    padding: 8px 20px;
+    margin: 6px 6px; } }
 
 /*# sourceMappingURL=quiz.component.css.map */

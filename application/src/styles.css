@@ -50,6 +50,40 @@ h1, h2, h3, h4, h5 {
 .clr-wgreen {
   background-color: #38A275; }
 
+.coffee-frame {
+  position: fixed;
+  padding: 20px 20px;
+  bottom: 30px;
+  right: 3%; }
+
+.coffee {
+  font-family: 'Open Sans', sans-serif;
+  padding: 15px 30px;
+  background-color: #ff813f;
+  border-radius: 10px;
+  border-width: 0px;
+  margin: 20px 0px;
+  margin-top: 50px;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 800;
+  transition: all .2s ease-in-out; }
+
+.coffee:hover {
+  font-family: 'Open Sans', sans-serif;
+  padding: 15px 30px;
+  background-color: #ff9e6a;
+  border-radius: 10px;
+  border-width: 0px;
+  margin: 20px 0px;
+  margin-top: 40px;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 800;
+  transition: all .2s ease-in-out; }
+
 .about-btn {
   background-color: #2E2E2E;
   border-color: #A8A8A8;
@@ -245,7 +279,7 @@ Waves Animation
     margin: 0px !important; }
 
   .main-title {
-    font-size: 60px; }
+    font-size: 54px; }
 
   .main-text {
     padding-top: 30%; }
@@ -275,7 +309,7 @@ Waves Animation
 
   .sound-div {
     width: calc(100% - 30px) !important;
-    margin: 120px 0px 0px 0px !important; }
+    margin: 80px 0px 0px 0px !important; }
     .sound-div div {
       width: 200px !important;
       height: 60px !important; }
@@ -316,6 +350,9 @@ Waves Animation
     .flavor-text div {
       max-height: none !important;
       width: 100% !important;
-      margin: 10px auto !important; } }
+      margin: 10px auto !important; }
+
+  .coffee-frame {
+    position: relative; } }
 
 /*# sourceMappingURL=styles.css.map */

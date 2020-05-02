@@ -93,7 +93,7 @@ export class ScoreComponent implements OnInit {
                   _id: useres["id"], 
                   name: useres["display_name"], 
                   /*email: useres["email"], */
-                  tracks: this.trimtracks, 
+                  tracks: this.trimtracks.slice(0, 50), 
                   country: useres["country"], 
                   score: this.score
               });

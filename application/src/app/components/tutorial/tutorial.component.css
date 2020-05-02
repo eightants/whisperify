@@ -134,6 +134,7 @@
 .absoluteCenter {
   margin: auto;
   position: fixed;
+  top: auto !important;
   left: 0;
   right: 0;
   bottom: 20px; }
@@ -159,5 +160,10 @@
 .audio-btn {
   padding: 10px 40px;
   margin: 10px 12px; }
+
+@media (max-width: 768px) {
+  .audio-btn {
+    padding: 8px 20px;
+    margin: 6px 6px; } }
 
 /*# sourceMappingURL=tutorial.component.css.map */

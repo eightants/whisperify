@@ -33,6 +33,12 @@ button.submit {
   padding-left: 50px;
   padding-right: 50px; }
 
+button.submit:disabled {
+  opacity: 0.9; }
+
+button.submit:disabled:hover {
+  transform: scale(1); }
+
 .dropdown-expanded {
   border-radius: 25px 25px 0px 0px !important;
   border-bottom: 1px solid #d4d4d4 !important; }
@@ -72,5 +78,9 @@ button.submit {
     font-weight: normal;
     color: #A8A8A8;
     margin-left: 8px; }
+
+@media (max-width: 768px) {
+  .autocomplete {
+    margin-top: 40px; } }
 
 /*# sourceMappingURL=search.component.css.map */
