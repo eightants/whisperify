@@ -9,9 +9,15 @@ export class AnswerComponent implements OnInit {
   @Output() nextPg = new EventEmitter<string>();
   @Input() isCorrect: any;
   @Input() ind: any;
+  @Input() altind: any;
   @Input() tracks: any;
   @Input() mode: any;
   @Input() time: any;
+  @Input() partial: any;
+  @Input() streak: any;
+  @Input() score: any;
+  @Input() pointsAdded: any;
+  @Input() timePeriod: any;
   color = null;
 
 

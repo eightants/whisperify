@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'Whisperify';
   
   url = "";
+  rawparams = "";
   params = "";
   token = "";
 
@@ -26,8 +27,8 @@ export class AppComponent implements OnInit {
 
   checkUrl() {
     // when Output detected, reads the url and checks if authorized, if yes, then go to welcome page, and save token
-    this.params = this.url.split('?')[1];
-    this.params = this.params.split('#')[0];
+    this.rawparams = this.url.split('?')[1];
+    this.params = this.rawparams.split('#')[0];
     //console.log(this.params);
     if (this.params == "authorized=true") {
       // token will be found after the # sign, save it

@@ -3,6 +3,7 @@
 /* command: sass --watch src/static/index.scss:src/static/index.css */
 
 $bg-color: #2E2E2E;
+$optionclr: #414141;
 $wgrey: #A8A8A8;
 $wgreen: #38A275;
 
@@ -67,6 +68,85 @@ h1, h2, h3, h4, h5 {
 
 .clr-wgreen {
   background-color: $wgreen;
+}
+
+.audio-btn {
+  padding: 10px 40px;
+  margin: 10px 12px;
+}
+
+.no-side-marg {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+// CODE FOR SWITCH/SLIDER
+
+.switch {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  //border: 1px solid #c4c4c4;
+  box-shadow: 0px 0px 0px 1px #d4d4d4;
+  /*background-color: #c4c4c4;*/
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  /*background-color: #2e2e2e;*/
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  box-shadow: none;
+  background-color: $wgreen;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 0 1px $wgreen;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 .coffee-frame {
@@ -139,11 +219,26 @@ h1, h2, h3, h4, h5 {
   cursor: pointer;
 }
 
+.close-mod {
+  opacity: 0.6;
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  width: 15px;
+  filter: invert(1);
+  transition: all 0.1s ease-in-out;
+}
+
+.close-mod:hover {
+  opacity: 1;
+}
+
 .circle-btn {
   overflow: hidden;
-  height: 30px;
+  display: inline-block;
+  height: 32px;
   padding: 0px;
-  margin-left: 20px;
+  margin: 10px 0px 0px 20px;
   p {
     display: inline;
     color: black;
@@ -171,10 +266,77 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+
+.link-div {
+  display: flex;
+}
+
+.copy-btn {
+  //background: #424242;
+  font-family: 'Open Sans', sans-serif;
+  padding: 12px 20px;
+  background-color: #646464;
+  border-width: 0px;
+  margin: 20px 5px 10px 0px;
+  text-decoration: none;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 800;
+  transition: all .2s ease-in-out;
+  border-radius: 0px 5px 5px 0px;
+  min-width: 100px;
+}
+
+.link-field {
+  //flex: 1;
+  border-radius: 5px 0px 0px 5px;
+  font-family: 'Open Sans', sans-serif;
+  padding: 12px 20px;
+  background-color: #323232;
+  border-width: 0px;
+  margin: 20px 0px 10px 0px;
+  text-decoration: none;
+  color: #a8a8a8;
+  transition: all .2s ease-in-out;
+  border: 1px solid #646464;
+  width: calc(100% - 105px);
+}
+
+/*.link-field:focus {
+  border: 1px solid white;
+}*/
+
+.social-div {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  //justify-content: center;
+}
+
+.sq-btn {
+  border-radius: 5px;
+  margin: 10px 10px 20px 0px;
+  padding: 12px 20px;
+}
+
+.social-btn {
+  padding: 0px 0px;
+  height: 45px;
+  width: 45px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 10px 20px 0px;
+}
+
 .signature {
   margin-top: 20px;
   max-width: 200px;
   filter: invert(1);
+}
+
+.signature:hover {
+  transform: scale(1.05);
 }
 
 /* Homepage and Welcome */
@@ -185,11 +347,12 @@ h1, h2, h3, h4, h5 {
 .main-div {
     text-align: center;
     min-height: 70vh;
+    padding: 0px 20px;
+    width: 100%;
 }
 
 .main-text {
-    padding-top: 80px;
-    padding-bottom: 40px;
+    padding: 80px 0px 40px 0px;
 }
 
 .main-title {
@@ -212,6 +375,7 @@ h1, h2, h3, h4, h5 {
   margin-top: 3%;
 }
 
+
 .align-left {
   text-align: left;
 }
@@ -225,14 +389,13 @@ h1, h2, h3, h4, h5 {
   padding: 30px 40px;
   background-color: rgb(65, 65, 65);
   color: white;
-  width: 180px;
+  width: 260px;
   text-align: left;
   margin: 15px;
   display: inline-block;
   vertical-align: top;
-  min-height: 240px;
+  min-height: 300px;
   transition: all .2s ease-in-out;
-  box-sizing: content-box;
   
   img {
     max-height: 50px;
@@ -247,12 +410,67 @@ a .mode-card:hover {
   background-color: rgb(75, 75, 75);
 }
 
+.options-pad {
+  margin: auto;
+  margin-bottom: 40px;
+  max-width: 840px;
+  padding: 24px 24px 10px 24px;
+  border-radius: 30px;
+  color: white;
+  background-color: $optionclr;
+}
+
+.to-black {
+  background-color: black;
+}
+
 .mobile {
+  display: none;
+}
+
+.mobile-inline {
   display: none;
 }
 
 .no-mobile {
   display: block;
+}
+
+.no-mobile-inline {
+  display: inline-block;
+}
+
+.fade-in-up {
+  animation-duration: .5s;
+  animation-fill-mode: both;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  opacity: 0;
+  animation-name: fadeInUp;
+  -webkit-animation-name: fadeInUp;
+
+}
+
+/* Animation */
+
+@keyframes fadeInUp {
+  from {
+      transform: translate3d(0,40px,0)
+  }
+  to {
+      transform: translate3d(0,0,0);
+      opacity: 1
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  from {
+      transform: translate3d(0,40px,0)
+  }
+  to {
+      transform: translate3d(0,0,0);
+      opacity: 1
+  }
 }
 
 /*
@@ -312,11 +530,17 @@ Waves Animation
   .mobile {
     display: block;
   }
+  .mobile-inline {
+    display: inline-block;
+  }
   .no-mobile {
     display: none;
   }
+  .no-mobile-inline {
+    display: none;
+  }
   .mode-card {
-    width: calc(100% - 120px);
+    width: calc(100% - 20px);
     text-align: left;
     margin: 10px 10px;
     min-height: auto;
@@ -353,7 +577,7 @@ Waves Animation
 
   .btn {
     width: calc(80% - 40px);
-    margin: 10px 20px;
+    margin: 5px 20px;
   }
 
   .waves {
@@ -373,12 +597,12 @@ Waves Animation
   }
 
   .reg-div {
-    width: calc(100% - 50px)!important;
+    width: calc(100% - 20px)!important;
     margin: 0px 10px!important;
   }
 
   .sound-div {
-    width: calc(100% - 30px)!important;
+    width: 100%;
     margin: 80px 0px 0px 0px!important;
     div {
       width: 200px!important;
@@ -405,11 +629,13 @@ Waves Animation
   }
 
   .tut-module {
-    width: 80%!important;
+    width: 90%!important;
   }
 
   .audio-btn {
     width: auto;
+    padding: 8px 20px;
+    margin: 6px 6px;
   }
 
   .submit {
@@ -420,20 +646,23 @@ Waves Animation
     h1 {
       margin: 0.3em 0px!important;
     }
-
-    .playback-btn {
-      display: none!important;
-    }
   }
 
-  .score-text h1 {
-    font-size: 120px!important;
+  .score-text {
+    width: 100%!important;
+
+    h1 {
+      font-size: 120px!important;
+    }
   }
 
   .flavor-text {
     text-align: center!important;
     padding-bottom: 40px;
-    div {
+    width: 100%!important;
+    min-width: 0!important;
+
+    .flavor-card {
       max-height: none!important;
       width: 100%!important;
       margin: 10px auto!important;

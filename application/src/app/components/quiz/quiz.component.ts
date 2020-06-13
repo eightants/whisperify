@@ -27,40 +27,100 @@ export class QuizComponent implements OnInit {
   psize = 0;
   tracks = [];
   trackprev = [];
+  trackopt = [];
   playtracks = [];
   isLoaded = false;
-  indexes = []
+  indexes = [];
+  altind = [];
   submitted = false;
   isCorrect = false;
   score = 0;
-  mode = ""
+  mode = "";
+  config = {};
+  baseScore = 200;
+  streak = 0;
+  partialArtist = false;
+  pointsAdded = 0;
+  timePeriodMap = {
+    "4 weeks": "short_term", 
+    "6 months": "medium_term", 
+    "Lifetime": "long_term"
+  };
+  timePeriod = "6 months";
+  trimtracks = [];
+  timeLimit = 23;
+  // var for challenge
+  challengeCode = "";
  
 
   ngOnInit() {
     //this.data.currentToken.subscribe(token => this.token = token);
     // alt way to store token, sessionStorage, when quiz is init, get it from storage
+    this.baseScore = 200;
     sessionStorage.setItem("sentDB", "no");
     this.mode = sessionStorage.getItem("choice");
     this.token = sessionStorage.getItem("token");
     this.pid = sessionStorage.getItem("pid");
+    this.timePeriod = sessionStorage.getItem("timePeriod");
+    this.data.currentConfig.subscribe(configs => {
+      if (configs == "default") {
+        this.router.navigate(["/welcome"]);
+      } else {
+        this.config = configs;
+        // ADJUST baseScore DEPENDING ON CONFIGS
+        if (this.config["whisperLen"] == 10) {
+          this.baseScore -= 20;
+        }
+        if (this.config["multChoice"] == true) {
+          this.baseScore -= 50;
+        }
+      }
+    });
+    //console.log("basescore" + this.baseScore);
+    /* TIME LIMIT */
+    this.timeLimit = parseInt(this.config["timeLimit"]) + 3;
     //console.log(this.token);
+
+    this.challengeCode = sessionStorage.getItem("challenge");
+    //console.log(this.challengeCode);
+    if (this.challengeCode != "") {
+      this.mode = "challenge";
+      this.data.currentSongs.subscribe(songs => {
+        if (songs == "default") {
+          this.router.navigate(["/challenge", this.challengeCode]);
+        } else {
+          this.tracks = songs["tracks"];
+          //console.log(this.tracks);
+          this.indexes = Array.from(Array(10).keys());
+          console.log(this.indexes)
+          this.data.currentSongList.subscribe(songList => {
+            this.trackopt = songList["tracks"];
+            this.data.currentIndexes.subscribe(indList => {
+              this.altind = indList["ind"];
+              //console.log(this.altind)
+              this.isLoaded = true;
+            });
+          });
+        }
+      });
+    }
+    else {
     if (this.token == "" || this.token == null) {
       this.router.navigate(["/"]);
     }
     // get playlist or top tracks depending on the selection
     if (sessionStorage.getItem("choice") == "top") {
     // get request
-      this.spotify.getTracks(this.token, "0").then(
+      this.spotify.getTracks(this.token, "0", this.timePeriodMap[this.timePeriod]).then(
         res => {
-          this.spotify.getTracks(this.token, "49").then(
+          this.spotify.getTracks(this.token, "49", this.timePeriodMap[this.timePeriod]).then(
             res2 => {
           //console.log(res);
           this.trackprev = res['items'].concat(res2["items"]);
 
           // DEVELOPMENT; for loop to check the number of valid tracks returned
           for (let i = 0; i < this.trackprev.length; i++) {
-            if (this.trackprev[i].preview_url == null) {
-              //console.log("huh")
+            if (this.trackprev[i].preview_url == null || this.config["excludeArtists"].includes(this.trackprev[i].artists[0].name)) {
             } else {
               // checks for duplicate tracks (thanks spotify for multiple versions of the same track)
               let duplicate = false;
@@ -76,10 +136,15 @@ export class QuizComponent implements OnInit {
               if (duplicate == false) {
                 //console.log(this.trackprev[i].name)
                 this.tracks.push(this.trackprev[i]);
+                this.trackopt.push({
+                  artists: [{
+                    name: this.trackprev[i].artists[0].name
+                  }], 
+                  name: this.trackprev[i].name, 
+                });
               }
             }
           }
-          //console.log(this.tracks.length)
           // checks that more than 10 songs have preview urls
           // generates 10 unique random indexes in the range of the items array returned
           if (this.tracks.length < 20) {
@@ -104,12 +169,24 @@ export class QuizComponent implements OnInit {
               }
               if (unique == true) {
                 this.indexes.push(temp);
+                this.trimtracks.push({
+                  album: {
+                    images: this.tracks[temp].album.images
+                  }, 
+                  artists: [{
+                    name: this.tracks[temp].artists[0].name
+                  }], 
+                  external_urls: this.tracks[temp].external_urls,
+                  name: this.tracks[temp].name, 
+                  preview_url: this.tracks[temp].preview_url, 
+                });
               }
             }
           }
           this.pagesActive = [true, false, false, false, false, false, false, false, false, false]
           this.page = 0
           //console.log(this.pagesActive)
+          this.altind = this.indexes;
           this.isLoaded = true;
         })
         }
@@ -147,6 +224,12 @@ export class QuizComponent implements OnInit {
                 //console.log(this.trackprev[i].name)
                 this.tracks.push(this.trackprev[i].track);
                 this.playtracks.push(this.trackprev[i]);
+                this.trackopt.push({
+                  artists: [{
+                    name: this.trackprev[i].track.artists[0].name
+                  }], 
+                  name: this.trackprev[i].track.name, 
+                });
               }
             }
           }
@@ -176,10 +259,22 @@ export class QuizComponent implements OnInit {
               }
               if (unique == true) {
                 this.indexes.push(temp);
+                this.trimtracks.push({
+                  album: {
+                    images: this.tracks[temp].album.images
+                  }, 
+                  artists: [{
+                    name: this.tracks[temp].artists[0].name
+                  }], 
+                  external_urls: this.tracks[temp].external_urls,
+                  name: this.tracks[temp].name, 
+                  preview_url: this.tracks[temp].preview_url, 
+                });
               }
             }
           }
           //console.log(this.pagesActive)
+          this.altind = this.indexes;
           this.isLoaded = true;
         }
       ).catch((e) => {
@@ -187,6 +282,7 @@ export class QuizComponent implements OnInit {
       this.router.navigate(["/"]);
       });
     }
+  }
   }
 
   // generating quiz questions
@@ -206,7 +302,15 @@ export class QuizComponent implements OnInit {
     // checks if quiz is done
     if (this.page >= 9) {
       sessionStorage.setItem("score", this.score.toString());
-      this.router.navigate(["/results"]);
+      if (this.challengeCode != "") {
+        this.router.navigate(["/results",this.challengeCode]);
+      } else {
+        //console.log(this.tracks);
+        this.data.changeSongs(this.trimtracks);
+        this.data.changeSongList(this.trackopt);
+        this.data.changeIndexes(this.indexes);
+        this.router.navigate(["/results"]);
+      }
     }
     this.page++;
     this.pagesActive[this.page - 1] = false;
@@ -235,7 +339,8 @@ export class QuizComponent implements OnInit {
 
   stopAudio() {
     this.source.nativeElement.load();
-    this.blueWave.nativeElement.classList.remove('animate-wave','blue-finished');
+    this.blueWave.nativeElement.classList.remove('animate-wave', 'animate-wave-long','blue-finished');
+    
   }
   playAudio() {
     if (!this.source.nativeElement.paused || (this.source.nativeElement.currentTime > 0 && this.source.nativeElement.currentTime < 0)) {
@@ -244,8 +349,12 @@ export class QuizComponent implements OnInit {
       this.source.nativeElement.load();
       this.source.nativeElement.play();
       // adds the animation to bluewave
-      this.blueWave.nativeElement.classList.add('animate-wave', 'blue-finished');
-      // console.log(this.source.nativeElement);
+      if (this.config["whisperLen"] > 5) {
+        this.blueWave.nativeElement.classList.add('animate-wave-long', 'blue-finished');
+      } else {
+        this.blueWave.nativeElement.classList.add('animate-wave', 'blue-finished');
+      }
+        // console.log(this.source.nativeElement);
       this.startTimer();
       this.getSoundAndFadeAudio();
     }
@@ -271,7 +380,8 @@ export class QuizComponent implements OnInit {
             clearInterval(fadeInAudio);
       }
     }, 100);
-    var fadePoint = /* sound end duration */ 4; 
+    /* WHISPER LENGTH */
+    var fadePoint = this.config["whisperLen"] - 1;
     var fadeAudio = setInterval(function () {
         // Only fade if past the fade out point or not at zero already
         if ((sound.currentTime >= fadePoint) && (sound.volume > 0.0)) {
@@ -279,7 +389,7 @@ export class QuizComponent implements OnInit {
               sound.volume -= 0.1;
             }
             catch (TypeError) {
-              wave.classList.remove('animate-wave');
+              wave.classList.remove('animate-wave', 'animate-wave-long');
               clearInterval(fadeAudio);
               sound.pause();
             }
@@ -292,16 +402,45 @@ export class QuizComponent implements OnInit {
   }
 
   checkAns(submission, ans) {
+    this.stopAudio();
     this.endTimer();
     this.submitted = true;
+    this.partialArtist = false;
     // checks answer after getting thing from event emitter
     if (submission == ans.artists[0].name + " - " + ans.name) {
       this.isCorrect = true;
-      this.score += Math.floor(200 * this.prevTime);
+      // Time for streaks!
+      this.streak += 1;
+      // every 2 questions right, score obtained is multipled by extra 5%
+      let multiplier = 1 + Math.floor(this.streak / 2) * 0.05;
+      //console.log(multiplier);
+      this.score += Math.floor(this.baseScore * this.prevTime * multiplier);
+      this.pointsAdded = Math.floor(this.baseScore * this.prevTime * multiplier);
       //console.log(submission + " = " + ans.artists[0].name + " - " + ans.name);
       //console.log("score: " + this.score);
     } else {
       this.isCorrect = false;
+      this.streak = 0;
+      // Maybe you got the artist right?
+      let submittedArtist = submission.split("-")[0].split(" ");
+      let ansArtist = ans.artists[0].name.split(" ");
+      let partial = false;
+      submittedArtist.forEach(subword => {
+        ansArtist.forEach(answord => {
+          //console.log(subword + "=" + answord);
+          if (subword == answord) {
+            partial = true;
+          }
+        });
+      });
+      if (partial) {
+        this.score += Math.floor(100 * this.prevTime);
+        this.pointsAdded = Math.floor(100 * this.prevTime);
+        //console.log("partial" + Math.floor(100 * this.prevTime));
+      } else {
+        this.pointsAdded = 0;
+      }
+      this.partialArtist = true;
       //console.log(submission + " != " + ans.artists[0].name + " - " + ans.name);
       //console.log("score: " + this.score);
     }
@@ -324,12 +463,12 @@ export class QuizComponent implements OnInit {
         _this.timerStarted = true;
         _this.incrementTime = setInterval(() => {
           //console.log(_this.timet, _this.timerStarted)
-          if (_this.timet < 23 && _this.timerStarted == true) {
+          if (_this.timet < _this.timeLimit && _this.timerStarted == true) {
             _this.timet += 1;
             if (_this.timet % 2 == 1) {
               _this.circlePulse();
             }
-          } else if (_this.timet >= 23 && _this.timerStarted == true) {
+          } else if (_this.timet >= _this.timeLimit && _this.timerStarted == true) {
             _this.submitted = true;
             _this.isCorrect = false;
             _this.endTimer();
@@ -344,8 +483,10 @@ export class QuizComponent implements OnInit {
     clearInterval(this.incrementTime);
     if (this.timet <= 3) {
       this.prevTime = 1;
-    } else if (this.timet > 3) {
+    } else if (this.timet <= 23) {
       this.prevTime = 1 - (this.timet - 3) / 25;
+    } else if (this.timet > 23) {
+      this.prevTime = 0.2;
     }
     this.timet = 0;
   }
@@ -373,7 +514,11 @@ export class QuizComponent implements OnInit {
 
   /* used in ngIf to show or hide circles as timer counts down */
   timeLess(num) {
-    if (this.timet < num) {
+    var compnum = num;
+    if (this.timeLimit > 25) {
+      compnum = num * 2;
+    }
+    if (this.timet < compnum) {
       return true;
     } else {
       return false;

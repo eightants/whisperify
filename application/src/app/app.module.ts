@@ -16,6 +16,8 @@ import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { NoInfoComponent } from './components/no-info/no-info.component';
 import { TracksComponent } from './components/tracks/tracks.component';
 import { SurveyComponent } from './components/survey/survey.component';
+import { MultchoiceComponent } from './components/quiz/multchoice/multchoice.component';
+import { ChallengeComponent } from './components/challenge/challenge.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { SurveyComponent } from './components/survey/survey.component';
     NoInfoComponent,
     TracksComponent,
     SurveyComponent,
+    MultchoiceComponent,
+    ChallengeComponent,
   ],
   imports: [
     BrowserModule,

@@ -278,7 +278,7 @@ app.get('/main-es2015.84cbc21e5ab4ee37d799.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/main-es2015.84cbc21e5ab4ee37d799.js'));
 });
 
-/* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST */
+/* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST (HOPEFULLY) */
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));

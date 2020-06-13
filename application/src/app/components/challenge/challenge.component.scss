@@ -1,0 +1,31 @@
+.top-title {
+    padding-bottom: 20px;
+}
+
+input[type=text] {
+  border-radius: 40px;
+  border-width: 0px;
+  color: black;
+  background-color: white;
+  width: 100%;
+  max-width: 300px;
+  padding: 15px 30px;
+  display: block;
+  margin: auto;
+  margin-top: 2px;
+}
+
+button.submit {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 300px;
+}
+
+button.submit:disabled {
+    opacity: 0.9;
+}
+  
+button.submit:disabled:hover {
+    transform: scale(1);
+    cursor: default;
+}

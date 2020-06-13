@@ -12,11 +12,11 @@
     text-align: center;
     border-radius: 30px;
     z-index: 50;
-    width: 420px;
+    width: 500px;
     //height: 560px;
     overflow: hidden;
-    padding: 10px 42px;
-    box-sizing: content-box;
+    padding: 10px 40px;
+    box-sizing: border-box;
 }
 
 .absoluteCenter {
@@ -32,6 +32,7 @@
     text-align: left;
     h1 {
         font-size: 42px;
+        margin-bottom: 5px;
     }
     p {
         font-size: 20px;
@@ -40,29 +41,61 @@
     }
 }
 
+.popup-inner {
+    height: 100%;
+}
+
+.popup-streak {
+    height: 42px;
+    margin-top: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    width: 100%;
+    div {
+        text-align: left;
+    }
+    span {
+        display: block;
+    }
+}
+
+.streak-count::after {
+    content: "";
+    background-image: url("/assets/streak.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 0.8em;
+    margin: 0px 0px 0px 5px;
+    width: 1em;
+    display: inline-block;
+}
+
 .popup-player {
     display: inline-block;
     width: 100%;
     margin-top: 32px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     img {
         width: 150px;
         display: inline-block;
         vertical-align: top;
     }
-    div {
-        font-size: 18px;
-        display: inline-block;
+    .inner-player-flex {
+        font-size: 16px;
+        display: inline-flex;
+        align-items: center;
+        height: 150px;
         padding-left: 32px;
         text-align: left;
-        width: calc(100% - 240px);
+        width: calc(100% - 200px);
         h3 {
             margin-bottom: 0px;
             display: inline-block;
             width: 100%;
             max-height: 28px;
-            overflow: hidden;
             line-height: 1.2em;
         }
         p {
@@ -95,7 +128,7 @@
 .playback-btn {
     display: inline-block;
     padding: 5px 15px;
-    font-size: 16px;
+    font-size: 14px;
     margin-left: 0px;
     margin-right: 10px;
     margin-top: 8px;
@@ -132,16 +165,24 @@
     .popup-player {
         margin-bottom: 20px;
       
-        div {
+        .inner-player-flex {
+          height: 30%;
           padding-left: 20px;
           width: 70%;
-          font-size: 18px;
+          font-size: 16px;
         }
 
         img {
             width: 30%;
         }
         
+    }
+
+    .playback-btn {
+        display: none;
+        min-width: 72px;
+        max-width: calc(50% - 30px);
+
     }
     
 }
