@@ -2,9 +2,18 @@
     box-sizing: border-box;
 }
 
+.score-inner-div {
+    margin: auto;
+    max-width: 1200px;
+}
+
 .score-text {
-    margin-top: 5%;
+    margin-top: 3%;
     padding-bottom: 10px;
+    width: 45%;
+    max-width: 800px;
+    display: inline-block;
+    vertical-align: top;
 
     h1 {
         margin-bottom: 20px;
@@ -22,17 +31,39 @@
     }
 }
 
+.submit {
+    width: calc(100% - 40px);
+    max-width: 300px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .flavor-text {
-    margin-top: 12%;
+    margin-top: 10%;
     text-align: left;
-    div {
+    width: 50%;
+    min-width: 400px;
+    display: inline-block;
+
+    .flavor-card {
         width: 360px;
         overflow: hidden;
         background-color: #191919;
         border-radius: 20px;
         padding: 15px 30px 15px 30px;
-        margin: 20px;
+        margin: 15px auto;
         text-align: left;
+
+        .scoreboard-entry {
+            box-sizing: border-box;
+            padding: 10px 5px 10px 5px;
+            text-align: left;
+            border-bottom: 1px solid #2e2e2e;
+            display: inline-flex;
+            //justify-content: center;
+            //align-items: center;
+            width: 100%;
+        }
     }
 
     .link-mask div:hover {
@@ -52,8 +83,173 @@
     color: white;
 }
 
+.bold-text {
+    font-weight: 800;
+}
+
+.leaderboard {
+    max-height: 480px;
+    margin-bottom: 12px;
+}
+
+.mid-table {
+    width: 100%;
+    text-align: center;
+    max-width: none;
+
+    .flavor-card {
+        margin: 20px auto;
+    }
+}
+
+.sb-rank {
+    width: 40px;
+}
+
+.sb-name {
+    width: calc(100% - 100px);
+
+    img {
+        height: 16px;
+        align-items: center;
+        filter: invert(1);
+        margin-left: 10px;
+        margin-bottom: 2px;
+    }
+}
+
+.sb-score {
+    width: 60px;
+}
+
 .tweet {
     height: 18px;
     filter: invert(1);
     margin-right: 8px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0px; left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 30;
+}
+
+.answer-module {
+    text-align: center;
+    border-radius: 30px;
+    z-index: 50;
+    width: 504px;
+    background-color: #191919;
+    //min-height: 200px;
+    overflow: hidden;
+    padding: 10px 42px;
+    box-sizing: border-box;
+
+    .ans-text {
+        text-align: left;
+    }
+}
+
+.absoluteCenter {
+ margin:auto;
+ position:fixed;
+ top: 12%;
+ //bottom:0;
+ left:0;
+ right:0;
+}
+
+.loading-div {
+    background-image: url("/assets/loading.gif");
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    filter: grayscale(1);
+    margin: 100px auto;
+}
+
+.social-icon {
+    height: 18px;
+}
+
+.res-btn {
+    margin-right: 15px;
+}
+
+.res-view {
+    .link-div {
+        max-width: 500px;
+        margin: 40px auto 60px auto;
+    }
+}
+
+.board-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 20px;
+    padding: 12px 20px;
+    max-width: calc(100% - 10px);
+}
+
+.copy-btn:hover {
+    background-color: #727272;
+}
+
+#twitter {
+    background-color: #1DA1F2;
+
+    img {
+        filter: invert(1);
+    }
+}
+
+#reddit {
+    background-color: #FF4500;
+}
+
+#fb {
+    background-color: #3b5998;
+
+    img {
+        filter: invert(1);
+    }
+}
+
+#vk {
+    background-color: #5181B8;
+
+    img {
+        filter: invert(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .answer-module {
+        box-sizing: border-box;
+        width: 90%;
+        padding: 12px 25px;
+    }
+
+    .social-div::-webkit-scrollbar { /* WebKit */
+        width: 0;
+        height: 0;
+    }
+    
+    .social-div {
+        overflow-x: scroll;
+        scrollbar-width: none;
+
+        .social-btn {
+            width: 45px;
+            margin: 10px 8px 20px 0px;
+        }
+
+        .res-btn {
+            width: auto;
+            margin: 10px 12px 20px 3px;
+        }
+    }
 }

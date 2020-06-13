@@ -2,7 +2,7 @@
     <div *ngFor="let ind of indexes; index as i">
       <div *ngIf="i == page" class="">
         <div *ngIf="submitted">
-          <app-answer [isCorrect]="isCorrect" [ind]="ind" [tracks]="tracks" [mode]="mode" [time]="playtracks" (nextPg)="nextPage();"></app-answer>
+          <app-answer [pointsAdded]="pointsAdded" [score]="score" [streak]="streak" [partial]="partialArtist" [isCorrect]="isCorrect" [ind]="ind" [altind]="altind[i]" [tracks]="tracks" [mode]="mode" [time]="playtracks" [timePeriod]="timePeriod" (nextPg)="nextPage();"></app-answer>
           <div class="overlay"></div>
         </div>
         <h1 class="ques-num">{{i + 1}}.</h1>
@@ -32,7 +32,8 @@
           <div [ngClass]="cycle[2]==1 ? 'smallcircle' : ''"><img id="circle-3" *ngIf="timeLess(10)" src="assets/circle.png"></div>
           <div [ngClass]="cycle[3]==1 ? 'smallcircle' : ''"><img id="circle-4" *ngIf="timeLess(5)" src="assets/circle.png"></div>
         </div>
-        <app-search [tracks]="tracks" (clickSubmit)="checkAns($event, tracks[ind]);"></app-search>
+        <app-search *ngIf="!config.multChoice" [tracks]="tracks" (clickSubmit)="checkAns($event, tracks[ind]);"></app-search>
+        <app-multchoice *ngIf="config.multChoice" [played]="timerStarted" [chosen]="ind" [tracks]="tracks" [toChoose]="trackopt" [altind]="altind[i]" (clickSubmit)="checkAns($event, tracks[ind]);"></app-multchoice>
       </div>
     </div>
 </div>

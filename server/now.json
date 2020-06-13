@@ -3,13 +3,15 @@
   "env": {
     "CLIENT_ID": "@client-id", 
     "CLIENT_SECRET": "@client-secret", 
-    "MONGO": "@mongo"
+    "MONGO": "@mongo", 
+    "CHALLENGE_DB": "@challenge-db"
   },
   "build": {
     "env": {
       "CLIENT_ID": "@client-id", 
       "CLIENT_SECRET": "@client-secret",
-      "MONGO": "@mongo"
+      "MONGO": "@mongo", 
+      "CHALLENGE_DB": "@challenge-db"
     }
   }, 
   "builds": [{ "src": "server.js", "use": "@now/node-server" }], 

@@ -1,10 +1,5 @@
 $bg-color: #2E2E2E;
 
-* {
-    box-sizing: content-box;
-}
-
-
 .music-player {
     display: none;
 }
@@ -112,6 +107,16 @@ $bg-color: #2E2E2E;
     animation-duration: 5.5s;
     animation-direction: normal;
   }
+
+.animate-wave-long {
+    animation-name: showHide;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-duration: 10.5s;
+    animation-direction: normal;
+}
+
 @-webkit-keyframes showHide { /* Chrome, Safari */
     0% {width:0%}
     100% {width:100%;}
@@ -131,13 +136,4 @@ $bg-color: #2E2E2E;
 @keyframes showHide {
     0% {width:0%}
     100% {width:100%;}
-}
-
-
-@media (max-width: 768px) {
-    .audio-btn {
-        padding: 8px 20px;
-        margin: 6px 6px;
-    }
-    
 }

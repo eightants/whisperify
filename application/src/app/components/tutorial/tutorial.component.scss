@@ -1,9 +1,5 @@
 $bg-color: #2E2E2E;
 
-* {
-    box-sizing: content-box;
-}
-
 #musicPlayer1 {
     display: none;
 }
@@ -157,7 +153,7 @@ $bg-color: #2E2E2E;
         font-size: 42px;
     }
     p {
-        font-size: 18px;
+        font-size: 16px;
         width: 98%;
         line-height: 1.5em;
     }
