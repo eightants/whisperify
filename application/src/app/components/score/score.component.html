@@ -58,11 +58,16 @@
         <div class="flavor-card fade-in-up" *ngIf="leaderboard.length > 0">
             <h2>Leaderboard</h2>
             <div class="leaderboard">
-                <div class="scoreboard-entry" *ngFor="let entry of leaderboard; index as rank">
+                <div class="scoreboard-entry" *ngFor="let entry of leaderboard | slice:0:30; index as rank">
                     <div class="sb-rank">{{ rank + 1 }}.</div>
                     <div class="sb-name" *ngIf="!entry.me">{{ entry.name }} <img *ngIf="entry.host" title="Host" alt="host image" src="assets/user.svg"></div>
                     <div class="sb-name bold-text" *ngIf="entry.me">{{ entry.name }}</div>
                     <div class="sb-score">{{entry.score}}</div>
+                </div>
+                <div class="scoreboard-entry" *ngIf="myRank>=30">
+                    <div class="sb-rank">{{ myRank + 1 }}.</div>
+                    <div class="sb-name bold-text">{{ leaderboard[myRank].name }}</div>
+                    <div class="sb-score">{{leaderboard[myRank].score}}</div>
                 </div>
             </div>
             <button class="btn submit board-btn" *ngIf="currentLink=='' && score<0" routerLink="/">Make Your Own</button>

@@ -72,7 +72,7 @@ export class QuizComponent implements OnInit {
           this.baseScore -= 20;
         }
         if (this.config["multChoice"] == true) {
-          this.baseScore -= 50;
+          this.baseScore -= 60;
         }
       }
     });
@@ -91,12 +91,32 @@ export class QuizComponent implements OnInit {
         } else {
           this.tracks = songs["tracks"];
           //console.log(this.tracks);
-          this.indexes = Array.from(Array(10).keys());
+          if (songs["dynamic"] == false) {
+            this.indexes = Array.from(Array(10).keys());
+          } else {
+            while (this.indexes.length < 10) {
+              let tmpint = getRandomInt(this.tracks.length);
+              let unique = true;
+              for (let j = 0; j < this.indexes.length; j++) {
+                if (this.indexes[j] == tmpint) {
+                  unique = false;
+                  break;
+                }
+              }
+              if (unique) {
+                this.indexes.push(tmpint);
+              }
+            }
+          }
           console.log(this.indexes)
           this.data.currentSongList.subscribe(songList => {
             this.trackopt = songList["tracks"];
             this.data.currentIndexes.subscribe(indList => {
-              this.altind = indList["ind"];
+              if (songs["dynamic"] == false) {
+                this.altind = indList["ind"];
+              } else {
+                this.altind = this.indexes.slice();
+              }
               //console.log(this.altind)
               this.isLoaded = true;
             });
@@ -434,8 +454,8 @@ export class QuizComponent implements OnInit {
         });
       });
       if (partial) {
-        this.score += Math.floor(100 * this.prevTime);
-        this.pointsAdded = Math.floor(100 * this.prevTime);
+        this.score += Math.floor(this.baseScore * this.prevTime * 0.5);
+        this.pointsAdded = Math.floor(this.baseScore * this.prevTime * 0.5);
         //console.log("partial" + Math.floor(100 * this.prevTime));
       } else {
         this.pointsAdded = 0;
@@ -481,11 +501,11 @@ export class QuizComponent implements OnInit {
   endTimer() {
     this.timerStarted = false;
     clearInterval(this.incrementTime);
-    if (this.timet <= 3) {
+    if (this.timet <= 1) {
       this.prevTime = 1;
-    } else if (this.timet <= 23) {
-      this.prevTime = 1 - (this.timet - 3) / 25;
-    } else if (this.timet > 23) {
+    } else if (this.timet <= 21) {
+      this.prevTime = 1 - (this.timet - 1) / 25;
+    } else if (this.timet > 21) {
       this.prevTime = 0.2;
     }
     this.timet = 0;

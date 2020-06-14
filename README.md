@@ -1,9 +1,13 @@
 <h3 align="center"><img src="https://i.imgur.com/zBxrTgI.png" width="600px" style="border-radius: 5px" alt="Whisperify"></h3>
 <p align="center">
-  <a href="https://whisperify.net"><img src="https://img.shields.io/badge/try_it_out-whisperify.net-0099FF.svg"></a>
+  <a href="https://whisperify.net" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/try_it_out-whisperify.net-0099FF.svg"></a>
   <a href="https://github.com/eightants/whisperify/releases/latest"><img src="https://img.shields.io/github/release/eightants/whisperify/all.svg?colorB=38a275?label=version"></a>
-  <a href="https://reddit.com/r/whisperify"><img src="https://img.shields.io/badge/join%20the%20community-on%20reddit-FF5700.svg"></a>
-  <a href="https://www.buymeacoffee.com/eightants"><img src="https://img.shields.io/badge/buy_me_a-coffee-ff69b4.svg"></a>
+  <a href="https://reddit.com/r/whisperify" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/join%20the%20community-on%20reddit-FF5700.svg"></a>
+  <a href="https://www.buymeacoffee.com/eightants" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/buy_me_a-coffee-ff69b4.svg"></a>
+</p>
+<p align="center">
+  <img src="https://img.shields.io/endpoint?url=https://whisperify.net/api/averagescore/all">
+  <img src="https://img.shields.io/endpoint?url=https://whisperify.net/api/countchallenges">
 </p>
 
 An interactive way to learn about your favourite songs on Spotify. Quiz yourself on your favourite playlists, create and share quizzes with friends, and compare listening habits through your personalities. 
