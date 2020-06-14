@@ -3,4 +3,5 @@ dist
 serviceAccountKey.json
 .now
 .env.build
+.env
 node_modules

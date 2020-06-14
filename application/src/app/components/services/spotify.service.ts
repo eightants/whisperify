@@ -70,8 +70,8 @@ export class SpotifyService {
     return this.http.post(this.mainUrl + "postchallengescore", {code: code, score: score}, {observe: 'response'}).toPromise();
   }
 
-  cleanChallenges(time) {
-    return this.http.post(this.mainUrl + "cleanchallenges", {"time": time}, {observe: 'response'}).toPromise();
+  cleanChallenges() {
+    return this.http.get(this.mainUrl + "cleanchallenges").toPromise();
   }
 
   constructor(private http: HttpClient) { }

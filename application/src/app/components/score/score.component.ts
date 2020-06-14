@@ -45,6 +45,7 @@ export class ScoreComponent implements OnInit {
   enteredName = "";
   hostName = "";
   leaderboard = [];
+  myRank = 0;
   isGenerated = false;
   currentLink = "";
   urlchange;
@@ -57,7 +58,7 @@ export class ScoreComponent implements OnInit {
     this.enteredName = sessionStorage.getItem("enteredName") || "You";
     this.score = Number(sessionStorage.getItem("score")) || -1;
     this.currentLink = sessionStorage.getItem("currentLink") || "";
-    //this.spotify.cleanChallenges(Date.now() - 180000000);
+    this.spotify.cleanChallenges();
     this.urlchange = this.route.params.subscribe(params => {
       this.challengeCode = params["code"] || ""; // gets code from url
       if (this.challengeCode != "") {
@@ -68,6 +69,8 @@ export class ScoreComponent implements OnInit {
               // If score from current session not posted to db, use the session stored score for leaderboard
               tmpboard.push({name: this.enteredName, score: this.score, me: true});
               this.leaderboard = tmpboard.sort((a, b) => (a.score > b.score) ? -1 : 1);
+              // search sorted leaderboard for the index of user object, which is their rank
+              this.myRank = this.leaderboard.findIndex(x => x.me === true);
             } else {
               // if already posted, use the scoreboard from the db, avoid duplicates
               this.leaderboard = tmpboard.sort((a, b) => (a.score > b.score) ? -1 : 1);

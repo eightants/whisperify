@@ -39,7 +39,7 @@
 }
 
 .flavor-text {
-    margin-top: 10%;
+    margin-top: 8%;
     text-align: left;
     width: 50%;
     min-width: 400px;
@@ -87,9 +87,16 @@
     font-weight: 800;
 }
 
+.leaderboard::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+}
+
 .leaderboard {
-    max-height: 480px;
+    max-height: 360px;
     margin-bottom: 12px;
+    scrollbar-width: none;
+    overflow: auto;
 }
 
 .mid-table {
