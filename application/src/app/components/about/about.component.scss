@@ -38,6 +38,16 @@ h2 {
     border-radius: 40px!important;
 }
 
+.p-url {
+    color: white;
+    font-weight: bold;
+}
+
+.p-url:hover {
+    color: white;
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .container {
         width: 100%;

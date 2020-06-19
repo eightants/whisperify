@@ -8,13 +8,18 @@
     <div *ngIf="isLoaded">
         <div class="answer-module absoluteCenter">
             <div class="close-mod hoverhands" (click)="unLoad()"><img src="assets/close.svg"></div>
-            <div class="popup-title">
-                <h1>Select playlist...</h1>
-            </div>
-            <div class="ans-sel">
-                <div class="p-card" *ngFor="let p of playlists; index as i" (click)="selectPlaylist(p)">
-                    <div class="p-name"><h3>{{p.name}}</h3></div>
-                    <div class="p-len">{{p.owner.display_name}} · {{p.tracks.total}} tracks</div>
+            <div *ngIf="!playlistsLoaded" class="loading-div"></div>
+            <div *ngIf="playlistsLoaded">
+                <div class="popup-title">
+                    <h1>Select playlist...</h1>
+                </div>
+                <div class="excluded-list"></div>
+                <input class="exclude-option" placeholder="Find a playlist..." type="text" name="searchPlayStr" [(ngModel)]="searchPlayStr" (keyup)="searchPlaylists()" value="{{ searchPlayStr }}">
+                <div class="ans-sel">
+                    <div class="p-card" *ngFor="let p of playlistList; index as i" (click)="selectPlaylist(p)">
+                        <div class="p-name"><h3>{{p.name}}</h3></div>
+                        <div class="p-len">{{p.owner.display_name}} · {{p.tracks.total}} tracks</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +66,7 @@
         </div>
         <p>Recommended. Quiz yourself on your top songs!</p>
     </div></a>
-    <a (click)="choosePlaylist()"><div class="mode-card hoverhands">
+    <a (click)="choosePlaylist(0)"><div class="mode-card hoverhands">
         <div>
             <img src="assets/playlist.svg">
             <h2>My Playlists</h2>

@@ -36,7 +36,7 @@ export class ChallengeComponent implements OnInit {
             return obj["host"] === true;
           })["name"];
           sessionStorage.setItem("challenge", isCode);
-          this.data.changeSongs({tracks: res["tracks"]});
+          this.data.changeSongs({tracks: res["tracks"], dynamic: res["dynamic"] || false});
           this.data.changeSongList({tracks: res["tracklist"]});
           this.data.changeIndexes({ind: res["indexes"]});
           this.data.changeConfigs(

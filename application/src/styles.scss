@@ -420,6 +420,15 @@ a .mode-card:hover {
   background-color: $optionclr;
 }
 
+.loading-div {
+  background-image: url("/assets/loading.gif");
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+  filter: grayscale(1);
+  margin: 100px auto;
+}
+
 .to-black {
   background-color: black;
 }
