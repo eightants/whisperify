@@ -20,10 +20,13 @@ export class WelcomeComponent implements OnInit {
   token = "";
   isLoaded = false;
   playlists=[];
+  playlistsLoaded = false;
+  playlistList = [];
+  searchPlayStr = "";
   titleText = "Choose a quiz mode. ";
   options = false;
   // these variables are the configs of the quiz
-  whisperLen = [5, 10];
+  whisperLen = [2, 5, 10];
   timeLimit = [20, 40];
   timePeriod = ["4 weeks", "6 months", "Lifetime"];
   chosenPeriod = "6 months";
@@ -75,12 +78,13 @@ export class WelcomeComponent implements OnInit {
     this.config["excludeArtists"] = [];
   }
 
-  choosePlaylist() {
-    if (this.token == "" || this.token == null) {
-      this.router.navigate(["/welcome"]);
+  choosePlaylist(count) {
+    this.isLoaded = true;
+    if (this.playlistsLoaded == true) {
+      return;
     }
     // get playlists
-      this.spotify.getPlaylists(this.token, "0").then(
+      this.spotify.getPlaylists(this.token, count.toString()).then(
         res => {
           //console.log(res);
           for (let i = 0; i < res["items"].length; i++) {
@@ -88,12 +92,37 @@ export class WelcomeComponent implements OnInit {
               this.playlists.push(res["items"][i]);
             }
           }
-          this.isLoaded = true;
+          if (count + 50 < res["total"]) {
+            // recursive until all playlists obtained
+            this.choosePlaylist(count + 50);
+          } else {
+            this.searchPlaylists();
+            this.playlistsLoaded = true;
+          }
         }
       ).catch((e) => {
         console.log(e);
-      this.router.navigate(["/"]);
+        this.router.navigate(["/"]);
       });
+  }
+
+  searchPlaylists() {
+    // resets the array of tracks every keystroke
+    if (this.searchPlayStr == "" || this.searchPlayStr == null) {
+      this.playlistList = this.playlists;
+    } else {
+      this.playlistList = this.playlists;
+      let keywords = this.searchPlayStr.toLowerCase().split(' ');
+      for (let i = 0; i < keywords.length; i++) {
+        let tempArr = []
+        for (let j = 0; j < this.playlistList.length; j++) {
+          if (this.playlistList[j]["name"].toLowerCase().includes(keywords[i])) {
+            tempArr.push(this.playlistList[j]);
+          }
+        }
+        this.playlistList = tempArr;
+      }
+    }
   }
   
   selectPlaylist(p) {
@@ -124,7 +153,7 @@ export class WelcomeComponent implements OnInit {
     if (this.modeChoice == "top") {
       sessionStorage.setItem("timePeriod", this.chosenPeriod);
     }
-    console.log(this.totsongs);
+    //console.log(this.totsongs);
     if (this.totsongs < 30) {
       //console.log("not enough")
       this.router.navigate(["/no-info"]);

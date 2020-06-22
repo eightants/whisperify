@@ -23,7 +23,8 @@ $chooseclr: #d4d4d4;
 }
 
 .ans-sel {
-    overflow-y: scroll;
+    overflow-y: auto;
+    height: 40vh;
     max-height: 50vh;
     margin-bottom: 40px;
 }

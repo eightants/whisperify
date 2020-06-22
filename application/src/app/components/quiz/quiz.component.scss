@@ -99,6 +99,15 @@ $bg-color: #2E2E2E;
     margin: 10px 12px;
 }
 
+.animate-wave-short {
+    animation-name: showHide;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-duration: 2.5s;
+    animation-direction: normal;
+}
+
 .animate-wave {
     animation-name: showHide;
     animation-timing-function: ease-in-out;
