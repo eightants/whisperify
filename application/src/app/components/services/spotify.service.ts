@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SpotifyService {
   tracksUrl = 'http://localhost:8888/api/tracks';
-  //mainUrl = "http://localhost:8888/";
-  mainUrl = 'https://whisperify.net/';
+  mainUrl = "http://localhost:8888/";
+  //mainUrl = 'https://whisperify.net/';
 
   getTracksFromServer() {
     return this.http.get(this.tracksUrl);
@@ -15,6 +15,11 @@ export class SpotifyService {
 
   getTracks(token, offset, term) {
     return this.http.get('https://api.spotify.com/v1/me/top/tracks?time_range=' + term + '&limit=50&offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})
+    .toPromise();
+  }
+
+  getArtists(token, offset, term) {
+    return this.http.get('https://api.spotify.com/v1/me/top/artists?time_range=' + term + '&limit=50&offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})
     .toPromise();
   }
 
@@ -41,6 +46,15 @@ export class SpotifyService {
   addPlaylistSongs(token, pid, songs) {
     return this.http.post("https://api.spotify.com/v1/playlists/" + pid + "/tracks", {"uris": songs}, {headers: { 'Authorization': 'Bearer ' + token }})
     .toPromise();
+  }
+
+  getUserAudioFeatures(token, songs) {
+    return this.http.get("https://api.spotify.com/v1/audio-features/?ids=" + songs.toString(), {headers: { 'Authorization': 'Bearer ' + token }})
+    .toPromise();
+  }
+
+  addUserAnalysis(obj) {
+    return this.http.post(this.mainUrl + "api/postanalysis", obj, {observe: 'response'}).toPromise();
   }
 
 
@@ -72,6 +86,18 @@ export class SpotifyService {
 
   cleanChallenges() {
     return this.http.get(this.mainUrl + "cleanchallenges").toPromise();
+  }
+
+  getUserAnalysis(username) {
+    return this.http.get(this.mainUrl + "api/getanalysis/" + username).toPromise();
+  }
+
+  getGroupAnalysis(category) {
+    return this.http.get(this.mainUrl + "api/getgroupanalysis/" + category).toPromise();
+  }
+
+  getAlbumAnalysis(id) {
+    return this.http.get(this.mainUrl + "api/getalbumfeatures/" + id).toPromise();
   }
 
   constructor(private http: HttpClient) { }

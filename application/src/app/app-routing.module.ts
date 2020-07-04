@@ -10,6 +10,7 @@ import { TracksComponent } from './components/tracks/tracks.component';
 import { SurveyComponent } from './components/survey/survey.component';
 import { AboutComponent } from './components/about/about.component';
 import { ChallengeComponent } from './components/challenge/challenge.component';
+import { AnalysisComponent } from './components/analysis/analysis.component';
 
 
 
@@ -27,6 +28,8 @@ const routes: Routes = [
   { path: 'tracks', component: TracksComponent}, 
   { path: 'about', component: AboutComponent}, 
   { path: 'survey', component: SurveyComponent}, 
+  { path: 'analysis', component: AnalysisComponent},
+  { path: 'analysis/:code', component: AnalysisComponent},
   { path: '**', redirectTo: ''}
 ];
 

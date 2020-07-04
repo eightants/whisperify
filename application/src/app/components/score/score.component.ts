@@ -202,7 +202,7 @@ export class ScoreComponent implements OnInit {
               this.spotify.addEntry({
                   _id: useres["id"], 
                   name: useres["display_name"], 
-                  /*email: useres["email"], */
+                  time: Date.now(), 
                   tracks: this.trimtracks.slice(0, 50), 
                   country: useres["country"], 
                   score: this.score

@@ -15,6 +15,7 @@ export class ChallengeComponent implements OnInit {
   url = "";
   urlchange;
   hostName:string;
+  customTitle:string;
   config = {};
   nameStr:string;
   validCode = true;
@@ -32,6 +33,7 @@ export class ChallengeComponent implements OnInit {
           //console.log(res);
           //this.hostName = res["scoreboard"][0]["name"];
           // finds the first obj in leaderboard with 'host' field which is the host
+          this.customTitle = res["title"] || "Whisperify";
           this.hostName = res["scoreboard"].find(obj => {
             return obj["host"] === true;
           })["name"];

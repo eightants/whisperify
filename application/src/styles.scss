@@ -149,6 +149,43 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+/* DROPDOWN CODE */
+
+.sel-option {
+  min-width: 200px;
+font-size: 16px;
+color: #d4d4d4;
+padding: 12px 40px 12px 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+margin: 0;
+  border: 1px solid #d4d4d4;
+  -moz-appearance: none;
+-webkit-appearance: none;
+  appearance: none;
+  background-color: #2e2e2e;
+background-image: url('/assets/dd.svg');
+background-repeat: no-repeat, repeat;
+background-position: right .7em top 50%, 0 0;
+background-size: .65em auto, 100%;
+}
+.sel-option::-ms-expand {
+display: none;
+}
+.sel-option:hover {
+  border-color: #fff;
+  cursor: pointer;
+}
+.sel-option:focus {
+border: 1px solid #fff;
+color: #c4c4c4;
+outline: none;
+}
+.sel-option option {
+  border: 1px solid #d4d4d4;
+font-weight:normal;
+}
+
 .coffee-frame {
   position: fixed;
   padding: 20px 20px;
@@ -352,13 +389,13 @@ input:checked + .slider:before {
 }
 
 .main-text {
-    padding: 80px 0px 40px 0px;
+    padding: 80px 0px 20px 0px;
 }
 
 .main-title {
     font-size: 110px;
     margin-top: 60px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .sec-title {
@@ -413,7 +450,7 @@ a .mode-card:hover {
 .options-pad {
   margin: auto;
   margin-bottom: 40px;
-  max-width: 840px;
+  max-width: 960px;
   padding: 24px 24px 10px 24px;
   border-radius: 30px;
   color: white;
@@ -536,6 +573,9 @@ Waves Animation
   .mob-pad {
     margin-bottom: 60px;
   }
+  .mob-top-pad {
+    margin-top: 20px!important;
+  }
   .mobile {
     display: block;
   }
@@ -543,10 +583,10 @@ Waves Animation
     display: inline-block;
   }
   .no-mobile {
-    display: none;
+    display: none!important;
   }
   .no-mobile-inline {
-    display: none;
+    display: none!important;
   }
   .mode-card {
     width: calc(100% - 20px);
@@ -581,7 +621,7 @@ Waves Animation
     padding-top: 30%;
   }
   .main-desc {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .btn {
@@ -658,6 +698,7 @@ Waves Animation
   }
 
   .score-text {
+    padding-top: 10%;
     width: 100%!important;
 
     h1 {

@@ -70,36 +70,41 @@ export class TracksComponent implements OnInit {
         console.log(e);
         this.router.navigate(["/"]);
       });
-      // SHORT TERM
-      this.spotify.getTracks(this.token, "0", "short_term").then(
-        res => {
-          this.trackshort = res['items'];
-        }
-      ).catch((e) => {
-        console.log(e);
-      //this.router.navigate(["/"]);
-      });
-      // LONG TERM
-      this.spotify.getTracks(this.token, "0", "long_term").then(
-        res => {
-          this.spotify.getTracks(this.token, "49", "long_term").then(
-            res2 => {
-          //console.log(res);
-          this.tracklong = res['items'].concat(res2["items"]);
-        })
-        }
-      ).catch((e) => {
-        console.log(e);
-      //this.router.navigate(["/"]);
-      });
   }
 
   choosePeriod(val) {
     this.chosenPeriod = val;
     if (val == '4 weeks') {
-      this.tracks = this.trackshort;
+      if (this.trackshort.length < 1) {
+        // SHORT TERM
+        this.spotify.getTracks(this.token, "0", "short_term").then(
+          res => {
+            this.trackshort = res['items'];
+            this.tracks = this.trackshort;
+          }
+        ).catch((e) => {
+          console.log(e);
+        });
+      } else {
+        this.tracks = this.trackshort;
+      }
     } else if (val == 'Lifetime') {
-      this.tracks = this.tracklong;
+      if (this.tracklong.length < 1) {
+        // LONG TERM
+        this.spotify.getTracks(this.token, "0", "long_term").then(
+          res => {
+            this.spotify.getTracks(this.token, "49", "long_term").then(
+              res2 => {
+                this.tracklong = res['items'].concat(res2["items"]);
+                this.tracks = this.tracklong;
+            })
+          }
+        ).catch((e) => {
+          console.log(e);
+        });
+      } else {
+        this.tracks = this.tracklong;
+      }
     } else {
       this.tracks = this.trackprev;
     }
@@ -111,7 +116,6 @@ export class TracksComponent implements OnInit {
       useres => {
         this.spotify.createPlaylist(this.token, useres["id"], this.chosenPeriod + " Top Tracks (" + getDateToday() + ")", this.whichDesc()).then(
           playlistObj => {
-            //console.log(playlistObj);
             for (let i = 0; i < this.tracks.length; i++) {
               this.songuris.push(this.tracks[i]["uri"]);
             }

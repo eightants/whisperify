@@ -103,41 +103,6 @@
     text-align: right;
 }
 
-.sel-option {
-    min-width: 200px;
-	font-size: 16px;
-	color: #d4d4d4;
-	padding: 12px 40px 12px 20px;
-    box-sizing: border-box;
-    border-radius: 5px;
-	margin: 0;
-    border: 1px solid #d4d4d4;
-    -moz-appearance: none;
-	-webkit-appearance: none;
-    appearance: none;
-    background-color: #2e2e2e;
-	background-image: url('/assets/dd.svg');
-	background-repeat: no-repeat, repeat;
-	background-position: right .7em top 50%, 0 0;
-	background-size: .65em auto, 100%;
-}
-.sel-option::-ms-expand {
-	display: none;
-}
-.sel-option:hover {
-    border-color: #fff;
-    cursor: pointer;
-}
-.sel-option:focus {
-	border: 1px solid #fff;
-	color: #c4c4c4;
-	outline: none;
-}
-.sel-option option {
-    border: 1px solid #d4d4d4;
-	font-weight:normal;
-}
-
 .bg-arrow {
     width: 100%;
     height: 100%;
