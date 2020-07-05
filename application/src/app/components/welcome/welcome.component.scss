@@ -1,5 +1,7 @@
 $optionclr: #414141;
 $chooseclr: #d4d4d4;
+$bg-color: #2E2E2E;
+$wgrey: #A8A8A8;
 
 .overlay {
     position: fixed;
@@ -253,8 +255,8 @@ $chooseclr: #d4d4d4;
 }
 
 @media (max-width: 768px) {
-    h1 {
-        font-size: 32px!important;
+    .popup-title h1 {
+        font-size: 32px;
     }
 
     .answer-module {
@@ -288,7 +290,7 @@ $chooseclr: #d4d4d4;
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 460px) {
     .h-option {
         width: 100%;
     }

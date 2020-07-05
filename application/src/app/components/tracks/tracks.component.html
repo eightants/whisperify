@@ -1,29 +1,41 @@
+<app-navbar></app-navbar>
 <div *ngIf=isLoaded class="container">
-    <button routerLink="/about" class="btn about-btn no-mobile">About</button>
-    <!--<a routerLink="/about" class="about-a mobile">About</a>-->
+    <div class="create-p" *ngIf='generated[chosenPeriod]==""'><button class="btn clr-wgreen mob-top-pad make-playlist" (click)="makePlaylist()">Create Playlist</button></div>
+    <div class="create-p" *ngIf='generated[chosenPeriod]!=""'><a href="{{generated[chosenPeriod]}}" target="_blank" rel="noopener noreferrer"><button class="btn mob-top-pad">View Playlist</button></a></div>
     <a class="btn navi-btn hoverhands" *ngIf="upperPart" (click)="scrollTo('bottom')"><div class="bg-arrow down-arrow"></div></a>
     <a class="btn navi-btn hoverhands" *ngIf="!upperPart" (click)="scrollTo('top')"><div class="bg-arrow up-arrow"></div></a>
-    <h1 class="sec-title" id="top">Tracks</h1>
+    <h1 class="sec-title" id="top">Favourites</h1>
+    <div class="h-option">
+        <select class="sel-option" [ngModel]="chosenPeriod" (change)="choosePeriod($event.target.value)">
+            <option *ngFor="let t of timePeriod" [value]="t">{{t}}</option>
+        </select>
+    </div>
     <div class="flavor-text">
-        <div class="row-option">
-            <div class="h-option">
-                <select class="sel-option" [ngModel]="chosenPeriod" (change)="choosePeriod($event.target.value)">
-                    <option *ngFor="let t of timePeriod" [value]="t">{{t}}</option>
-                </select>
-            </div>
-            <div class="create-p no-mobile-inline" *ngIf='generated[chosenPeriod]==""'><button class="btn clr-wgreen mob-top-pad make-playlist" (click)="makePlaylist()">Create Playlist</button></div>
-            <div class="create-p no-mobile-inline" *ngIf='generated[chosenPeriod]!=""'><a href="{{generated[chosenPeriod]}}" target="_blank" rel="noopener noreferrer"><button class="btn mob-top-pad">View Playlist</button></a></div>
+        <div class="chart-tabs">
+            <div *ngFor="let c of topTypes"><button class="tab-btn" [ngClass]="{'selected-tab-btn': chosenType==c}" (click)="chosenType=c">{{c}}</button></div>
         </div>
-        <div *ngFor="let track of tracks; index as i" class="track-card" [ngClass]="{'ind-space' : i==99}">
-            <h1>{{i + 1}}</h1>
-            <img src="{{track.album.images[1].url}}">
-            <div class="track-text">
-                <h3>{{track.name}}</h3>
-                <p>{{track.artists[0].name}}</p>
+        <div *ngIf="chosenType=='Tracks'">
+            <div *ngFor="let track of tracks; index as i" class="track-card" [ngClass]="{'ind-space' : i==99}">
+                <h1>{{i + 1}}</h1>
+                <img src="{{track.album.images[1].url}}">
+                <div class="track-text">
+                    <h3>{{track.name}}</h3>
+                    <p>{{track.artists[0].name}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="fav-container" *ngIf="chosenType=='Artists'">
+            <div class="artist-container">
+                <div class="artist-card">
+                    <div><span>{{ calculatePopularity(artists) }}</span></div>
+                    <h3>Popularity</h3>
+                </div>
+                <div class="artist-card" *ngFor="let a of artists">
+                    <div [ngStyle]="{'background-image': 'url(' + a.images[1].url + ')'}"></div>
+                    <h3>{{ a.name }}</h3>
+                </div>
             </div>
         </div>
     </div>
-    <div class="create-p mobile" *ngIf='generated[chosenPeriod]==""'><button class="btn clr-wgreen mob-top-pad make-playlist" (click)="makePlaylist()">Create Playlist</button></div>
-    <div class="create-p mobile" *ngIf='generated[chosenPeriod]!=""'><a href="{{generated[chosenPeriod]}}" target="_blank" rel="noopener noreferrer"><button class="btn mob-top-pad">View Playlist</button></a></div>
     <div class="btn-c"><button class="btn" routerLink="/welcome" id="bottom">Back to Menu</button></div>
 </div>

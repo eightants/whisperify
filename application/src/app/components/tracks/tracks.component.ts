@@ -33,8 +33,14 @@ export class TracksComponent implements OnInit {
   trackprev = [];
   trackshort = [];
   tracklong = [];
+  artists =[];
+  artistprev=[];
+  artistshort=[];
+  artistlong=[];
   isLoaded = false;
   indexes = [];
+  topTypes=["Tracks", "Artists"];
+  chosenType="Tracks"
   timePeriod = ["4 weeks", "6 months", "Lifetime"];
   chosenPeriod = "6 months";
   songuris = [];
@@ -70,6 +76,16 @@ export class TracksComponent implements OnInit {
         console.log(e);
         this.router.navigate(["/"]);
       });
+      this.spotify.getArtists(this.token, "0", "medium_term").then(
+        res => {
+          this.artistprev = res['items'];
+          this.artists = this.artistprev;
+        }
+      )
+  }
+
+  calculatePopularity(artists) {
+    return Math.floor(artists.reduce((a, b) => a + (b["popularity"] || 0), 0) / artists.length);
   }
 
   choosePeriod(val) {
@@ -85,8 +101,15 @@ export class TracksComponent implements OnInit {
         ).catch((e) => {
           console.log(e);
         });
+        this.spotify.getArtists(this.token, "0", "short_term").then(
+          res => {
+            this.artistshort = res['items'];
+            this.artists = this.artistshort;
+          }
+        )
       } else {
         this.tracks = this.trackshort;
+        this.artists = this.artistshort;
       }
     } else if (val == 'Lifetime') {
       if (this.tracklong.length < 1) {
@@ -102,11 +125,19 @@ export class TracksComponent implements OnInit {
         ).catch((e) => {
           console.log(e);
         });
+        this.spotify.getArtists(this.token, "0", "long_term").then(
+          res => {
+            this.artistlong = res['items'];
+            this.artists = this.artistlong;
+          }
+        )
       } else {
         this.tracks = this.tracklong;
+        this.artists = this.artistlong;
       }
     } else {
       this.tracks = this.trackprev;
+      this.artists = this.artistprev;
     }
   }
 

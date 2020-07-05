@@ -49,6 +49,7 @@ const featuresToAdd = ["acousticness", "danceability", "energy", "valence", "liv
 })
 export class AnalysisComponent implements OnInit {
   urlchange;
+  urlNeed = true;
   featuresDesc = FEATURES_DESC;
   chartName = "main-radar";
   chartData;
@@ -60,6 +61,7 @@ export class AnalysisComponent implements OnInit {
   tracks = [];
   trackprev= [];
   artists = [];
+  popularity;
   genres = [];
   token;
   myAudioFeatures = {};
@@ -129,6 +131,8 @@ export class AnalysisComponent implements OnInit {
       showAxesLabels: false,
       chartType: "multi"
     }
+    // get spotify token
+    this.token = sessionStorage.getItem("token");
     // if user visits /analysis/:spotifyuserid, the user id is parsed and a graph is plotted for that user id
     this.urlchange = this.route.params.subscribe(params => {
       let isCode = params["code"] || "";
@@ -137,8 +141,40 @@ export class AnalysisComponent implements OnInit {
         this.spotify.getUserAnalysis(isCode).then(res=>{
           this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res, featuresToAdd)));
           this.graphTitles.push(isCode)
+          this.urlNeed = false;
           this.updateGraph();
+          if (this.token == "" || this.token == null) {
+            this.userGraphLimit = 16;
+          } else {
+            // grabs listening activity from Spotify
+            this.spotify.getTracks(this.token, "0", "medium_term").then(
+              res => {
+                this.trackprev = res['items']
+                this.tracks = this.trackprev;
+                this.isLoaded = true;
+              }
+            ).catch((e) => {
+              console.log(e);
+            });
+          }
         })
+      } else {
+        if (this.token == "" || this.token == null) {
+          this.userGraphLimit = 16;
+        } else {
+          // grabs listening activity from Spotify
+          this.spotify.getTracks(this.token, "0", "medium_term").then(
+            res => {
+              this.trackprev = res['items']
+              this.tracks = this.trackprev;
+              this.isLoaded = true;
+              let songIds = this.tracks.map(({ id }) => id)
+              this.renderUserAudioFeatures(songIds, featuresToAdd);
+            }
+          ).catch((e) => {
+            console.log(e);
+          });
+        }
       }
     });
     // gets global stats
@@ -150,31 +186,14 @@ export class AnalysisComponent implements OnInit {
     });
 
     /*
-    SPOTIFY CALLS
+    OTHER SPOTIFY CALLS
     */
-    this.token = sessionStorage.getItem("token");
-    //console.log(this.token);
-    if (this.token == "" || this.token == null) {
-      this.userGraphLimit = 16;
-    } else {
-      // grabs listening activity from Spotify
-      this.spotify.getTracks(this.token, "0", "medium_term").then(
-        res => {
-          this.trackprev = res['items']
-          this.tracks = this.trackprev;
-          this.isLoaded = true;
-          let songIds = this.tracks.map(({ id }) => id)
-          this.renderUserAudioFeatures(songIds, featuresToAdd);
-        }
-      ).catch((e) => {
-        console.log(e);
-      });
-
       // get top artists and genres
-      this.spotify.getArtists(this.token, "0", "medium_term").then(
+      this.spotify.getArtists(this.token, "0", "long_term").then(
         res => {
           this.artists = res['items']
-          console.log(this.artists);
+          // calculate average popularity of artists
+          this.popularity = Math.floor(this.artists.reduce((a, b) => a + (b["popularity"] || 0), 0) / this.artists.length);
           //-----------------------------------------------------
           // naive method of finding top genres. Hope to implement clustering w/ audio features soon
           //-----------------------------------------------------
@@ -199,7 +218,6 @@ export class AnalysisComponent implements OnInit {
       ).catch((e) => {
         console.log(e);
       });
-    }
   }
 
   buildColor(arr) {

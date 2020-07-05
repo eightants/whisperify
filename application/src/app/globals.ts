@@ -1,5 +1,16 @@
 'use strict';
 
+export function toAnalysis() {
+  var token = sessionStorage.getItem("token");
+  if (sessionStorage.getItem("answered") == "yes") {
+    this.router.navigate(["/analysis", sessionStorage.getItem("username")]);
+  } else if (token != null && token != "") {
+    this.router.navigate(["/survey"]);
+  } else {
+    this.router.navigate(["/analysis"]);
+  }
+}
+
 export const FEATURES_DESC = {
   "acousticness": "How prominent acoustic elements are in your listening preferences. ", 
   "danceability": "How suitable a track is for dancing based on tempo and other musical elements. ", 

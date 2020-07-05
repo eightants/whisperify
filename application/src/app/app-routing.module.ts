@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'results', component: ScoreComponent}, 
   { path: 'results/:code', component: ScoreComponent},
   { path: 'no-info', component: NoInfoComponent}, 
-  { path: 'tracks', component: TracksComponent}, 
+  { path: 'top', component: TracksComponent}, 
   { path: 'about', component: AboutComponent}, 
   { path: 'survey', component: SurveyComponent}, 
   { path: 'analysis', component: AnalysisComponent},
@@ -34,7 +34,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

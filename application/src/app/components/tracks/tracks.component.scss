@@ -15,12 +15,32 @@
 }
 
 .navi-btn {
+    z-index: 50;
     position: fixed;
     bottom: 10px;
     right: 3%;
     padding: 15px;
     width: 50px;
     height: 50px;
+}
+
+.create-p {
+    z-index: 50;
+    position: fixed;
+    bottom: 10px;
+    right: calc(3% + 65px);
+}
+
+.chart-tabs {
+    width: 100%;
+    text-align: center;
+
+    div {
+        display: inline-block;
+        width: calc(50% - 20px);
+        max-width: 160px;
+        margin: 20px 10px 30px 10px;
+    }
 }
 
 
@@ -94,13 +114,9 @@
 
 .h-option {
     width: 45%;
+    margin: 20px 0px 10px 0px;
     display: inline-block;
     text-align: left;
-}
-
-.create-p {
-    width: 50%;
-    text-align: right;
 }
 
 .bg-arrow {
@@ -124,7 +140,7 @@
 @media (max-width: 768px) {
     h1 {
         width: 15%;
-        margin-top: 30%;
+        margin-top: 20%;
     }
 
     .track-card {
@@ -161,20 +177,28 @@
 
     .h-option {
         width: 100%;
+        padding: 10px 10px;
         text-align: left;
 
         .sel-option {
-            width: 80%;
+            width: 100%;
+            max-width: 250px;
         }
     }
 
     .row-option {
         width: 100%;
     }
-    
+
     .create-p {
         width: 100%;
+        left: 0;
+        right: 0;
         text-align: center;
+
+        button {
+            width: auto;
+        }
     }
 
     .sec-title {

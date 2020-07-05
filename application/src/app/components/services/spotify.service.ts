@@ -9,10 +9,6 @@ export class SpotifyService {
   mainUrl = "http://localhost:8888/";
   //mainUrl = 'https://whisperify.net/';
 
-  getTracksFromServer() {
-    return this.http.get(this.tracksUrl);
-  }
-
   getTracks(token, offset, term) {
     return this.http.get('https://api.spotify.com/v1/me/top/tracks?time_range=' + term + '&limit=50&offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})
     .toPromise();
@@ -59,7 +55,7 @@ export class SpotifyService {
 
 
   addEntry(obj) {
-    this.http.post(this.mainUrl + "postuser", obj, {observe: 'response'}).subscribe(response => {
+    this.http.post(this.mainUrl + "api/postuser", obj, {observe: 'response'}).subscribe(response => {
       // You can access status:
       //console.log(response.status);
       // Or any other header:
@@ -68,8 +64,12 @@ export class SpotifyService {
     //console.log("sent");
   }
 
-  addScore(score) {
-    return this.http.post(this.mainUrl + "postscore", {score: score}, {observe: 'response'}).toPromise();
+  addScore(obj) {
+    this.http.post(this.mainUrl + "api/postscore", obj, {observe: 'response'}).subscribe();
+  }
+
+  getPercent(score) {
+    return this.http.post(this.mainUrl + "api/postpercent", {score: score}, {observe: 'response'}).toPromise();
   }
 
   addChallenge(obj) {

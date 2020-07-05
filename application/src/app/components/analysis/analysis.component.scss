@@ -26,28 +26,6 @@ $addfieldclr: #2e2e2e;
     }
 }
 
-.tab-btn {
-    border: 1px solid #c4c4c4;
-    color: #c4c4c4;
-    background: #2e2e2e;
-    border-radius: 10px;
-    padding: 10px 10px;
-    width: 100%;
-    opacity: 0.6;
-    transition: all .2s ease-in-out;
-}
-
-.tab-btn:hover {
-    opacity: 1;
-}
-
-.selected-tab-btn {
-    border: 1px solid #3E3E3E;
-    background: #3e3e3e;
-    color: #c4c4c4;
-    opacity: 1;
-}
-
 .flavor-text {
     margin-top: 4%;
     text-align: center;
@@ -284,44 +262,31 @@ button:disabled:hover {
 
 // favorites css
 
-.fav-container {
-    max-width: 640px;
+.sec-title {
+    width: 15%;
+}
+
+.fav-sub-heading {
     width: 100%;
-    margin: auto;
+    text-align: left;
+    font-size: 3em;
+    padding-top: 10px;
+    margin: 10px 0px 10px;
+}
+
+.track-container {
+    margin-bottom: 60px;
 }
 
 .artist-container {
-    display: flex;
-    justify-content: left;
-    flex-flow: row wrap;
-
-    h1 {
-        width: 100%;
-        text-align: left;
-        font-size: 3em;
-    }
+    margin-bottom: 60px;
 }
 
-.artist-card {
+.genre-card {
     background: #191919;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 10px;
-    width: 30%;
-
-    div {
-        margin: 10px;
-        border-radius: 100px;
-        width: calc(100% - 20px);
-        padding-top: calc(100% - 20px);
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
-    h3 {
-        padding: 15px 0px 10px 0px;
-    }
+    border-radius: 10px;
+    padding: 5px 30px;
+    margin: 5px;
 }
 
 .track-card, .track-text {
@@ -359,8 +324,7 @@ button:disabled:hover {
 
 @media (max-width: 768px) {
     h1 {
-        width: 15%;
-        margin-top: 30%;
+        margin-top: 10%;
     }
 
     .track-card {

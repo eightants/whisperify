@@ -21,6 +21,7 @@ import { ChallengeComponent } from './components/challenge/challenge.component';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { RadarChartComponent } from './components/analysis/radar-chart/radar-chart.component';
 import { DotPlotComponent } from './components/analysis/dot-plot/dot-plot.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { DotPlotComponent } from './components/analysis/dot-plot/dot-plot.compon
     AnalysisComponent,
     RadarChartComponent,
     DotPlotComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

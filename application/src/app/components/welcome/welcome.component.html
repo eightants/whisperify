@@ -1,8 +1,12 @@
 <div class="main-div">
-    <button routerLink="/about" class="btn about-btn no-mobile">About</button>
-    <!--<a routerLink="/about" class="about-a mobile">About</a>-->
+    <div class="nav-bar">
+        <button routerLink="/welcome" class="btn nav-btn-c"><img id='menu' src="assets/menu.svg"></button>
+        <button (click)="toAnalysis()" class="btn nav-btn-c"><img src="assets/radar.svg"></button>
+        <button routerLink="/top" class="btn nav-btn-c"><img src="assets/star.svg"></button>
+        <button routerLink="/about" class="btn no-mobile-inline">About</button>
+        <button routerLink="/about" class="btn nav-btn-c mobile-inline"><img src="assets/info.svg"></button>
+    </div>
     <div class="main-text">
-        <!--<h1>Welcome</h1>-->
         <p class="main-desc welcome-desc">{{titleText}}</p>
     </div>
     <div *ngIf="isLoaded">
@@ -51,13 +55,13 @@
         </div>
         <div class="overlay" (click)="unLoadExclude()"></div>
     </div>
-  <div *ngIf="!options" class="mob-pad fade-in-up">
+  <div *ngIf="!options" class="mob-pad fade-in-up mode-div">
     <a routerLink="/tutorial"><div class="mode-card hoverhands">
         <div>
             <img src="assets/question.svg">
             <h2>How To Play</h2>
         </div>
-        <p>A quick introduction to Whisperify with one of the best songs ever. </p>
+        <p>A quick introduction to Whisperify with the best song ever. </p>
     </div></a>
     <a (click)="chooseTop()"><div class="mode-card hoverhands">
         <div>
@@ -71,7 +75,21 @@
             <img src="assets/playlist.svg">
             <h2>My Playlists</h2>
         </div>
-        <p>How well do you know your curations? Quiz yourself on any of your playlists. </p>
+        <p>Quiz yourself on any of your playlists. </p>
+    </div></a>
+    <a (click)="toAnalysis()"><div class="mode-card hoverhands">
+        <div>
+            <img src="assets/radar.svg">
+            <h2>Analysis</h2>
+        </div>
+        <p>View your audio report and visualize worldwide data. </p>
+    </div></a>
+    <a routerLink="/top"><div class="mode-card hoverhands">
+        <div>
+            <img src="assets/star.svg">
+            <h2>Favourites</h2>
+        </div>
+        <p>View and save your top songs and artists. </p>
     </div></a>
   </div>
   <div *ngIf="options" class="mob-pad fade-in-up options-pad">

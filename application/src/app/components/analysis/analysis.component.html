@@ -1,11 +1,10 @@
 <div class="container">
-    <button routerLink="/about" class="btn about-btn no-mobile">About</button>
-    <!--<a routerLink="/about" class="about-a mobile">About</a>-->
+    <app-navbar></app-navbar>
     <h1 class="sec-title">Analysis</h1>
     <div class="chart-tabs">
         <div *ngFor="let c of chartTypes" [ngClass]="{'no-mobile': c=='Multi'}"><button class="tab-btn" [ngClass]="{'selected-tab-btn': chosenChart==c}" (click)="chosenChart=c">{{c}}</button></div>
     </div>
-    <div class="mob-pad fade-in-up options-pad stats-pad">
+    <div class="mob-pad fade-in-up options-pad stats-pad track-container">
         <img class="visibility-icon" *ngIf="showTools" (click)="showTools=false" alt="visibility icon to hide dashboard tools" src="assets/visibility.svg"/>
         <img class="visibility-icon" *ngIf="!showTools" (click)="showTools=true" alt="visibility icon to hide dashboard tools" src="assets/visibility_off.svg"/>
         <div class="chart-div" *ngIf="chosenChart=='Radar'">
@@ -93,20 +92,23 @@
         <h2>Want More?</h2>
         <p>Login to view more detailed analytics including your top artists, favorite genres, and a recreation of your Spotify taste profile. The guest graph limit will also be removed, so you can plot more graphs simultaneously. </p>
         <div>
-            <a href='http://localhost:8888/analysis-login'><button class="mob-top-pad btn clr-wgreen">Login With Spotify</button></a>
+            <a href='http://localhost:8888/login/analysis'><button class="mob-top-pad btn clr-wgreen">Login With Spotify</button></a>
         </div>
     </div>
-    <h1 class="sec-title">Analysis</h1>
     <div class="fav-container">
         <div class="track-container">
+            <h1 class="fav-sub-heading">Tracks</h1>
             <div class="flavor-text">
-                <div class="track-card">
-                    <h1>8</h1>
-                    <img src="none">
+                <div *ngFor="let track of tracks.slice(0,5); index as i" class="track-card">
+                    <h1>{{i + 1}}</h1>
+                    <img src="{{track.album.images[1].url}}">
                     <div class="track-text">
-                        <h3>Follow</h3>
-                        <p>Kygo</p>
+                        <h3>{{track.name}}</h3>
+                        <p>{{track.artists[0].name}}</p>
                     </div>
+                </div>
+                <div>
+                    <button routerLink="/top" class="mob-top-pad btn">View More</button>
                 </div>
             </div>
         </div>
@@ -115,6 +117,16 @@
             <div class="artist-card" *ngFor="let a of artists.slice(0,5)">
                 <div [ngStyle]="{'background-image': 'url(' + a.images[1].url + ')'}"></div>
                 <h3>{{ a.name }}</h3>
+            </div>
+            <div class="artist-card" *ngIf="popularity">
+                <div><span>{{ popularity }}</span></div>
+                <h3>Popularity</h3>
+            </div>
+        </div>
+        <div class="artist-container">
+            <h1>Genres</h1>
+            <div class="genre-card" *ngFor="let g of genres.slice(0,8)">
+                <h3>{{ capitalize(g[0]) }}</h3>
             </div>
         </div>
     </div>

@@ -4,4 +4,4 @@ Disallow: /quiz
 Disallow: /results
 Disallow: /survey
 Disallow: /no-info
-Disallow: /tracks
+Disallow: /top

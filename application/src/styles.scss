@@ -75,9 +75,77 @@ h1, h2, h3, h4, h5 {
   margin: 10px 12px;
 }
 
+.tab-btn {
+  font-family: 'Circular', 'sans-serif';
+  font-size: 20px;
+  border: 0px solid #c4c4c4;
+  color: white;
+  background: #2e2e2e;
+  border-radius: 10px;
+  padding: 12px 10px 10px 10px;
+  width: 100%;
+  opacity: 0.6;
+  transition: all .2s ease-in-out;
+}
+
+.tab-btn:hover {
+  opacity: 1;
+}
+
+.selected-tab-btn {
+  border: 0px solid #3E3E3E;
+  background: #3e3e3e;
+  color: white;
+  opacity: 1;
+}
+
 .no-side-marg {
   margin-left: 0px;
   margin-right: 0px;
+}
+
+// CODE FOR NAVBAR
+
+.nav-bar {
+    position: absolute;
+    top: 10px;
+    right: 3%;
+
+    button {
+        background-color: $bg-color;
+        border-color: $wgrey;
+        border: 1px solid;
+        color: $wgrey;
+        display: inline-block;
+        padding: 14px 25px;
+        margin: 20px 10px;
+    }
+
+    #menu {
+        margin: 10%;
+        width: 80%;
+    }
+
+    #info-btn {
+      font-family: 'Circular', 'sans-serif';
+      text-transform: lowercase;
+      padding: 5px;
+      font-size: 1.2em;
+    }
+
+    .nav-btn-c {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        padding: 10px 10px 12px 10px;
+        margin: 20px 10px;
+
+        img {
+            width: 100%;
+            opacity: 0.8;
+            transition: none;
+        }
+    }
 }
 
 // CODE FOR SWITCH/SLIDER
@@ -400,8 +468,8 @@ font-weight:normal;
 
 .sec-title {
   font-size: 72px;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
 
 .main-desc {
@@ -409,7 +477,7 @@ font-weight:normal;
 }
 
 .welcome-desc {
-  margin-top: 3%;
+  margin-top: 1%;
 }
 
 
@@ -421,17 +489,27 @@ font-weight:normal;
   width: 95%;
 }
 
+
+.mode-div {
+  width: 100%;
+  max-width: 920px;
+  margin: auto;
+  /*display: flex;
+  justify-content: center;
+  flex-flow: row wrap;*/
+}
+
 .mode-card {
-  border-radius: 30px;
-  padding: 30px 40px;
+  border-radius: 20px;
+  padding: 30px 25px;
   background-color: rgb(65, 65, 65);
   color: white;
-  width: 260px;
+  width: 220px;
   text-align: left;
-  margin: 15px;
+  margin: 10px;
   display: inline-block;
   vertical-align: top;
-  min-height: 300px;
+  min-height: 260px;
   transition: all .2s ease-in-out;
   
   img {
@@ -442,7 +520,8 @@ font-weight:normal;
 }
 
 a .mode-card:hover {
-  margin-top: 5px;
+  margin-top: 2px;
+  margin-bottom: 18px;
   transition: all .2s ease-in-out;
   background-color: rgb(75, 75, 75);
 }
@@ -456,6 +535,60 @@ a .mode-card:hover {
   color: white;
   background-color: $optionclr;
 }
+
+// TOP TRACKS AND ANALYSIS COMMON CSS
+.fav-container {
+  max-width: 640px;
+  width: 100%;
+  margin: auto;
+}
+
+.artist-container {
+  display: flex;
+  justify-content: left;
+  flex-flow: row wrap;
+
+  h1 {
+      width: 100%;
+      text-align: left;
+      font-size: 3em;
+  }
+}
+
+.artist-card {
+  background: #191919;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 10px;
+  width: calc(33% - 20px);
+
+  div {
+      position: relative;
+      margin: 10px;
+      border-radius: 100px;
+      width: calc(100% - 20px);
+      padding-top: calc(100% - 20px);
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      span {
+          position: absolute;
+          top: 0;
+          left: 2px;
+          margin: auto;
+          font-family: 'Circular', 'sans-serif';
+          font-size: 4em;
+      }
+  }
+
+  h3 {
+      padding: 15px 0px 10px 0px;
+      text-align: left;
+  }
+}
+
+// MISC STYLES
 
 .loading-div {
   background-image: url("/assets/loading.gif");
@@ -475,7 +608,7 @@ a .mode-card:hover {
 }
 
 .mobile-inline {
-  display: none;
+  display: none!important;
 }
 
 .no-mobile {
@@ -542,11 +675,11 @@ Waves Animation
 }
 .parallax>use:nth-child(1) {
   animation-delay: -2s;
-  animation-duration: 16s;
+  animation-duration: 32s;
 }
 .parallax>use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 5s;
+  animation-delay: -4s;
+  animation-duration: 10s;
 }
 .parallax>use:nth-child(3) {
   animation-delay: -4s;
@@ -580,7 +713,7 @@ Waves Animation
     display: block;
   }
   .mobile-inline {
-    display: inline-block;
+    display: inline-block!important;
   }
   .no-mobile {
     display: none!important;
@@ -593,7 +726,7 @@ Waves Animation
     text-align: left;
     margin: 10px 10px;
     min-height: auto;
-    padding: 20px 40px;
+    padding: 20px 30px;
     
     img {
       max-height: 30px;
@@ -606,7 +739,7 @@ Waves Animation
     }
   }
   a .mode-card:hover {
-    margin-top: 10px;
+    margin: 10px 10px;
     transition: all .2s ease-in-out;
     background-color: rgb(75, 75, 75);
   }
@@ -618,7 +751,7 @@ Waves Animation
     font-size: 54px;
   }
   .main-text {
-    padding-top: 30%;
+    padding-top: 10%;
   }
   .main-desc {
     font-size: 18px;
@@ -719,7 +852,53 @@ Waves Animation
     }
   }
 
+  .artist-card {
+    background: #191919;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    width: calc(50% - 20px);
+  }
+
   .coffee-frame {
     position: relative;
+  }
+
+  .nav-bar {
+    position: relative;
+    top: 10px;
+    right: 0px;
+    width: 100%;
+    text-align: center;
+
+
+    button {
+        background-color: $bg-color;
+        border-color: $wgrey;
+        border: 1px solid;
+        color: $wgrey;
+        display: inline-block;
+        padding: 14px 25px;
+        margin: 20px 10px;
+    }
+
+    #menu {
+        margin: 10%;
+        width: 80%;
+    }
+
+    .nav-btn-c {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        padding: 10px 10px 12px 10px;
+        margin: 20px 10px;
+
+        img {
+            width: 100%;
+            opacity: 0.8;
+            transition: none;
+        }
+    }
   }
 }

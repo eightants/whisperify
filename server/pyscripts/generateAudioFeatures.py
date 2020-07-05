@@ -30,7 +30,7 @@ for user in cursors:
     count += 1
     if count % 100 == 0:
         print(count, "done")
-    if count < 12100:
+    if count < 0:
         break
     tracks = user.get("tracks")
     username = user.get("_id")
@@ -52,9 +52,12 @@ for user in cursors:
         "valence": round(np.mean([a["valence"] for a in audioinfo if a is not None]), 3),  
         "liveness": round(np.mean([a["liveness"] for a in audioinfo if a is not None]), 3), 
         "speechiness": round(np.mean([a["speechiness"] for a in audioinfo if a is not None]), 3),
+        "instrumentalness": round(np.mean([a["instrumentalness"] for a in audioinfo if a is not None]), 3),
         "tempo": round(np.mean([a["tempo"] for a in audioinfo if a is not None]), 3), 
         "loudness": round(np.mean([a["loudness"] for a in audioinfo if a is not None]), 3),
         "country": usercountry,
+        "score": user.get("score"), 
+        "name": user.get("name"), 
     }
     """
     Checks if that user had submitted a response for the personality survey

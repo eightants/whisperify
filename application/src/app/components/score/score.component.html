@@ -24,8 +24,7 @@
         </div>
         <div class="overlay" (click)="unLoad()"></div>
     </div>
-    <button routerLink="/" class="btn about-btn no-mobile">Home</button>
-    <!--<a routerLink="/about" class="about-a mobile">About</a>-->
+    <app-navbar></app-navbar>
     <div class="score-inner-div">
     <div class="main-text score-text" *ngIf="score>=0">
         <h2>Score</h2>
@@ -43,8 +42,8 @@
             <h3>Help improve Whisperify</h3>
             <p>Answer a few questions here to help us provide a better analysis!</p>
         </div></a>
-        <a class="link-mask" routerLink="/tracks"><div class="flavor-card">
-            <h3>View Tracks</h3>
+        <a class="link-mask" routerLink="/top"><div class="flavor-card">
+            <h3>View My Favourites</h3>
         </div></a>
     </div>
     <div class="flavor-text" [ngClass]="{'mid-table' : score<0}" *ngIf="challengeCode!=''">
