@@ -225,7 +225,6 @@ export class QuizComponent implements OnInit {
       this.spotify.getPlaylistTracks(this.pid, this.token, off.toString()).then(
         res => {
           this.trackprev = res["items"];
-          console.log(this.trackprev);
 
           // DEVELOPMENT; for loop to check the number of valid tracks returned
           for (let i = 0; i < this.trackprev.length; i++) {
@@ -236,7 +235,6 @@ export class QuizComponent implements OnInit {
               for (let j = 0; j < this.tracks.length; j++) {
                 if (this.trackprev[i].track.name == this.tracks[j].name) {
                   if (this.trackprev[i].track.artists[0].name == this.tracks[j].artists[0].name) {
-                    console.log("DUP", this.trackprev[i].name)
                     duplicate = true;
                     break;
                   }
@@ -255,9 +253,8 @@ export class QuizComponent implements OnInit {
               }
             }
           }
-          console.log(this.tracks);
           //console.log(this.tracks.length)
-          //console.log(this.playtracks)
+          
           // checks that more than 10 songs have preview urls
           // generates 10 unique random indexes in the range of the items array returned
           if (this.tracks.length < 20) {

@@ -1,0 +1,443 @@
+$addfieldclr: #2e2e2e;
+
+.stats-pad {
+    max-width: 1080px;
+    padding-bottom: 24px;
+    margin-bottom: 20px;
+}
+
+
+.config-div {
+    text-align: right;
+    margin: auto;
+
+    .navi-btn {
+        padding: 12px 12px 15px 12px;
+        width: 50px;
+        height: 50px;
+        margin-top: 0px;
+
+    }
+}
+
+.login-pad {
+    max-width: 640px;
+    padding: 24px 30px 20px 30px;
+
+    h1, h2, p, div {
+        text-align: center;
+    }
+}
+
+.chart-tabs {
+    width: 100%;
+    text-align: center;
+
+    div {
+        display: inline-block;
+        width: calc(50% - 20px);
+        max-width: 160px;
+        margin: 20px 10px 30px 10px;
+    }
+}
+
+.flavor-text {
+    margin-top: 4%;
+    text-align: center;
+    width: 100%;
+    min-width: none;
+    display: inline-block;
+
+    h1 {
+        width: 10%;
+        display: inline-block;
+        vertical-align: top;
+        font-size: 42px;
+        margin: 5px 10px 5px 0%;
+    }
+
+    img {
+        width: 15%;
+        display: inline-block;
+        vertical-align: top;
+        border-radius: 5px;
+        max-width: 80px;
+    }
+
+    .track-text {
+        width: 70%;
+        display: inline-block;
+        margin: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+
+        h3,p {
+            margin: 0.2em 0;
+        }
+    }
+}
+
+.multi-graph-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+
+    .multi-g {
+        width: 25%;
+        text-align: center;
+
+        h3 {
+            margin-top: 0px;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+.legend-div {
+    text-align: center;
+    width: 40%;
+    min-width: 360px;
+    vertical-align: top;
+    display: inline-block;
+
+    .legend-space {
+        min-height: 300px;
+    }
+
+    .legend-colors {
+        max-height: 300px;
+        overflow-y: scroll;
+        scrollbar-width: none;
+    }
+
+    .legend-colors::-webkit-scrollbar {
+        display: none;
+      }
+
+    .legend-item {
+        width: 100%;
+        padding: 5px 0px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    span {
+        display: inline-block;
+        width: calc(100% - 90px);
+    }
+}
+
+.spacing-icon {
+    margin-left: 10px;
+}
+
+.empty-icon {
+    opacity: 0!important;
+}
+
+.visibility-icon {
+    width: 100%;
+    max-height: 100%;
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+button:hover .visibility-icon {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.delete-graph {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    filter: invert(1);
+    opacity: 0.4;
+}
+
+.delete-graph:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.edit-label {
+    text-align: left;
+	color: #c4c4c4;
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: calc(100% - 90px);
+    margin: 0;
+    border: 1px solid #c4c4c4;
+    background-color: $addfieldclr;
+}
+
+.multi-edit{
+    font-family: "Circular", sans-serif;
+    width: 100%;
+    font-size: 1.17em;
+    text-align: center;
+}
+
+.add-graph {
+    width: 100%;
+    margin: 40px 0px;
+    text-align: center;
+}
+
+.select-graph {
+    padding: 8px 0px;
+}
+
+.graph-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    margin-right: 15px;
+    display: inline-block;
+}
+
+.flavor-card {
+    width: 320px;
+    overflow: hidden;
+    background-color: #2e2e2e;
+    border-radius: 20px;
+    padding: 15px 30px 20px 25px;
+    margin: 15px auto;
+    text-align: left;
+
+    h2 {
+        padding-left: 5px;
+    }
+}
+
+.chart-div {
+    width: 60%;
+    max-width: calc(100% - 360px);
+    display: inline-block;
+    padding: 20px 10px;
+}
+
+.audio-features-div {
+    overflow: hidden;
+    padding: 0px 0px 0px 20px;
+
+    p {
+        margin-top: 0px;
+        margin-bottom: 20px;
+        opacity: 0.9;
+    }
+}
+
+.audio-features-header {
+    width: 100%;
+
+    h2 {
+        width: 150px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    div {
+        width: calc(100% - 150px);
+        padding-top: 20px;
+        display: inline-block;
+    }
+}
+
+.sel-option {
+    width: 50%;
+    background-color: $addfieldclr;
+}
+
+.exclude-option {
+    text-align: left;
+    min-width: 200px;
+    width: 50%;
+	font-size: 16px;
+	color: #c4c4c4;
+	padding: 12px 20px 12px 20px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 0;
+    border: 1px solid #c4c4c4;
+    background-color: $addfieldclr;
+
+}
+
+button:disabled {
+    opacity: 0.8;
+}
+
+button:disabled:hover {
+    opacity: 0.8;
+    transform: scale(1);
+    cursor: default;
+}
+
+// favorites css
+
+.sec-title {
+    width: 15%;
+}
+
+.fav-sub-heading {
+    width: 100%;
+    text-align: left;
+    font-size: 3em;
+    padding-top: 10px;
+    margin: 10px 0px 10px;
+}
+
+.track-container {
+    margin-bottom: 60px;
+}
+
+.artist-container {
+    margin-bottom: 60px;
+}
+
+.genre-card {
+    background: #191919;
+    border-radius: 10px;
+    padding: 5px 30px;
+    margin: 5px;
+}
+
+.track-card, .track-text {
+    width: 640px;
+    overflow: hidden;
+    background-color: #191919;
+    padding: 15px 30px 15px 30px;
+    margin: 6px auto;
+    text-align: left;
+}
+
+.track-card {
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+
+
+.row-option {
+    width: 640px;
+    padding: 8px 10px;
+    margin: auto;
+}
+
+.h-option {
+    width: 45%;
+    display: inline-block;
+    text-align: left;
+}
+
+.create-p {
+    width: 50%;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        margin-top: 10%;
+    }
+
+    .track-card {
+        width: 100%!important;
+        padding: 10px 20px!important;
+        margin: 5px auto!important;
+        min-height: 86px;
+
+        h1 {
+            font-size: 28px;
+            width: 35px;
+            margin: 0px 10px 0px 0%;
+        }
+    }
+
+    .track-text {
+        width: calc(100% - 100px)!important;
+        margin: 0px!important;
+        padding: 0px 10px 0px 20px!important;
+        h3 {
+            font-size: 16px;
+            margin: 1px 0!important;
+        }
+        p {
+            font-size: 16px;
+            margin: 1px 0!important;
+        }
+    }
+
+    .stats-pad {
+        min-height: 0px;
+    }
+
+    .chart-div {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .flavor-text img {
+        width: 50px!important;
+        margin-left: 2%;
+    }
+
+    .h-option {
+        width: 100%;
+        text-align: left;
+
+        .sel-option {
+            width: 80%;
+        }
+    }
+
+    .row-option {
+        width: 100%;
+    }
+    
+    .create-p {
+        width: 100%;
+        text-align: center;
+    }
+
+    .sec-p {
+        font-size: 16px;
+    }
+
+    .flavor-card {
+        width: 100%;
+    }
+
+    .legend-div {
+        width: 100%;
+        min-width: 0px;
+    
+        .legend-space {
+            min-height: 0px;
+        }
+    }
+
+    .graph-btn {
+        width: 200px;
+    }
+
+    .audio-features-div {
+        padding: 0px;
+    }
+
+    .audio-features-header {
+        h2 {
+            width: 100%;
+            display: inline-block;
+            vertical-align: top;
+        }
+        div {
+            width: 100%;
+            padding-top: 5px;
+            display: inline-block;
+        }
+    }
+
+}

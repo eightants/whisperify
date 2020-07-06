@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {MAINURL} from '../../globals'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
-  tracksUrl = 'http://localhost:8888/api/tracks';
-  //mainUrl = "http://localhost:8888/";
-  mainUrl = 'https://whisperify.net/';
-
-  getTracksFromServer() {
-    return this.http.get(this.tracksUrl);
-  }
+  mainUrl = MAINURL;
 
   getTracks(token, offset, term) {
     return this.http.get('https://api.spotify.com/v1/me/top/tracks?time_range=' + term + '&limit=50&offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})
+    .toPromise();
+  }
+
+  getArtists(token, offset, term) {
+    return this.http.get('https://api.spotify.com/v1/me/top/artists?time_range=' + term + '&limit=50&offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})
     .toPromise();
   }
 
@@ -43,9 +43,18 @@ export class SpotifyService {
     .toPromise();
   }
 
+  getUserAudioFeatures(token, songs) {
+    return this.http.get("https://api.spotify.com/v1/audio-features/?ids=" + songs.toString(), {headers: { 'Authorization': 'Bearer ' + token }})
+    .toPromise();
+  }
+
+  addUserAnalysis(obj) {
+    return this.http.post(this.mainUrl + "api/postanalysis", obj, {observe: 'response'}).toPromise();
+  }
+
 
   addEntry(obj) {
-    this.http.post(this.mainUrl + "postuser", obj, {observe: 'response'}).subscribe(response => {
+    this.http.post(this.mainUrl + "api/postuser", obj, {observe: 'response'}).subscribe(response => {
       // You can access status:
       //console.log(response.status);
       // Or any other header:
@@ -54,8 +63,12 @@ export class SpotifyService {
     //console.log("sent");
   }
 
-  addScore(score) {
-    return this.http.post(this.mainUrl + "postscore", {score: score}, {observe: 'response'}).toPromise();
+  addScore(obj) {
+    this.http.post(this.mainUrl + "api/postscore", obj, {observe: 'response'}).subscribe();
+  }
+
+  getPercent(score) {
+    return this.http.post(this.mainUrl + "api/postpercent", {score: score}, {observe: 'response'}).toPromise();
   }
 
   addChallenge(obj) {
@@ -72,6 +85,18 @@ export class SpotifyService {
 
   cleanChallenges() {
     return this.http.get(this.mainUrl + "cleanchallenges").toPromise();
+  }
+
+  getUserAnalysis(username) {
+    return this.http.get(this.mainUrl + "api/getanalysis/" + username).toPromise();
+  }
+
+  getGroupAnalysis(category) {
+    return this.http.get(this.mainUrl + "api/getgroupanalysis/" + category).toPromise();
+  }
+
+  getAlbumAnalysis(id) {
+    return this.http.get(this.mainUrl + "api/getalbumfeatures/" + id).toPromise();
   }
 
   constructor(private http: HttpClient) { }

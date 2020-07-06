@@ -7,8 +7,9 @@ $wgreen: #38A275;
     box-sizing: border-box;
 }
 
-form {
-    margin-bottom: 20vh;
+.survey-pad {
+  padding: 50px 30px;
+  margin-bottom: 20vh;
 }
 
 
@@ -16,8 +17,13 @@ form {
     border-radius: 40px!important;
 }
 
+.btn-div {
+  text-align: center;
+}
+
 .form-field {
-    width: 70%;
+    margin: auto;
+    width: 90%;
 }
 
 .form-field * {
@@ -55,6 +61,7 @@ ul li label{
   z-index: 9;
   cursor: pointer;
   -webkit-transition: all 0.25s linear;
+  transition: all 0.25s linear;
 }
 
 ul li:hover label{
@@ -131,5 +138,16 @@ input[type=radio]:checked ~ label{
     }
     .form-btn {
         margin: 10px;
+    }
+
+    .survey-pad {
+      padding: 30px;
+    }
+    h2 {
+      font-size: 1.2em;
+    }
+
+    ul li label{
+      font-size: 1em;
     }
 }

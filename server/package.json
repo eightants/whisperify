@@ -17,6 +17,7 @@
     "dotenv": "^8.2.0",
     "encoding": "^0.1.12",
     "express": "^4.17.1",
+    "express-subdomain": "^1.0.5",
     "firebase-admin": "^8.9.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.2",

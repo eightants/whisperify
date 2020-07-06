@@ -29,6 +29,7 @@ export class ScoreComponent implements OnInit {
 
   score = NaN;
   token = "";
+  username="";
   tracks = [];
   trackprev = [];
   trimtracks = [];
@@ -53,6 +54,8 @@ export class ScoreComponent implements OnInit {
 
   ngOnInit() {
     this.isGenerated = false;
+    this.username = sessionStorage.getItem("username");
+    this.displayname = sessionStorage.getItem("displayname");
     this.percent = sessionStorage.getItem("percent") || 50;
     this.sentDB = sessionStorage.getItem("sentDB");
     this.enteredName = sessionStorage.getItem("enteredName") || "You";
@@ -141,76 +144,14 @@ export class ScoreComponent implements OnInit {
   getSongsAndPostToDB() {
     // checks that token is present and we haven't already sent this quiz round to DB
     if (this.token != "" && this.token != null && this.sentDB == "no") {
-    // get request
       sessionStorage.setItem("sentDB", "yes");
-      this.spotify.getTracks(this.token, "0", "medium_term").then(
-        res => {
-          this.spotify.getTracks(this.token, "49", "medium_term").then(
-            res2 => {
-          //console.log(res);
-          this.trackprev = res['items'].concat(res2["items"]);
-
-          // DEVELOPMENT; for loop to check the number of valid tracks returned
-          for (let i = 0; i < this.trackprev.length; i++) {
-            if (this.trackprev[i].preview_url == null) {
-              //console.log("huh")
-            } else {
-              // checks for duplicate tracks (thanks spotify for multiple versions of the same track)
-              let duplicate = false;
-              for (let j = 0; j < this.tracks.length; j++) {
-                if (this.trackprev[i].name == this.tracks[j].name) {
-                  if (this.trackprev[i].artists[0].name == this.tracks[j].artists[0].name) {
-                    //console.log("DUP", this.trackprev[i].name)
-                    duplicate = true;
-                    break;
-                  }
-                }
-              }
-              if (duplicate == false) {
-                //console.log(this.trackprev[i].name)
-                this.tracks.push(this.trackprev[i]);
-                // creates a summarized json object to be sent to database
-                this.trimtracks.push({
-                  album: {
-                    images: this.trackprev[i].album.images
-                  }, 
-                  artists: [{
-                    name: this.trackprev[i].artists[0].name
-                  }], 
-                  external_urls: this.trackprev[i].external_urls,
-                  name: this.trackprev[i].name, 
-                  preview_url: this.trackprev[i].preview_url, 
-                })
-              }
-            }
-          }
-          //console.log(this.tracks.length)
-          this.spotify.getProfile(this.token).then(
-            useres => {
-              //console.log(useres);
-              /*this.spotify.addEntry({
-                [useres["id"]]: {
-                  name: useres["display_name"], 
-                  email: useres["email"], 
-                  tracks: this.trimtracks, 
-                  country: useres["country"], 
-                  time: Date.now(), 
-                  score: this.score
-                }
-              });*/
-              this.displayname = useres["display_name"];
-              this.spotify.addEntry({
-                  _id: useres["id"], 
-                  name: useres["display_name"], 
-                  /*email: useres["email"], */
-                  tracks: this.trimtracks.slice(0, 50), 
-                  country: useres["country"], 
+      this.spotify.addScore({
+                  _id: this.username,
                   score: this.score
               });
-              //console.log("sent")
-              this.challengeObj["scoreboard"].push({name: this.displayname, score: this.score, host: true});
+      this.challengeObj["scoreboard"].push({name: this.displayname, score: this.score, host: true});
               // takes the response from sending score to database and calculates percentage of users beaten
-              this.spotify.addScore(this.score).then(
+              this.spotify.getPercent(this.score).then(
                 resp => {
                   //console.log(resp)
                   this.percent = Math.floor(100 * resp.body["percent"]);
@@ -218,11 +159,7 @@ export class ScoreComponent implements OnInit {
                   //console.log('percent', this.percent);
                 }
               )
-            }
-          );
-          })
-        })
-      }
+    }
   }
 
   openShare() {
@@ -287,6 +224,17 @@ export class ScoreComponent implements OnInit {
       this.router.navigate(["/welcome"]);
     } else {
       this.router.navigate(["/challenge", this.challengeCode]);
+    }
+  }
+
+  toAnalysis() {
+    var token = sessionStorage.getItem("token");
+    if (sessionStorage.getItem("answered") == "yes") {
+      this.router.navigate(["/analysis", sessionStorage.getItem("username")]);
+    } else if (token != null && token != "") {
+      this.router.navigate(["/survey"]);
+    } else {
+      this.router.navigate(["/analysis"]);
     }
   }
 

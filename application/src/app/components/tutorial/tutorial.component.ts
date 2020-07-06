@@ -113,11 +113,11 @@ export class TutorialComponent implements OnInit {
       this.isCorrect = true;
       this.score += 100 * this.prevTime;
       //console.log(submission + " = " + ans.artists[0].name + " - " + ans.name);
-      console.log("score: " + this.score);
+      //console.log("score: " + this.score);
     } else {
       this.isCorrect = false;
-      console.log(submission + " != " + ans.artists[0].name + " - " + ans.name);
-      console.log("score: " + this.score);
+      //console.log(submission + " != " + ans.artists[0].name + " - " + ans.name);
+      //console.log("score: " + this.score);
     }
   }
 

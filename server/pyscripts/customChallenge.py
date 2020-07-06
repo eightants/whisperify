@@ -7,6 +7,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 load_dotenv()
 
 #info needed to make calls
+challengetitle = "Golden Hour"
 cc = "goldenhour"
 choice = 1
 givenURL = "https://open.spotify.com/album/7tcs1X9pzFvcLOPuhCstQJ"
@@ -38,7 +39,8 @@ challengeObj = {
     "dynamic": True, 
     "time": 9591234567890, 
     "timeLimit": 20,
-    "whisperLen": 5
+    "whisperLen": 5, 
+    "title": challengetitle
 }
 tracklist = []
 tracks = []

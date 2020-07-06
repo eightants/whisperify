@@ -20,8 +20,7 @@ export class SurveyComponent implements OnInit {
   ngOnInit() {
     //sessionStorage.setItem("token", "testing");
     this.token = sessionStorage.getItem("token");
-    this.spotify.getProfile(this.token).then(
-      useres => { this.model["_id"] = useres["id"]; });
+    this.model["_id"] = sessionStorage.getItem("username");
   }
 
   validRes() {
@@ -36,8 +35,9 @@ export class SurveyComponent implements OnInit {
 
   onSubmit() { 
     this.submitted = true; 
-    this.http.post("https://whisperify.now.sh/postsurvey", this.model, {observe: 'response'}).subscribe();
-    this.router.navigate(["/results"]);
+    sessionStorage.setItem("answered", "yes");
+    this.spotify.addEntry(this.model);
+    this.router.navigate(["/analysis"]);
   }
   
   get diagnostic() { return JSON.stringify(this.model); }

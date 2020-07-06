@@ -18,6 +18,9 @@ export class WelcomeComponent implements OnInit {
 
   constructor(private router: Router, private spotify: SpotifyService, private data: DatastoreService) { }
   token = "";
+  username="";
+  displayName="";
+  answered="no";
   isLoaded = false;
   playlists=[];
   playlistsLoaded = false;
@@ -34,6 +37,7 @@ export class WelcomeComponent implements OnInit {
   config = {};
   artists = new Map();
   artistList = [];
+  tracks = [];
   excludeModule = false;
   searchStr = "";
   searchVal:string;
@@ -52,6 +56,7 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit() {
     this.token = sessionStorage.getItem("token");
+    this.username = sessionStorage.getItem("username") || "";
     sessionStorage.setItem("challenge", "");
     sessionStorage.setItem("currentLink", "");
     sessionStorage.setItem("choice", "top");
@@ -59,13 +64,66 @@ export class WelcomeComponent implements OnInit {
     this.totsongs = 100;
     this.excludeModule = false;
     this.config = {
+      displayName: "a friend",
       whisperLen: 5, 
       timeLimit: 20, 
       excludeArtists: [], 
       multChoice: false
     }
+    let redirect = sessionStorage.getItem("redirect");
+    if (redirect == "analysis") {
+      this.router.navigate(["/analysis"]);
+    }
+    if (this.token != "" && this.token != null) {
+      this.getSongsAndPostToDB();
+    }
+  }
 
-    //this.spotify.cleanChallenges(Date.now() - 180000000);
+  getSongsAndPostToDB() {
+    // checks that token is present and we haven't already sent this user to DB
+    if (this.token != "" && this.token != null && this.username=="") {
+      this.spotify.getTracks(this.token, "0", "medium_term").then(
+        res => {
+          this.spotify.getTracks(this.token, "49", "medium_term").then(
+            res2 => {
+              this.tracks = res['items'].concat(res2["items"]);
+              this.spotify.getProfile(this.token).then(
+                useres => {
+                  this.username = useres["id"];
+                  this.displayName = useres["display_name"];
+                  sessionStorage.setItem("displayname", this.displayName);
+                  sessionStorage.setItem("username", this.username);
+                  let songList = this.tracks.map(({ id }) => id);
+                  this.spotify.addEntry({
+                      _id: useres["id"], 
+                      name: useres["display_name"], 
+                      time: Date.now(), 
+                      tracks: songList, 
+                      country: useres["country"],
+                  });
+                  // checks if they have already answered the survey
+                  this.spotify.getUserAnalysis(this.username).then(res => {
+                    if (res["ei"]) {
+                      this.answered = "yes";
+                    }
+                    sessionStorage.setItem("answered", this.answered);
+                  });
+                }
+              );
+          })
+        }).catch((e) => {
+          console.log(e)
+          this.router.navigate(["/"]);
+        });
+      } else {
+        // checks if they have already answered the survey
+        this.spotify.getUserAnalysis(this.username).then(res => {
+          if (res["ei"]) {
+            this.answered = "yes";
+          }
+          sessionStorage.setItem("answered", this.answered);
+        });
+      }
   }
 
   chooseTop() {
@@ -74,6 +132,7 @@ export class WelcomeComponent implements OnInit {
 
   choosePeriod(val) {
     this.chosenPeriod = val;
+    this.artists = new Map();
     this.artistList = [];
     this.config["excludeArtists"] = [];
   }
@@ -86,7 +145,6 @@ export class WelcomeComponent implements OnInit {
     // get playlists
       this.spotify.getPlaylists(this.token, count.toString()).then(
         res => {
-          //console.log(res);
           for (let i = 0; i < res["items"].length; i++) {
             if (res["items"][i].tracks.total >= 30) {
               this.playlists.push(res["items"][i]);
@@ -126,7 +184,6 @@ export class WelcomeComponent implements OnInit {
   }
   
   selectPlaylist(p) {
-    //console.log(p.id);
     this.pid = p.id;
     sessionStorage.setItem("pid", p.id);
     this.psize = p.tracks.total;
@@ -171,6 +228,7 @@ export class WelcomeComponent implements OnInit {
   unLoadExclude() {
     this.excludeModule = false;
     this.searchList = this.artistList;
+    this.searchStr = "";
     this.config["excludeArtists"] = this.prevExclude.slice();
   }
 
@@ -188,12 +246,8 @@ export class WelcomeComponent implements OnInit {
     // get playlist or top tracks depending on the selection
     if (this.artistList.length <= 0) {
       if (sessionStorage.getItem("choice") == "top") {
-      // get request
-        this.spotify.getTracks(this.token, "0", this.timePeriodMap[this.chosenPeriod]).then(
-          res => {
-            this.spotify.getTracks(this.token, "49", this.timePeriodMap[this.chosenPeriod]).then(
-              res2 => {
-            let trackprev = res['items'].concat(res2["items"]);
+        if (this.timePeriodMap[this.chosenPeriod] == "medium_term" && this.tracks.length>0) {
+          let trackprev = this.tracks;
             this.totsongs = trackprev.length;
             // since we're just trying to get the artists in the top songs, we just loop and count the artists
             for (let i = 0; i < trackprev.length; i++) {
@@ -204,24 +258,40 @@ export class WelcomeComponent implements OnInit {
               }
             }
             this.artistList = Array.from(this.artists.keys()).sort();
-            //console.log(this.artistList);
             this.searchArtists();
-          })
+        } else {
+          // get request
+          this.spotify.getTracks(this.token, "0", this.timePeriodMap[this.chosenPeriod]).then(
+            res => {
+              this.spotify.getTracks(this.token, "49", this.timePeriodMap[this.chosenPeriod]).then(
+                res2 => {
+              let trackprev = res['items'].concat(res2["items"]);
+              this.totsongs = trackprev.length;
+              // since we're just trying to get the artists in the top songs, we just loop and count the artists
+              for (let i = 0; i < trackprev.length; i++) {
+                if (this.artists.has(trackprev[i].artists[0].name)) {
+                  this.artists.get(trackprev[i].artists[0].name).val++;
+                } else {
+                  this.artists.set(trackprev[i].artists[0].name, {"val": 1, "id": trackprev[i].artists[0].id});
+                }
+              }
+              this.artistList = Array.from(this.artists.keys()).sort();
+              this.searchArtists();
+            })
+          }
+          ).catch((e) => {
+            console.log(e);
+            this.router.navigate(["/"]);
+          });
         }
-        ).catch((e) => {
-          console.log(e);
-          this.router.navigate(["/"]);
-        });
       } else {
         let off = this.off;
         this.spotify.getPlaylistTracks(this.pid, this.token, off.toString()).then(
           res => {
             let trackprev = res["items"];
             this.totsongs = trackprev.length;
-            //console.log(this.totsongs);
             //console.log(trackprev);
             for (let i = 0; i < trackprev.length; i++) {
-              //console.log(trackprev[i].track.artists[0].name)
               if (this.artists.has(trackprev[i].track.artists[0].name)) {
                 this.artists.get(trackprev[i].track.artists[0].name).val++;
               } else {
@@ -229,8 +299,6 @@ export class WelcomeComponent implements OnInit {
               }
             }
             this.artistList = Array.from(this.artists.keys()).sort();
-            //console.log(this.artists);
-            //console.log(this.tracks.length)
             this.searchArtists();
           }
         ).catch((e) => {
@@ -279,6 +347,16 @@ export class WelcomeComponent implements OnInit {
     if (index > -1) {
       this.config["excludeArtists"].splice(index, 1);
       this.totsongs += this.artists.get(name).val;
+    }
+  }
+
+  toAnalysis() {
+    if (this.answered == "yes") {
+      this.router.navigate(["/analysis", this.username]);
+    } else if (this.token != null && this.token != "") {
+      this.router.navigate(["/survey"]);
+    } else {
+      this.router.navigate(["/analysis"]);
     }
   }
 }

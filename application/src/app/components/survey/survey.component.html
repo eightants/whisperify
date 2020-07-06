@@ -1,6 +1,7 @@
 <div class="container">
+  <app-navbar></app-navbar>
     <h1 class="sec-title">Survey</h1>
-    <div class="register-item">
+    <div class="register-item options-pad survey-pad">
       <form #surveyForm="ngForm" class="form" (ngSubmit)="onSubmit()">
         <div class="form-field">
               <h2>Which of the following is most important for you in a song?</h2>
@@ -83,7 +84,7 @@
             </ul>
       </div>
 
-        <div class="form-field">
+        <div class="form-field btn-div">
           <input class="btn clr-wgreen form-btn" type="submit" value="Submit" [disabled]="!validRes()">
           <button class="btn form-btn" routerLink="/results">Back</button>
         </div>

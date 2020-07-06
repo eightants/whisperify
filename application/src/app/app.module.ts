@@ -18,6 +18,10 @@ import { TracksComponent } from './components/tracks/tracks.component';
 import { SurveyComponent } from './components/survey/survey.component';
 import { MultchoiceComponent } from './components/quiz/multchoice/multchoice.component';
 import { ChallengeComponent } from './components/challenge/challenge.component';
+import { AnalysisComponent } from './components/analysis/analysis.component';
+import { RadarChartComponent } from './components/analysis/radar-chart/radar-chart.component';
+import { DotPlotComponent } from './components/analysis/dot-plot/dot-plot.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,10 @@ import { ChallengeComponent } from './components/challenge/challenge.component';
     SurveyComponent,
     MultchoiceComponent,
     ChallengeComponent,
+    AnalysisComponent,
+    RadarChartComponent,
+    DotPlotComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

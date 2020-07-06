@@ -10,6 +10,7 @@ import { TracksComponent } from './components/tracks/tracks.component';
 import { SurveyComponent } from './components/survey/survey.component';
 import { AboutComponent } from './components/about/about.component';
 import { ChallengeComponent } from './components/challenge/challenge.component';
+import { AnalysisComponent } from './components/analysis/analysis.component';
 
 
 
@@ -24,14 +25,16 @@ const routes: Routes = [
   { path: 'results', component: ScoreComponent}, 
   { path: 'results/:code', component: ScoreComponent},
   { path: 'no-info', component: NoInfoComponent}, 
-  { path: 'tracks', component: TracksComponent}, 
+  { path: 'top', component: TracksComponent}, 
   { path: 'about', component: AboutComponent}, 
   { path: 'survey', component: SurveyComponent}, 
+  { path: 'analysis', component: AnalysisComponent},
+  { path: 'analysis/:code', component: AnalysisComponent},
   { path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

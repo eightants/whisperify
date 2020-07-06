@@ -15,6 +15,7 @@
 }
 
 .navi-btn {
+    z-index: 50;
     position: fixed;
     bottom: 10px;
     right: 3%;
@@ -23,6 +24,30 @@
     height: 50px;
 }
 
+.create-p {
+    z-index: 50;
+    position: fixed;
+    bottom: 10px;
+    right: calc(3% + 65px);
+}
+
+.chart-tabs {
+    width: 100%;
+    text-align: center;
+
+    div {
+        display: inline-block;
+        width: calc(50% - 20px);
+        max-width: 160px;
+        margin: 20px 10px 30px 10px;
+    }
+}
+
+.artist-card {
+    img {
+        width: 20px!important;
+    }
+}
 
 .flavor-text {
     margin-top: 4%;
@@ -94,48 +119,9 @@
 
 .h-option {
     width: 45%;
+    margin: 20px 0px 10px 0px;
     display: inline-block;
     text-align: left;
-}
-
-.create-p {
-    width: 50%;
-    text-align: right;
-}
-
-.sel-option {
-    min-width: 200px;
-	font-size: 16px;
-	color: #d4d4d4;
-	padding: 12px 40px 12px 20px;
-    box-sizing: border-box;
-    border-radius: 5px;
-	margin: 0;
-    border: 1px solid #d4d4d4;
-    -moz-appearance: none;
-	-webkit-appearance: none;
-    appearance: none;
-    background-color: #2e2e2e;
-	background-image: url('/assets/dd.svg');
-	background-repeat: no-repeat, repeat;
-	background-position: right .7em top 50%, 0 0;
-	background-size: .65em auto, 100%;
-}
-.sel-option::-ms-expand {
-	display: none;
-}
-.sel-option:hover {
-    border-color: #fff;
-    cursor: pointer;
-}
-.sel-option:focus {
-	border: 1px solid #fff;
-	color: #c4c4c4;
-	outline: none;
-}
-.sel-option option {
-    border: 1px solid #d4d4d4;
-	font-weight:normal;
 }
 
 .bg-arrow {
@@ -159,7 +145,7 @@
 @media (max-width: 768px) {
     h1 {
         width: 15%;
-        margin-top: 30%;
+        margin-top: 20%;
     }
 
     .track-card {
@@ -194,26 +180,39 @@
         margin-left: 2%;
     }
 
+    .artist-card {
+        img {
+            width: 20px!important;
+        }
+    }
+
     .h-option {
         width: 100%;
+        padding: 10px 10px;
         text-align: left;
 
         .sel-option {
-            width: 80%;
+            width: 100%;
+            max-width: 250px;
         }
     }
 
     .row-option {
         width: 100%;
     }
-    
+
     .create-p {
         width: 100%;
+        left: 0;
+        right: 0;
         text-align: center;
+
+        button {
+            width: auto;
+        }
     }
 
     .sec-title {
-        font-size: 56px;
         margin-left: 10px;
         margin-bottom: 0px;
     }
