@@ -38,9 +38,9 @@
             <h3>You know your music!</h3>
             <p>Your score is higher than {{percent}}% of users who tried Whisperify. </p>
         </div>
-        <a class="link-mask" routerLink="/survey"><div class="flavor-card">
-            <h3>Help improve Whisperify</h3>
-            <p>Answer a few questions here to help us provide a better analysis!</p>
+        <a class="link-mask" (click)="toAnalysis()"><div class="flavor-card hoverhands">
+            <h3>Your Audio Analysis</h3>
+            <p>View an analysis of your listening preferences, visualize albums, and compare worldwide data. </p>
         </div></a>
         <a class="link-mask" routerLink="/top"><div class="flavor-card">
             <h3>View My Favourites</h3>

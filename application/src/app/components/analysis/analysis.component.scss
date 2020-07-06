@@ -3,6 +3,21 @@ $addfieldclr: #2e2e2e;
 .stats-pad {
     max-width: 1080px;
     padding-bottom: 24px;
+    margin-bottom: 20px;
+}
+
+
+.config-div {
+    text-align: right;
+    margin: auto;
+
+    .navi-btn {
+        padding: 12px 12px 15px 12px;
+        width: 50px;
+        height: 50px;
+        margin-top: 0px;
+
+    }
 }
 
 .login-pad {
@@ -118,17 +133,18 @@ $addfieldclr: #2e2e2e;
     margin-left: 10px;
 }
 
-.visibility-icon {
-    width: 15px;
-    height: 15px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    filter: invert(1);
-    opacity: 0.4;
+.empty-icon {
+    opacity: 0!important;
 }
 
-.visibility-icon:hover {
+.visibility-icon {
+    width: 100%;
+    max-height: 100%;
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+button:hover .visibility-icon {
     opacity: 1;
     cursor: pointer;
 }
@@ -386,10 +402,8 @@ button:disabled:hover {
         text-align: center;
     }
 
-    .sec-title {
-        font-size: 56px;
-        margin-left: 10px;
-        margin-bottom: 0px;
+    .sec-p {
+        font-size: 16px;
     }
 
     .flavor-card {
@@ -398,6 +412,7 @@ button:disabled:hover {
 
     .legend-div {
         width: 100%;
+        min-width: 0px;
     
         .legend-space {
             min-height: 0px;

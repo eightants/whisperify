@@ -28,7 +28,7 @@ export class RadarChartComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
+    //console.log(changes)
     if (this.config && this.data) {
       RadarChart("#" + this.inputId, this.data, this.config);
     }

@@ -1,11 +1,5 @@
 <div class="main-div">
-    <div class="nav-bar">
-        <button routerLink="/welcome" class="btn nav-btn-c"><img id='menu' src="assets/menu.svg"></button>
-        <button (click)="toAnalysis()" class="btn nav-btn-c"><img src="assets/radar.svg"></button>
-        <button routerLink="/top" class="btn nav-btn-c"><img src="assets/star.svg"></button>
-        <button routerLink="/about" class="btn no-mobile-inline">About</button>
-        <button routerLink="/about" class="btn nav-btn-c mobile-inline"><img src="assets/info.svg"></button>
-    </div>
+    <app-navbar></app-navbar>
     <div class="main-text">
         <p class="main-desc welcome-desc">{{titleText}}</p>
     </div>

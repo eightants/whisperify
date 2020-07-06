@@ -70,13 +70,18 @@ export class WelcomeComponent implements OnInit {
       excludeArtists: [], 
       multChoice: false
     }
-    this.getSongsAndPostToDB();
+    let redirect = sessionStorage.getItem("redirect");
+    if (redirect == "analysis") {
+      this.router.navigate(["/analysis"]);
+    }
+    if (this.token != "" && this.token != null) {
+      this.getSongsAndPostToDB();
+    }
   }
 
   getSongsAndPostToDB() {
     // checks that token is present and we haven't already sent this user to DB
     if (this.token != "" && this.token != null && this.username=="") {
-      console.log(this.token, this.username)
       this.spotify.getTracks(this.token, "0", "medium_term").then(
         res => {
           this.spotify.getTracks(this.token, "49", "medium_term").then(
@@ -140,7 +145,6 @@ export class WelcomeComponent implements OnInit {
     // get playlists
       this.spotify.getPlaylists(this.token, count.toString()).then(
         res => {
-          //console.log(res);
           for (let i = 0; i < res["items"].length; i++) {
             if (res["items"][i].tracks.total >= 30) {
               this.playlists.push(res["items"][i]);
@@ -180,7 +184,6 @@ export class WelcomeComponent implements OnInit {
   }
   
   selectPlaylist(p) {
-    //console.log(p.id);
     this.pid = p.id;
     sessionStorage.setItem("pid", p.id);
     this.psize = p.tracks.total;
@@ -243,7 +246,6 @@ export class WelcomeComponent implements OnInit {
     // get playlist or top tracks depending on the selection
     if (this.artistList.length <= 0) {
       if (sessionStorage.getItem("choice") == "top") {
-        console.log(this.timePeriodMap[this.chosenPeriod])
         if (this.timePeriodMap[this.chosenPeriod] == "medium_term" && this.tracks.length>0) {
           let trackprev = this.tracks;
             this.totsongs = trackprev.length;
@@ -264,7 +266,6 @@ export class WelcomeComponent implements OnInit {
               this.spotify.getTracks(this.token, "49", this.timePeriodMap[this.chosenPeriod]).then(
                 res2 => {
               let trackprev = res['items'].concat(res2["items"]);
-              console.log(trackprev)
               this.totsongs = trackprev.length;
               // since we're just trying to get the artists in the top songs, we just loop and count the artists
               for (let i = 0; i < trackprev.length; i++) {
@@ -275,7 +276,6 @@ export class WelcomeComponent implements OnInit {
                 }
               }
               this.artistList = Array.from(this.artists.keys()).sort();
-              console.log(this.artistList);
               this.searchArtists();
             })
           }
@@ -290,10 +290,8 @@ export class WelcomeComponent implements OnInit {
           res => {
             let trackprev = res["items"];
             this.totsongs = trackprev.length;
-            //console.log(this.totsongs);
             //console.log(trackprev);
             for (let i = 0; i < trackprev.length; i++) {
-              //console.log(trackprev[i].track.artists[0].name)
               if (this.artists.has(trackprev[i].track.artists[0].name)) {
                 this.artists.get(trackprev[i].track.artists[0].name).val++;
               } else {
@@ -301,8 +299,6 @@ export class WelcomeComponent implements OnInit {
               }
             }
             this.artistList = Array.from(this.artists.keys()).sort();
-            //console.log(this.artists);
-            //console.log(this.tracks.length)
             this.searchArtists();
           }
         ).catch((e) => {

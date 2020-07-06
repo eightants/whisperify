@@ -27,6 +27,8 @@
         <div class="fav-container" *ngIf="chosenType=='Artists'">
             <div class="artist-container">
                 <div class="artist-card">
+                    <span class="popularity-tip" *ngIf="showPopTip">Average popularity of your top artists from scores provided by Spotify</span>
+                    <img src="assets/help2.svg" (mouseenter) ="showPopTip=true "  (mouseleave) ="showPopTip=false">
                     <div><span>{{ calculatePopularity(artists) }}</span></div>
                     <h3>Popularity</h3>
                 </div>

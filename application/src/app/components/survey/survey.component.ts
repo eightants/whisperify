@@ -35,6 +35,7 @@ export class SurveyComponent implements OnInit {
 
   onSubmit() { 
     this.submitted = true; 
+    sessionStorage.setItem("answered", "yes");
     this.spotify.addEntry(this.model);
     this.router.navigate(["/analysis"]);
   }

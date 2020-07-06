@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {MAINURL} from '../../globals'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
-  tracksUrl = 'http://localhost:8888/api/tracks';
-  mainUrl = "http://localhost:8888/";
-  //mainUrl = 'https://whisperify.net/';
+  mainUrl = MAINURL;
 
   getTracks(token, offset, term) {
     return this.http.get('https://api.spotify.com/v1/me/top/tracks?time_range=' + term + '&limit=50&offset=' + offset, {headers: { 'Authorization': 'Bearer ' + token }})

@@ -227,6 +227,17 @@ export class ScoreComponent implements OnInit {
     }
   }
 
+  toAnalysis() {
+    var token = sessionStorage.getItem("token");
+    if (sessionStorage.getItem("answered") == "yes") {
+      this.router.navigate(["/analysis", sessionStorage.getItem("username")]);
+    } else if (token != null && token != "") {
+      this.router.navigate(["/survey"]);
+    } else {
+      this.router.navigate(["/analysis"]);
+    }
+  }
+
   ngOnDestroy() {
     this.urlchange.unsubscribe();
   }

@@ -43,6 +43,11 @@
     }
 }
 
+.artist-card {
+    img {
+        width: 20px!important;
+    }
+}
 
 .flavor-text {
     margin-top: 4%;
@@ -175,6 +180,12 @@
         margin-left: 2%;
     }
 
+    .artist-card {
+        img {
+            width: 20px!important;
+        }
+    }
+
     .h-option {
         width: 100%;
         padding: 10px 10px;
@@ -202,7 +213,6 @@
     }
 
     .sec-title {
-        font-size: 56px;
         margin-left: 10px;
         margin-bottom: 0px;
     }

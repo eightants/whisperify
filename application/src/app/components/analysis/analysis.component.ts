@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import { SpotifyService } from '../services/spotify.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {COUNTRY_TO_CODE, COUNTRIES, PERSONALITIES, FEATURES_DESC} from '../../globals'
+import {COUNTRY_TO_CODE, COUNTRIES, PERSONALITIES, FEATURES_DESC, MAINURL} from '../../globals'
 
 function findKey(arr, key, category) {
   var retObj = null;
@@ -80,9 +80,10 @@ export class AnalysisComponent implements OnInit {
   inputFieldVal = "";
   nameFieldVal="";
   chartTypes = ["Dot", "Radar","Multi"];
-  chosenChart = "Dot";
+  chosenChart = "Radar";
   editLabel=-1;
   showTools=true;
+  showPopTip=false;
   userGraphLimit=32;
 
   constructor(private spotify:SpotifyService, private router:Router, private route:ActivatedRoute) { }
@@ -132,6 +133,7 @@ export class AnalysisComponent implements OnInit {
       chartType: "multi"
     }
     // get spotify token
+    sessionStorage.setItem("redirect", "");
     this.token = sessionStorage.getItem("token");
     // if user visits /analysis/:spotifyuserid, the user id is parsed and a graph is plotted for that user id
     this.urlchange = this.route.params.subscribe(params => {
@@ -162,6 +164,7 @@ export class AnalysisComponent implements OnInit {
         if (this.token == "" || this.token == null) {
           this.userGraphLimit = 16;
         } else {
+          //console.log(this.token)
           // grabs listening activity from Spotify
           this.spotify.getTracks(this.token, "0", "medium_term").then(
             res => {
@@ -173,6 +176,7 @@ export class AnalysisComponent implements OnInit {
             }
           ).catch((e) => {
             console.log(e);
+            sessionStorage.setItem("token", "");
           });
         }
       }
@@ -183,11 +187,17 @@ export class AnalysisComponent implements OnInit {
       this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res[0], featuresToAdd)));
       this.graphTitles.push("Global")
       this.updateGraph();
+      this.isLoaded = true;
+    }).catch((e) => {
+      console.log(e);
     });
 
     /*
     OTHER SPOTIFY CALLS
     */
+    if (this.token == "" || this.token == null) {
+      this.userGraphLimit = 16;
+    } else {
       // get top artists and genres
       this.spotify.getArtists(this.token, "0", "long_term").then(
         res => {
@@ -213,11 +223,12 @@ export class AnalysisComponent implements OnInit {
           this.genres.sort(function(a, b) {
               return b[1] - a[1];
           });
-          console.log(this.genres);
+          //console.log(this.genres);
         }
       ).catch((e) => {
         console.log(e);
       });
+    }
   }
 
   buildColor(arr) {
@@ -328,7 +339,7 @@ export class AnalysisComponent implements OnInit {
     this.spotify.getUserAudioFeatures(this.token, songIds).then(
       feat => {
         let averageFeatures = feat["audio_features"][0];
-        console.log(averageFeatures);
+        //console.log(averageFeatures);
         for (let i = 1; i < feat["audio_features"].length; i++) {
           for (let j = 0; j < featuresToAdd.length; j++) {
             averageFeatures[featuresToAdd[j]] += feat["audio_features"][i][featuresToAdd[j]];
@@ -337,7 +348,7 @@ export class AnalysisComponent implements OnInit {
         for (let j = 0; j < featuresToAdd.length; j++) {
           averageFeatures[featuresToAdd[j]] /= feat["audio_features"].length;
         }
-        console.log(averageFeatures);
+        //console.log(averageFeatures);
         this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(averageFeatures, featuresToAdd)));
         this.graphTitles.push("You");
         this.updateGraph();
@@ -392,5 +403,10 @@ export class AnalysisComponent implements OnInit {
     }
     //console.log(featureObject)
     return featureObject;
+  }
+
+  analysisLogin() {
+    sessionStorage.setItem("redirect", "analysis");
+    document.location.href = MAINURL + "login";
   }
 }

@@ -44,6 +44,7 @@ for user in cursors:
     """
     audioinfo = sp.audio_features(songlist)
     ## build data object
+    '''
     dataObj = {
         "_id": username, 
         "acousticness": round(np.mean([a["acousticness"] for a in audioinfo if a is not None]), 3),
@@ -58,10 +59,20 @@ for user in cursors:
         "country": usercountry,
         "score": user.get("score"), 
         "name": user.get("name"), 
+        "attempts": user.get("attempts") if user.get("attempts") is not None else 3, 
+        "tracks": songlist, 
+        "time": user.get("time") if user.get("time") is not None else 420
     }
+    '''
+    dataObj = {
+        "_id": username, 
+        "tracks": songlist if len(songlist) > 0 else "error", 
+    }
+    records.update_one({"_id": dataObj["_id"]}, {"$set": dataObj}, upsert=True)
     """
     Checks if that user had submitted a response for the personality survey
     """
+    '''
     svrecords = db.responses
     survey = {}
     matches = svrecords.count_documents({"_id": username})
@@ -73,8 +84,9 @@ for user in cursors:
         dataObj["sn"] = survey["sn"]
         dataObj["tf"] = survey["tf"]
         dataObj["song"] = survey["song"]
+    '''
     ## Post to new dataset db
-    dataset.update_one({"_id": dataObj["_id"]}, {"$set": dataObj}, upsert=True)
+    ##dataset.update_one({"_id": dataObj["_id"]}, {"$set": dataObj}, upsert=True)
 
 print("completed")
 
@@ -82,8 +94,9 @@ print("completed")
 '''
 CODE to fix NaN entries (need to change db submission code to ensure that tracks are actually submitted)
 '''
-"""
+'''
 invalid = dataset.find({"acousticness": np.nan})
+print(dataset.count_documents( {"acousticness": np.nan} ))
 dataObj = {
         "acousticness": 0.3,
         "danceability": 0.3,
@@ -93,8 +106,8 @@ dataObj = {
         "speechiness": 0.3,
         "tempo": 0.3, 
         "loudness": 0.3,
-
+        "instrumentalness": 0.3
     }
 for iv in invalid:
     dataset.update_one({"_id": iv.get("_id")}, {"$set": dataObj}, upsert=True)
-"""
+'''

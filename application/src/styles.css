@@ -99,15 +99,25 @@ h1, h2, h3, h4, h5 {
     text-transform: lowercase;
     padding: 5px;
     font-size: 1.2em; }
+  .nav-bar #info-icon {
+    margin: 10%;
+    width: 80%;
+    height: 80%;
+    filter: invert(0.8); }
+  .nav-bar #docs-icon {
+    margin: 5%;
+    width: 90%;
+    height: 90%; }
   .nav-bar .nav-btn-c {
     width: 50px;
     height: 50px;
     overflow: hidden;
-    padding: 10px 10px 12px 10px;
+    padding: 10px 10px 10px 10px;
     margin: 20px 10px; }
     .nav-bar .nav-btn-c img {
       width: 100%;
       opacity: 0.8;
+      max-height: 100%;
       transition: none; }
 
 .switch {
@@ -384,6 +394,13 @@ input:checked + .slider:before {
   margin-top: 35px;
   margin-bottom: 35px; }
 
+.sec-p {
+  max-width: 640px;
+  width: 100%;
+  font-size: 18px;
+  margin-bottom: 40px;
+  opacity: 0.9; }
+
 .main-desc {
   font-size: 24px; }
 
@@ -455,7 +472,27 @@ a .mode-card:hover {
   border-radius: 20px;
   padding: 20px;
   margin: 10px;
-  width: calc(33% - 20px); }
+  width: calc(33% - 20px);
+  position: relative; }
+  .artist-card img {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    filter: invert(0.5); }
+  .artist-card img:hover {
+    filter: invert(1);
+    cursor: pointer; }
+  .artist-card .popularity-tip {
+    background: #191919;
+    z-index: 30;
+    border-radius: 5px;
+    padding: 10px 20px;
+    position: absolute;
+    width: 100%;
+    top: -5px;
+    font-size: 0.8em;
+    right: 50px; }
   .artist-card div {
     position: relative;
     margin: 10px;
@@ -604,6 +641,9 @@ Waves Animation
   .offset-2 {
     margin: 0px !important; }
 
+  .sec-title {
+    font-size: 54px; }
+
   .main-title {
     font-size: 54px; }
 
@@ -714,7 +754,6 @@ Waves Animation
       width: 50px;
       height: 50px;
       overflow: hidden;
-      padding: 10px 10px 12px 10px;
       margin: 20px 10px; }
       .nav-bar .nav-btn-c img {
         width: 100%;

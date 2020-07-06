@@ -24,4 +24,13 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  toMenu() {
+    var token = sessionStorage.getItem("token");
+    if (token != null && token != "") {
+      this.router.navigate(["/welcome"]);
+    } else {
+      this.router.navigate(["/"]);
+    }
+  }
+
 }
