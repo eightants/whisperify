@@ -2,7 +2,7 @@
     <app-navbar></app-navbar>
     <h1 class="sec-title">Analysis</h1>
     <p class="sec-p">
-        The most complete dashboard for Spotify stats. Visualize audio features of Spotify users from over 70 contries and the 16 Meyer-Briggs personalities, try analysing your favourite albums, or view a breakdown of your friends' listening habits! 
+        The most complete dashboard for Spotify stats. Visualize audio features of Spotify users from over 70 countries and the 16 Meyer-Briggs personalities, try analysing your favourite albums, or view a breakdown of your friends' music tastes! 
     </p>
     <div class="chart-tabs">
         <div *ngFor="let c of chartTypes" [ngClass]="{'no-mobile': c=='Multi'}"><button class="tab-btn" [ngClass]="{'selected-tab-btn': chosenChart==c}" (click)="chosenChart=c">{{c}}</button></div>
@@ -21,6 +21,7 @@
                     <div>
                         <app-dot-plot [inputId]="'dotplot' + i" [data]="[d]" [config]="dotChartConfig" [changed]="changed"></app-dot-plot>
                     </div>
+                    <span>{{ d[graphTitles[selectedPlot]].toFixed(3)}}</span>
                 </div>
                 <p>{{featuresDesc[d['group']]}}</p>
             </div>
@@ -32,7 +33,7 @@
                     <div class="legend-colors">
                         <div *ngFor="let item of chartData; index as i">
                             <div class="legend-item" *ngIf="i != 0">
-                                <div class="graph-color" [ngStyle]="{'background-color': graphColors[i]}"></div> 
+                                <div class="graph-color hoverhands" [ngStyle]="{'background-color': graphColors[i]}" (click)="selectedPlot=i"><div *ngIf="selectedPlot==i && showTools && chosenChart=='Dot'"></div></div> 
                                 <span *ngIf="editLabel!=i">{{graphTitles[i]}}</span>
                                 <input class="edit-label" type="text" [(ngModel)]="nameFieldVal" value="{{ nameFieldVal }}" *ngIf="editLabel==i"> 
                                 <img class="delete-graph spacing-icon" *ngIf="showTools&&editLabel!=i" (click)="editName(i)" alt="edit icon to edit graph name" src="assets/edit.svg"/>
@@ -143,5 +144,8 @@
                 <h3>{{ capitalize(g[0]) }}</h3>
             </div>
         </div>
+    </div>
+    <div class="error-popup" *ngIf="errorShow">
+        <div (click)="errorShow=false">{{errorText}}</div>
     </div>
 </div>

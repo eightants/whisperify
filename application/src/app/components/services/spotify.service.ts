@@ -88,15 +88,19 @@ export class SpotifyService {
   }
 
   getUserAnalysis(username) {
-    return this.http.get(this.mainUrl + "api/getanalysis/" + username).toPromise();
+    return this.http.get(this.mainUrl + "api/features/user/" + username).toPromise();
   }
 
   getGroupAnalysis(category) {
-    return this.http.get(this.mainUrl + "api/getgroupanalysis/" + category).toPromise();
+    return this.http.get(this.mainUrl + "api/features/group/" + category).toPromise();
   }
 
-  getAlbumAnalysis(id) {
+  getAlbumAnalysisGuest(id) {
     return this.http.get(this.mainUrl + "api/getalbumfeatures/" + id).toPromise();
+  }
+
+  getAlbumAnalysis(id, token) {
+    return this.http.get(this.mainUrl + "api/features/album/" + id + "/" + token).toPromise();
   }
 
   constructor(private http: HttpClient) { }

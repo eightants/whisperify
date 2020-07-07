@@ -187,6 +187,7 @@ export class WelcomeComponent implements OnInit {
     this.pid = p.id;
     sessionStorage.setItem("pid", p.id);
     this.psize = p.tracks.total;
+    this.totsongs = this.psize;
     sessionStorage.setItem("psize", p.tracks.total);
     sessionStorage.setItem("choice", "playlist");
     if (p.tracks.total > 100) {

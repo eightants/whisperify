@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import { SpotifyService } from '../services/spotify.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {COUNTRY_TO_CODE, COUNTRIES, PERSONALITIES, FEATURES_DESC, MAINURL} from '../../globals'
+import {COUNTRY_TO_CODE, COUNTRIES, PERSONALITIES, FEATURES_DESC, MAINURL} from '../../globals';
 
 function findKey(arr, key, category) {
   var retObj = null;
@@ -85,6 +85,9 @@ export class AnalysisComponent implements OnInit {
   showTools=true;
   showPopTip=false;
   userGraphLimit=32;
+  selectedPlot=1;
+  errorText="Error";
+  errorShow = false;
 
   constructor(private spotify:SpotifyService, private router:Router, private route:ActivatedRoute) { }
 
@@ -292,8 +295,9 @@ export class AnalysisComponent implements OnInit {
         });
       }
     } else if (this.chosenType == "Album") {
+      // Gets album features from Spotify with user token if exists, or with backend if guest
       var urlSplit = this.inputFieldVal.split("/");
-      var albumID = ""
+      var albumID = urlSplit[0];
       for (var i = 0; i < urlSplit.length; i++) {
         if (urlSplit[i] == "album") {
           albumID = urlSplit[i+1];
@@ -301,14 +305,22 @@ export class AnalysisComponent implements OnInit {
         }
       }
       this.inputFieldVal = "";
-      this.spotify.getAlbumAnalysis(albumID).then((res) => {
-        this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res["features"], featuresToAdd)));
-        this.graphTitles.push(res["title"])
-        this.updateGraph();
-      })
+      if (this.token == "" || this.token == null) {
+        this.spotify.getAlbumAnalysisGuest(albumID).then((res) => {
+          this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res["features"], featuresToAdd)));
+          this.graphTitles.push(res["title"])
+          this.updateGraph();
+        })
+      } else {
+        this.spotify.getAlbumAnalysis(albumID, this.token).then((res) => {
+          this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res["features"], featuresToAdd)));
+          this.graphTitles.push(res["title"])
+          this.updateGraph();
+        })
+      }
     } else if (this.chosenType == "User") {
       var urlSplit = this.inputFieldVal.split("/");
-      var userID = ""
+      var userID = urlSplit[0];
       for (var i = 0; i < urlSplit.length; i++) {
         if (urlSplit[i] == "user") {
           userID = urlSplit[i+1];
@@ -317,9 +329,13 @@ export class AnalysisComponent implements OnInit {
       }
       this.inputFieldVal = "";
       this.spotify.getUserAnalysis(userID).then((res)=> {
-          this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res, featuresToAdd)));
-          this.graphTitles.push(userID)
-          this.updateGraph();
+          if (res != null) {
+            this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res, featuresToAdd)));
+            this.graphTitles.push(userID)
+            this.updateGraph();
+          } else {
+            this.errorPopup("This user is not on Whisperify. Invite them to join Whisperify to compare your music tastes!")
+          }
       });
     }
   }
@@ -403,6 +419,13 @@ export class AnalysisComponent implements OnInit {
     }
     //console.log(featureObject)
     return featureObject;
+  }
+
+  errorPopup(text) {
+    this.errorText = text;
+    this.errorShow= true;
+    var _this = this;
+    setTimeout(function () { _this.errorShow = false }, 5000);
   }
 
   analysisLogin() {

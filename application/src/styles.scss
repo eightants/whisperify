@@ -433,7 +433,7 @@ font-weight:normal;
 }
 
 .sq-btn {
-  border-radius: 5px;
+  border-radius: 5px!important;
   margin: 10px 10px 20px 0px;
   padding: 12px 20px;
 }
@@ -809,7 +809,8 @@ Waves Animation
   }
 
   .btn {
-    width: calc(80% - 40px);
+    max-width: 300px;
+    width: calc(100% - 40px);
     margin: 5px 20px;
   }
 
