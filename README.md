@@ -14,7 +14,7 @@ An interactive way to learn about your favourite songs on Spotify. Quiz yourself
 
 Whisperify chooses 10 songs from your top tracks or a playlist on Spotify, and plays you 5-second snippets, or 'whispers', of each song. You then get time to guess the song and get scored on your speed and accuracy. 
 
-Whisperify Analysis
+Whisperify Analysis is the most complete visualization dashboard for Spotify audio features. Compare your listening habits with Spotify users from over 70 countries and the 16 Meyer-Briggs personalities, try analysing your favourite albums, or view a breakdown of your friends' tastes. 
 
 Whisperify is built with Angular, NodeJS, and hosted on Vercel with a MongoDB database. 
 
