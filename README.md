@@ -14,6 +14,8 @@ An interactive way to learn about your favourite songs on Spotify. Quiz yourself
 
 Whisperify chooses 10 songs from your top tracks or a playlist on Spotify, and plays you 5-second snippets, or 'whispers', of each song. You then get time to guess the song and get scored on your speed and accuracy. 
 
+Whisperify Analysis
+
 Whisperify is built with Angular, NodeJS, and hosted on Vercel with a MongoDB database. 
 
 ## Pre-release Notes
@@ -27,3 +29,11 @@ Whisperify is built with Angular, NodeJS, and hosted on Vercel with a MongoDB da
 * Brand new features to learn even more about your listening habits
 
 To prioritise the development of any of these features, start a discussion on r/whisperify. 
+
+## Public API
+As an open-source project, Whisperify is dedicated to give back. A public API is currently under works to provide endpoints to access audio feature analysis for Spotify users in over 70 countries and 16 personalities. Other endpoints are wrappers for the Spotify API combined with Whisperify's features: getting audio features for an album, getting clusters of genres for a user or artist, getting a recreated taste profile of a user. 
+
+Current available endpoints are below. Base URL: `https://whisperify.net/api`
+* GET `/api/features/group/:category` will provide audio analysis for a group of users. Current supported categories are `all`, `country`, and `personality`. The plan is to allow more fine grain queries for specific countries and personalities. 
+* GET `/api/features/user/:username` will provide audio analysis for a user if they are on Whisperify. 
+* GET `/api/features/album/:album_id/:token` will provide audio analysis for an album on Spotify. `album_id` is the Spotify `id` of the album and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 

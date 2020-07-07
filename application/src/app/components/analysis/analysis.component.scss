@@ -16,7 +16,6 @@ $addfieldclr: #2e2e2e;
         width: 50px;
         height: 50px;
         margin-top: 0px;
-
     }
 }
 
@@ -26,6 +25,26 @@ $addfieldclr: #2e2e2e;
 
     h1, h2, p, div {
         text-align: center;
+    }
+}
+
+.error-popup {
+    z-index: 100;
+    position: fixed;
+    bottom: 20px;
+    right: 0;
+    left: 0;
+    padding: 0px 10px;
+
+    div {
+        width: 100%;
+        max-width: 420px;
+        overflow: hidden;
+        background-color: #CB673C;
+        border-radius: 10px;
+        padding: 15px 25px 15px 25px;
+        margin: auto;
+        text-align: left;
     }
 }
 
@@ -197,6 +216,14 @@ button:hover .visibility-icon {
     border-radius: 20px;
     margin-right: 15px;
     display: inline-block;
+
+    div {
+        margin: 4px;
+        width: 7px;
+        height: 7px;
+        background-color: $addfieldclr;
+        border-radius: 20px;
+    }
 }
 
 .flavor-card {
@@ -240,9 +267,17 @@ button:hover .visibility-icon {
         vertical-align: top;
     }
     div {
-        width: calc(100% - 150px);
+        width: calc(100% - 200px);
         padding-top: 20px;
         display: inline-block;
+    }
+    span {
+        width: 50px;
+        display: inline-block;
+        padding-top: 15px;
+        vertical-align: top;
+        font-size: 14px;
+        opacity: 0.8;
     }
 }
 
@@ -434,9 +469,12 @@ button:disabled:hover {
             vertical-align: top;
         }
         div {
-            width: 100%;
+            width: calc(100% - 50px);
             padding-top: 5px;
             display: inline-block;
+        }
+        span {
+            padding-top: 0px;
         }
     }
 

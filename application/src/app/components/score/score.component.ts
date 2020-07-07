@@ -88,7 +88,6 @@ export class ScoreComponent implements OnInit {
             }
           }).catch((e) => {
             console.log(e);
-            this.router.navigate(["/"]);
           });
       } else {
         this.token = sessionStorage.getItem("token");
