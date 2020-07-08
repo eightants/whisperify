@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpotifyService } from '../services/spotify.service';
 import { DatastoreService } from '../services/datastore.service';
+import {allFeaturesToAdd} from '../../globals'
 
 // function for a random int
 function getRandomInt(max) {
@@ -94,13 +95,38 @@ export class WelcomeComponent implements OnInit {
                   sessionStorage.setItem("displayname", this.displayName);
                   sessionStorage.setItem("username", this.username);
                   let songList = this.tracks.map(({ id }) => id);
-                  this.spotify.addEntry({
-                      _id: useres["id"], 
-                      name: useres["display_name"], 
-                      time: Date.now(), 
-                      tracks: songList, 
-                      country: useres["country"],
-                  });
+                  // get audio features for this user
+                  this.spotify.getUserAudioFeatures(this.token, songList).then(
+                    feat => {
+                      let averageFeatures = feat["audio_features"][0];
+                      //console.log(averageFeatures);
+                      for (let i = 1; i < feat["audio_features"].length; i++) {
+                        for (let j = 0; j < allFeaturesToAdd.length; j++) {
+                          averageFeatures[allFeaturesToAdd[j]] += feat["audio_features"][i][allFeaturesToAdd[j]];
+                        }
+                      }
+                      for (let j = 0; j < allFeaturesToAdd.length; j++) {
+                        averageFeatures[allFeaturesToAdd[j]] /= feat["audio_features"].length;
+                      }
+                      //console.log(averageFeatures);
+                      /*this.spotify.addEntry({
+                          _id: useres["id"], 
+                          name: useres["display_name"], 
+                          time: Date.now(), 
+                          tracks: songList, 
+                          country: useres["country"],
+                          ...averageFeatures
+                      });*/
+                      console.log({
+                        _id: useres["id"], 
+                        name: useres["display_name"], 
+                        time: Date.now(), 
+                        tracks: songList, 
+                        country: useres["country"],
+                        ...averageFeatures
+                    });
+                    }
+                  );
                   // checks if they have already answered the survey
                   this.spotify.getUserAnalysis(this.username).then(res => {
                     if (res["ei"]) {
@@ -353,7 +379,7 @@ export class WelcomeComponent implements OnInit {
 
   toAnalysis() {
     if (this.answered == "yes") {
-      this.router.navigate(["/analysis", this.username]);
+      this.router.navigate(["/analysis"]);
     } else if (this.token != null && this.token != "") {
       this.router.navigate(["/survey"]);
     } else {

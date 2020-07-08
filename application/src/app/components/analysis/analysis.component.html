@@ -55,10 +55,10 @@
                     </select>
                 </div>
                 <div class="select-graph">
-                    <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'">
+                    <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'&&chosenType!='Playlist'">
                         <option *ngFor="let t of secondDropdownData" [value]="t">{{chosenType=='Personality' ? t.toUpperCase() : capitalize(t)}}</option>
                     </select>
-                    <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User'">
+                    <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User'||chosenType=='Playlist'">
                 </div>
                 <div><button class="btn mob-top-pad make-playlist graph-btn" (click)="addGraph()" [attr.disabled] = "(this.chartData.length>=this.userGraphLimit) ? 'disabled' : null">Add Graph</button></div>
             </div>
@@ -83,10 +83,10 @@
                         </select>
                     </div>
                     <div class="select-graph">
-                        <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'">
+                        <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'&&chosenType!='Playlist'">
                             <option *ngFor="let t of secondDropdownData" [value]="t">{{chosenType=='Personality' ? t.toUpperCase() : capitalize(t)}}</option>
                         </select>
-                        <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User'">
+                        <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User' ||chosenType=='Playlist'">
                     </div>
                     <div><button class="btn mob-top-pad make-playlist graph-btn" (click)="addGraph()" [attr.disabled] = "(this.chartData.length>=this.userGraphLimit) ? 'disabled' : null">Add Graph</button></div>
                 </div>
@@ -140,6 +140,7 @@
         </div>
         <div class="artist-container">
             <h1>Genres</h1>
+            <p *ngIf="genres.length > 1">Your music spans over {{genres.length}} genres. </p>
             <div class="genre-card" *ngFor="let g of genres.slice(0,8)">
                 <h3>{{ capitalize(g[0]) }}</h3>
             </div>

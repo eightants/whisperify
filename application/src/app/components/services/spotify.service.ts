@@ -103,5 +103,9 @@ export class SpotifyService {
     return this.http.get(this.mainUrl + "api/features/album/" + id + "/" + token).toPromise();
   }
 
+  getPlaylistAnalysis(id, token) {
+    return this.http.get(this.mainUrl + "api/features/playlist/" + id + "/" + token).toPromise();
+  }
+
   constructor(private http: HttpClient) { }
 }

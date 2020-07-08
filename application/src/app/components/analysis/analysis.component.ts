@@ -61,6 +61,7 @@ export class AnalysisComponent implements OnInit {
   tracks = [];
   trackprev= [];
   artists = [];
+  artistSpan = 0;
   popularity;
   genres = [];
   token;
@@ -72,7 +73,7 @@ export class AnalysisComponent implements OnInit {
   countryAnalysis;
   personalityAnalysis;
   allAnalysis = {};
-  dataType = ["Country", "Personality", "Album", "User"];
+  dataType = ["Country", "Personality", "Album", "Playlist", "User"];
   chosenType = "Country";
   sortedCountries = COUNTRIES.sort();
   secondDropdownData = this.sortedCountries;
@@ -140,7 +141,7 @@ export class AnalysisComponent implements OnInit {
     this.token = sessionStorage.getItem("token");
     // if user visits /analysis/:spotifyuserid, the user id is parsed and a graph is plotted for that user id
     this.urlchange = this.route.params.subscribe(params => {
-      let isCode = params["code"] || "";
+      let isCode = params["username"] || "";
       //console.log(isCode)
       if (isCode != "") {
         this.spotify.getUserAnalysis(isCode).then(res=>{
@@ -149,7 +150,7 @@ export class AnalysisComponent implements OnInit {
           this.urlNeed = false;
           this.updateGraph();
           if (this.token == "" || this.token == null) {
-            this.userGraphLimit = 16;
+            this.userGraphLimit = 12;
           } else {
             // grabs listening activity from Spotify
             this.spotify.getTracks(this.token, "0", "medium_term").then(
@@ -165,7 +166,7 @@ export class AnalysisComponent implements OnInit {
         })
       } else {
         if (this.token == "" || this.token == null) {
-          this.userGraphLimit = 16;
+          this.userGraphLimit = 12;
         } else {
           //console.log(this.token)
           // grabs listening activity from Spotify
@@ -175,6 +176,9 @@ export class AnalysisComponent implements OnInit {
               this.tracks = this.trackprev;
               this.isLoaded = true;
               let songIds = this.tracks.map(({ id }) => id)
+              let artistList = [].concat.apply([], this.tracks.map(({ artists }) => artists));
+              let artistSet = new Set(artistList.map(({ id }) => id));
+              this.artistSpan = artistSet.size;
               this.renderUserAudioFeatures(songIds, featuresToAdd);
             }
           ).catch((e) => {
@@ -199,10 +203,10 @@ export class AnalysisComponent implements OnInit {
     OTHER SPOTIFY CALLS
     */
     if (this.token == "" || this.token == null) {
-      this.userGraphLimit = 16;
+      this.userGraphLimit = 12;
     } else {
       // get top artists and genres
-      this.spotify.getArtists(this.token, "0", "long_term").then(
+      this.spotify.getArtists(this.token, "0", "medium_term").then(
         res => {
           this.artists = res['items']
           // calculate average popularity of artists
@@ -318,6 +322,22 @@ export class AnalysisComponent implements OnInit {
           this.updateGraph();
         })
       }
+    } else if (this.chosenType == "Playlist") {
+      // Gets playlist features from Spotify with user token if exists, or with backend if guest
+      var urlSplit = this.inputFieldVal.split("/");
+      var playlistID = urlSplit[0];
+      for (var i = 0; i < urlSplit.length; i++) {
+        if (urlSplit[i] == "playlist") {
+          playlistID = urlSplit[i+1];
+          break;
+        }
+      }
+      this.inputFieldVal = "";
+      this.spotify.getPlaylistAnalysis(playlistID, this.token).then((res) => {
+          this.chartData.push(this.buildFeatureObject(this.normalizeLowVals(res["features"], featuresToAdd)));
+          this.graphTitles.push(res["title"]);
+          this.updateGraph();
+        });
     } else if (this.chosenType == "User") {
       var urlSplit = this.inputFieldVal.split("/");
       var userID = urlSplit[0];

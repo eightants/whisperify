@@ -14,7 +14,7 @@ function RadarChart(id, data, options) {
 	 maxValue: 0, 			//What is the value that the biggest circle will represent
 	 labelFactor: 1.2, 	//How much farther than the radius of the outer circle should the labels be placed
 	 wrapWidth: 80, 		//The number of pixels after which a label needs to be given a new line
-	 opacityArea: 0.35, 	//The opacity of the area of the blob
+	 opacityArea: 0.15, 	//The opacity of the area of the blob
 	 dotRadius: 4, 			//The size of the colored circles of each blog
 	 opacityCircles: 1, 	//The opacity of the circles of each blob
 	 strokeWidth: 3, 		//The width of the stroke around each blob
@@ -170,11 +170,11 @@ function RadarChart(id, data, options) {
 			//Dim all blobs
 			d3.selectAll(".radarArea")
 				.transition().duration(200)
-				.style("fill-opacity", 0.1); 
+				.style("fill-opacity", 0.05); 
 			//Bring back the hovered over blob
 			d3.select(this)
 				.transition().duration(200)
-				.style("fill-opacity", 0.7);	
+				.style("fill-opacity", 0.5);	
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs

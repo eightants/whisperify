@@ -1,7 +1,7 @@
 'use strict';
 
-//export const MAINURL = "http://localhost:8888/";
-export const MAINURL = 'https://whisperify.net/';
+export const MAINURL = "http://localhost:8888/";
+//export const MAINURL = 'https://whisperify.net/';
 
 export function toAnalysis() {
   var token = sessionStorage.getItem("token");
@@ -22,6 +22,8 @@ export const FEATURES_DESC = {
   "valence": "Tracks with high valence sound more positive or happy, while tracks with low valence sound more sad or angry. ", 
   "liveness": "The presence of audience and other live elements in the track, a higher score means a higher likelihood the track was performed live. "
 }
+
+export const allFeaturesToAdd = ["acousticness", "danceability", "energy", "valence", "liveness", "speechiness", "instrumentalness", "tempo", "loudness"];
 
 export const PERSONALITIES = ["estj", "estp", "esfj", "esfp", "entj", "entp", "enfj", "enfp", "istj", "istp", "isfj", "isfp", "intj", "intp", "infj", "infp"]
 export const COUNTRIES = ["Argentina","Australia","Austria","Bahrain","Belgium","Bolivia","Brazil","Bulgaria","Canada","Chile","Colombia","Costa Rica","Cyprus","Czech Republic","Denmark","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Finland","France","Germany","Greece","Guatemala","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Ireland","Israel","Italy","Japan","Jordan","Kuwait","Latvia","Lithuania","Malaysia","Malta","Mexico","Morocco","Netherlands","New Zealand","Nicaragua","Norway","Oman","Paraguay","Peru","Philippines","Poland","Portugal","Romania","Saudi Arabia","Singapore","Slovakia","South Africa","Spain","Sweden","Switzerland","Taiwan","Thailand","Turkey","United Arab Emirates","United Kingdom","United States","Uruguay","Vietnam"];

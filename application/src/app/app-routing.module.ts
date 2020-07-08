@@ -29,7 +29,8 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent}, 
   { path: 'survey', component: SurveyComponent}, 
   { path: 'analysis', component: AnalysisComponent},
-  { path: 'analysis/:code', component: AnalysisComponent},
+  { path: 'analysis/user/:username', component: AnalysisComponent},
+  { path: 'analysis/plot/:code', component: AnalysisComponent},
   { path: '**', redirectTo: ''}
 ];
 
