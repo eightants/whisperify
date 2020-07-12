@@ -14,7 +14,7 @@ function RadarChart(id, data, options) {
 	 maxValue: 0, 			//What is the value that the biggest circle will represent
 	 labelFactor: 1.2, 	//How much farther than the radius of the outer circle should the labels be placed
 	 wrapWidth: 80, 		//The number of pixels after which a label needs to be given a new line
-	 opacityArea: 0.35, 	//The opacity of the area of the blob
+	 opacityArea: 0.15, 	//The opacity of the area of the blob
 	 dotRadius: 4, 			//The size of the colored circles of each blog
 	 opacityCircles: 1, 	//The opacity of the circles of each blob
 	 strokeWidth: 3, 		//The width of the stroke around each blob
@@ -22,7 +22,9 @@ function RadarChart(id, data, options) {
 	 color: d3.scale.category10(),	//Color function
 	 showAxesLabels: true,
 	 axesLabelsSize: "12px",
-     labelColor: "#414141"
+	 labelColor: "#414141",
+	 backgroundColor: "#2e2e2e", 
+	 blobGlow: true
 	};
 	
 	//Put all of the options into a variable called cfg
@@ -69,11 +71,13 @@ function RadarChart(id, data, options) {
 	/////////////////////////////////////////////////////////
 	
 	//Filter for the outside glow
+	if (cfg.blobGlow) {
 	var filter = g.append('defs').append('filter').attr('id','glow'),
 		feGaussianBlur = filter.append('feGaussianBlur').attr('stdDeviation','2.5').attr('result','coloredBlur'),
 		feMerge = filter.append('feMerge'),
 		feMergeNode_1 = feMerge.append('feMergeNode').attr('in','coloredBlur'),
 		feMergeNode_2 = feMerge.append('feMergeNode').attr('in','SourceGraphic');
+	}
 
 	/////////////////////////////////////////////////////////
 	/////////////// Draw the Circular grid //////////////////
@@ -89,7 +93,7 @@ function RadarChart(id, data, options) {
 		.append("circle")
 		.attr("class", "gridCircle")
 		.attr("r", function(d, i){return radius/cfg.levels*d;})
-		.style("fill", "#2e2e2e")
+		.style("fill", cfg.backgroundColor)
 		.style("stroke", cfg.labelColor)
 		.style("fill-opacity", cfg.opacityCircles)
 
@@ -170,11 +174,11 @@ function RadarChart(id, data, options) {
 			//Dim all blobs
 			d3.selectAll(".radarArea")
 				.transition().duration(200)
-				.style("fill-opacity", 0.1); 
+				.style("fill-opacity", 0.05); 
 			//Bring back the hovered over blob
 			d3.select(this)
 				.transition().duration(200)
-				.style("fill-opacity", 0.7);	
+				.style("fill-opacity", 0.5);	
 		})
 		.on('mouseout', function(){
 			//Bring back all blobs
@@ -190,7 +194,7 @@ function RadarChart(id, data, options) {
 		.style("stroke-width", cfg.strokeWidth + "px")
 		.style("stroke", function(d,i) { return cfg.color(i); })
 		.style("fill", "none")
-		.style("filter" , "url(#glow)");		
+		.style("filter" , cfg.blobGlow ? "url(#glow)":"none");		
 	
 	//Append the circles
 	blobWrapper.selectAll(".radarCircle")

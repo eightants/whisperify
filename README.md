@@ -37,3 +37,4 @@ Current available endpoints are below. Base URL: `https://whisperify.net/api`
 * GET `/api/features/group/:category` will provide audio analysis for a group of users. Current supported categories are `all`, `country`, and `personality`. The plan is to allow more fine grain queries for specific countries and personalities. 
 * GET `/api/features/user/:username` will provide audio analysis for a user if they are on Whisperify. 
 * GET `/api/features/album/:album_id/:token` will provide audio analysis for an album on Spotify. `album_id` is the Spotify `id` of the album and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 
+* GET `/api/features/playlist/:playlist_id/:token` will provide audio analysis for a playlist on Spotify. `playlist_id` is the Spotify `id` of the playlist and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 

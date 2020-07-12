@@ -229,7 +229,7 @@ export class ScoreComponent implements OnInit {
   toAnalysis() {
     var token = sessionStorage.getItem("token");
     if (sessionStorage.getItem("answered") == "yes") {
-      this.router.navigate(["/analysis", sessionStorage.getItem("username")]);
+      this.router.navigate(["/analysis"]);
     } else if (token != null && token != "") {
       this.router.navigate(["/survey"]);
     } else {

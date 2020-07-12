@@ -55,10 +55,10 @@
                     </select>
                 </div>
                 <div class="select-graph">
-                    <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'">
+                    <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'&&chosenType!='Playlist'">
                         <option *ngFor="let t of secondDropdownData" [value]="t">{{chosenType=='Personality' ? t.toUpperCase() : capitalize(t)}}</option>
                     </select>
-                    <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User'">
+                    <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User'||chosenType=='Playlist'">
                 </div>
                 <div><button class="btn mob-top-pad make-playlist graph-btn" (click)="addGraph()" [attr.disabled] = "(this.chartData.length>=this.userGraphLimit) ? 'disabled' : null">Add Graph</button></div>
             </div>
@@ -83,10 +83,10 @@
                         </select>
                     </div>
                     <div class="select-graph">
-                        <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'">
+                        <select class="sel-option" [ngModel]="chosenSecond" (change)="chooseSecond($event.target.value)" *ngIf="chosenType!='Album'&&chosenType!='User'&&chosenType!='Playlist'">
                             <option *ngFor="let t of secondDropdownData" [value]="t">{{chosenType=='Personality' ? t.toUpperCase() : capitalize(t)}}</option>
                         </select>
-                        <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User'">
+                        <input class="exclude-option" placeholder="Enter Spotify URL..." type="text" [(ngModel)]="inputFieldVal" value="{{ inputFieldVal }}" *ngIf="chosenType=='Album'||chosenType=='User' ||chosenType=='Playlist'">
                     </div>
                     <div><button class="btn mob-top-pad make-playlist graph-btn" (click)="addGraph()" [attr.disabled] = "(this.chartData.length>=this.userGraphLimit) ? 'disabled' : null">Add Graph</button></div>
                 </div>
@@ -106,6 +106,25 @@
         <p>Login to view more detailed analytics including your top artists, favorite genres, and a recreation of your Spotify taste profile. The guest graph limit will also be removed, so you can plot more graphs simultaneously. </p>
         <div>
             <a (click)="analysisLogin()"><button class="mob-top-pad btn clr-wgreen">Login With Spotify</button></a>
+        </div>
+    </div>
+    <div class="mob-pad fade-in-up options-pad login-pad" *ngIf="token!=''&&token!=null&&artists.length>5&&genres.length>1&&tracks.length>5">
+        <div class="scaled-div">
+            <div class="custom-scaled">
+                <canvas #toSave id="toSave" class="custom-image-div" width="800px" height="800px"></canvas>
+            </div>
+        </div>
+        <div class="login-right">
+            <h2>Share your music</h2>
+            <p>Your top songs span <strong>{{ artistSpan }}</strong> artists and <strong>{{genres.length}}</strong> genres, with your favourite genre being <strong>{{ genres[0][0]=='pop' ? capitalize(genres[1][0]):capitalize(genres[0][0]) }}</strong> </p>
+            <button (click)="saveImage()" class="mob-top-pad btn clr-wgreen">Save Image</button>
+        </div>
+    </div>
+    <!--IMAGE TO SAVE-->
+    <div class="custom-image-div">
+        <div #radarDraw class="colorizer red-purple">
+            <img id="custom-user-image" src="{{artists[0].images[1].url}}" *ngIf="artists.length > 0 && tracks.length > 0 && genres.length > 0">
+            <app-radar-chart [inputId]="'custom-image-chart'" [data]="personalChart" [config]="imageConfig" [changed]="changed" [graphClr]="'#000000'" (onDone)="generateImage()"></app-radar-chart>
         </div>
     </div>
     <div class="fav-container" *ngIf="token!=''&&token!=null">
