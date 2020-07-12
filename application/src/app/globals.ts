@@ -1,7 +1,7 @@
 'use strict';
 
-export const MAINURL = "http://localhost:8888/";
-//export const MAINURL = 'https://whisperify.net/';
+//export const MAINURL = "http://localhost:8888/";
+export const MAINURL = 'https://whisperify.net/';
 
 export function toAnalysis() {
   var token = sessionStorage.getItem("token");

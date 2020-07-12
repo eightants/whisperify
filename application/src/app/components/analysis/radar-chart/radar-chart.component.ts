@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 
 declare var RadarChart: any;
@@ -14,6 +14,7 @@ export class RadarChartComponent implements OnInit {
   @Input() config: any;
   @Input() changed: any;
   @Input() graphClr: any;
+  @Output() onDone:EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -25,12 +26,13 @@ export class RadarChartComponent implements OnInit {
 
   ngAfterViewInit() {
     RadarChart("#" + this.inputId, this.data, this.config);
+    //this.onDone.emit("generated");
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    //console.log(changes)
     if (this.config && this.data) {
       RadarChart("#" + this.inputId, this.data, this.config);
+      //this.onDone.emit("generated");
     }
   }
 
