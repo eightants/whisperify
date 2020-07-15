@@ -10,6 +10,8 @@
   <img src="https://img.shields.io/endpoint?url=https://whisperify.net/api/countchallenges">
 </p>
 
+<img src="https://i.imgur.com/gMb8Tzj.png" alt="img" align="right" width="250px" style="border-radius: 5px; margin: 0px 30px;" alt="Your music insight">
+
 An interactive way to learn about your favourite songs on Spotify. Quiz yourself on your favourite playlists, create and share quizzes with friends, and compare listening habits through your personalities. 
 
 Whisperify chooses 10 songs from your top tracks or a playlist on Spotify, and plays you 5-second snippets, or 'whispers', of each song. You then get time to guess the song and get scored on your speed and accuracy. 

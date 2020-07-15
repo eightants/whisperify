@@ -142,12 +142,39 @@ input[type=radio]:checked ~ label{
 
     .survey-pad {
       padding: 30px;
-    }
-    h2 {
-      font-size: 1.2em;
+
+      h2 {
+        font-size: 1.2em;
+      }
     }
 
     ul li label{
-      font-size: 1em;
+      padding: 6px 15px 12px 52px;
+      font-size: 0.9em;
     }
+
+    .form-field * {
+      box-sizing: border-box;
+    }
+
+    ul li{
+      width: 100%;
+    }
+
+    .form-btn {
+      width: 100%;
+      margin: 10px 0px;
+    }
+
+  ul li .check{
+    top: 15px;
+    left: 10px;
+  }
+
+  ul li .check::before {
+    height: 7px;
+    width: 7px;
+    top: 1px;
+    left: 1px;
+  }
 }
