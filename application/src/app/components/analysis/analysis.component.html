@@ -111,13 +111,14 @@
     <div class="mob-pad fade-in-up options-pad login-pad" *ngIf="token!=''&&token!=null&&artists.length>5&&genres.length>1&&tracks.length>5">
         <div class="scaled-div">
             <div class="custom-scaled">
+                <img #canvasImg>
                 <canvas #toSave id="toSave" class="custom-image-div" width="800px" height="800px"></canvas>
             </div>
         </div>
         <div class="login-right">
             <h2>Share your music</h2>
-            <p>Your top songs span <strong>{{ artistSpan }}</strong> artists and <strong>{{genres.length}}</strong> genres, with your favourite genre being <strong>{{ genres[0][0]=='pop' ? capitalize(genres[1][0]):capitalize(genres[0][0]) }}</strong> </p>
-            <button (click)="saveImage()" class="mob-top-pad btn clr-wgreen">Save Image</button>
+            <p>Your top 50 songs span <strong>{{ artistSpan }}</strong> artists and <strong>{{genres.length}}</strong> genres, with your favourite genre being <strong>{{ genres[0][0]=='pop' ? capitalize(genres[1][0]):capitalize(genres[0][0]) }}</strong> </p>
+            <button (click)="saveImage()" class="no-mobile-inline mob-top-pad btn clr-wgreen">Save Image</button>
         </div>
     </div>
     <!--IMAGE TO SAVE-->

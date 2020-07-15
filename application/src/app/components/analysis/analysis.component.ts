@@ -96,6 +96,7 @@ const featuresToAdd = [
 })
 export class AnalysisComponent implements OnInit {
   @ViewChild("toSave", { static: false }) toSave: ElementRef;
+  @ViewChild("canvasImg", { static: false }) canvasImg: ElementRef;
   @ViewChild("radarDraw", { static: false }) radarDraw: ElementRef;
 
   urlchange;
@@ -124,7 +125,7 @@ export class AnalysisComponent implements OnInit {
   countryAnalysis;
   personalityAnalysis;
   allAnalysis = {};
-  dataType = ["Country", "Personality", "Album", "Playlist", "User"];
+  dataType = ["Country", "Personality", "Album", "User"];
   chosenType = "Country";
   sortedCountries = COUNTRIES.sort();
   secondDropdownData = this.sortedCountries;
@@ -277,7 +278,6 @@ export class AnalysisComponent implements OnInit {
         if (this.token == "" || this.token == null) {
           this.userGraphLimit = 12;
         } else {
-          //console.log(this.token)
           // grabs listening activity from Spotify
           this.spotify
             .getTracks(this.token, "0", "medium_term")
@@ -323,6 +323,7 @@ export class AnalysisComponent implements OnInit {
     if (this.token == "" || this.token == null) {
       this.userGraphLimit = 12;
     } else {
+      this.dataType = ["Country", "Personality", "Album", "Playlist", "User"];
       // get top artists and genres
       this.spotify
         .getArtists(this.token, "0", "medium_term")
@@ -642,7 +643,7 @@ export class AnalysisComponent implements OnInit {
     }
   }
 
-  generateImage() {
+  generateImage(mode="none") {
     if (
       this.artists.length < 5 ||
       this.genres.length < 1 ||
@@ -650,7 +651,7 @@ export class AnalysisComponent implements OnInit {
     ) {
       return;
     }
-    let loadedCounter = 0;
+    let imageData;
     let _this = this;
     let ctx = this.toSave.nativeElement.getContext("2d");
     ctx.clearRect(
@@ -662,101 +663,88 @@ export class AnalysisComponent implements OnInit {
     let downloadedImg = new Image();
     downloadedImg.crossOrigin = "";
     downloadedImg.onload = function () {
-      loadedCounter++;
-      _this.generateGraph(loadedCounter, downloadedImg, d3img);
+      ctx.drawImage(downloadedImg, 0, 0, 800, 800);
+      // wait for loading graph element
+      var svg = _this.radarDraw.nativeElement.querySelector(
+        "#custom-image-chart svg"
+      );
+      //console.log(svg);
+      var d3img = new Image();
+      var serializer = new XMLSerializer();
+      var svgStr = serializer.serializeToString(svg);
+      d3img.onload = function () {
+        // draws graph to canvas on load
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(d3img, -650, -100, 1500, 1500);
+        ctx.globalAlpha = 1;
+        // makes grayscale
+        imageData = ctx.getImageData(0, 0, 800, 800);
+        const pixels = imageData.data;
+        for (let i = 0; i < pixels.length; i += 4) {
+          const red = pixels[i];
+          const green = pixels[i + 1];
+          const blue = pixels[i + 2];
+          // using relative luminance to convert to grayscale
+          const avg = Math.round((0.299 * red + 0.587 * green + 0.114 * blue) * 1);
+          pixels[i] = avg;
+          pixels[i + 1] = avg;
+          pixels[i + 2] = avg;
+        }
+        // puts the duotone image into canvas with multiply and lighten
+        ctx.putImageData(imageData, 0, 0);
+        ctx.globalCompositeOperation = "multiply";
+        ctx.fillStyle = _this.primaryTones[_this.chosenTone];
+        ctx.fillRect(0, 0, 800, 800);
+        ctx.globalCompositeOperation = "lighten";
+        ctx.fillStyle = _this.secondaryTones[_this.chosenTone];
+        ctx.fillRect(0, 0, 800, 800);
+        // draws text
+        ctx.fillStyle = "#FFFFFF";
+        ctx.font = "96px Circular";
+        ctx.textBaseline = "bottom";
+        wrapText(
+          ctx,
+          _this.genres[0][0] == "pop"
+            ? _this.capitalize(_this.genres[1][0])
+            : _this.capitalize(_this.genres[0][0]),
+          60,
+          440,
+          600,
+          112
+        );
+        ctx.fillRect(0, 460, 450, 12);
+        ctx.textBaseline = "top";
+        // draws top tracks
+        ctx.font = "20px Open Sans";
+        let ycoord = 530;
+        ctx.fillText("TOP TRACKS", 200, ycoord);
+        ctx.font = "24px Circular";
+        for (var i = 0; i < 5; i++) {
+          ycoord += 36;
+          ctx.fillText(_this.ellipsisName(_this.tracks[i].name, 20), 200, ycoord);
+        }
+        // draws top artists
+        ctx.font = "20px Open Sans";
+        ycoord = 530;
+        ctx.fillText("TOP ARTISTS", 500, ycoord);
+        ctx.font = "24px Circular";
+        for (var i = 0; i < 5; i++) {
+          ycoord += 36;
+          ctx.fillText(_this.ellipsisName(_this.artists[i].name, 20), 500, ycoord);
+        }
+        // draws logo
+        ctx.font = "20px Circular";
+        ctx.fillText("Whisperify", 650, 38);
+        var logo = new Image();
+        logo.onload = function () {
+          ctx.drawImage(this, 600, 36, 36, 25);
+          _this.canvasImg.nativeElement.src = _this.toSave.nativeElement.toDataURL("image/png");
+        };
+        logo.src = "assets/whisperwave.svg";
+      };
+      d3img.src = "data:image/svg+xml;base64," + window.btoa(svgStr);
     };
     downloadedImg.src = this.artists[0].images[1].url;
-
-    // wait for loading graph element
-    var svg = _this.radarDraw.nativeElement.querySelector(
-      "#custom-image-chart svg"
-    );
-    console.log(svg);
-    var d3img = new Image();
-    var serializer = new XMLSerializer();
-    var svgStr = serializer.serializeToString(svg);
-    d3img.onload = function () {
-      loadedCounter++;
-      _this.generateGraph(loadedCounter, downloadedImg, d3img);
-    };
-    d3img.src = "data:image/svg+xml;base64," + window.btoa(svgStr);
-  }
-
-  generateGraph(counter, downloadedImg, d3img) {
-    if (counter < 2) {
-      return;
-    }
-    let imageData;
-    let _this = this;
-    let ctx = this.toSave.nativeElement.getContext("2d");
-    ctx.drawImage(downloadedImg, 0, 0, 800, 800);
-    // draws graph to canvas on load
-    ctx.globalAlpha = 0.5;
-    ctx.drawImage(d3img, -650, -100, 1500, 1500);
-    ctx.globalAlpha = 1;
-    // makes grayscale
-    imageData = ctx.getImageData(0, 0, 800, 800);
-    const pixels = imageData.data;
-    for (let i = 0; i < pixels.length; i += 4) {
-      const red = pixels[i];
-      const green = pixels[i + 1];
-      const blue = pixels[i + 2];
-      // using relative luminance to convert to grayscale
-      const avg = Math.round((0.299 * red + 0.587 * green + 0.114 * blue) * 1);
-      pixels[i] = avg;
-      pixels[i + 1] = avg;
-      pixels[i + 2] = avg;
-    }
-    // puts the duotone image into canvas with multiply and lighten
-    ctx.putImageData(imageData, 0, 0);
-    ctx.globalCompositeOperation = "multiply";
-    ctx.fillStyle = _this.primaryTones[_this.chosenTone];
-    ctx.fillRect(0, 0, 800, 800);
-    ctx.globalCompositeOperation = "lighten";
-    ctx.fillStyle = _this.secondaryTones[_this.chosenTone];
-    ctx.fillRect(0, 0, 800, 800);
-    // draws text
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "96px Circular";
-    ctx.textBaseline = "bottom";
-    wrapText(
-      ctx,
-      _this.genres[0][0] == "pop"
-        ? _this.capitalize(_this.genres[1][0])
-        : _this.capitalize(_this.genres[0][0]),
-      60,
-      440,
-      600,
-      112
-    );
-    ctx.fillRect(0, 460, 450, 12);
-    ctx.textBaseline = "top";
-    // draws top tracks
-    ctx.font = "20px Open Sans";
-    let ycoord = 530;
-    ctx.fillText("TOP TRACKS", 200, ycoord);
-    ctx.font = "24px Circular";
-    for (var i = 0; i < 5; i++) {
-      ycoord += 36;
-      ctx.fillText(_this.ellipsisName(_this.tracks[i].name, 20), 200, ycoord);
-    }
-    // draws top artists
-    ctx.font = "20px Open Sans";
-    ycoord = 530;
-    ctx.fillText("TOP ARTISTS", 500, ycoord);
-    ctx.font = "24px Circular";
-    for (var i = 0; i < 5; i++) {
-      ycoord += 36;
-      ctx.fillText(_this.ellipsisName(_this.artists[i].name, 20), 500, ycoord);
-    }
-    // draws logo
-    ctx.font = "20px Circular";
-    ctx.fillText("Whisperify", 650, 40);
-    var logo = new Image();
-    logo.onload = function () {
-      ctx.drawImage(this, 600, 36, 36, 25);
-    };
-    logo.src = "assets/whisperwave.svg";
   }
 
   saveImage() {
@@ -765,12 +753,17 @@ export class AnalysisComponent implements OnInit {
     link.addEventListener(
       "click",
       function () {
-        link.href = _this.toSave.nativeElement.toDataURL();
+        link.href = _this.toSave.nativeElement.toDataURL("image/png");
         link.download = "mymusic.png";
       },
       false
     );
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
     link.click();
+
+    document.body.removeChild(link);
   }
 
   errorPopup(text) {

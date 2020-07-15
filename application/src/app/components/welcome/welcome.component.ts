@@ -108,23 +108,27 @@ export class WelcomeComponent implements OnInit {
                       for (let j = 0; j < allFeaturesToAdd.length; j++) {
                         averageFeatures[allFeaturesToAdd[j]] /= feat["audio_features"].length;
                       }
+                      let cleanedFeatures = {}
+                      for (let j = 0; j < allFeaturesToAdd.length; j++) {
+                        cleanedFeatures[allFeaturesToAdd[j]] = averageFeatures[allFeaturesToAdd[j]];
+                      }
                       //console.log(averageFeatures);
-                      /*this.spotify.addEntry({
+                      this.spotify.addEntry({
                           _id: useres["id"], 
                           name: useres["display_name"], 
                           time: Date.now(), 
                           tracks: songList, 
                           country: useres["country"],
-                          ...averageFeatures
-                      });*/
-                      console.log({
+                          ...cleanedFeatures
+                      });
+                      /*console.log({
                         _id: useres["id"], 
                         name: useres["display_name"], 
                         time: Date.now(), 
                         tracks: songList, 
                         country: useres["country"],
                         ...averageFeatures
-                    });
+                    });*/
                     }
                   );
                   // checks if they have already answered the survey

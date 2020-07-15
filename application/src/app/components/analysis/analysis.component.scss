@@ -386,9 +386,11 @@ button:disabled:hover {
 .custom-scaled {
   width: 240px;
   height: 240px;
-  zoom: 0.3;
-  -moz-transform: scale(0.3);
-  transform: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .login-right {
