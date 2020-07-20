@@ -3,7 +3,7 @@
   <a href="https://whisperify.net" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/try_it_out-whisperify.net-0099FF.svg"></a>
   <a href="https://github.com/eightants/whisperify/releases/latest"><img src="https://img.shields.io/github/release/eightants/whisperify/all.svg?colorB=38a275?label=version"></a>
   <a href="https://reddit.com/r/whisperify" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/join%20the%20community-on%20reddit-FF5700.svg"></a>
-  <a href="https://www.buymeacoffee.com/eightants" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/buy_me_a-coffee-ff69b4.svg"></a>
+  <a href="https://ko-fi.com/eightants" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/buy_me_a-coffee-ff69b4.svg"></a>
 </p>
 <p align="center">
   <img src="https://img.shields.io/endpoint?url=https://whisperify.net/api/averagescore/all">
@@ -20,6 +20,18 @@ Whisperify Analysis is the most complete visualization dashboard for Spotify aud
 
 Whisperify is built with Angular, NodeJS, and hosted on Vercel with a MongoDB database. 
 
+## Public API
+As an open-source project, Whisperify is dedicated to give back. A public API is currently under works to provide endpoints to access audio feature analysis for Spotify users in over 70 countries and 16 personalities. Other endpoints are wrappers for the Spotify API combined with Whisperify's features: getting audio features for an album, getting clusters of genres for a user or artist, getting a recreated taste profile of a user. 
+
+Current available endpoints are below. [Read the detailed API reference](https://whisperify.net/documentation/reference). 
+* GET `/api/features/group/:category` will provide audio analysis for a group of users. 
+* GET `/api/features/user/:username` will provide audio analysis for a user if they are on Whisperify. 
+* GET `/api/features/album/:album_id/:token` will provide audio analysis for an album on Spotify. `album_id` is the Spotify `id` of the album and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 
+* GET `/api/features/playlist/:playlist_id/:token` will provide audio analysis for a playlist on Spotify. `playlist_id` is the Spotify `id` of the playlist and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 
+
+## Development
+Whisperify is made up of two projects, an Angular frontend and a Node backend. Clone this repository to your local machine, then run `npm i` in both `/application` and `/server` to install all required packages. [Read the documentation](https://whisperify.net/documentation/getting-started) to set up the configurations. 
+
 ## Pre-release Notes
 * v0.8.0 - First hosted. (18/01/2020)
 * v0.9.0 - Made responsive, style improvements on welcome page. (09/02/2020)
@@ -31,12 +43,3 @@ Whisperify is built with Angular, NodeJS, and hosted on Vercel with a MongoDB da
 * Brand new features to learn even more about your listening habits
 
 To prioritise the development of any of these features, start a discussion on r/whisperify. 
-
-## Public API
-As an open-source project, Whisperify is dedicated to give back. A public API is currently under works to provide endpoints to access audio feature analysis for Spotify users in over 70 countries and 16 personalities. Other endpoints are wrappers for the Spotify API combined with Whisperify's features: getting audio features for an album, getting clusters of genres for a user or artist, getting a recreated taste profile of a user. 
-
-Current available endpoints are below. Base URL: `https://whisperify.net/api`
-* GET `/api/features/group/:category` will provide audio analysis for a group of users. Current supported categories are `all`, `country`, and `personality`. The plan is to allow more fine grain queries for specific countries and personalities. 
-* GET `/api/features/user/:username` will provide audio analysis for a user if they are on Whisperify. 
-* GET `/api/features/album/:album_id/:token` will provide audio analysis for an album on Spotify. `album_id` is the Spotify `id` of the album and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 
-* GET `/api/features/playlist/:playlist_id/:token` will provide audio analysis for a playlist on Spotify. `playlist_id` is the Spotify `id` of the playlist and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 

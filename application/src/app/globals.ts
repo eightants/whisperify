@@ -31,6 +31,59 @@ export const ALL_SPOTIFY_COUNTRIES = ["Algeria","Andorra","Argentina","Australia
 export const MISSING_COUNTRIES = ["Algeria", "Andorra", "Lebanon","Liechtenstein", "Luxembourg", "Monaco", "Panama","Qatar", "Tunisia"]
 
 export const COUNTRY_MAP = ["AE","AR","AT","AU","BE","BG","BH","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","EG","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IL","IN","IS","IT","JO","JP","KW","LT","LV","MA","MT","MX","MY","NI","NL","NO","NZ","OM","PE","PH","PL","PS","PT","PY","RO","SA","SE","SG","SK","SV","TH","TR","TW","US","UY","VN","ZA"]
+
+export const DOCS_SECTIONS = [{
+  title: "Getting Started",
+  path: "getting-started", 
+  sections: [
+    {
+      title: "Cloning the repository", 
+      anchor: "cloning-the-repository"
+    }, 
+    {
+      title: "Creating a Spotify app", 
+      anchor: "creating-a-spotify-app"
+    }, 
+    {
+      title: "Changing user variables", 
+      anchor: "changing-user-variables"
+    }, 
+    {
+      title: "Running the project", 
+      anchor: "running-the-project"
+    }, 
+  ]
+}, {
+  title: "API Reference",
+  path: "reference", 
+  sections: [
+    {
+      title: "Get audio features for all Users", 
+      anchor: "get-all-users"
+    }, 
+    {
+      title: "Get audio features for a specific User", 
+      anchor: "get-user"
+    }, 
+    {
+      title: "Get audio features for a Country", 
+      anchor: "get-country"
+    }, 
+    {
+      title: "Get audio features for a Personality", 
+      anchor: "get-personality"
+    },
+    {
+      title: "Get audio features for an Album", 
+      anchor: "get-album"
+    }, 
+    {
+      title: "Get audio features for a Playlist", 
+      anchor: "get-playlist"
+    }, 
+  ]
+}]
+
 export const isoMap = {
     "AF": "Afghanistan",
     "AX": "Aland Islands",

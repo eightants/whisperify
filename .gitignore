@@ -1,7 +1,52 @@
+# compiled output
 dist
 
 serviceAccountKey.json
 .now
 .env.build
 .env
+
+# dependencies
 node_modules
+
+### ANGULAR IGNORES
+# compiled output
+application/tmp
+application/out-tsc
+# Only exists if Bazel was run
+application/bazel-out
+
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
+
+# IDEs and editors
+application/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+application/.sass-cache
+application/connect.lock
+application/coverage
+application/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+application/typings
+
+# System Files
+.DS_Store
+Thumbs.db
