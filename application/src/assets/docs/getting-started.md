@@ -32,7 +32,7 @@ More detailed instructions can be found on the [Spotify Developers page](https:/
 
 <h2 id="changing-user-variables">Changing user variables</h2>
 
-In `/server/mock.js`, change `<YOUR APP ID>` and `<YOUR APP SECRET>` to the ones from your Spotify app. If you used a different *Redirect URI* from the last step, change `redirect_uri` to the URL you used. 
+In `/server/mock-server.js`, change `<YOUR APP ID>` and `<YOUR APP SECRET>` to the ones from your Spotify app. If you used a different *Redirect URI* from the last step, change `redirect_uri` to the URL you used. 
 ```javascript
 // TODO: YOUR APP CLIENT ID AND SECRET HERE
 var client_id = "<YOUR APP ID>"; 
@@ -58,6 +58,6 @@ Add `/server` to your `.gitignore` file to avoid committing your API keys.
 
 <h2 id="running-the-project">Running the project</h2>
 
-Now, run `node mock.js` in `/server` to start the Node server. Open another terminal, run `npm start` in `/application` to start the Angular app. Whisperify should be working locally at `http://localhost:4200`. 
+Now, run `node mock-server.js` in `/server` to start the Node server. Open another terminal, run `npm start` in `/application` to start the Angular app. Whisperify should be working locally at `http://localhost:4200`. 
 
 <br>
