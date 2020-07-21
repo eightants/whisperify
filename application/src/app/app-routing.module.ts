@@ -11,10 +11,7 @@ import { SurveyComponent } from './components/survey/survey.component';
 import { AboutComponent } from './components/about/about.component';
 import { ChallengeComponent } from './components/challenge/challenge.component';
 import { AnalysisComponent } from './components/analysis/analysis.component';
-
-
-
-
+import { DocumentationComponent } from './components/documentation/documentation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -31,11 +28,14 @@ const routes: Routes = [
   { path: 'analysis', component: AnalysisComponent},
   { path: 'analysis/user/:username', component: AnalysisComponent},
   { path: 'analysis/plot/:code', component: AnalysisComponent},
+  { path: 'documentation', redirectTo: 'documentation/getting-started', pathMatch: 'full'},
+  { path: 'documentation/:title', component: DocumentationComponent},
+  { path: 'documentation/:title/:section', component: DocumentationComponent},
   { path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

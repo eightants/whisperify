@@ -6,6 +6,7 @@ $bg-color: #2E2E2E;
 $optionclr: #414141;
 $wgrey: #A8A8A8;
 $wgreen: #38A275;
+$wcode: #ededed;
 
 @font-face {
   font-family: "Circular";
@@ -633,6 +634,69 @@ a .mode-card:hover {
   h3 {
       padding: 15px 0px 10px 0px;
       text-align: left;
+  }
+}
+
+// DOCS Styles
+
+.doc-div {
+  .main {
+    flex: 1 auto;
+    max-width: 100%;
+    min-width: 0;
+    padding: 40px 30px;
+    margin-bottom: 220px;
+
+    h2 {
+      margin-top: 40px;
+    }
+
+    h3 {
+      margin-top: 30px;
+    }
+
+    code {
+        background-color: $wcode;
+        word-break: break-word;
+    }
+
+    pre {
+      background-color:  $wcode;
+      padding: 20px 20px;
+      border-radius: 5px;
+      overflow-x: auto;
+
+      code {
+        word-break: normal;
+      }
+    }
+
+    table {
+      margin: 20px 10px 30px;
+      width: calc(100% - 20px);
+      overflow-x: auto;
+      border-collapse: collapse;
+
+      thead {
+        border-bottom: 2px solid $wcode;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      th, td {
+        //font-weight: 100;
+        font-weight: 400;
+        padding: 7px 40px 7px 0;
+      }
+
+      td {
+        border-top: 1px solid $wcode;
+      }
+
+      code {
+        word-break: break-word;
+      }
+    }
   }
 }
 

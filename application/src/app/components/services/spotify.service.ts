@@ -88,7 +88,7 @@ export class SpotifyService {
   }
 
   getUserAnalysis(username) {
-    return this.http.get(this.mainUrl + "api/features/user/" + username).toPromise();
+    return this.http.get(this.mainUrl + "api/user/" + username).toPromise();
   }
 
   getGroupAnalysis(category) {

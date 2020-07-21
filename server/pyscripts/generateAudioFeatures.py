@@ -40,7 +40,7 @@ for user in cursors:
         songlist.append(songid)
 
     """
-    Gets the audio features fall all the users top 50 tracks
+    Gets the audio features for all the users top 50 tracks
     """
     audioinfo = sp.audio_features(songlist)
     ## build data object

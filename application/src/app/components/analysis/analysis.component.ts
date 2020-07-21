@@ -734,7 +734,7 @@ export class AnalysisComponent implements OnInit {
         }
         // draws logo
         ctx.font = "20px Circular";
-        ctx.fillText("Whisperify", 650, 38);
+        ctx.fillText("Whisperify", 650, 39);
         var logo = new Image();
         logo.onload = function () {
           ctx.drawImage(this, 600, 36, 36, 25);

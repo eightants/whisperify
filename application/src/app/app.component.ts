@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import {DatastoreService} from './components/services/datastore.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   rawparams = "";
   params = "";
   token = "";
+  showWaves = true;
 
   ngOnInit() {
     // on load, if url contains ? (means that it's authenticated), will call checkUrl()
@@ -23,6 +24,15 @@ export class AppComponent implements OnInit {
     if (this.url.includes("?")) {
       this.checkUrl();
     }
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (event.url == "/about" || event.url == "/documentation") {
+          this.showWaves = false;
+        } else {
+          this.showWaves = true;
+        }
+      }
+    });
   }
 
   checkUrl() {

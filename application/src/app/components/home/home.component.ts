@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MAINURL } from "../../globals";
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,10 @@ export class HomeComponent implements OnInit {
     sessionStorage.setItem("token", "");
     sessionStorage.setItem("username", "");
     sessionStorage.setItem("displayName", "");
+  }
+
+  onLogin() {
+    document.location.href = MAINURL + "login";
   }
 
 

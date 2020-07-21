@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { MarkdownModule } from 'ngx-markdown';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './components/quiz/search/search.component';
@@ -22,6 +23,7 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 import { RadarChartComponent } from './components/analysis/radar-chart/radar-chart.component';
 import { DotPlotComponent } from './components/analysis/dot-plot/dot-plot.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { DocumentationComponent } from './components/documentation/documentation.component';
 
 @NgModule({
   declarations: [
@@ -43,12 +45,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RadarChartComponent,
     DotPlotComponent,
     NavbarComponent,
+    DocumentationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
     HttpClientModule, 
     FormsModule,
+    MarkdownModule.forRoot({loader: HttpClientModule})
   ],
   providers: [],
   bootstrap: [AppComponent]
