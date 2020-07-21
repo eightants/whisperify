@@ -657,6 +657,7 @@ a .mode-card:hover {
 
     code {
         background-color: $wcode;
+        word-break: break-word;
     }
 
     pre {
@@ -664,6 +665,10 @@ a .mode-card:hover {
       padding: 20px 20px;
       border-radius: 5px;
       overflow-x: auto;
+
+      code {
+        word-break: normal;
+      }
     }
 
     table {

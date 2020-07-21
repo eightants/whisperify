@@ -28,6 +28,8 @@ export class AppComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         if (event.url == "/about" || event.url == "/documentation") {
           this.showWaves = false;
+        } else {
+          this.showWaves = true;
         }
       }
     });
