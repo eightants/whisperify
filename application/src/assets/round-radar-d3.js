@@ -239,7 +239,7 @@ function RadarChart(id, data, options) {
 				.style("opacity", 0);
         });
 		
-    var verticesTooltip = d3.select("body")
+    var verticesTooltip = d3.select("section")
         .append("div").classed("verticesTooltip", true)
         .attr("opacity", 0)
         .style({
