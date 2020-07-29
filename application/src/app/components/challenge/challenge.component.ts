@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TitleTagService } from '../services/title-tag.service';
 import { SpotifyService } from '../services/spotify.service';
 import { DatastoreService } from '../services/datastore.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ChallengeComponent implements OnInit {
 
-  constructor(private spotify: SpotifyService, private data: DatastoreService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private titleTagService: TitleTagService, private spotify: SpotifyService, private data: DatastoreService, private route: ActivatedRoute, private router: Router) { }
 
   url = "";
   urlchange;
@@ -21,6 +22,11 @@ export class ChallengeComponent implements OnInit {
   validCode = true;
 
   ngOnInit() {
+    this.titleTagService.setTitle('Whisperify Challenge - Enter your name to start the quiz!');
+    this.titleTagService.setSocialMediaTags(
+      'Whisperify Challenge - Enter your name to start the quiz!',
+      "Take a quiz on your friend's music, see where you rank, and create your own!"
+    );
     sessionStorage.setItem("currentLink", "");
     this.validCode = true;
     this.urlchange = this.route.params.subscribe(params => {

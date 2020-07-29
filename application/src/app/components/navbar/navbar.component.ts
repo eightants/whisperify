@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SpotifyService } from '../services/spotify.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,33 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private spotify: SpotifyService) { }
+
+  showProfile = false;
+  username = "";
+  pfp = "url(/assets/pfp.jpg)";
+
+  @HostListener('document:click', ['$event']) hideProfile() {
+    this.showProfile = false;
+  }
 
   ngOnInit() {
+    this.showProfile = false;
+    this.username = sessionStorage.getItem("username") || "";
+    this.pfp = sessionStorage.getItem("pfp");
+    if (this.username =="" || this.pfp == "") {
+      this.spotify.getProfile(sessionStorage.getItem('token')).then(res => {
+        this.username = res["id"];
+        if (res["images"].length > 0) {
+          this.pfp = res["images"][0]["url"];
+        }
+      });
+    }
+  }
+
+  toggleProfile(event) {
+    event.stopPropagation();
+    this.showProfile = !this.showProfile;
   }
 
   toAnalysis() {

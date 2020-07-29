@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TitleTagService } from '../services/title-tag.service';
 import { SpotifyService } from '../services/spotify.service';
 
 function getDateToday() {
@@ -25,7 +25,7 @@ export class TracksComponent implements OnInit {
     this.upperPart = window.pageYOffset < 1000;
   }
 
-  constructor(private http: HttpClient, private router: Router, private spotify: SpotifyService) { }
+  constructor(private router: Router, private spotify: SpotifyService, private titleTagService: TitleTagService) { }
 
 
   token = "";
@@ -54,6 +54,11 @@ export class TracksComponent implements OnInit {
   
 
   ngOnInit() {
+    this.titleTagService.setTitle('Favourites - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Favourites - Whisperify',
+      "View and save your top songs and artists on Spotify over time. "
+    );
     this.token = sessionStorage.getItem("token");
     this.upperPart = true;
     //console.log(this.token);

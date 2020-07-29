@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, Directive, wtfEndTimeRange } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, Directive } from '@angular/core';
+import { TitleTagService } from '../services/title-tag.service';
 import { DatastoreService } from '../services/datastore.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SpotifyService } from '../services/spotify.service';
 
 // function for a random int
@@ -10,7 +10,6 @@ function getRandomInt(max) {
 }
 
 @Directive({selector: 'audioMusic'})
-class AudioDir {}
 
 @Component({
   selector: 'app-quiz',
@@ -20,7 +19,7 @@ class AudioDir {}
 })
 export class QuizComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router, private data: DatastoreService, private spotify: SpotifyService) { }
+  constructor(private router: Router, private data: DatastoreService, private spotify: SpotifyService, private titleTagService: TitleTagService) { }
 
   token = "";
   pid = "";
@@ -54,6 +53,11 @@ export class QuizComponent implements OnInit {
  
 
   ngOnInit() {
+    this.titleTagService.setTitle('Quiz - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Quiz - Whisperify',
+      "Quiz yourself on your favourite songs and playlists through 5 second audio snippets! "
+    );
     //this.data.currentToken.subscribe(token => this.token = token);
     // alt way to store token, sessionStorage, when quiz is init, get it from storage
     this.baseScore = 200;

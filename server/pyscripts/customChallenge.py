@@ -7,11 +7,11 @@ from spotipy.oauth2 import SpotifyClientCredentials
 load_dotenv()
 
 #info needed to make calls
-challengetitle = "Golden Hour"
-cc = "goldenhour"
+challengetitle = "folklore"
+cc = "folklore"
 choice = 1
-givenURL = "https://open.spotify.com/album/7tcs1X9pzFvcLOPuhCstQJ"
-username = "zimboboys"
+givenURL = "https://open.spotify.com/album/2fenSS68JI1h4Fo296JfGr"
+username = "eightants"
 
 
 albumlist = {}
@@ -35,7 +35,7 @@ else:
 
 challengeObj = {
     "_id": cc, 
-    "scoreboard": [{"name": "Whisperify", "score": 1000, "host": True}], 
+    "scoreboard": [{"name": "Whisperify", "score": 500, "host": True}], 
     "dynamic": True, 
     "time": 9591234567890, 
     "timeLimit": 20,
@@ -46,7 +46,8 @@ tracklist = []
 tracks = []
 
 for song in albumlist:
-    #print(song["album"])
+    print(song["preview_url"])
+    
     tladd = {
         "artists": [{"name": song["artists"][0]["name"]}], 
         "name": song["name"]

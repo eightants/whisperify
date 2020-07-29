@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SpotifyService } from '../services/spotify.service';
 import { DatastoreService } from '../services/datastore.service';
 import {allFeaturesToAdd} from '../../globals'
+import { TitleTagService } from '../services/title-tag.service';
 
 // function for a random int
 function getRandomInt(max) {
@@ -17,7 +18,7 @@ function getRandomInt(max) {
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor(private router: Router, private spotify: SpotifyService, private data: DatastoreService) { }
+  constructor(private router: Router, private spotify: SpotifyService, private data: DatastoreService, private titleTagService: TitleTagService) { }
   token = "";
   username="";
   displayName="";
@@ -27,7 +28,7 @@ export class WelcomeComponent implements OnInit {
   playlistsLoaded = false;
   playlistList = [];
   searchPlayStr = "";
-  titleText = "Choose a quiz mode. ";
+  titleText = "Choose an option. ";
   options = false;
   // these variables are the configs of the quiz
   whisperLen = [2, 5, 10];
@@ -56,6 +57,10 @@ export class WelcomeComponent implements OnInit {
  
 
   ngOnInit() {
+    this.titleTagService.setTitle('Menu - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Menu - Whisperify',
+      "Choose an option. Quiz yourself on your favourite songs, playlists, share quizzes with friends, or view your music stats. ");
     this.token = sessionStorage.getItem("token");
     this.username = sessionStorage.getItem("username") || "";
     sessionStorage.setItem("challenge", "");
@@ -65,7 +70,6 @@ export class WelcomeComponent implements OnInit {
     this.totsongs = 100;
     this.excludeModule = false;
     this.config = {
-      displayName: "a friend",
       whisperLen: 5, 
       timeLimit: 20, 
       excludeArtists: [], 
@@ -112,23 +116,15 @@ export class WelcomeComponent implements OnInit {
                       for (let j = 0; j < allFeaturesToAdd.length; j++) {
                         cleanedFeatures[allFeaturesToAdd[j]] = averageFeatures[allFeaturesToAdd[j]];
                       }
-                      //console.log(averageFeatures);
                       this.spotify.addEntry({
                           _id: useres["id"], 
+                          email: useres["email"], 
                           name: useres["display_name"], 
                           time: Date.now(), 
                           tracks: songList, 
                           country: useres["country"],
                           ...cleanedFeatures
                       });
-                      /*console.log({
-                        _id: useres["id"], 
-                        name: useres["display_name"], 
-                        time: Date.now(), 
-                        tracks: songList, 
-                        country: useres["country"],
-                        ...averageFeatures
-                    });*/
                     }
                   );
                   // checks if they have already answered the survey

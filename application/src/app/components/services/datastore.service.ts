@@ -13,11 +13,13 @@ export class DatastoreService {
   private quizSongs = new BehaviorSubject('default');
   private quizSongList = new BehaviorSubject('default');
   private quizIndexes = new BehaviorSubject('default');
+  private username = new BehaviorSubject('');
   currentToken = this.tokenSource.asObservable();
   currentConfig = this.quizConfig.asObservable();
   currentSongs = this.quizSongs.asObservable();
   currentSongList = this.quizSongList.asObservable();
   currentIndexes = this.quizIndexes.asObservable();
+  currentUsername = this.username.asObservable();
 
   constructor() { }
 
@@ -39,5 +41,9 @@ export class DatastoreService {
 
   changeIndexes(ind: any) {
     this.quizIndexes.next(ind);
+  }
+
+  changeUsername(name: string) {
+    this.username.next(name);
   }
 }

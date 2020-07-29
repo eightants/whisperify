@@ -1,8 +1,18 @@
 <div class="nav-bar">
     <button (click)="toMenu()" class="btn nav-btn-c"><img id='menu' src="assets/menu.svg"></button>
     <button (click)="toAnalysis()" class="btn nav-btn-c"><img src="assets/radar.svg"></button>
-    <button routerLink="/top" class="btn nav-btn-c no-mobile-inline"><img src="assets/star.svg"></button>
-    <button routerLink="/documentation" class="btn nav-btn-c"><img id="docs-icon" src="assets/document.svg"></button>
-    <button routerLink="/about" class="btn no-mobile-inline">About</button>
-    <button routerLink="/about" class="btn nav-btn-c mobile-inline"><img id="info-icon" src="assets/info.svg"></button>
+    <button routerLink="/about" class="btn nav-btn-c"><img id="info-icon" src="assets/info.svg"></button>
+    <div class="nav-profile" *ngIf="username!=''">
+        <div class="profile-btn" (click)="toggleProfile($event)">
+            <div class="nav-pfp" [ngStyle]="{'background-image': pfp }"></div>
+            <span class="profile-name">{{username}}</span>
+            <span class="nav-down"></span>
+        </div>
+        <ul class="profile-menu" *ngIf="showProfile">
+            <!--<li><a>Profile</a></li>-->
+            <li><a routerLink="/top">Favourites</a></li>
+            <li><a routerLink="/documentation">Documentation</a></li>
+            <li><a routerLink="/">Log out</a></li>
+        </ul>
+    </div>
 </div>
