@@ -24,6 +24,7 @@
     "async": "^3.2.0",
     "bootstrap": "^4.3.1",
     "d3": "^5.16.0",
+    "elliptic": "^6.5.3",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.19",
     "ngx-bootstrap": "^5.1.2",

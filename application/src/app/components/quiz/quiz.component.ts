@@ -62,15 +62,16 @@ export class QuizComponent implements OnInit {
     // alt way to store token, sessionStorage, when quiz is init, get it from storage
     this.baseScore = 200;
     sessionStorage.setItem("sentDB", "no");
-    this.mode = sessionStorage.getItem("choice");
     this.token = sessionStorage.getItem("token");
-    this.pid = sessionStorage.getItem("pid");
-    this.timePeriod = sessionStorage.getItem("timePeriod");
     this.data.currentConfig.subscribe(configs => {
       if (configs == "default") {
         this.router.navigate(["/welcome"]);
       } else {
         this.config = configs;
+        this.mode = this.config["choice"];
+        this.pid = this.config["pid"];
+        this.psize = this.config["psize"];
+        this.timePeriod = this.config["timePeriod"];
         // ADJUST baseScore DEPENDING ON CONFIGS
         if (this.config["whisperLen"] == 10) {
           this.baseScore -= 20;
@@ -135,7 +136,7 @@ export class QuizComponent implements OnInit {
       this.router.navigate(["/"]);
     }
     // get playlist or top tracks depending on the selection
-    if (sessionStorage.getItem("choice") == "top") {
+    if (this.mode == "top") {
     // get request
       this.spotify.getTracks(this.token, "0", this.timePeriodMap[this.timePeriod]).then(
         res => {
@@ -222,7 +223,6 @@ export class QuizComponent implements OnInit {
       });
     } else {
       let off = 0;
-      this.psize = parseInt(sessionStorage.getItem("psize"));
       if (this.psize > 100) {
         off = getRandomInt(this.psize - 100);
       }

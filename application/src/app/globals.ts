@@ -14,6 +14,15 @@ export function toAnalysis() {
   }
 }
 
+export function getSubdomain(domain) {
+  let subdomain = domain.split('.')[0];
+  let base = 'base';
+  if (subdomain === 'docs') {
+    base = 'docs';
+  }
+  return base;
+}
+
 export class MetaTag {
   name: string;
   value: string;
@@ -38,9 +47,9 @@ export const FEATURES_DESC = {
 export const allFeaturesToAdd = ["acousticness", "danceability", "energy", "valence", "liveness", "speechiness", "instrumentalness", "tempo", "loudness"];
 
 export const PERSONALITIES = ["estj", "estp", "esfj", "esfp", "entj", "entp", "enfj", "enfp", "istj", "istp", "isfj", "isfp", "intj", "intp", "infj", "infp"]
-export const COUNTRIES = ["Argentina","Australia","Austria","Bahrain","Belgium","Bolivia","Brazil","Bulgaria","Canada","Chile","Colombia","Costa Rica","Cyprus","Czech Republic","Denmark","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Finland","France","Germany","Greece","Guatemala","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Ireland","Israel","Italy","Japan","Jordan","Kuwait","Latvia","Lithuania","Malaysia","Malta","Mexico","Morocco","Netherlands","New Zealand","Nicaragua","Norway","Oman","Paraguay","Peru","Philippines","Poland","Portugal","Romania","Saudi Arabia","Singapore","Slovakia","South Africa","Spain","Sweden","Switzerland","Taiwan","Thailand","Turkey","United Arab Emirates","United Kingdom","United States","Uruguay","Vietnam"];
-export const ALL_SPOTIFY_COUNTRIES = ["Algeria","Andorra","Argentina","Australia","Austria","Bahrain","Belgium","Bolivia","Brazil","Bulgaria","Canada","Chile","Colombia","Costa Rica","Cyprus","Czech Republic","Denmark","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Finland","France","Germany","Greece","Guatemala","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Ireland","Israel","Italy","Japan","Jordan","Kuwait","Latvia","Lebanon","Liechtenstein","Lithuania","Luxembourg","Malaysia","Malta","Mexico","Monaco","Morocco","Netherlands","New Zealand","Nicaragua","Norway","Oman","Palestine","Panama","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Saudi Arabia","Singapore","Slovakia","South Africa","Spain","Sweden","Switzerland","Taiwan","Thailand","Tunisia","Turkey","United Arab Emirates","United Kingdom","United States","Uruguay","Vietnam"];
-export const MISSING_COUNTRIES = ["Algeria", "Andorra", "Lebanon","Liechtenstein", "Luxembourg", "Monaco", "Panama","Qatar", "Tunisia"]
+export const COUNTRIES = ["Albania", "Argentina","Australia","Austria","Bahrain", "Belarus","Belgium","Bolivia","Brazil","Bulgaria","Canada","Chile","Colombia","Costa Rica", "Croatia","Cyprus","Czech Republic","Denmark","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Finland","France","Germany","Greece","Guatemala","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Ireland","Israel","Italy","Japan","Jordan", "Kazakhstan","Kuwait","Latvia","Lithuania","Macedonia", "Malaysia","Malta","Mexico","Morocco","Netherlands","New Zealand","Nicaragua","Norway","Oman","Panama","Paraguay","Peru","Philippines","Poland","Portugal","Romania", "Russian Federation","Saudi Arabia", "Serbia","Singapore","Slovakia","Slovenia","South Africa","Spain","Sweden","Switzerland","Taiwan","Thailand","Turkey","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Vietnam"];
+export const ALL_SPOTIFY_COUNTRIES = ["Albania", "Algeria","Andorra","Argentina","Australia","Austria","Bahrain", "Belarus","Belgium","Bolivia", "Bosnia And Herzegovina","Brazil","Bulgaria","Canada","Chile","Colombia","Costa Rica", "Croatia","Cyprus","Czech Republic","Denmark","Dominican Republic","Ecuador","Egypt","El Salvador","Estonia","Finland","France","Germany","Greece","Guatemala","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Ireland","Israel","Italy","Japan","Jordan", "Kazakhstan","Kuwait","Latvia","Lebanon","Liechtenstein","Lithuania","Luxembourg", "Macedonia","Malaysia","Malta","Mexico", "Moldova","Monaco","Montenegro","Morocco","Netherlands","New Zealand","Nicaragua","Norway","Oman","Palestine","Panama","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russian Federation","Saudi Arabia", "Serbia","Singapore","Slovakia","Slovenia","South Africa","Spain","Sweden","Switzerland","Taiwan","Thailand","Tunisia","Turkey","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Vietnam"];
+export const MISSING_COUNTRIES = ["Algeria", "Andorra", "Bosnia And Herzegovina", "Lebanon","Liechtenstein", "Luxembourg", "Moldova", "Montenegro", "Monaco","Qatar", "Tunisia"]
 
 export const COUNTRY_MAP = ["AE","AR","AT","AU","BE","BG","BH","BO","BR","CA","CH","CL","CO","CR","CY","CZ","DE","DK","DO","EC","EE","EG","ES","FI","FR","GB","GR","GT","HK","HN","HU","ID","IE","IL","IN","IS","IT","JO","JP","KW","LT","LV","MA","MT","MX","MY","NI","NL","NO","NZ","OM","PE","PH","PL","PS","PT","PY","RO","SA","SE","SG","SK","SV","TH","TR","TW","US","UY","VN","ZA"]
 

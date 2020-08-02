@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpotifyService } from '../services/spotify.service';
 import { DatastoreService } from '../services/datastore.service';
-import {allFeaturesToAdd} from '../../globals'
+import {allFeaturesToAdd} from '../../globals';
 import { TitleTagService } from '../services/title-tag.service';
 
 // function for a random int
@@ -60,12 +60,12 @@ export class WelcomeComponent implements OnInit {
     this.titleTagService.setTitle('Menu - Whisperify');
     this.titleTagService.setSocialMediaTags(
       'Menu - Whisperify',
-      "Choose an option. Quiz yourself on your favourite songs, playlists, share quizzes with friends, or view your music stats. ");
+      "Choose an option. Quiz yourself on your favourite songs, playlists, share quizzes with friends, or view your music stats. "
+    );
     this.token = sessionStorage.getItem("token");
     this.username = sessionStorage.getItem("username") || "";
     sessionStorage.setItem("challenge", "");
     sessionStorage.setItem("currentLink", "");
-    sessionStorage.setItem("choice", "top");
     this.modeChoice = "top";
     this.totsongs = 100;
     this.excludeModule = false;
@@ -73,7 +73,8 @@ export class WelcomeComponent implements OnInit {
       whisperLen: 5, 
       timeLimit: 20, 
       excludeArtists: [], 
-      multChoice: false
+      multChoice: false, 
+      choice: "top"
     }
     let redirect = sessionStorage.getItem("redirect");
     if (redirect == "analysis") {
@@ -211,16 +212,16 @@ export class WelcomeComponent implements OnInit {
   
   selectPlaylist(p) {
     this.pid = p.id;
-    sessionStorage.setItem("pid", p.id);
     this.psize = p.tracks.total;
     this.totsongs = this.psize;
-    sessionStorage.setItem("psize", p.tracks.total);
-    sessionStorage.setItem("choice", "playlist");
+    this.config["pid"] = this.pid;
+    this.config["psize"] = this.psize;
+    this.config["choice"] = "playlist";
     if (p.tracks.total > 100) {
       this.off = getRandomInt(p.tracks.total - 100);
-      sessionStorage.setItem("off", String(this.off));
+      this.config["offset"] = this.off;
     } else {
-      sessionStorage.setItem("off", String(this.off));
+      this.config["offset"] = this.off;
     }
     this.modeChoice = "playlist";
     this.unLoad();
@@ -235,7 +236,7 @@ export class WelcomeComponent implements OnInit {
 
   startQuiz() {
     if (this.modeChoice == "top") {
-      sessionStorage.setItem("timePeriod", this.chosenPeriod);
+      this.config["timePeriod"] = this.chosenPeriod;
     }
     //console.log(this.totsongs);
     if (this.totsongs < 30) {
@@ -272,7 +273,7 @@ export class WelcomeComponent implements OnInit {
     this.prevExclude = this.config["excludeArtists"].slice();
     // get playlist or top tracks depending on the selection
     if (this.artistList.length <= 0) {
-      if (sessionStorage.getItem("choice") == "top") {
+      if (this.modeChoice == "top") {
         if (this.timePeriodMap[this.chosenPeriod] == "medium_term" && this.tracks.length>0) {
           let trackprev = this.tracks;
             this.totsongs = trackprev.length;
