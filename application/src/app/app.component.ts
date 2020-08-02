@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {DatastoreService} from './components/services/datastore.service';
 
+declare let gtag: Function;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,6 +28,10 @@ export class AppComponent implements OnInit {
     }
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+        gtag('config', 'UA-132344171-3', {
+          'page_title': "Whisperify",
+          'page_path': event.urlAfterRedirects
+        });
         if (event.url == "/about" || event.url == "/documentation") {
           this.showWaves = false;
         } else {

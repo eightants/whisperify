@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { TitleTagService } from '../services/title-tag.service';
 import { Router, ActivatedRoute, ParamMap  } from '@angular/router';
 import { SpotifyService } from '../services/spotify.service';
 import { DatastoreService } from '../services/datastore.service';
@@ -25,7 +26,7 @@ function generateid() {
 })
 export class ScoreComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private spotify: SpotifyService, private data: DatastoreService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private spotify: SpotifyService, private data: DatastoreService, private titleTagService: TitleTagService) { }
 
   score = NaN;
   token = "";
@@ -53,6 +54,11 @@ export class ScoreComponent implements OnInit {
   sentDB;
 
   ngOnInit() {
+    this.titleTagService.setTitle('Score - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Score - Whisperify',
+      "An interactive way to learn about your favourite songs on Spotify. Quiz yourself on your favourite songs and playlists, make your own quizzes, and share quizzes with friends. "
+    );
     this.isGenerated = false;
     this.username = sessionStorage.getItem("username");
     this.displayname = sessionStorage.getItem("displayname");
@@ -96,6 +102,7 @@ export class ScoreComponent implements OnInit {
         }
         this.challengeObj = {
           "_id": generateid(),
+          "hostid": this.username,
           "time": Date.now(),
           "whisperLen": 5, 
           "timeLimit": 20, 

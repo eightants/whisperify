@@ -14,6 +14,18 @@ export function toAnalysis() {
   }
 }
 
+export class MetaTag {
+  name: string;
+  value: string;
+  isFacebook: boolean;
+
+  constructor(name: string, value: string, isFacebook: boolean) {
+      this.name = name;
+      this.value = value;
+      this.isFacebook = isFacebook;
+  }
+}
+
 export const FEATURES_DESC = {
   "acousticness": "How prominent acoustic elements are in your listening preferences. ", 
   "danceability": "How suitable a track is for dancing based on tempo and other musical elements. ", 

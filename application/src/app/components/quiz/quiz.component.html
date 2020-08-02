@@ -15,14 +15,6 @@
             <source allow="autoplay" src="{{tracks[ind].preview_url}}" type="audio/mpeg">
               Your browser does not support the audio element.
           </audio>
-          <!--<audio controls #musicAudio2 class="music-player" id="musicPlayer2">
-            <source allow="autoplay" src="{{ generatePreview() }}" type="audio/mpeg">
-              Your browser does not support the audio element.
-          </audio>
-          <audio controls #musicAudio3 class="music-player" id="musicPlayer3">
-            <source allow="autoplay" src="{{ generatePreview() }}" type="audio/mpeg">
-              Your browser does not support the audio element.
-          </audio>-->
           <button class="btn audio-btn" (click)="playAudio()">Play</button>
           <button class="btn audio-btn" (click)="stopAudio()">Stop</button>
         </div>

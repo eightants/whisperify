@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { TitleTagService } from '../services/title-tag.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class TutorialComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private titleTagService: TitleTagService) { }
 
   ind = 0;
   /* example track item object simulated */
@@ -32,19 +33,18 @@ export class TutorialComponent implements OnInit {
   done = false
 
   ngOnInit() {
+    this.titleTagService.setTitle('Tutorial - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Tutorial - Whisperify',
+      "A quick introduction to Whisperify quizzes with the best song ever. "
+    );
     this.started = true;
   }
-
-  // Question Navigation
-  // have an array of 10 bools, and an int p keeping track of page
-  // when that page is active the bool_arr[p] = true
-  // when nextPage() is called p++ and bool_arr updated
 
   nextPage() {
     this.router.navigate(["/welcome"]);
   }
   
-
   /* AUDIO CODE */
   // gets the audio DOM element
   @ViewChild('musicAudio', {static: false}) source;

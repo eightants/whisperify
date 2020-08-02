@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { TitleTagService } from '../services/title-tag.service';
 import {SurveyRes} from './surveyres';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,13 +13,17 @@ import { SpotifyService } from '../services/spotify.service';
 })
 export class SurveyComponent implements OnInit {
 
-  constructor(private http:HttpClient, private router: Router, private spotify: SpotifyService) { }
+  constructor(private http:HttpClient, private router: Router, private spotify: SpotifyService, private titleTagService: TitleTagService) { }
 
   submitted = false;
   token = "";
   model = new SurveyRes("","", "", "", "","");
   ngOnInit() {
-    //sessionStorage.setItem("token", "testing");
+    this.titleTagService.setTitle('Personality Quiz - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Personality Quiz - Whisperify',
+      "Improve Whisperify by answering a few questions in a personality quiz."
+    );
     this.token = sessionStorage.getItem("token");
     this.model["_id"] = sessionStorage.getItem("username");
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { TitleTagService } from "../services/title-tag.service";
 import * as d3 from "d3";
 import { SpotifyService } from "../services/spotify.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -148,11 +149,18 @@ export class AnalysisComponent implements OnInit {
 
   constructor(
     private spotify: SpotifyService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleTagService: TitleTagService
   ) {}
 
   ngOnInit() {
+    this.titleTagService.setTitle(
+      "Whisperify Analysis - View your music in interesting ways!"
+    );
+    this.titleTagService.setSocialMediaTags(
+      "Whisperify Analysis - View your music in interesting ways!",
+      "Compare your listening habits with Spotify users from over 70 countries and the 16 Meyer-Briggs personalities in unique charts. Try analysing your favourite albums, or view a breakdown of your friends' tastes!"
+    );
     // INITIALIZING ALL THE INFO WE NEED
     this.chosenTone = Math.floor(Math.random() * 3);
     this.graphColors = [
@@ -643,7 +651,7 @@ export class AnalysisComponent implements OnInit {
     }
   }
 
-  generateImage(mode="none") {
+  generateImage(mode = "none") {
     if (
       this.artists.length < 5 ||
       this.genres.length < 1 ||
@@ -685,7 +693,9 @@ export class AnalysisComponent implements OnInit {
           const green = pixels[i + 1];
           const blue = pixels[i + 2];
           // using relative luminance to convert to grayscale
-          const avg = Math.round((0.299 * red + 0.587 * green + 0.114 * blue) * 1);
+          const avg = Math.round(
+            (0.299 * red + 0.587 * green + 0.114 * blue) * 1
+          );
           pixels[i] = avg;
           pixels[i + 1] = avg;
           pixels[i + 2] = avg;
@@ -721,7 +731,11 @@ export class AnalysisComponent implements OnInit {
         ctx.font = "24px Circular";
         for (var i = 0; i < 5; i++) {
           ycoord += 36;
-          ctx.fillText(_this.ellipsisName(_this.tracks[i].name, 20), 200, ycoord);
+          ctx.fillText(
+            _this.ellipsisName(_this.tracks[i].name, 20),
+            200,
+            ycoord
+          );
         }
         // draws top artists
         ctx.font = "20px Open Sans";
@@ -730,7 +744,11 @@ export class AnalysisComponent implements OnInit {
         ctx.font = "24px Circular";
         for (var i = 0; i < 5; i++) {
           ycoord += 36;
-          ctx.fillText(_this.ellipsisName(_this.artists[i].name, 20), 500, ycoord);
+          ctx.fillText(
+            _this.ellipsisName(_this.artists[i].name, 20),
+            500,
+            ycoord
+          );
         }
         // draws logo
         ctx.font = "20px Circular";
@@ -738,7 +756,9 @@ export class AnalysisComponent implements OnInit {
         var logo = new Image();
         logo.onload = function () {
           ctx.drawImage(this, 600, 36, 36, 25);
-          _this.canvasImg.nativeElement.src = _this.toSave.nativeElement.toDataURL("image/png");
+          _this.canvasImg.nativeElement.src = _this.toSave.nativeElement.toDataURL(
+            "image/png"
+          );
         };
         logo.src = "assets/whisperwave.svg";
       };
@@ -758,7 +778,7 @@ export class AnalysisComponent implements OnInit {
       },
       false
     );
-    link.style.display = 'none';
+    link.style.display = "none";
     document.body.appendChild(link);
 
     link.click();

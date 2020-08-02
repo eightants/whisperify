@@ -499,6 +499,12 @@ font-weight:normal;
     font-size: 24px;
 }
 
+.anchor-desc {
+  margin: auto;
+  max-width: 620px;
+  padding: 0px 10px;
+}
+
 .welcome-desc {
   margin-top: 1%;
 }
@@ -985,8 +991,7 @@ Waves Animation
     top: 10px;
     right: 0px;
     width: 100%;
-    text-align: center;
-
+    text-align: right;
 
     button {
         background-color: $bg-color;

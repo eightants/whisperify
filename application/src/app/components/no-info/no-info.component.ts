@@ -1,3 +1,4 @@
+import { TitleTagService } from '../services/title-tag.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleTagService: TitleTagService) { }
 
   ngOnInit() {
+    this.titleTagService.setTitle('Not enough information - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Not enough information - Whisperify',
+      "This content is not available on the site. "
+    );
   }
 
 }
