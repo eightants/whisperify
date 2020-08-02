@@ -13,7 +13,7 @@ challengekey = os.getenv('CHALLENGE_DB')
 challengeclient = MongoClient(challengekey)
 challengedb = challengeclient.get_database('challenge-prod')
 challenges = challengedb.codes
-cursors = challenges.find({"title": { '$exists': False}})
+cursors = challenges.find({"title": { '$exists': False}, "hostid": { '$exists': False}})
 
 
 datakey = os.getenv('DATASET_DB')
@@ -32,7 +32,7 @@ dataset = datadb.dataset
 count = 0
 for user in cursors:
     count += 1
-    if count % 30 == 0:
+    if count % 10 == 0:
         print(count, "done")
     if count < 0:
         break
@@ -45,24 +45,19 @@ for user in cursors:
     for b in board:
       if b.get("host") == True:
         host = b["name"]
+    print(ccode, host)
 
-    print(host)
-    if host =="":
-      print("delete")
-      challenges.delete_one({"_id": ccode})
-      
-
-    # possibleUsers = dataset.find({ "time": { '$gte': mytime } })
-    # for p in possibleUsers:
-    #   if p.get("name") == host:
-    #     username = p.get("_id")
-    #     print("found: ", username)
-    #     break
+    possibleUsers = dataset.find({ "time": { '$lte': 421 } })
+    for p in possibleUsers:
+      if p.get("name") == host:
+        username = p.get("_id")
+        print("found: ", username)
+        break
     
 
 
     ## Post to new dataset db
-    # if username != "":
-    #   challenges.update_one({"_id": ccode}, {"$set": { "hostid": username}}, upsert=True)
+    if username != "":
+      challenges.update_one({"_id": ccode}, {"$set": { "hostid": username}}, upsert=True)
 
 print("completed")

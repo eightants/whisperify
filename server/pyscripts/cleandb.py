@@ -13,33 +13,33 @@ datakey = os.getenv('DATASET_DB')
 dataclient = MongoClient(datakey)
 datadb = dataclient.get_database('analysis-prod')
 dataset = datadb.dataset
-cursors = dataset.find({})
 
 mongokey = os.getenv('MONGO')
 client = MongoClient(mongokey)
-db = client.get_database('whisperify-prod')
-records = db.users
-print(records.count_documents( {} ))
+novel = client.get_database('whisperify-prod')
+nv = novel.users
+
+challengekey = os.getenv('CHALLENGE_DB')
+# code to add this dataObj to the challenge database with the custom id
+challengeclient = MongoClient(challengekey)
+challengedb = challengeclient.get_database('challenge-prod')
+challenges = challengedb.codes
+cursors = challenges.find({"hostid": { '$exists': True}})
+print(challenges.count_documents( {} ))
 
 count = 0
 for user in cursors:
     count += 1
     if count % 100 == 0:
         print(count, "done")
-    if count < 12300:
+    if count < 0:
         continue
 
-    username = user.get("_id")
-    score = user.get("score")
-    tries = user.get("attempts")
-    host = ""
-    if (score and tries):
+    username = user.get("hostid")
+
+    if (username):
       ## Post to new dataset db
-      continue
-      # print(user)
-      # records.update_one({"_id": username}, {"$set": { "total": score * tries}}, upsert=True)
-    else:
-      print(username, score, tries)
-      records.delete_one({"_id": username})
+      #print(username, score, attempts, time)
+      nv.update_one({"_id": username}, {"$inc": { "challengesMade": 1}}, upsert=True)
 
 print("completed")
