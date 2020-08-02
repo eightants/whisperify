@@ -51,9 +51,8 @@ export class AppComponent implements OnInit {
       this.token = this.url.split('#')[1];
       //console.log(this.token);
       //this.data.changeToken(this.token);
-      // save token to sessionStorage and set the pageNumber to be 0 (start of quiz)
+      // save token to sessionStorage
       sessionStorage.setItem("token", this.token);
-      sessionStorage.setItem("pageNum", "0");
       // redirects to welcome page if successful
       //console.log("checking")
       this.router.navigate(["./welcome"]);

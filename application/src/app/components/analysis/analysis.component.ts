@@ -9,6 +9,7 @@ import {
   PERSONALITIES,
   FEATURES_DESC,
   MAINURL,
+  allFeaturesToAdd,
 } from "../../globals";
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
@@ -118,6 +119,7 @@ export class AnalysisComponent implements OnInit {
   popularity;
   genres = [];
   token;
+  username;
   myAudioFeatures = {};
   isLoaded = false;
   originalFeatures = {};
@@ -255,6 +257,7 @@ export class AnalysisComponent implements OnInit {
     // get spotify token
     sessionStorage.setItem("redirect", "");
     this.token = sessionStorage.getItem("token");
+    this.username = sessionStorage.getItem("username") || "";
     // if user visits /analysis/:spotifyuserid, the user id is parsed and a graph is plotted for that user id
     this.urlchange = this.route.params.subscribe((params) => {
       let isCode = params["username"] || "";
@@ -304,7 +307,6 @@ export class AnalysisComponent implements OnInit {
             })
             .catch((e) => {
               console.log(e);
-              //sessionStorage.setItem("token", "");
             });
         }
       }
@@ -363,6 +365,61 @@ export class AnalysisComponent implements OnInit {
           });
           this.generateImage();
           //console.log(this.genres);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }
+
+  getSongsAndPostToDB() {
+    if (this.token != "" && this.token != null && this.username == "") {
+      this.spotify
+        .getTracks(this.token, "0", "medium_term")
+        .then((res) => {
+          this.spotify
+            .getTracks(this.token, "49", "medium_term")
+            .then((res2) => {
+              this.tracks = res["items"].concat(res2["items"]);
+              this.spotify.getProfile(this.token).then((useres) => {
+                this.username = useres["id"];
+                let displayName = useres["display_name"];
+                sessionStorage.setItem("displayname", displayName);
+                sessionStorage.setItem("username", this.username);
+                let songList = this.tracks.map(({ id }) => id);
+                // get audio features for this user
+                this.spotify
+                  .getUserAudioFeatures(this.token, songList)
+                  .then((feat) => {
+                    let averageFeatures = feat["audio_features"][0];
+                    //console.log(averageFeatures);
+                    for (let i = 1; i < feat["audio_features"].length; i++) {
+                      for (let j = 0; j < allFeaturesToAdd.length; j++) {
+                        averageFeatures[allFeaturesToAdd[j]] +=
+                          feat["audio_features"][i][allFeaturesToAdd[j]];
+                      }
+                    }
+                    for (let j = 0; j < allFeaturesToAdd.length; j++) {
+                      averageFeatures[allFeaturesToAdd[j]] /=
+                        feat["audio_features"].length;
+                    }
+                    let cleanedFeatures = {};
+                    for (let j = 0; j < allFeaturesToAdd.length; j++) {
+                      cleanedFeatures[allFeaturesToAdd[j]] =
+                        averageFeatures[allFeaturesToAdd[j]];
+                    }
+                    this.spotify.addEntry({
+                      _id: useres["id"],
+                      email: useres["email"],
+                      name: useres["display_name"],
+                      time: Date.now(),
+                      tracks: songList,
+                      country: useres["country"],
+                      ...cleanedFeatures,
+                    });
+                  });
+              });
+            });
         })
         .catch((e) => {
           console.log(e);

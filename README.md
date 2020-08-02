@@ -23,11 +23,7 @@ Whisperify is built with Angular, NodeJS, and hosted on Vercel with a MongoDB da
 ## Public API
 As an open-source project, Whisperify is dedicated to give back. A public API is currently under works to provide endpoints to access audio feature analysis for Spotify users in over 70 countries and 16 personalities. Other endpoints are wrappers for the Spotify API combined with Whisperify's features: getting audio features for an album, getting clusters of genres for a user or artist, getting a recreated taste profile of a user. 
 
-Current available endpoints are below. [Read the detailed API reference](https://whisperify.net/documentation/reference). 
-* GET `/api/features/group/:category` will provide audio analysis for a group of users. 
-* GET `/api/features/user/:username` will provide audio analysis for a user if they are on Whisperify. 
-* GET `/api/features/album/:album_id/:token` will provide audio analysis for an album on Spotify. `album_id` is the Spotify `id` of the album and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 
-* GET `/api/features/playlist/:playlist_id/:token` will provide audio analysis for a playlist on Spotify. `playlist_id` is the Spotify `id` of the playlist and `token` is the provided Spotify access token from the API, using one of the three authorization flows. 
+[Read the detailed API reference to learn more about the endpoints](https://whisperify.net/documentation/reference). 
 
 ## Development
 Whisperify is made up of two projects, an Angular frontend and a Node backend. Clone this repository to your local machine, then run `npm i` in both `/application` and `/server` to install all required packages. [Read the documentation](https://whisperify.net/documentation/getting-started) to set up the configurations. 
@@ -40,6 +36,7 @@ Whisperify is made up of two projects, an Angular frontend and a Node backend. C
 
 ## Future Plans
 * Live collaborative song guessing
+* Leaderboard and badges
 * Brand new features to learn even more about your listening habits
 
 To prioritise the development of any of these features, start a discussion on r/whisperify. 
