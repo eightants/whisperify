@@ -1,0 +1,2 @@
+# How It Works
+Many components make up Whisperify, each using up different parts of the tech stack and services. The different parts of this section will provide background into how each of them work, so that you can contribute with better knowledge of the infrastructure. 

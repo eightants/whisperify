@@ -1,220 +1,220 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .ccc {
-    margin: 20px auto;
-    max-width: 200px;
-    width: 40%;
+  margin: 20px auto;
+  max-width: 200px;
+  width: 40%;
 }
 
 .btn-c {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20vh;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20vh;
 }
 
 .navi-btn {
-    z-index: 50;
-    position: fixed;
-    bottom: 10px;
-    right: 3%;
-    padding: 15px;
-    width: 50px;
-    height: 50px;
+  z-index: 50;
+  position: fixed;
+  bottom: 10px;
+  right: 3%;
+  padding: 15px;
+  width: 50px;
+  height: 50px;
 }
 
 .create-p {
-    z-index: 50;
-    position: fixed;
-    bottom: 10px;
-    right: calc(3% + 65px);
+  z-index: 50;
+  position: fixed;
+  bottom: 10px;
+  right: calc(3% + 65px);
 }
 
 .chart-tabs {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 
-    div {
-        display: inline-block;
-        width: calc(50% - 20px);
-        max-width: 160px;
-        margin: 20px 10px 30px 10px;
-    }
+  div {
+    display: inline-block;
+    width: calc(50% - 20px);
+    max-width: 160px;
+    margin: 20px 10px 30px 10px;
+  }
 }
 
 .artist-card {
-    img {
-        width: 20px!important;
-    }
+  img {
+    width: 20px !important;
+  }
 }
 
 .flavor-text {
-    margin-top: 4%;
-    text-align: center;
-    width: 100%;
-    min-width: none;
+  margin-top: 4%;
+  text-align: center;
+  width: 100%;
+  min-width: none;
+  display: inline-block;
+
+  h1 {
+    width: 10%;
     display: inline-block;
+    vertical-align: top;
+    font-size: 42px;
+    margin: 5px 10px 5px 0%;
+  }
 
-    h1 {
-        width: 10%;
-        display: inline-block;
-        vertical-align: top;
-        font-size: 42px;
-        margin: 5px 10px 5px 0%;
+  img {
+    width: 15%;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 5px;
+    max-width: 80px;
+  }
+
+  .track-text {
+    width: 70%;
+    display: inline-block;
+    margin: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    h3,
+    p {
+      margin: 0.2em 0;
     }
-
-    img {
-        width: 15%;
-        display: inline-block;
-        vertical-align: top;
-        border-radius: 5px;
-        max-width: 80px;
-    }
-
-    .track-text {
-        width: 70%;
-        display: inline-block;
-        margin: 0px;
-        padding-top: 0px;
-        padding-bottom: 0px;
-
-        h3,p {
-            margin: 0.2em 0;
-        }
-    }
+  }
 }
 
-.track-card, .track-text {
-    width: 640px;
-    overflow: hidden;
-    background-color: #191919;
-    padding: 15px 30px 15px 30px;
-    margin: 6px auto;
-    text-align: left;
+.track-card,
+.track-text {
+  width: 640px;
+  overflow: hidden;
+  background-color: #191919;
+  padding: 15px 30px 15px 30px;
+  margin: 6px auto;
+  text-align: left;
 }
 
 .track-card {
-    border-radius: 20px;
-    display: inline-flex;
-    align-items: center;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .ind-space {
-    padding-left: 15px;
+  padding-left: 15px;
 
-    h1 {
-        width: calc(10% + 15px);
-    }
+  h1 {
+    width: calc(10% + 15px);
+  }
 }
-
 
 //dropdown css
 
 .row-option {
-    width: 640px;
-    padding: 8px 10px;
-    margin: auto;
+  width: 640px;
+  padding: 8px 10px;
+  margin: auto;
 }
 
 .h-option {
-    width: 45%;
-    margin: 20px 0px 10px 0px;
-    display: inline-block;
-    text-align: left;
+  width: 45%;
+  margin: 20px 0px 10px 0px;
+  display: inline-block;
+  text-align: left;
 }
 
 .bg-arrow {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .down-arrow {
-    background-image: url("/assets/down-arrow.svg");
-    background-size: contain;
-    filter: invert(1);
+  background-image: url("/assets/down-arrow.svg");
+  background-size: contain;
+  filter: invert(1);
 }
 
 .up-arrow {
-    background-image: url("/assets/down-arrow.svg");
-    background-size: contain;
-    filter: invert(1);
-    transform: rotate(180deg);
+  background-image: url("/assets/down-arrow.svg");
+  background-size: contain;
+  filter: invert(1);
+  transform: rotate(180deg);
 }
 
 @media (max-width: 768px) {
+  h1 {
+    width: 15%;
+    margin-top: 20%;
+  }
+
+  .track-card {
+    width: 100% !important;
+    padding: 10px 20px !important;
+    margin: 5px auto !important;
+    min-height: 86px;
+
     h1 {
-        width: 15%;
-        margin-top: 20%;
+      font-size: 28px;
+      width: 35px;
+      margin: 0px 10px 0px 0%;
     }
+  }
 
-    .track-card {
-        width: 100%!important;
-        padding: 10px 20px!important;
-        margin: 5px auto!important;
-        min-height: 86px;
-
-        h1 {
-            font-size: 28px;
-            width: 35px;
-            margin: 0px 10px 0px 0%;
-        }
+  .track-text {
+    width: calc(100% - 100px) !important;
+    margin: 0px !important;
+    padding: 0px 10px 0px 20px !important;
+    h3 {
+      font-size: 16px;
+      margin: 1px 0 !important;
     }
-
-    .track-text {
-        width: calc(100% - 100px)!important;
-        margin: 0px!important;
-        padding: 0px 10px 0px 20px!important;
-        h3 {
-            font-size: 16px;
-            margin: 1px 0!important;
-        }
-        p {
-            font-size: 16px;
-            margin: 1px 0!important;
-        }
+    p {
+      font-size: 16px;
+      margin: 1px 0 !important;
     }
+  }
 
-    .flavor-text img {
-        width: 50px!important;
-        margin-left: 2%;
+  .flavor-text img {
+    width: 50px !important;
+    margin-left: 2%;
+  }
+
+  .artist-card {
+    img {
+      width: 20px !important;
     }
+  }
 
-    .artist-card {
-        img {
-            width: 20px!important;
-        }
+  .h-option {
+    width: 100%;
+    padding: 10px 10px;
+    text-align: left;
+
+    .sel-option {
+      width: 100%;
+      max-width: 250px;
     }
+  }
 
-    .h-option {
-        width: 100%;
-        padding: 10px 10px;
-        text-align: left;
+  .row-option {
+    width: 100%;
+  }
 
-        .sel-option {
-            width: 100%;
-            max-width: 250px;
-        }
+  .create-p {
+    width: 100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    button {
+      width: auto;
     }
+  }
 
-    .row-option {
-        width: 100%;
-    }
-
-    .create-p {
-        width: 100%;
-        left: 0;
-        right: 0;
-        text-align: center;
-
-        button {
-            width: auto;
-        }
-    }
-
-    .sec-title {
-        margin-left: 10px;
-        margin-bottom: 0px;
-    }
-
+  .sec-title {
+    margin-left: 10px;
+    margin-bottom: 0px;
+  }
 }

@@ -75,6 +75,18 @@ export const DOCS_SECTIONS = [{
     }, 
   ]
 }, {
+  title: "How It Works",
+  path: "how-it-works", 
+  sections: [
+      {
+        title: "App Architecture", 
+        path: "app-architecture"
+      }, {
+        title: "Spotify Taste Map", 
+        path: "spotify-taste-clustering"
+      }
+    ]
+  }, {
   title: "API Reference",
   path: "reference", 
   sections: [

@@ -82,6 +82,8 @@ export class WelcomeComponent implements OnInit {
     }
     if (this.token != "" && this.token != null) {
       this.getSongsAndPostToDB();
+    } else {
+      this.router.navigate(["/"]);
     }
   }
 
