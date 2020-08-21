@@ -1,4 +1,4 @@
-<h3 align="center"><img src="https://i.imgur.com/zBxrTgI.png" width="600px" style="border-radius: 5px" alt="Whisperify"></h3>
+<h3 align="center"><!--<img src="https://i.imgur.com/zBxrTgI.png" width="600px" style="border-radius: 5px" alt="Whisperify">--></h3>
 <p align="center">
   <a href="https://whisperify.net" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/try_it_out-whisperify.net-0099FF.svg"></a>
   <a href="https://github.com/eightants/whisperify/releases/latest"><img src="https://img.shields.io/github/release/eightants/whisperify/all.svg?colorB=38a275?label=version"></a>
@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/endpoint?url=https://whisperify.net/api/countchallenges">
 </p>
 
-<img src="https://i.imgur.com/gMb8Tzj.png" alt="img" align="right" width="250px" style="border-radius: 5px; margin: 0px 30px;" alt="Your music insight">
+<img src="https://i.imgur.com/gMb8Tzj.png" alt="img" align="right" width="250px" alt="Your music insight">
 
 An interactive way to learn about your favourite songs on Spotify. Quiz yourself on your favourite playlists, create and share quizzes with friends, and compare listening habits through your personalities. 
 
@@ -27,6 +27,8 @@ As an open-source project, Whisperify is dedicated to give back. A public API is
 
 ## Development
 Whisperify is made up of two projects, an Angular frontend and a Node backend. Clone this repository to your local machine, then run `npm i` in both `/application` and `/server` to install all required packages. [Read the documentation](https://whisperify.net/documentation/getting-started) to set up the configurations. 
+
+Certain features in Whisperify make use of machine learning. The case study behind those features can be found in the [sub-project Carlos](https://github.com/eightants/carlos). 
 
 ## Pre-release Notes
 * v0.8.0 - First hosted. (18/01/2020)

@@ -1,39 +1,79 @@
 <div class="cover"></div>
-<a class="btn sidebar-btn hoverhands mobile" (click)="sidebar=!sidebar"><div class="bg-arrow doc-icon"></div></a>
+<a class="btn sidebar-btn hoverhands mobile" (click)="sidebar = !sidebar"
+  ><div class="bg-arrow doc-icon"></div
+></a>
 <div class="wrap-doc">
-<div class="doc-div">
-    <div class="sidebar" [ngClass]="{'mob-sidebar': !sidebar}">
-        <section>
-            <div class="nav-title hoverhands" routerLink="/">
-                <img src="assets/whisperwave.svg">
-                <h2>Whisperify</h2>
-            </div>
-            <div class="nav-group" *ngFor="let topic of docsNav">
-                <h3><a [routerLink]="['/documentation', topic.path]" [ngClass]="{'selected-link': topic.path==selected}" (click)="selected=topic.path">{{ topic.title }}</a></h3>
-                <ul>
-                    <li *ngFor="let section of topic.sections">
-                        <a *ngIf="section.path" [routerLink]="['/documentation', topic.path, section.path]" [ngClass]="{'selected-link': section.path==selected}" (click)="selected=section.path">{{ section.title }}</a>
-                        <a *ngIf="section.anchor" [routerLink]="['/documentation', topic.path]" fragment={{section.anchor}} [ngClass]="{'selected-link': section.anchor==selected}" (click)="selected=section.anchor">{{ section.title }}</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-        <div class="externals">
-            <button class="btn" href="https://whisperify.net/welcome">Back to App</button>
+  <div class="doc-div">
+    <div class="sidebar" [ngClass]="{ 'mob-sidebar': !sidebar }">
+      <section>
+        <div class="nav-title hoverhands" routerLink="/">
+          <img src="assets/whisperwave.svg" />
+          <h2>Whisperify</h2>
         </div>
-        <div class="externals">
-            <a class="circle-btn" href="https://github.com/eightants/whisperify" target="_blank" rel="noopener noreferrer"><img src="assets/github.svg"></a>
-            <a class="circle-btn" href="https://reddit.com/r/whisperify" target="_blank" rel="noopener noreferrer"><img src="assets/reddit.svg"></a>
-            <a class="circle-btn" href="https://ko-fi.com/eightants" target="_blank" rel="noopener noreferrer"><img src="assets/coffee.svg"></a>
+        <div class="nav-group" *ngFor="let topic of docsNav">
+          <h3>
+            <a
+              [routerLink]="['/documentation', topic.path]"
+              [ngClass]="{ 'selected-link': topic.path == selected }"
+              (click)="selected = topic.path"
+              >{{ topic.title }}</a
+            >
+          </h3>
+          <ul>
+            <li *ngFor="let section of topic.sections">
+              <a
+                *ngIf="section.path"
+                [routerLink]="['/documentation', topic.path, section.path]"
+                [ngClass]="{ 'selected-link': section.path == selected }"
+                (click)="selected = section.path"
+                >{{ section.title }}</a
+              >
+              <a
+                *ngIf="section.anchor"
+                [routerLink]="['/documentation', topic.path]"
+                fragment="{{ section.anchor }}"
+                [ngClass]="{ 'selected-link': section.anchor == selected }"
+                (click)="selected = section.anchor"
+                >{{ section.title }}</a
+              >
+            </li>
+          </ul>
         </div>
+      </section>
+      <div class="externals">
+        <button class="btn" routerLink="/welcome">Back to App</button>
+      </div>
+      <div class="externals">
+        <a
+          class="circle-btn"
+          href="https://github.com/eightants/whisperify"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="assets/github.svg"
+        /></a>
+        <a
+          class="circle-btn"
+          href="https://reddit.com/r/whisperify"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="assets/reddit.svg"
+        /></a>
+        <a
+          class="circle-btn"
+          href="https://ko-fi.com/eightants"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="assets/coffee.svg"
+        /></a>
+      </div>
     </div>
     <div class="main">
-        <div markdown [src]="path"></div>
+      <div markdown [src]="path"></div>
     </div>
     <div class="right-pad"></div>
-</div>
-<div class="ywaves">
-    <img src="assets/ywave1.svg">
-    <img src="assets/ywave2.svg">
-</div>
+  </div>
+  <div class="ywaves">
+    <img src="assets/ywave1.svg" />
+    <img src="assets/ywave2.svg" />
+  </div>
 </div>

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TitleTagService } from '../services/title-tag.service';
 import { ActivatedRoute } from '@angular/router';
-import { DOCS_SECTIONS } from "../../globals"
+import { DOCS_SECTIONS } from "../../globals";
 
 @Component({
   selector: 'app-documentation',
   templateUrl: './documentation.component.html',
-  styleUrls: ['./documentation.component.scss']
+  styleUrls: ['./documentation.component.scss'], 
+  encapsulation: ViewEncapsulation.None,
 })
 export class DocumentationComponent implements OnInit {
 
