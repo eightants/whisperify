@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+    <title>Whisperify - Spotify Quiz and Music Analysis</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. ">
+    <meta property="og:title" content="Whisperify - Spotify Quiz and Music Analysis">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. ">
+    <meta property="og:url" content="https://whisperify.net">
+    <meta property="og:image" content="https://whisperify.net/assets/landing.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@yihonganthony">
+    <meta name="twitter:title" content="Whisperify - Spotify Quiz and Music Analysis">
+    <meta name="twitter:description" content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. ">
+    <meta name="twitter:image" content="https://whisperify.net/assets/landing.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!--D3 scripts-->
+    <script src="./assets/d3.min.js" type="text/javascript"></script>
+    <script src="./assets/dot-plot-d3.js" type="text/javascript"></script>
+    <script src="./assets/round-radar-d3.js" type="text/javascript"></script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-MHTTGGB");
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-132344171-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+    </script>
+
+    <!--Import Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.0a0b4b1836f1859394fc.css"><style ng-transition="serverApp"></style><style ng-transition="serverApp">.nav-profile[_ngcontent-sc2]{display:inline-block;vertical-align:middle;height:auto}.nav-profile[_ngcontent-sc2]   .profile-btn[_ngcontent-sc2]{background-color:#414141;margin-left:12px;border-radius:30px;height:48px;min-width:48px;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;cursor:pointer;color:#fff;padding:6px;-webkit-transition:.1s ease-in-out;transition:all .1s ease-in-out}.nav-profile[_ngcontent-sc2]   .profile-btn[_ngcontent-sc2]   .profile-name[_ngcontent-sc2]{max-width:120px;line-height:36px;margin-left:10px;font-family:Circular,sans-serif;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.nav-profile[_ngcontent-sc2]   .profile-btn[_ngcontent-sc2]   .nav-pfp[_ngcontent-sc2]{height:36px;width:36px;border-radius:50px;background-image:url(/assets/pfp.jpg);background-size:cover}.nav-profile[_ngcontent-sc2]   .profile-btn[_ngcontent-sc2]   .nav-down[_ngcontent-sc2]{margin:0 12px}.nav-profile[_ngcontent-sc2]   .profile-btn[_ngcontent-sc2]   .nav-down[_ngcontent-sc2]::before{content:"\25BE";font-size:16px}.nav-profile[_ngcontent-sc2]   .profile-btn[_ngcontent-sc2]:hover{background-color:#4b4b4b}.nav-profile[_ngcontent-sc2]   .profile-menu[_ngcontent-sc2]{background-color:#414141;text-align:left;border-radius:10px;max-width:200px;width:100%;position:absolute;top:100%;right:0;list-style:none;padding:0;margin:0;z-index:2;box-shadow:0 2px 12px rgba(0,0,0,.2)}.nav-profile[_ngcontent-sc2]   .profile-menu[_ngcontent-sc2]   li[_ngcontent-sc2]{padding:0;margin:0;overflow:hidden}.nav-profile[_ngcontent-sc2]   .profile-menu[_ngcontent-sc2]   li[_ngcontent-sc2]   a[_ngcontent-sc2]{padding:3px 20px;line-height:36px;width:100%;font-size:14px;cursor:pointer;color:#fff;opacity:.6;display:-webkit-box;display:flex;-webkit-transition:.1s ease-in-out;transition:all .1s ease-in-out}.nav-profile[_ngcontent-sc2]   .profile-menu[_ngcontent-sc2]   li[_ngcontent-sc2]   a[_ngcontent-sc2]:hover{opacity:1;background-color:#4b4b4b}.nav-profile[_ngcontent-sc2]   .profile-menu[_ngcontent-sc2]   li[_ngcontent-sc2]:first-child{border-radius:10px 10px 0 0}.nav-profile[_ngcontent-sc2]   .profile-menu[_ngcontent-sc2]   li[_ngcontent-sc2]:last-child{border-top:1px solid #4b4b4b;border-radius:0 0 10px 10px}@media (max-width:768px){.profile-name[_ngcontent-sc2]{display:none}}</style></head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MHTTGGB"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <app-root _nghost-sc0="" ng-version="8.0.3"><div _ngcontent-sc0="" class="content" role="main"></div><div _ngcontent-sc0=""><!----><svg _ngcontent-sc0="" xmlns:xlink="http://www.w3.org/1999/xlink" class="waves" preserveAspectRatio="none" shape-rendering="auto" viewBox="0 24 150 28" xmlns="http://www.w3.org/2000/svg"><defs _ngcontent-sc0=""><path _ngcontent-sc0="" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" id="gentle-wave"></path></defs><g _ngcontent-sc0="" class="parallax"><use _ngcontent-sc0="" xlink:href="#gentle-wave" fill="#1D5D88" x="48" y="10"></use><use _ngcontent-sc0="" xlink:href="#gentle-wave" fill="rgba(0,153,255,0.7)" x="48" y="5"></use></g></svg></div><router-outlet _ngcontent-sc0=""></router-outlet><app-home _nghost-sc1=""><div _ngcontent-sc1="" class="main-div"><app-navbar _ngcontent-sc1="" _nghost-sc2=""><div _ngcontent-sc2="" class="nav-bar"><button _ngcontent-sc2="" class="btn nav-btn-c"><img _ngcontent-sc2="" id="menu" src="assets/menu.svg"></button><button _ngcontent-sc2="" class="btn nav-btn-c"><img _ngcontent-sc2="" src="assets/radar.svg"></button><button _ngcontent-sc2="" class="btn nav-btn-c" routerlink="/about" tabindex="0"><img _ngcontent-sc2="" id="info-icon" src="assets/info.svg"></button><!----></div></app-navbar><div _ngcontent-sc1="" class="main-text"><h1 _ngcontent-sc1="" class="main-title">Whisperify</h1><p _ngcontent-sc1="" class="main-desc anchor-desc">View stats, generate quizzes, and challenge friends. How well do you know your favourite songs?</p></div><a _ngcontent-sc1="" href="https://whisperify-echo.eightants.vercel.app/login"><button _ngcontent-sc1="" class="btn clr-wgreen">Login With Spotify</button></a></div></app-home></app-root>
+  <script src="polyfills-es5.7aaacbf76784c780632a.js" nomodule="" defer=""></script><script src="polyfills-es2015.0fe6949bc5ff4b784062.js" type="module"></script><script src="scripts.ff89bbd26e044df9f81f.js" defer=""></script><script src="runtime-es2015.85f895af57b038f1e5b4.js" type="module"></script><script src="main-es2015.467514d88591594daad2.js" type="module"></script><script src="runtime-es5.85f895af57b038f1e5b4.js" nomodule="" defer=""></script><script src="main-es5.467514d88591594daad2.js" nomodule="" defer=""></script>
+
+</body></html>

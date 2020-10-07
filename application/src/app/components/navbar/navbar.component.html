@@ -1,18 +1,25 @@
 <div class="nav-bar">
-    <button (click)="toMenu()" class="btn nav-btn-c"><img id='menu' src="assets/menu.svg"></button>
-    <button (click)="toAnalysis()" class="btn nav-btn-c"><img src="assets/radar.svg"></button>
-    <button routerLink="/about" class="btn nav-btn-c"><img id="info-icon" src="assets/info.svg"></button>
-    <div class="nav-profile" *ngIf="username!=''">
-        <div class="profile-btn" (click)="toggleProfile($event)">
-            <div class="nav-pfp" [ngStyle]="{'background-image': pfp }"></div>
-            <span class="profile-name">{{username}}</span>
-            <span class="nav-down"></span>
-        </div>
-        <ul class="profile-menu" *ngIf="showProfile">
-            <!--<li><a>Profile</a></li>-->
-            <li><a routerLink="/top">Favourites</a></li>
-            <li><a routerLink="/documentation">Documentation</a></li>
-            <li><a routerLink="/">Log out</a></li>
-        </ul>
+    <button (click)="toMenu()" class="btn nav-btn-c">
+      <img id="menu" src="assets/menu.svg" />
+    </button>
+    <button (click)="toAnalysis()" class="btn nav-btn-c">
+      <img src="assets/radar.svg" />
+    </button>
+    <button routerLink="/about" class="btn nav-btn-c">
+      <img id="info-icon" src="assets/info.svg" />
+    </button>
+    <div class="nav-profile" *ngIf="displayname != ''">
+      <div class="profile-btn" (click)="toggleProfile($event)">
+        <div class="nav-pfp" [ngStyle]="{ 'background-image': pfp }"></div>
+        <span class="profile-name">{{ displayname }}</span>
+        <span class="nav-down"></span>
+      </div>
+      <ul class="profile-menu" *ngIf="showProfile">
+        <!--<li><a>Profile</a></li>-->
+        <li><a routerLink="/top">Favourites</a></li>
+        <li><a routerLink="/documentation">Documentation</a></li>
+        <li><a routerLink="/">Log out</a></li>
+      </ul>
     </div>
-</div>
+  </div>
+  
