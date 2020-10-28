@@ -15,7 +15,7 @@
     cursor: pointer;
     color: #fff;
     padding: 6px;
-    transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
 
     .profile-name {
       max-width: 120px;
@@ -62,9 +62,9 @@
     padding: 0px;
     margin: 0;
     z-index: 2;
-    box-shadow: 0 2px 12px rgba(0,0,0,.2);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 
-    li { 
+    li {
       padding: 0px;
       margin: 0;
       overflow: hidden;
@@ -78,7 +78,7 @@
         color: white;
         opacity: 0.6;
         display: flex;
-        transition: all .1s ease-in-out;
+        transition: all 0.1s ease-in-out;
       }
 
       a:hover {
@@ -97,7 +97,6 @@
     }
   }
 }
-
 
 @media (max-width: 768px) {
   .profile-name {

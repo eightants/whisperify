@@ -1,81 +1,187 @@
 <div class="main-div">
-    <!--Share module-->
-    <div *ngIf="isGenerated">
-        <div class="answer-module absoluteCenter">
-            <div class="close-mod hoverhands" (click)="unLoad()"><img src="assets/close.svg"></div>
-            <div *ngIf="currentLink==''" class="loading-div"></div>
-            <div *ngIf="currentLink!=''">
-                <div class="ans-text">
-                    <h1>Share</h1>
-                    <p>Challenge your friends to try to beat your score! They’ll get a multiple choice quiz with the same songs and settings. </p>
-                </div>
-                <div class="link-div">
-                    <input class="link-field" readonly value="https://whisperify.net/challenge/{{currentLink}}" #challengelink>
-                    <button class="copy-btn" (click)="copyLink(challengelink.value)">Copy</button>
-                </div>
-                <div class="social-div">
-                    <a href="https://whisperify.net/results/{{currentLink}}"><button class="btn sq-btn clr-wgreen res-btn">Results</button></a>
-                    <a id="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhisperify.net" target="_blank" rel="noopener noreferrer"><button class="btn social-btn" id="fb"><img class="social-icon" src="assets/facebook.svg"></button></a>
-                    <a id="twitter-share" href="https://twitter.com/intent/tweet?hashtags=Whisperify&text=How%20well%20do%20you%20know%20your%20favourite%20songs?%20I%20scored%20{{score}}%20points!&url=https%3A%2F%2Fwhisperify.net" target="_blank" rel="noopener noreferrer"><button class="btn social-btn" id="twitter"><img class="social-icon" src="assets/twitter.svg"></button></a>
-                    <a id="reddit-share" href="https://www.reddit.com/submit?url=https%3A%2F%2Fwhisperify.net" target="_blank" rel="noopener noreferrer"><button class="btn social-btn" id="reddit"><img class="social-icon" src="assets/reddits.svg"></button></a>
-                    <a id="vk-share" href="https://vk.com/share.php?url=https%3A%2F%2Fwhisperify.net" target="_blank" rel="noopener noreferrer"><button class="btn social-btn" id="vk"><img class="social-icon" src="assets/vk.svg"></button></a>
-                </div>
+  <!--Share module-->
+  <div *ngIf="isGenerated">
+    <div class="answer-module absoluteCenter">
+      <div class="close-mod hoverhands" (click)="unLoad()">
+        <img src="assets/close.svg" />
+      </div>
+      <div *ngIf="currentLink == ''" class="loading-div"></div>
+      <div *ngIf="currentLink != ''">
+        <div class="ans-text">
+          <h1>Share</h1>
+          <p>
+            Challenge your friends to try to beat your score! They’ll get a
+            multiple choice quiz with the same songs and settings.
+          </p>
+        </div>
+        <div class="link-div">
+          <input
+            class="link-field"
+            readonly
+            value="https://whisperify.net/challenge/{{ currentLink }}"
+            #challengelink
+          />
+          <button class="copy-btn" (click)="copyLink(challengelink.value)">
+            Copy
+          </button>
+        </div>
+        <div class="social-div">
+          <a href="https://whisperify.net/results/{{ currentLink }}"
+            ><button class="btn sq-btn clr-wgreen res-btn">Results</button></a
+          >
+          <a
+            id="fb-share"
+            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhisperify.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><button class="btn social-btn" id="fb">
+              <img class="social-icon" src="assets/facebook.svg" /></button
+          ></a>
+          <a
+            id="twitter-share"
+            href="https://twitter.com/intent/tweet?hashtags=Whisperify&text=How%20well%20do%20you%20know%20your%20favourite%20songs?%20I%20scored%20{{
+              score
+            }}%20points!&url=https%3A%2F%2Fwhisperify.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><button class="btn social-btn" id="twitter">
+              <img class="social-icon" src="assets/twitter.svg" /></button
+          ></a>
+          <a
+            id="reddit-share"
+            href="https://www.reddit.com/submit?url=https%3A%2F%2Fwhisperify.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><button class="btn social-btn" id="reddit">
+              <img class="social-icon" src="assets/reddits.svg" /></button
+          ></a>
+          <a
+            id="vk-share"
+            href="https://vk.com/share.php?url=https%3A%2F%2Fwhisperify.net"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><button class="btn social-btn" id="vk">
+              <img class="social-icon" src="assets/vk.svg" /></button
+          ></a>
+        </div>
+      </div>
+    </div>
+    <div class="overlay" (click)="unLoad()"></div>
+  </div>
+  <app-navbar></app-navbar>
+  <div class="score-inner-div">
+    <div class="main-text score-text" *ngIf="score >= 0">
+      <h2>Score</h2>
+      <h1 class="main-title">{{ score }}</h1>
+      <button class="btn clr-wgreen submit" (click)="playAgain()">
+        Play Again
+      </button>
+      <button
+        class="btn submit share-with-friends"
+        *ngIf="currentLink != '' || hasTracks"
+        (click)="openShare()"
+      >
+        <img class="tweet" src="assets/share.svg" />Quiz Your Friends
+      </button>
+      <button
+        class="btn submit"
+        *ngIf="challengeCode != '' && currentLink == ''"
+        routerLink="/"
+      >
+        Make Your Own
+      </button>
+    </div>
+    <div class="flavor-text" *ngIf="challengeCode == ''">
+      <div class="flavor-card">
+        <h3>You know your music!</h3>
+        <p>
+          Your score is higher than {{ percent }}% of users who tried
+          Whisperify.
+        </p>
+      </div>
+      <a class="link-mask" (click)="toAnalysis()"
+        ><div class="flavor-card hoverhands">
+          <h3>Your Audio Analysis</h3>
+          <p>
+            View an analysis of your listening preferences, visualize albums,
+            and compare worldwide data.
+          </p>
+        </div></a
+      >
+      <a class="link-mask" routerLink="/top"
+        ><div class="flavor-card">
+          <h3>View My Favourites</h3>
+        </div></a
+      >
+    </div>
+    <div
+      class="flavor-text"
+      [ngClass]="{ 'mid-table': score < 0 }"
+      *ngIf="challengeCode != ''"
+    >
+      <div
+        class="res-view fade-in-up"
+        *ngIf="leaderboard.length > 0 && currentLink == '' && score < 0"
+      >
+        <p class="main-desc">A challenge by {{ hostName }}</p>
+        <div class="link-div">
+          <input
+            class="link-field"
+            readonly
+            value="https://whisperify.net/challenge/{{ challengeCode }}"
+            #challengelink
+          />
+          <button class="copy-btn" (click)="copyLink(challengelink.value)">
+            Copy
+          </button>
+        </div>
+      </div>
+      <div class="flavor-card fade-in-up" *ngIf="leaderboard.length > 0">
+        <h2>Leaderboard</h2>
+        <div class="leaderboard">
+          <div
+            class="scoreboard-entry"
+            *ngFor="let entry of leaderboard | slice: 0:30; index as rank"
+          >
+            <div class="sb-rank">{{ rank + 1 }}.</div>
+            <div class="sb-name" *ngIf="!entry.me">
+              {{ entry.name }}
+              <img
+                *ngIf="entry.host"
+                title="Host"
+                alt="host image"
+                src="assets/user.svg"
+              />
             </div>
-        </div>
-        <div class="overlay" (click)="unLoad()"></div>
-    </div>
-    <app-navbar></app-navbar>
-    <div class="score-inner-div">
-    <div class="main-text score-text" *ngIf="score>=0">
-        <h2>Score</h2>
-        <h1 class="main-title">{{ score }}</h1>
-        <button class="btn clr-wgreen submit" (click)="playAgain()">Play Again</button>
-        <button class="btn submit share-with-friends" *ngIf="currentLink!='' || hasTracks" (click)="openShare()"><img class="tweet" src="assets/share.svg">Quiz Your Friends</button>
-        <button class="btn submit" *ngIf="challengeCode!='' && currentLink==''" routerLink="/">Make Your Own</button>
-    </div>
-    <div class="flavor-text" *ngIf="challengeCode==''">
-        <div class="flavor-card">
-            <h3>You know your music!</h3>
-            <p>Your score is higher than {{percent}}% of users who tried Whisperify. </p>
-        </div>
-        <a class="link-mask" (click)="toAnalysis()"><div class="flavor-card hoverhands">
-            <h3>Your Audio Analysis</h3>
-            <p>View an analysis of your listening preferences, visualize albums, and compare worldwide data. </p>
-        </div></a>
-        <a class="link-mask" routerLink="/top"><div class="flavor-card">
-            <h3>View My Favourites</h3>
-        </div></a>
-    </div>
-    <div class="flavor-text" [ngClass]="{'mid-table' : score<0}" *ngIf="challengeCode!=''">
-        <div class="res-view fade-in-up" *ngIf="leaderboard.length > 0 && currentLink=='' && score<0">
-            <p class="main-desc">A challenge by {{ hostName }}</p>
-            <div class="link-div">
-                <input class="link-field" readonly value="https://whisperify.net/challenge/{{challengeCode}}" #challengelink>
-                <button class="copy-btn" (click)="copyLink(challengelink.value)">Copy</button>
+            <div class="sb-name bold-text" *ngIf="entry.me">
+              {{ entry.name }}
             </div>
+            <div class="sb-score">{{ entry.score }}</div>
+          </div>
+          <div class="scoreboard-entry" *ngIf="myRank >= 30">
+            <div class="sb-rank">{{ myRank + 1 }}.</div>
+            <div class="sb-name bold-text">{{ leaderboard[myRank].name }}</div>
+            <div class="sb-score">{{ leaderboard[myRank].score }}</div>
+          </div>
         </div>
-        <div class="flavor-card fade-in-up" *ngIf="leaderboard.length > 0">
-            <h2>Leaderboard</h2>
-            <div class="leaderboard">
-                <div class="scoreboard-entry" *ngFor="let entry of leaderboard | slice:0:30; index as rank">
-                    <div class="sb-rank">{{ rank + 1 }}.</div>
-                    <div class="sb-name" *ngIf="!entry.me">{{ entry.name }} <img *ngIf="entry.host" title="Host" alt="host image" src="assets/user.svg"></div>
-                    <div class="sb-name bold-text" *ngIf="entry.me">{{ entry.name }}</div>
-                    <div class="sb-score">{{entry.score}}</div>
-                </div>
-                <div class="scoreboard-entry" *ngIf="myRank>=30">
-                    <div class="sb-rank">{{ myRank + 1 }}.</div>
-                    <div class="sb-name bold-text">{{ leaderboard[myRank].name }}</div>
-                    <div class="sb-score">{{leaderboard[myRank].score}}</div>
-                </div>
-            </div>
-            <button class="btn submit board-btn" *ngIf="currentLink=='' && score<0" routerLink="/">Make Your Own</button>
-        </div>
+        <button
+          class="btn submit board-btn"
+          *ngIf="currentLink == '' && score < 0"
+          routerLink="/"
+        >
+          Make Your Own
+        </button>
+      </div>
     </div>
-    </div>
-    <div class="coffee-frame">
-        <span>Enjoyed this app?</span><br><br>
-        <!--<a class="coffee" href="https://www.buymeacoffee.com/eightants" target="_blank">Buy me a coffee</a>-->
-        <a class="coffee" href="https://github.com/eightants/whisperify" target="_blank">✨ Star it on Github</a>
-    </div>
+  </div>
+  <div class="coffee-frame">
+    <span>Enjoyed this app?</span><br /><br />
+    <!--<a class="coffee" href="https://www.buymeacoffee.com/eightants" target="_blank">Buy me a coffee</a>-->
+    <a
+      class="coffee"
+      href="https://github.com/eightants/whisperify"
+      target="_blank"
+      >✨ Star it on Github</a
+    >
+  </div>
 </div>

@@ -2,6 +2,7 @@
 dist
 
 serviceAccountKey.json
+.vercel
 .now
 .env.build
 .env

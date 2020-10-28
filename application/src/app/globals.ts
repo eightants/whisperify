@@ -1,6 +1,7 @@
 'use strict';
 
 // export const MAINURL = "http://localhost:8888/";
+// export const MAINURL = "https://whisperify-echo.eightants.vercel.app/";
 export const MAINURL = 'https://whisperify.net/';
 
 export function toAnalysis() {

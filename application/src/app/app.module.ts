@@ -48,7 +48,7 @@ import { DocumentationComponent } from './components/documentation/documentation
     DocumentationComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule, 
     HttpClientModule, 
     FormsModule,

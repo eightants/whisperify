@@ -1,0 +1,8 @@
+User-Agent: *
+
+Disallow: /quiz
+Disallow: /results
+Disallow: /survey
+Disallow: /no-info
+Disallow: /top
+Disallow: /challenge

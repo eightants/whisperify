@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "../server/dist/out-tsc",
+    "outDir": "../server/dist/out-tscst/out-tscst/out-tscst/out-tscst/out-tscst/out-tscst/out-tscst/out-tscst/out-tscst/out-tscst/out-tscst/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "module": "esnext",
