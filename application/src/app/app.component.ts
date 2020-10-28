@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {DatastoreService} from './components/services/datastore.service';
+import {isPlatformBrowser} from '@angular/common';
 
 declare let gtag: Function;
 
@@ -9,8 +10,9 @@ declare let gtag: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'], 
 })
+@Injectable()
 export class AppComponent implements OnInit {
-  constructor(private router: Router, private data: DatastoreService) {}
+  constructor(private router: Router, private data: DatastoreService, @Inject(PLATFORM_ID) protected platformId: Object) {}
 
   title = 'Whisperify';
   
@@ -22,9 +24,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // on load, if url contains ? (means that it's authenticated), will call checkUrl()
-    this.url = window.location.href;
-    if (this.url.includes("?")) {
-      this.checkUrl();
+    if (isPlatformBrowser(this.platformId)) {
+      this.url = window.location.href;
+      if (this.url.includes("?")) {
+        this.checkUrl();
+      }
     }
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

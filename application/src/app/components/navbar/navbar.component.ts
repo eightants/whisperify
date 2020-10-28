@@ -1,5 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import {isPlatformBrowser} from '@angular/common';
 import { SpotifyService } from '../services/spotify.service';
 
 @Component({
@@ -7,11 +8,14 @@ import { SpotifyService } from '../services/spotify.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
+@Injectable()
 export class NavbarComponent implements OnInit {
 
-  constructor(private router:Router, private spotify: SpotifyService) { }
+  constructor(private router:Router, private spotify: SpotifyService, @Inject(PLATFORM_ID) protected platformId: Object) { }
 
   showProfile = false;
+  displayname = "";
+  token = "";
   username = "";
   pfp = "url(/assets/pfp.jpg)";
 
@@ -21,15 +25,19 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.showProfile = false;
-    this.username = sessionStorage.getItem("username") || "";
-    this.pfp = sessionStorage.getItem("pfp");
-    if (this.username =="" || this.pfp == "") {
-      this.spotify.getProfile(sessionStorage.getItem('token')).then(res => {
-        this.username = res["id"];
-        if (res["images"].length > 0) {
-          this.pfp = res["images"][0]["url"];
-        }
-      });
+    if (isPlatformBrowser(this.platformId)) {
+      this.displayname = sessionStorage.getItem("displayname") || "";
+      this.username = sessionStorage.getItem("username") || "";
+      this.pfp = sessionStorage.getItem("pfp");
+      this.token = sessionStorage.getItem('token');
+      if (this.token != "" && (this.displayname == "" || this.pfp == "")) {
+        this.spotify.getProfile(this.token).then(res => {
+          this.displayname = res["display_name"];
+          if (res["images"].length > 0) {
+            this.pfp = res["images"][0]["url"];
+          }
+        });
+      }
     }
   }
 

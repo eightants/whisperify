@@ -1,10 +1,14 @@
 <div class="mult-container">
-    <div class="mult-inner">
-        <div *ngFor="let c of choices" class="mult-choice hoverhands" (click)="submitVal(trks[c].artists[0].name, trks[c].name)">
-            <div>
-                <p class="song-name">{{trks[c].name}}</p>
-                <p>{{ trks[c].artists[0].name }}</p>
-            </div>
-        </div>
+  <div class="mult-inner">
+    <div
+      *ngFor="let c of choices"
+      class="mult-choice hoverhands"
+      (click)="submitVal(trks[c].artists[0].name, trks[c].name)"
+    >
+      <div>
+        <p class="song-name">{{ trks[c].name }}</p>
+        <p>{{ trks[c].artists[0].name }}</p>
+      </div>
     </div>
+  </div>
 </div>

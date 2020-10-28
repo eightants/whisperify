@@ -1,148 +1,294 @@
 <div class="main-div">
-    <app-navbar></app-navbar>
-    <div class="main-text">
-        <p class="main-desc welcome-desc">{{titleText}}</p>
-    </div>
-    <div *ngIf="isLoaded">
-        <div class="answer-module absoluteCenter">
-            <div class="close-mod hoverhands" (click)="unLoad()"><img src="assets/close.svg"></div>
-            <div *ngIf="!playlistsLoaded" class="loading-div"></div>
-            <div *ngIf="playlistsLoaded">
-                <div class="popup-title">
-                    <h1>Select playlist...</h1>
-                </div>
-                <div class="excluded-list"></div>
-                <input class="exclude-option" placeholder="Find a playlist..." type="text" name="searchPlayStr" [(ngModel)]="searchPlayStr" (keyup)="searchPlaylists()" value="{{ searchPlayStr }}">
-                <div class="ans-sel">
-                    <div class="p-card" *ngFor="let p of playlistList; index as i" (click)="selectPlaylist(p)">
-                        <div class="p-name"><h3>{{p.name}}</h3></div>
-                        <div class="p-len">{{p.owner.display_name}} · {{p.tracks.total}} tracks</div>
-                    </div>
-                </div>
-            </div>
+  <app-navbar></app-navbar>
+  <div class="main-text"></div>
+  <div *ngIf="isLoaded">
+    <div class="answer-module absoluteCenter">
+      <div class="close-mod hoverhands" (click)="unLoad()">
+        <img src="assets/close.svg" />
+      </div>
+      <div *ngIf="!playlistsLoaded" class="loading-div"></div>
+      <div *ngIf="playlistsLoaded">
+        <div class="popup-title">
+          <h1>Select playlist...</h1>
         </div>
-        <div class="overlay" (click)="unLoad()"></div>
-    </div>
-    <div *ngIf="excludeModule && artistList.length>0">
-        <div class="answer-module absoluteCenter">
-            <div class="close-mod hoverhands" (click)="unLoadExclude()"><img src="assets/close.svg"></div>
-            <div class="popup-title">
-                <h1>Exclude artists...</h1>
+        <div class="excluded-list"></div>
+        <input
+          class="exclude-option"
+          placeholder="Find a playlist..."
+          type="text"
+          name="searchPlayStr"
+          [(ngModel)]="searchPlayStr"
+          (keyup)="searchPlaylists()"
+          value="{{ searchPlayStr }}"
+        />
+        <div class="ans-sel">
+          <div
+            class="p-card"
+            *ngFor="let p of playlistList; index as i"
+            (click)="selectPlaylist(p)"
+          >
+            <div class="p-name">
+              <h3>{{ p.name }}</h3>
             </div>
-            <div class="excluded-list">
-                <div class="exclude-card" *ngFor="let aname of config.excludeArtists; index as i">
-                    <div>{{ aname }}</div>
-                    <div class="remove-artist hoverhands" (click)="removeArtist(aname)"><img src="assets/remove.svg"/></div>
-                </div>
+            <div class="p-len">
+              {{ p.owner.display_name }} · {{ p.tracks.total }} tracks
             </div>
-            <input class="exclude-option" placeholder="Exclude an artist..." type="text" name="searchStr" [(ngModel)]="searchStr" (keyup)="searchArtists()" value="{{ searchVal }}">
-            <div class="ans-sel artist-sel">
-                <div class="art-card" *ngFor="let aname of searchList; index as i">
-                    <div *ngIf="config.excludeArtists.includes(aname)" class="action-img grey-out" id="done-img"><img src="assets/tick.svg"></div>
-                    <div *ngIf="config.excludeArtists.length>4 && !config.excludeArtists.includes(aname)" class="action-img grey-out" ><img src="assets/plus.svg"></div>
-                    <div *ngIf="config.excludeArtists.length<5 && !config.excludeArtists.includes(aname)" class="action-img hoverhands" (click)="addArtist(aname)"><img src="assets/plus.svg"></div>
-                    <div *ngIf="config.excludeArtists.length<5 && !config.excludeArtists.includes(aname)" class="artist-name"><span>{{ aname }}</span></div>
-                    <div *ngIf="config.excludeArtists.length>4 || config.excludeArtists.includes(aname)" class="artist-name grey-out"><span>{{ aname }}</span></div>
-                </div>
-            </div>
-            <button class="btn clr-wgreen mob-top-pad" (click)="unLoad()">Exclude</button>
+          </div>
         </div>
-        <div class="overlay" (click)="unLoadExclude()"></div>
+      </div>
     </div>
+    <div class="overlay" (click)="unLoad()"></div>
+  </div>
+  <div *ngIf="excludeModule && artistList.length > 0">
+    <div class="answer-module absoluteCenter">
+      <div class="close-mod hoverhands" (click)="unLoadExclude()">
+        <img src="assets/close.svg" />
+      </div>
+      <div class="popup-title">
+        <h1>Exclude artists...</h1>
+      </div>
+      <div class="excluded-list">
+        <div
+          class="exclude-card"
+          *ngFor="let aname of config.excludeArtists; index as i"
+        >
+          <div>{{ aname }}</div>
+          <div class="remove-artist hoverhands" (click)="removeArtist(aname)">
+            <img src="assets/remove.svg" />
+          </div>
+        </div>
+      </div>
+      <input
+        class="exclude-option"
+        placeholder="Exclude an artist..."
+        type="text"
+        name="searchStr"
+        [(ngModel)]="searchStr"
+        (keyup)="searchArtists()"
+        value="{{ searchVal }}"
+      />
+      <div class="ans-sel artist-sel">
+        <div class="art-card" *ngFor="let aname of searchList; index as i">
+          <div
+            *ngIf="config.excludeArtists.includes(aname)"
+            class="action-img grey-out"
+            id="done-img"
+          >
+            <img src="assets/tick.svg" />
+          </div>
+          <div
+            *ngIf="
+              config.excludeArtists.length > 4 &&
+              !config.excludeArtists.includes(aname)
+            "
+            class="action-img grey-out"
+          >
+            <img src="assets/plus.svg" />
+          </div>
+          <div
+            *ngIf="
+              config.excludeArtists.length < 5 &&
+              !config.excludeArtists.includes(aname)
+            "
+            class="action-img hoverhands"
+            (click)="addArtist(aname)"
+          >
+            <img src="assets/plus.svg" />
+          </div>
+          <div
+            *ngIf="
+              config.excludeArtists.length < 5 &&
+              !config.excludeArtists.includes(aname)
+            "
+            class="artist-name"
+          >
+            <span>{{ aname }}</span>
+          </div>
+          <div
+            *ngIf="
+              config.excludeArtists.length > 4 ||
+              config.excludeArtists.includes(aname)
+            "
+            class="artist-name grey-out"
+          >
+            <span>{{ aname }}</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn clr-wgreen mob-top-pad" (click)="unLoad()">
+        Exclude
+      </button>
+    </div>
+    <div class="overlay" (click)="unLoadExclude()"></div>
+  </div>
   <div *ngIf="!options" class="mob-pad fade-in-up mode-div">
-    <a routerLink="/tutorial"><div class="mode-card hoverhands">
+    <a routerLink="/tutorial"
+      ><div class="mode-card hoverhands">
         <div>
-            <img src="assets/question.svg">
-            <h2>How To Play</h2>
+          <img src="assets/question.svg" />
+          <h2>How To Play</h2>
         </div>
-        <p>A quick introduction to Whisperify with the best song ever. </p>
-    </div></a>
-    <a (click)="chooseTop()"><div class="mode-card hoverhands">
+        <p>A quick introduction to Whisperify with the best song ever.</p>
+      </div></a
+    >
+    <a (click)="chooseTop()"
+      ><div class="mode-card hoverhands">
         <div>
-            <img src="assets/heart.svg">
-            <h2>Top Tracks</h2>
+          <img src="assets/heart.svg" />
+          <h2>Top Tracks</h2>
         </div>
         <p>Recommended. Quiz yourself on your top songs!</p>
-    </div></a>
-    <a (click)="choosePlaylist(0)"><div class="mode-card hoverhands">
+      </div></a
+    >
+    <a (click)="choosePlaylist(0)"
+      ><div class="mode-card hoverhands">
         <div>
-            <img src="assets/playlist.svg">
-            <h2>My Playlists</h2>
+          <img src="assets/playlist.svg" />
+          <h2>My Playlists</h2>
         </div>
-        <p>Quiz yourself on any of your playlists. </p>
-    </div></a>
-    <a (click)="toAnalysis()"><div class="mode-card hoverhands">
+        <p>Quiz yourself on any of your playlists.</p>
+      </div></a
+    >
+    <a (click)="toAnalysis()"
+      ><div class="mode-card hoverhands">
         <div>
-            <img src="assets/radar.svg">
-            <h2>Analysis</h2>
+          <img src="assets/radar.svg" />
+          <h2>Analysis</h2>
         </div>
-        <p>View your audio report and visualize worldwide data. </p>
-    </div></a>
-    <a routerLink="/top"><div class="mode-card hoverhands">
+        <p>View your audio report and visualize worldwide data.</p>
+      </div></a
+    >
+    <a routerLink="/top"
+      ><div class="mode-card hoverhands">
         <div>
-            <img src="assets/star.svg">
-            <h2>Favourites</h2>
+          <img src="assets/star.svg" />
+          <h2>Favourites</h2>
         </div>
-        <p>View and save your top songs and artists. </p>
-    </div></a>
+        <p>View and save your top songs and artists.</p>
+      </div></a
+    >
   </div>
   <div *ngIf="options" class="mob-pad fade-in-up options-pad">
-    <div class="row-option" *ngIf="modeChoice=='top'">
-        <h2 class="h-option">Time Period</h2>
-        <div class="right-option">
-            <select class="sel-option" [ngModel]="chosenPeriod" (change)="choosePeriod($event.target.value)">
-                <option *ngFor="let t of timePeriod" [value]="t">{{t}}</option>
-            </select>
-        </div>
+    <div class="row-option" *ngIf="modeChoice == 'top'">
+      <h2 class="h-option">Time Period</h2>
+      <div class="right-option">
+        <select
+          class="sel-option"
+          [ngModel]="chosenPeriod"
+          (change)="choosePeriod($event.target.value)"
+        >
+          <option *ngFor="let t of timePeriod" [value]="t">{{ t }}</option>
+        </select>
+      </div>
     </div>
     <div class="row-option">
-        <h2 class="h-option">Whisper Length</h2>
-        <div class="right-option">
-            <select class="sel-option" [ngModel]="config.whisperLen" (change)="config.whisperLen = $event.target.value">
-                <option *ngFor="let t of whisperLen" [value]="t">{{t}} seconds</option>
-            </select>
-        </div>
+      <h2 class="h-option">Whisper Length</h2>
+      <div class="right-option">
+        <select
+          class="sel-option"
+          [ngModel]="config.whisperLen"
+          (change)="config.whisperLen = $event.target.value"
+        >
+          <option *ngFor="let t of whisperLen" [value]="t">
+            {{ t }} seconds
+          </option>
+        </select>
+      </div>
     </div>
     <div class="row-option">
-        <h2 class="h-option">Time Limit</h2>
-        <div class="right-option">
-            <select class="sel-option" [ngModel]="config.timeLimit" (change)="config.timeLimit = $event.target.value">
-                <option *ngFor="let t of timeLimit" [value]="t">{{t}} seconds</option>
-            </select>
-        </div>
+      <h2 class="h-option">Time Limit</h2>
+      <div class="right-option">
+        <select
+          class="sel-option"
+          [ngModel]="config.timeLimit"
+          (change)="config.timeLimit = $event.target.value"
+        >
+          <option *ngFor="let t of timeLimit" [value]="t">
+            {{ t }} seconds
+          </option>
+        </select>
+      </div>
     </div>
     <div class="row-option">
-        <div class="h-option">
-            <h2>Exclude Artists</h2>
-            <p class="no-mobile">Here you can exclude certain artists from your quiz. Useful if you listen to a lot of nature sounds, white noise, etc.</p>
-            <p class="mobile">Useful if you listen to a lot of nature sounds, white noise, etc.</p>
-        </div>
-        <div class="right-option vert-align-top">
-            <div class="excluded-profiles">
-                <div class="artist-profile hoverhands" *ngIf="this.config.excludeArtists.length<1" (click)="toExclude()"><div id="add-img"></div></div>
-                <div class="artist-profile hoverhands" *ngIf="this.config.excludeArtists.length>0" (click)="toExclude()"><div>{{ this.config.excludeArtists[0].substring(0,2).toUpperCase() }}</div></div>
-                <div class="artist-profile hoverhands" *ngIf="this.config.excludeArtists.length>1" (click)="toExclude()"><div>{{ this.config.excludeArtists[1].substring(0,2).toUpperCase() }}</div></div>
-                <div class="artist-profile hoverhands" *ngIf="this.config.excludeArtists.length>2" (click)="toExclude()"><div>+{{ this.config.excludeArtists.length - 2 }}</div></div>
+      <div class="h-option">
+        <h2>Exclude Artists</h2>
+        <p class="no-mobile">
+          Here you can exclude certain artists from your quiz. Useful if you
+          listen to a lot of nature sounds, white noise, etc.
+        </p>
+        <p class="mobile">
+          Useful if you listen to a lot of nature sounds, white noise, etc.
+        </p>
+      </div>
+      <div class="right-option vert-align-top">
+        <div class="excluded-profiles">
+          <div
+            class="artist-profile hoverhands"
+            *ngIf="this.config.excludeArtists.length < 1"
+            (click)="toExclude()"
+          >
+            <div id="add-img"></div>
+          </div>
+          <div
+            class="artist-profile hoverhands"
+            *ngIf="this.config.excludeArtists.length > 0"
+            (click)="toExclude()"
+          >
+            <div>
+              {{ this.config.excludeArtists[0].substring(0, 2).toUpperCase() }}
             </div>
-            <button class="btn audio-btn no-side-marg sel-artist" (click)="toExclude()">Select artists</button>
+          </div>
+          <div
+            class="artist-profile hoverhands"
+            *ngIf="this.config.excludeArtists.length > 1"
+            (click)="toExclude()"
+          >
+            <div>
+              {{ this.config.excludeArtists[1].substring(0, 2).toUpperCase() }}
+            </div>
+          </div>
+          <div
+            class="artist-profile hoverhands"
+            *ngIf="this.config.excludeArtists.length > 2"
+            (click)="toExclude()"
+          >
+            <div>+{{ this.config.excludeArtists.length - 2 }}</div>
+          </div>
         </div>
+        <button
+          class="btn audio-btn no-side-marg sel-artist"
+          (click)="toExclude()"
+        >
+          Select artists
+        </button>
+      </div>
     </div>
     <div class="row-option">
-        <div class="h-option">
-            <h2>Multiple Choice</h2>
-            <p class="no-mobile">This reduces the maximum score you can get per question, but may help if you are on a mobile device. </p>
-            <p class="mobile">Recommended for mobile users. </p>
-        </div>
-        <div class="right-option vert-align-top">
-            <label class="switch">
-                <input type="checkbox" (change)="$event.target.checked ? config.multChoice = true : config.multChoice = false">
-                <span class="slider round"></span>
-            </label>
-        </div>
+      <div class="h-option">
+        <h2>Multiple Choice</h2>
+        <p class="no-mobile">
+          This reduces the maximum score you can get per question, but may help
+          if you are on a mobile device.
+        </p>
+        <p class="mobile">Recommended for mobile users.</p>
+      </div>
+      <div class="right-option vert-align-top">
+        <label class="switch">
+          <input
+            type="checkbox"
+            (change)="
+              $event.target.checked
+                ? (config.multChoice = true)
+                : (config.multChoice = false)
+            "
+          />
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
     <button class="btn no-mobile-inline" (click)="toggleOptions()">Back</button>
     <a (click)="startQuiz()">
-        <button class="btn clr-wgreen mob-top-pad">Start Quiz</button>
+      <button class="btn clr-wgreen mob-top-pad">Start Quiz</button>
     </a>
     <button class="btn mobile-inline" (click)="toggleOptions()">Back</button>
   </div>

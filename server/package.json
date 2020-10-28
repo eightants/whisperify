@@ -21,6 +21,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.2",
     "request": "^2.88.0",
-    "supports-color": "^7.1.0"
+    "supports-color": "^7.1.0",
+    "zone.js": "^0.11.1"
   }
 }

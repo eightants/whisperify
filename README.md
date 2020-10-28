@@ -1,4 +1,4 @@
-<h3 align="center"><!--<img src="https://i.imgur.com/zBxrTgI.png" width="600px" style="border-radius: 5px" alt="Whisperify">--></h3>
+<h3 align="center"><img src="https://i.imgur.com/taUZhCD.png" width="600px" style="border-radius: 5px" alt="Whisperify"></h3>
 <p align="center">
   <a href="https://whisperify.net" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/try_it_out-whisperify.net-0099FF.svg"></a>
   <a href="https://github.com/eightants/whisperify/releases/latest"><img src="https://img.shields.io/github/release/eightants/whisperify/all.svg?colorB=38a275?label=version"></a>

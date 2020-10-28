@@ -1,22 +1,23 @@
-$bg-color: #2E2E2E;
-$wgrey: #A8A8A8;
-$wgreen: #38A275;
+$bg-color: #2e2e2e;
+$wgrey: #a8a8a8;
+$wgreen: #38a275;
 
 * {
   box-sizing: border-box;
 }
 
 .area {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0px; left: 0px;
-    z-index: -5;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: -5;
 }
 
 form {
-    text-align: center;
-    box-sizing: border-box;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .autocomplete {
@@ -28,7 +29,7 @@ form {
   margin-top: 80px;
 }
 
-input[type=text] {
+input[type="text"] {
   border-radius: 40px;
   border-width: 0px;
   background-color: white;
@@ -38,8 +39,8 @@ input[type=text] {
 }
 
 button.submit {
-    padding-left: 50px;
-    padding-right: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 button.submit:disabled {
@@ -50,11 +51,10 @@ button.submit:disabled:hover {
   transform: scale(1);
 }
 
-
 .dropdown-expanded {
-    border-radius: 25px 25px 0px 0px!important;
-    border-bottom: 1px solid #d4d4d4!important;
-    //transition: all 0.5s ease;
+  border-radius: 25px 25px 0px 0px !important;
+  border-bottom: 1px solid #d4d4d4 !important;
+  //transition: all 0.5s ease;
 }
 
 .autocomplete-items {
@@ -90,17 +90,16 @@ button.submit:disabled:hover {
 }
 
 .song-elem {
-    font-weight: bold;
-    span {
-        font-weight: normal;
-        color: $wgrey;
-        margin-left: 8px;
-    }
+  font-weight: bold;
+  span {
+    font-weight: normal;
+    color: $wgrey;
+    margin-left: 8px;
+  }
 }
 
 @media (max-width: 768px) {
   .autocomplete {
     margin-top: 40px;
   }
-  
 }

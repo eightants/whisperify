@@ -1,49 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Whisperify</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. " />
-  <meta property="og:title" content="Whisperify" />
-  <meta property="og:type" content="website" />
-  <meta property="og:description" content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. " />
-  <meta property="og:url" content="https://whisperify.net" />
-  <meta property="og:image" content="https://whisperify.net/assets/landing.png" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@yihonganthony" />
-  <meta name="twitter:title" content="Whisperify" />
-  <meta name="twitter:description" content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. " />
-  <meta name="twitter:image" content="https://whisperify.net/assets/landing.png" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!--D3 scripts-->
-  <script src="./assets/d3.min.js" type="text/javascript"></script>
-  <script src="./assets/dot-plot-d3.js" type="text/javascript"></script>
-  <script src="./assets/round-radar-d3.js" type="text/javascript"></script>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MHTTGGB');</script>
-  <!-- End Google Tag Manager -->
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132344171-3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  </script>
+  <head>
+    <meta charset="utf-8" />
+    <title>Whisperify</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. "
+    />
+    <meta property="og:title" content="Whisperify" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. "
+    />
+    <meta property="og:url" content="https://whisperify.net" />
+    <meta
+      property="og:image"
+      content="https://whisperify.net/assets/landing.png"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@yihonganthony" />
+    <meta name="twitter:title" content="Whisperify" />
+    <meta
+      name="twitter:description"
+      content="An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. "
+    />
+    <meta
+      name="twitter:image"
+      content="https://whisperify.net/assets/landing.png"
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!--D3 scripts-->
+    <script src="./assets/d3.min.js" type="text/javascript"></script>
+    <script src="./assets/dot-plot-d3.js" type="text/javascript"></script>
+    <script src="./assets/round-radar-d3.js" type="text/javascript"></script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-MHTTGGB");
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-132344171-3"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+    </script>
 
-  <!--Import Fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-</head>
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHTTGGB"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <app-root></app-root>
-</body>
+    <!--Import Fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MHTTGGB"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <app-root></app-root>
+  </body>
 </html>

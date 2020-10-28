@@ -1,93 +1,195 @@
 <div class="container">
   <app-navbar></app-navbar>
-    <h1 class="sec-title">Survey</h1>
-    <div class="register-item options-pad survey-pad">
-      <form #surveyForm="ngForm" class="form" (ngSubmit)="onSubmit()">
-        <div class="form-field">
-              <h2>Which of the following is most important for you in a song?</h2>
-              <ul>
-                <li>
-                  <input type="radio" id="f-option" name="selector" value='lyrics' [(ngModel)]="model.song">
-                  <label for="f-option">Lyrics</label>
-                  <div class="check"></div>
-                </li>
-                <li>
-                  <input type="radio" id="s-option" name="selector" value='melody' [(ngModel)]="model.song">
-                  <label for="s-option">Melody</label>
-                  <div class="check"><div class="inside"></div></div>
-                </li>
-                <li>
-                  <input type="radio" id="t-option" name="selector" value='genre' [(ngModel)]="model.song">
-                  <label for="t-option">Genre</label>
-                  <div class="check"><div class="inside"></div></div>
-                </li>
-              </ul>
-    </div>
-    <div class="form-field">
-            <h2>How do you spend your weekend after a long and exhausting week?</h2>
-            <ul>
-              <li>
-                <input type="radio" id="mb1-a" name="mb1" value="e" [(ngModel)]="model.ei">
-                <label for="mb1-a">I call my friends to ask about their plans and organise a hangout. </label>
-                <div class="check"></div>
-              </li>
-              <li>
-                <input type="radio" id="mb1-b" name="mb1" value="i" [(ngModel)]="model.ei">
-                <label for="mb1-b">I take things slow and relax while doing something I enjoy (reading, video games, sports...)</label>
-                <div class="check"><div class="inside"></div></div>
-              </li>
-            </ul>
+  <h1 class="sec-title">Survey</h1>
+  <div class="register-item options-pad survey-pad">
+    <form #surveyForm="ngForm" class="form" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <h2>Which of the following is most important for you in a song?</h2>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="f-option"
+              name="selector"
+              value="lyrics"
+              [(ngModel)]="model.song"
+            />
+            <label for="f-option">Lyrics</label>
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="s-option"
+              name="selector"
+              value="melody"
+              [(ngModel)]="model.song"
+            />
+            <label for="s-option">Melody</label>
+            <div class="check"><div class="inside"></div></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="t-option"
+              name="selector"
+              value="genre"
+              [(ngModel)]="model.song"
+            />
+            <label for="t-option">Genre</label>
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
       </div>
       <div class="form-field">
-            <h2>Which description fits you better?</h2>
-            <ul>
-              <li>
-                <input type="radio" id="mb2-a" name="mb2" value="s" [(ngModel)]="model.sn">
-                <label for="mb2-a">You like to live in the moment, you’re present and grounded in reality, you’re very detail-oriented, and you want to act on plans as soon as possible. </label>
-                <div class="check"></div>
-              </li>
-              <li>
-                <input type="radio" id="mb2-b" name="mb2" value="n" [(ngModel)]="model.sn">
-                <label for="mb2-b">You love ideas and theories, you like to imagine future possibilities, you enjoy symbolism and meaning behind what to do. </label>
-                <div class="check"><div class="inside"></div></div>
-              </li>
-            </ul>
+        <h2>How do you spend your weekend after a long and exhausting week?</h2>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="mb1-a"
+              name="mb1"
+              value="e"
+              [(ngModel)]="model.ei"
+            />
+            <label for="mb1-a"
+              >I call my friends to ask about their plans and organise a
+              hangout.
+            </label>
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="mb1-b"
+              name="mb1"
+              value="i"
+              [(ngModel)]="model.ei"
+            />
+            <label for="mb1-b"
+              >I take things slow and relax while doing something I enjoy
+              (reading, video games, sports...)</label
+            >
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
       </div>
       <div class="form-field">
-            <h2>When you have to make a big decision — like where to attend college or whether to break up with someone — how do you make the choice?</h2>
-            <ul>
-              <li>
-                <input type="radio" id="mb3-a" name="mb3" value="t" [(ngModel)]="model.tf">
-                <label for="mb3-a">Consider all the information and weigh the pros and cons to help you make a fair and logical decision. </label>
-                <div class="check"></div>
-              </li>
-              <li>
-                <input type="radio" id="mb3-b" name="mb3" value="f" [(ngModel)]="model.tf">
-                <label for="mb3-b">Listen to your feelings and take into account others' emotions</label>
-                <div class="check"><div class="inside"></div></div>
-              </li>
-            </ul>
+        <h2>Which description fits you better?</h2>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="mb2-a"
+              name="mb2"
+              value="s"
+              [(ngModel)]="model.sn"
+            />
+            <label for="mb2-a"
+              >You like to live in the moment, you’re present and grounded in
+              reality, you’re very detail-oriented, and you want to act on plans
+              as soon as possible.
+            </label>
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="mb2-b"
+              name="mb2"
+              value="n"
+              [(ngModel)]="model.sn"
+            />
+            <label for="mb2-b"
+              >You love ideas and theories, you like to imagine future
+              possibilities, you enjoy symbolism and meaning behind what to do.
+            </label>
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
       </div>
       <div class="form-field">
-            <h2>When you know you’ve got a trip on the calendar or an event to attend, how do you like to prepare?</h2>
-            <ul>
-                <li>
-                    <input type="radio" id="mb4-a" name="mb4" value="j" [(ngModel)]="model.jp">
-                    <label for="mb4-a">I like to be fully prepared and like to plan, structure, and making firm decisions in advance. </label>
-                    <div class="check"></div>
-                </li>
-                <li>
-                    <input type="radio" id="mb4-b" name="mb4" value="p" [(ngModel)]="model.jp">
-                    <label for="mb4-b">I keep myself informed of the event, but I like to keep things open-ended, spontaneous and flexible. </label>
-                    <div class="check"><div class="inside"></div></div>
-                </li>
-            </ul>
+        <h2>
+          When you have to make a big decision — like where to attend college or
+          whether to break up with someone — how do you make the choice?
+        </h2>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="mb3-a"
+              name="mb3"
+              value="t"
+              [(ngModel)]="model.tf"
+            />
+            <label for="mb3-a"
+              >Consider all the information and weigh the pros and cons to help
+              you make a fair and logical decision.
+            </label>
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="mb3-b"
+              name="mb3"
+              value="f"
+              [(ngModel)]="model.tf"
+            />
+            <label for="mb3-b"
+              >Listen to your feelings and take into account others'
+              emotions</label
+            >
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
+      </div>
+      <div class="form-field">
+        <h2>
+          When you know you’ve got a trip on the calendar or an event to attend,
+          how do you like to prepare?
+        </h2>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="mb4-a"
+              name="mb4"
+              value="j"
+              [(ngModel)]="model.jp"
+            />
+            <label for="mb4-a"
+              >I like to be fully prepared and like to plan, structure, and
+              making firm decisions in advance.
+            </label>
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="mb4-b"
+              name="mb4"
+              value="p"
+              [(ngModel)]="model.jp"
+            />
+            <label for="mb4-b"
+              >I keep myself informed of the event, but I like to keep things
+              open-ended, spontaneous and flexible.
+            </label>
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
       </div>
 
-        <div class="form-field btn-div">
-          <input class="btn clr-wgreen form-btn" type="submit" value="Submit" [disabled]="!validRes()">
-          <button class="btn form-btn" routerLink="/results">Back</button>
-        </div>
-      </form>
-    </div>
+      <div class="form-field btn-div">
+        <input
+          class="btn clr-wgreen form-btn"
+          type="submit"
+          value="Submit"
+          [disabled]="!validRes()"
+        />
+        <button class="btn form-btn" routerLink="/results">Back</button>
+      </div>
+    </form>
+  </div>
 </div>

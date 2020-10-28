@@ -28,7 +28,6 @@ export class WelcomeComponent implements OnInit {
   playlistsLoaded = false;
   playlistList = [];
   searchPlayStr = "";
-  titleText = "Choose an option. ";
   options = false;
   // these variables are the configs of the quiz
   whisperLen = [2, 5, 10];
@@ -105,7 +104,7 @@ export class WelcomeComponent implements OnInit {
                   // get audio features for this user
                   this.spotify.getUserAudioFeatures(this.token, songList).then(
                     feat => {
-                      let averageFeatures = feat["audio_features"][0];
+                      let averageFeatures = feat["audio_features"][0] || {};
                       //console.log(averageFeatures);
                       for (let i = 1; i < feat["audio_features"].length; i++) {
                         for (let j = 0; j < allFeaturesToAdd.length; j++) {
@@ -132,8 +131,10 @@ export class WelcomeComponent implements OnInit {
                   );
                   // checks if they have already answered the survey
                   this.spotify.getUserAnalysis(this.username).then(res => {
-                    if (res["ei"]) {
-                      this.answered = "yes";
+                    if (res != null) {
+                      if (res["ei"]) {
+                        this.answered = "yes";
+                      }
                     }
                     sessionStorage.setItem("answered", this.answered);
                   });
@@ -147,8 +148,10 @@ export class WelcomeComponent implements OnInit {
       } else {
         // checks if they have already answered the survey
         this.spotify.getUserAnalysis(this.username).then(res => {
-          if (res["ei"]) {
-            this.answered = "yes";
+          if (res != null) {
+            if (res["ei"]) {
+              this.answered = "yes";
+            }
           }
           sessionStorage.setItem("answered", this.answered);
         });

@@ -2,10 +2,10 @@
 
 /* command: sass --watch src/static/index.scss:src/static/index.css */
 
-$bg-color: #2E2E2E;
+$bg-color: #2e2e2e;
 $optionclr: #414141;
-$wgrey: #A8A8A8;
-$wgreen: #38A275;
+$wgrey: #a8a8a8;
+$wgreen: #38a275;
 $wcode: #ededed;
 
 @font-face {
@@ -14,20 +14,22 @@ $wcode: #ededed;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
 body {
-    background-color: $bg-color;
-    color: white;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    min-height: 100%;
-    margin: 0;
+  background-color: $bg-color;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  min-height: 100%;
+  margin: 0;
 }
 
 p {
@@ -36,12 +38,15 @@ p {
   margin-bottom: 0.5em;
 }
 
-
 h1 {
   font-size: 80px;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: "Circular", sans-serif;
   font-weight: normal;
   margin-top: 0.5em;
@@ -49,7 +54,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .btn {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 15px 30px;
   background-color: rgb(100, 100, 100);
   border-radius: 40px;
@@ -59,7 +64,7 @@ h1, h2, h3, h4, h5 {
   color: white;
   text-transform: uppercase;
   font-weight: 800;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .btn:hover {
@@ -77,7 +82,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .tab-btn {
-  font-family: 'Circular', 'sans-serif';
+  font-family: "Circular", "sans-serif";
   font-size: 20px;
   border: 0px solid #c4c4c4;
   color: white;
@@ -86,7 +91,7 @@ h1, h2, h3, h4, h5 {
   padding: 12px 10px 10px 10px;
   width: 100%;
   opacity: 0.6;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .tab-btn:hover {
@@ -94,7 +99,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .selected-tab-btn {
-  border: 0px solid #3E3E3E;
+  border: 0px solid #3e3e3e;
   background: #3e3e3e;
   color: white;
   opacity: 1;
@@ -108,59 +113,59 @@ h1, h2, h3, h4, h5 {
 // CODE FOR NAVBAR
 
 .nav-bar {
-    position: absolute;
-    top: 10px;
-    right: 3%;
+  position: absolute;
+  top: 10px;
+  right: 3%;
 
-    button {
-        background-color: $bg-color;
-        border-color: $wgrey;
-        border: 1px solid;
-        color: $wgrey;
-        display: inline-block;
-        padding: 14px 25px;
-        margin: 20px 10px;
+  button {
+    background-color: $bg-color;
+    border-color: $wgrey;
+    border: 1px solid;
+    color: $wgrey;
+    display: inline-block;
+    padding: 14px 25px;
+    margin: 20px 10px;
+  }
+
+  #menu {
+    margin: 10%;
+    width: 80%;
+  }
+
+  #info-btn {
+    font-family: "Circular", "sans-serif";
+    text-transform: lowercase;
+    padding: 5px;
+    font-size: 1.2em;
+  }
+
+  #info-icon {
+    margin: 10%;
+    width: 80%;
+    height: 80%;
+    filter: invert(0.8);
+  }
+
+  #docs-icon {
+    margin: 5%;
+    width: 90%;
+    height: 90%;
+  }
+
+  .nav-btn-c {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    padding: 10px 10px 10px 10px;
+    margin: 20px 10px;
+
+    img {
+      width: 100%;
+      opacity: 0.8;
+      max-height: 100%;
+      transition: none;
     }
-
-    #menu {
-        margin: 10%;
-        width: 80%;
-    }
-
-    #info-btn {
-      font-family: 'Circular', 'sans-serif';
-      text-transform: lowercase;
-      padding: 5px;
-      font-size: 1.2em;
-    }
-
-    #info-icon {
-      margin: 10%;
-      width: 80%;
-      height: 80%;
-      filter: invert(0.8)
-    }
-
-    #docs-icon {
-      margin: 5%;
-      width: 90%;
-      height: 90%;
-    }
-
-    .nav-btn-c {
-        width: 50px;
-        height: 50px;
-        overflow: hidden;
-        padding: 10px 10px 10px 10px;
-        margin: 20px 10px;
-
-        img {
-            width: 100%;
-            opacity: 0.8;
-            max-height: 100%;
-            transition: none;
-        }
-    }
+  }
 }
 
 // CODE FOR SWITCH/SLIDER
@@ -191,8 +196,8 @@ h1, h2, h3, h4, h5 {
   //border: 1px solid #c4c4c4;
   box-shadow: 0px 0px 0px 1px #d4d4d4;
   /*background-color: #c4c4c4;*/
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -204,8 +209,8 @@ h1, h2, h3, h4, h5 {
   bottom: 4px;
   /*background-color: #2e2e2e;*/
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -236,37 +241,37 @@ input:checked + .slider:before {
 
 .sel-option {
   min-width: 200px;
-font-size: 16px;
-color: #d4d4d4;
-padding: 12px 40px 12px 20px;
+  font-size: 16px;
+  color: #d4d4d4;
+  padding: 12px 40px 12px 20px;
   box-sizing: border-box;
   border-radius: 5px;
-margin: 0;
+  margin: 0;
   border: 1px solid #d4d4d4;
   -moz-appearance: none;
--webkit-appearance: none;
+  -webkit-appearance: none;
   appearance: none;
   background-color: #2e2e2e;
-background-image: url('/assets/dd.svg');
-background-repeat: no-repeat, repeat;
-background-position: right .7em top 50%, 0 0;
-background-size: .65em auto, 100%;
+  background-image: url("/assets/dd.svg");
+  background-repeat: no-repeat, repeat;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
 }
 .sel-option::-ms-expand {
-display: none;
+  display: none;
 }
 .sel-option:hover {
   border-color: #fff;
   cursor: pointer;
 }
 .sel-option:focus {
-border: 1px solid #fff;
-color: #c4c4c4;
-outline: none;
+  border: 1px solid #fff;
+  color: #c4c4c4;
+  outline: none;
 }
 .sel-option option {
   border: 1px solid #d4d4d4;
-font-weight:normal;
+  font-weight: normal;
 }
 
 .coffee-frame {
@@ -277,7 +282,7 @@ font-weight:normal;
 }
 
 .coffee {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 15px 30px;
   background-color: #ff813f;
   border-radius: 10px;
@@ -288,11 +293,11 @@ font-weight:normal;
   color: white;
   text-transform: uppercase;
   font-weight: 800;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .coffee:hover {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 15px 30px;
   background-color: #ff9e6a;
   border-radius: 10px;
@@ -303,7 +308,7 @@ font-weight:normal;
   color: white;
   text-transform: uppercase;
   font-weight: 800;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .about-btn {
@@ -327,7 +332,7 @@ font-weight:normal;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 800;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   z-index: 30;
 }
 
@@ -374,7 +379,6 @@ font-weight:normal;
   }
 }
 
-
 .circle-btn:hover {
   img {
     filter: invert(1);
@@ -386,14 +390,13 @@ font-weight:normal;
   }
 }
 
-
 .link-div {
   display: flex;
 }
 
 .copy-btn {
   //background: #424242;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 12px 20px;
   background-color: #646464;
   border-width: 0px;
@@ -402,7 +405,7 @@ font-weight:normal;
   color: white;
   text-transform: uppercase;
   font-weight: 800;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   border-radius: 0px 5px 5px 0px;
   min-width: 100px;
 }
@@ -410,14 +413,14 @@ font-weight:normal;
 .link-field {
   //flex: 1;
   border-radius: 5px 0px 0px 5px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   padding: 12px 20px;
   background-color: #323232;
   border-width: 0px;
   margin: 20px 0px 10px 0px;
   text-decoration: none;
   color: #a8a8a8;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   border: 1px solid #646464;
   width: calc(100% - 105px);
 }
@@ -434,7 +437,7 @@ font-weight:normal;
 }
 
 .sq-btn {
-  border-radius: 5px!important;
+  border-radius: 5px !important;
   margin: 10px 10px 20px 0px;
   padding: 12px 20px;
 }
@@ -465,20 +468,20 @@ font-weight:normal;
 }
 
 .main-div {
-    text-align: center;
-    min-height: 70vh;
-    padding: 0px 20px;
-    width: 100%;
+  text-align: center;
+  min-height: 70vh;
+  padding: 0px 20px;
+  width: 100%;
 }
 
 .main-text {
-    padding: 80px 0px 20px 0px;
+  padding: 80px 0px 20px 0px;
 }
 
 .main-title {
-    font-size: 110px;
-    margin-top: 60px;
-    margin-bottom: 20px;
+  font-size: 110px;
+  margin-top: 60px;
+  margin-bottom: 20px;
 }
 
 .sec-title {
@@ -496,7 +499,7 @@ font-weight:normal;
 }
 
 .main-desc {
-    font-size: 24px;
+  font-size: 22px;
 }
 
 .anchor-desc {
@@ -505,11 +508,6 @@ font-weight:normal;
   padding: 0px 10px;
 }
 
-.welcome-desc {
-  margin-top: 1%;
-}
-
-
 .align-left {
   text-align: left;
 }
@@ -517,7 +515,6 @@ font-weight:normal;
 .almost-width {
   width: 95%;
 }
-
 
 .mode-div {
   width: 100%;
@@ -538,20 +535,20 @@ font-weight:normal;
   margin: 10px;
   display: inline-block;
   vertical-align: top;
-  min-height: 260px;
-  transition: all .2s ease-in-out;
-  
+  min-height: 256px;
+  transition: all 0.2s ease-in-out;
+
   img {
-    max-height: 50px;
-    max-width: 50px;
-    margin-bottom: 20px;
+    max-height: 48px;
+    max-width: 48px;
+    margin-bottom: 18px;
   }
 }
 
 a .mode-card:hover {
   margin-top: 2px;
   margin-bottom: 18px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: rgb(75, 75, 75);
 }
 
@@ -578,9 +575,9 @@ a .mode-card:hover {
   flex-flow: row wrap;
 
   h1 {
-      width: 100%;
-      text-align: left;
-      font-size: 3em;
+    width: 100%;
+    text-align: left;
+    font-size: 3em;
   }
 }
 
@@ -594,7 +591,7 @@ a .mode-card:hover {
 
   img {
     position: absolute;
-    top:15px;
+    top: 15px;
     right: 15px;
     width: 20px;
     filter: invert(0.5);
@@ -612,34 +609,34 @@ a .mode-card:hover {
     padding: 10px 20px;
     position: absolute;
     width: 100%;
-    top:-5px;
+    top: -5px;
     font-size: 0.8em;
     right: 50px;
   }
 
   div {
-      position: relative;
-      margin: 10px;
-      border-radius: 100px;
-      width: calc(100% - 20px);
-      padding-top: calc(100% - 20px);
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
+    position: relative;
+    margin: 10px;
+    border-radius: 100px;
+    width: calc(100% - 20px);
+    padding-top: calc(100% - 20px);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
-      span {
-          position: absolute;
-          top: 0;
-          left: 2px;
-          margin: auto;
-          font-family: 'Circular', 'sans-serif';
-          font-size: 4em;
-      }
+    span {
+      position: absolute;
+      top: 0;
+      left: 2px;
+      margin: auto;
+      font-family: "Circular", "sans-serif";
+      font-size: 4em;
+    }
   }
 
   h3 {
-      padding: 15px 0px 10px 0px;
-      text-align: left;
+    padding: 15px 0px 10px 0px;
+    text-align: left;
   }
 }
 
@@ -662,12 +659,12 @@ a .mode-card:hover {
     }
 
     code {
-        background-color: $wcode;
-        word-break: break-word;
+      background-color: $wcode;
+      word-break: break-word;
     }
 
     pre {
-      background-color:  $wcode;
+      background-color: $wcode;
       padding: 20px 20px;
       border-radius: 5px;
       overflow-x: auto;
@@ -689,7 +686,8 @@ a .mode-card:hover {
         text-transform: uppercase;
       }
 
-      th, td {
+      th,
+      td {
         //font-weight: 100;
         font-weight: 400;
         padding: 7px 40px 7px 0;
@@ -726,7 +724,7 @@ a .mode-card:hover {
 }
 
 .mobile-inline {
-  display: none!important;
+  display: none !important;
 }
 
 .no-mobile {
@@ -738,35 +736,34 @@ a .mode-card:hover {
 }
 
 .fade-in-up {
-  animation-duration: .5s;
+  animation-duration: 0.5s;
   animation-fill-mode: both;
-  -webkit-animation-duration: .5s;
+  -webkit-animation-duration: 0.5s;
   -webkit-animation-fill-mode: both;
   opacity: 0;
   animation-name: fadeInUp;
   -webkit-animation-name: fadeInUp;
-
 }
 
 /* Animation */
 
 @keyframes fadeInUp {
   from {
-      transform: translate3d(0,40px,0)
+    transform: translate3d(0, 40px, 0);
   }
   to {
-      transform: translate3d(0,0,0);
-      opacity: 1
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 }
 
 @-webkit-keyframes fadeInUp {
   from {
-      transform: translate3d(0,40px,0)
+    transform: translate3d(0, 40px, 0);
   }
   to {
-      transform: translate3d(0,0,0);
-      opacity: 1
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 }
 
@@ -788,22 +785,22 @@ Waves Animation
   z-index: -10;
   display: block;
 }
-.parallax>use {
-  animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
 }
-.parallax>use:nth-child(1) {
+.parallax > use:nth-child(1) {
   animation-delay: -2s;
   animation-duration: 32s;
 }
-.parallax>use:nth-child(2) {
+.parallax > use:nth-child(2) {
   animation-delay: -4s;
   animation-duration: 10s;
 }
-.parallax>use:nth-child(3) {
+.parallax > use:nth-child(3) {
   animation-delay: -4s;
   animation-duration: 13s;
 }
-.parallax>use:nth-child(4) {
+.parallax > use:nth-child(4) {
   animation-delay: -5s;
   animation-duration: 20s;
 }
@@ -816,8 +813,6 @@ Waves Animation
   }
 }
 
-
-
 /* Mobile responsive styles */
 
 @media (max-width: 768px) {
@@ -825,19 +820,19 @@ Waves Animation
     margin-bottom: 60px;
   }
   .mob-top-pad {
-    margin-top: 20px!important;
+    margin-top: 20px !important;
   }
   .mobile {
     display: block;
   }
   .mobile-inline {
-    display: inline-block!important;
+    display: inline-block !important;
   }
   .no-mobile {
-    display: none!important;
+    display: none !important;
   }
   .no-mobile-inline {
-    display: none!important;
+    display: none !important;
   }
   .mode-card {
     width: calc(100% - 20px);
@@ -845,7 +840,7 @@ Waves Animation
     margin: 10px 10px;
     min-height: auto;
     padding: 20px 30px;
-    
+
     img {
       max-height: 30px;
       max-width: 30px;
@@ -858,12 +853,12 @@ Waves Animation
   }
   a .mode-card:hover {
     margin: 10px 10px;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     background-color: rgb(75, 75, 75);
   }
 
   .offset-2 {
-    margin: 0px!important;
+    margin: 0px !important;
   }
   .sec-title {
     font-size: 54px;
@@ -892,7 +887,7 @@ Waves Animation
   /* QUIZ PAGE STYLES */
 
   .ques-num {
-    font-size: 60px!important;
+    font-size: 60px !important;
     margin-left: 15px;
   }
 
@@ -901,39 +896,40 @@ Waves Animation
   }
 
   .reg-div {
-    width: calc(100% - 20px)!important;
-    margin: 0px 10px!important;
+    width: calc(100% - 20px) !important;
+    margin: 0px 10px !important;
   }
 
   .sound-div {
     width: 100%;
-    margin: 80px 0px 0px 0px!important;
+    margin: 80px 0px 0px 0px !important;
     div {
-      width: 200px!important;
-      height: 60px!important;
+      width: 200px !important;
+      height: 60px !important;
     }
   }
 
-  .soundwave-white, .soundwave-blue {
-    width: 200px!important;
-    height: 60px!important;
-    object-fit: contain!important;
+  .soundwave-white,
+  .soundwave-blue {
+    width: 200px !important;
+    height: 60px !important;
+    object-fit: contain !important;
   }
 
   .soundwave-blue {
-    display: none!important;
+    display: none !important;
   }
 
   .autocomplete {
-    width: 100%!important;
+    width: 100% !important;
 
     input {
-      margin-right: 0px!important;
+      margin-right: 0px !important;
     }
   }
 
   .tut-module {
-    width: 90%!important;
+    width: 90% !important;
   }
 
   .audio-btn {
@@ -948,29 +944,29 @@ Waves Animation
 
   .answer-module {
     h1 {
-      margin: 0.3em 0px!important;
+      margin: 0.3em 0px !important;
     }
   }
 
   .score-text {
     padding-top: 10%;
-    width: 100%!important;
+    width: 100% !important;
 
     h1 {
-      font-size: 120px!important;
+      font-size: 120px !important;
     }
   }
 
   .flavor-text {
-    text-align: center!important;
+    text-align: center !important;
     padding-bottom: 40px;
-    width: 100%!important;
-    min-width: 0!important;
+    width: 100% !important;
+    min-width: 0 !important;
 
     .flavor-card {
-      max-height: none!important;
-      width: 100%!important;
-      margin: 10px auto!important;
+      max-height: none !important;
+      width: 100% !important;
+      margin: 10px auto !important;
     }
   }
 
@@ -994,31 +990,31 @@ Waves Animation
     text-align: right;
 
     button {
-        background-color: $bg-color;
-        border-color: $wgrey;
-        border: 1px solid;
-        color: $wgrey;
-        display: inline-block;
-        padding: 14px 25px;
-        margin: 20px 10px;
+      background-color: $bg-color;
+      border-color: $wgrey;
+      border: 1px solid;
+      color: $wgrey;
+      display: inline-block;
+      padding: 14px 25px;
+      margin: 20px 10px;
     }
 
     #menu {
-        margin: 10%;
-        width: 80%;
+      margin: 10%;
+      width: 80%;
     }
 
     .nav-btn-c {
-        width: 50px;
-        height: 50px;
-        overflow: hidden;
-        margin: 20px 10px;
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      margin: 20px 10px;
 
-        img {
-            width: 100%;
-            opacity: 0.8;
-            transition: none;
-        }
+      img {
+        width: 100%;
+        opacity: 0.8;
+        transition: none;
+      }
     }
   }
 }

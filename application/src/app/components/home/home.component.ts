@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { TitleTagService } from '../services/title-tag.service';
-import { MAINURL } from "../../globals";
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+@Injectable()
 export class HomeComponent implements OnInit {
 
-  constructor(private titleTagService: TitleTagService) { }
+  constructor(private titleTagService: TitleTagService, @Inject(PLATFORM_ID) protected platformId: Object) { }
 
   ngOnInit() {
     this.titleTagService.setTitle('Whisperify - Spotify Quiz and Music Analysis');
@@ -17,16 +18,13 @@ export class HomeComponent implements OnInit {
       'Whisperify - Spotify Quiz and Music Analysis',
       "An interactive way to learn about your favourite songs on Spotify. View stats, quiz yourself on your favourite playlists, and share quizzes with friends. "
     );
-    // sets some session variables to null, which logs the user out
-    sessionStorage.setItem("currentLink", "");
-    sessionStorage.setItem("token", "");
-    sessionStorage.setItem("username", "");
-    sessionStorage.setItem("displayName", "");
+    if (isPlatformBrowser(this.platformId)) {
+      // sets some session variables to null, which logs the user out
+      sessionStorage.setItem("currentLink", "");
+      sessionStorage.setItem("token", "");
+      sessionStorage.setItem("username", "");
+      sessionStorage.setItem("displayname", "");
+    }
   }
-
-  onLogin() {
-    document.location.href = MAINURL + "login";
-  }
-
 
 }

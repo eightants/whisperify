@@ -1,12 +1,39 @@
 <form autocomplete="off">
   <div class="autocomplete">
-    <input class="{{expandedClass()}}" type="text" name="searchStr" placeholder="Search Music..." [(ngModel)]="searchStr" (keyup)="searchMusic()" value="{{ searchVal }}">
-    <div *ngIf="searchRes && focusDrop" id="myInputautocomplete-list" class="autocomplete-items">
-      <div *ngFor="let res of searchRes" class="each-item" (click)="selectVal(res.artists[0].name, res.name)">
-        <div class="song-elem">{{ res.name }}<span>{{ res.artists[0].name }}</span></div>
-        <input type="hidden" value="{{res.name}}">
+    <input
+      class="{{ expandedClass() }}"
+      type="text"
+      name="searchStr"
+      placeholder="Search Music..."
+      [(ngModel)]="searchStr"
+      (keyup)="searchMusic()"
+      value="{{ searchVal }}"
+    />
+    <div
+      *ngIf="searchRes && focusDrop"
+      id="myInputautocomplete-list"
+      class="autocomplete-items"
+    >
+      <div
+        *ngFor="let res of searchRes"
+        class="each-item"
+        (click)="selectVal(res.artists[0].name, res.name)"
+      >
+        <div class="song-elem">
+          {{ res.name }}<span>{{ res.artists[0].name }}</span>
+        </div>
+        <input type="hidden" value="{{ res.name }}" />
       </div>
     </div>
   </div>
-  <button class="btn submit clr-wgreen" type="submit" (click)="submitVal()" [attr.disabled] = "(this.searchStr == '' || this.searchStr == null) ? 'disabled' : null">Submit</button>
+  <button
+    class="btn submit clr-wgreen"
+    type="submit"
+    (click)="submitVal()"
+    [attr.disabled]="
+      this.searchStr == '' || this.searchStr == null ? 'disabled' : null
+    "
+  >
+    Submit
+  </button>
 </form>

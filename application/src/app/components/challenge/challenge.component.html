@@ -1,13 +1,31 @@
 <div class="main-div">
-    <app-navbar></app-navbar>
-    <div class="main-text top-title">
-        <h1 class="main-title">{{ customTitle }}</h1>
-        <p class="main-desc fade-in-up" *ngIf="hostName">A challenge by {{ hostName }}</p>
-        <p class="main-desc fade-in-up" *ngIf="!validCode">Invalid link. </p>
-    </div>
-    <div class="fade-in-up" *ngIf="hostName">
-        <input type="text" name="nameStr" placeholder="Enter name..." [(ngModel)]="nameStr" value="{{ nameStr }}">
-        <button class="btn clr-wgreen submit hoverhands" (click)="startChallenge()" [attr.disabled] = "(this.nameStr == '' || this.nameStr == null) ? 'disabled' : null">Start Quiz</button>
-    </div>
-    <a routerLink="/" *ngIf="!validCode"><button class="btn submit">Back to home</button></a>
+  <app-navbar></app-navbar>
+  <div class="main-text top-title">
+    <h1 class="main-title">{{ customTitle }}</h1>
+    <p class="main-desc fade-in-up" *ngIf="hostName">
+      A challenge by {{ hostName }}
+    </p>
+    <p class="main-desc fade-in-up" *ngIf="!validCode">Invalid link.</p>
+  </div>
+  <div class="fade-in-up" *ngIf="hostName">
+    <input
+      type="text"
+      name="nameStr"
+      placeholder="Enter name..."
+      [(ngModel)]="nameStr"
+      value="{{ nameStr }}"
+    />
+    <button
+      class="btn clr-wgreen submit hoverhands"
+      (click)="startChallenge()"
+      [attr.disabled]="
+        this.nameStr == '' || this.nameStr == null ? 'disabled' : null
+      "
+    >
+      Start Quiz
+    </button>
+  </div>
+  <a routerLink="/" *ngIf="!validCode"
+    ><button class="btn submit">Back to home</button></a
+  >
 </div>
