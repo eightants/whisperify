@@ -1,10 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
 const port = process.env.PORT || 8888;
 const app = express();
 
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require("mongodb");
 // main mongo function
 async function mongo(operation, params) {
   const uri = process.env.MONGO;
@@ -16,60 +16,69 @@ async function mongo(operation, params) {
     if (operation == "insert") {
       await upsertUser(client, params["_id"], params);
     } else if (operation == "percent") {
-      var p = await  getPercent(client, params);
+      var p = await getPercent(client, params);
       return p;
     } else if (operation == "survey") {
       var p = await upsertSurvey(client, params["_id"], params);
     }
   } catch (e) {
-      console.error(e);
+    console.error(e);
   } finally {
-      await client.close();
+    await client.close();
   }
 }
 
-async function getPercent(client, myscore){
-  var col = await client.db("whisperify-prod").collection("users").countDocuments( { score: { $lte: myscore } } );
-  col  = col / await client.db("whisperify-prod").collection("users").countDocuments( { score: { $gte: 0 } } );
+async function getPercent(client, myscore) {
+  var col = await client
+    .db("whisperify-prod")
+    .collection("users")
+    .countDocuments({ score: { $lte: myscore } });
+  col =
+    col /
+    (await client
+      .db("whisperify-prod")
+      .collection("users")
+      .countDocuments({ score: { $gte: 0 } }));
   //console.log(col)
   //col.countDocuments( { score: { $lte: myscore } } ) / col.countDocuments( { score: { $gte: "0" } } )
-  return (col);
-};
+  return col;
+}
 
 async function upsertUser(client, id, updatedData) {
-  result = await client.db("whisperify-prod").collection("users")
-                      .updateOne({ _id: id }, 
-                                 { $set: updatedData }, 
-                                 { upsert: true });
+  result = await client
+    .db("whisperify-prod")
+    .collection("users")
+    .updateOne({ _id: id }, { $set: updatedData }, { upsert: true });
   console.log(`${result.matchedCount} document(s) matched the query criteria.`);
 
   if (result.upsertedCount > 0) {
-      console.log(`One document was inserted with the id ${result.upsertedId._id}`);
+    console.log(
+      `One document was inserted with the id ${result.upsertedId._id}`
+    );
   } else {
-      console.log(`${result.modifiedCount} document(s) was/were updated.`);
+    console.log(`${result.modifiedCount} document(s) was/were updated.`);
   }
 }
 
 async function upsertSurvey(client, id, updatedData) {
-  result = await client.db("whisperify-prod").collection("responses")
-                      .updateOne({ _id: id }, 
-                                 { $set: updatedData }, 
-                                 { upsert: true });
+  result = await client
+    .db("whisperify-prod")
+    .collection("responses")
+    .updateOne({ _id: id }, { $set: updatedData }, { upsert: true });
   console.log(`${result.matchedCount} document(s) matched the query criteria.`);
 
   if (result.upsertedCount > 0) {
-      console.log(`One document was inserted with the id ${result.upsertedId._id}`);
+    console.log(
+      `One document was inserted with the id ${result.upsertedId._id}`
+    );
   } else {
-      console.log(`${result.modifiedCount} document(s) was/were updated.`);
+    console.log(`${result.modifiedCount} document(s) was/were updated.`);
   }
 }
 
-
-
-
-app.use(express.static(path.join(__dirname, 'dist/')));
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
-app.use(bodyParser.json({ limit: '10mb'}));
+app.use(express.static(path.join(__dirname, "dist/")));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+app.use(bodyParser.json({ limit: "10mb" }));
 /**
 Whisper - Backend
 ---
@@ -78,32 +87,32 @@ the Spotify Accounts with Nodejs and Express. Sets up API to be
 called by the frontend application
 **/
 
-var request = require('request'); // "Request" library
-var cors = require('cors');
-var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
+var request = require("request"); // "Request" library
+var cors = require("cors");
+var querystring = require("querystring");
+var cookieParser = require("cookie-parser");
 
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
-var basePath = 'https://whisperify.net'
-var redirect_uri = 'https://whisperify.net/callback/'; // Your redirect uri
+var basePath = "https://whisperify.net";
+var redirect_uri = "https://whisperify.net/callback/"; // Your redirect uri
 
 // FOR LOCAL DEVELOPMENT
 //var basePath = 'http://localhost:4200'
 //var redirect_uri = 'http://localhost:8888/callback/'; // Your redirect uri
-
 
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-var generateRandomString = function(length) {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+var generateRandomString = function (length) {
+  var text = "";
+  var possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   for (var i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -111,37 +120,34 @@ var generateRandomString = function(length) {
   return text;
 };
 
-var stateKey = 'spotify_auth_state';
+var stateKey = "spotify_auth_state";
 
-
-app.use(cors())
-   .use(cookieParser());
+app.use(cors()).use(cookieParser());
 
 /* LOGIN WITH SPOTIFY */
 // Handling Log In with Spotify with login path
-app.get('/login', function(req, res) {
-
+app.get("/login", function (req, res) {
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
 
   // redirects user to Spotify login page with scopes of information access
-  var scope = 'user-read-private user-top-read playlist-read-private playlist-read-collaborative';
-  res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
-      response_type: 'code',
-      client_id: client_id, 
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state
-    }));
+  var scope =
+    "user-read-private user-top-read playlist-read-private playlist-read-collaborative";
+  res.redirect(
+    "https://accounts.spotify.com/authorize?" +
+      querystring.stringify({
+        response_type: "code",
+        client_id: client_id,
+        scope: scope,
+        redirect_uri: redirect_uri,
+        state: state,
+      })
+  );
 });
-
-
 
 /* CALLBACK URL from Spotify verification */
 // when verification is complete, render homepage
-app.get('/callback/', function(req, res) {
-
+app.get("/callback/", function (req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
@@ -151,50 +157,58 @@ app.get('/callback/', function(req, res) {
 
   if (state === null || state !== storedState) {
     // if state does not match, error
-    res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
+    res.redirect(
+      "/#" +
+        querystring.stringify({
+          error: "state_mismatch",
+        })
+    );
   } else {
     // gets and returns authentication token
     res.clearCookie(stateKey);
     var authOptions = {
-      url: 'https://accounts.spotify.com/api/token',
+      url: "https://accounts.spotify.com/api/token",
       form: {
         code: code,
         redirect_uri: redirect_uri,
-        grant_type: 'authorization_code'
+        grant_type: "authorization_code",
       },
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        Authorization:
+          "Basic " +
+          new Buffer(client_id + ":" + client_secret).toString("base64"),
       },
-      json: true
+      json: true,
     };
 
-    request.post(authOptions, function(error, response, body) {
+    request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         var access_token = body.access_token,
-            refresh_token = body.refresh_token;
+          refresh_token = body.refresh_token;
 
         // configs for api call
         var options = {
-          url: 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10&offset=0',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
+          url:
+            "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=10&offset=0",
+          headers: { Authorization: "Bearer " + access_token },
+          json: true,
         };
         // redirects back to browser frontend
-        res.redirect(basePath + '/?authorized=true#'+ access_token);
+        res.redirect(basePath + "/?authorized=true#" + access_token);
       } else {
-        res.redirect(basePath + '/?' +
-          querystring.stringify({
-            error: 'invalid_token#error'
-          }));
+        res.redirect(
+          basePath +
+            "/?" +
+            querystring.stringify({
+              error: "invalid_token#error",
+            })
+        );
       }
     });
   }
 });
 
-app.post("/postuser", function(req, res) {
+app.post("/postuser", function (req, res) {
   // each key in req.body will match the keys in the data object that you passed in
   //console.log(req.body["at8official"]["tracks"][0]);
   console.log("success");
@@ -202,24 +216,23 @@ app.post("/postuser", function(req, res) {
   mongo("insert", obj).catch(console.error);
 });
 
-app.post("/postscore", function(req, res) {
+app.post("/postscore", function (req, res) {
   // each key in req.body will match the keys in the data object that you passed in
   //console.log(req.body);
   var obj = req.body["score"];
-  mongo("percent", obj).then(
-    re => {
+  mongo("percent", obj)
+    .then((re) => {
       //console.log("pre", re);
-      return res.json({percent: re})
-    }
-  ).catch(console.error)
+      return res.json({ percent: re });
+    })
+    .catch(console.error);
 });
 
-app.post("/postsurvey", function(req, res) {
+app.post("/postsurvey", function (req, res) {
   // each key in req.body will match the keys in the data object that you passed in
   var obj = req.body;
   mongo("survey", obj).catch(console.error);
 });
-
 
 /*
 // requests new token
@@ -250,39 +263,49 @@ app.get('/refresh_token', function(req, res) {
 
 /* WHY DOES IT NOT RETURN THE JS FILES WHEN REQUESTED?
 TEMP SOLUTION: MANUALLY DEFINE JS ROUTES */
-app.get('/robots.txt', (req, res) => {
-  res.sendFile(path.join(__dirname, 'robots.txt'));
+app.get("/robots.txt", (req, res) => {
+  res.sendFile(path.join(__dirname, "robots.txt"));
 });
 
-app.get('/polyfills-es2015.27661dfa98f6332c27dc.js', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/polyfills-es2015.27661dfa98f6332c27dc.js'));
+app.get("/polyfills-es2015.27661dfa98f6332c27dc.js", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "dist/polyfills-es2015.27661dfa98f6332c27dc.js")
+  );
 });
 
-app.get('/runtime-es2015.858f8dd898b75fe86926.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/runtime-es2015.858f8dd898b75fe86926.js'));
+app.get("/runtime-es2015.858f8dd898b75fe86926.js", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "dist/runtime-es2015.858f8dd898b75fe86926.js")
+  );
 });
 
-app.get('/runtime-es5.741402d1d47331ce975c.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/runtime-es5.741402d1d47331ce975c.js'));
+app.get("/runtime-es5.741402d1d47331ce975c.js", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "dist/runtime-es5.741402d1d47331ce975c.js")
+  );
 });
 
-app.get('/polyfills-es5.4e06eb653a3c8a2d581f.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/polyfills-es5.4e06eb653a3c8a2d581f.js'));
+app.get("/polyfills-es5.4e06eb653a3c8a2d581f.js", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "dist/polyfills-es5.4e06eb653a3c8a2d581f.js")
+  );
 });
 
-app.get('/main-es5.8c281cef2dae478af83a.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es5.8c281cef2dae478af83a.js'));
+app.get("/main-es5.8c281cef2dae478af83a.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist/main-es5.8c281cef2dae478af83a.js"));
 });
 
-app.get('/main-es2015.84cbc21e5ab4ee37d799.js', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/main-es2015.84cbc21e5ab4ee37d799.js'));
+app.get("/main-es2015.84cbc21e5ab4ee37d799.js", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "dist/main-es2015.84cbc21e5ab4ee37d799.js")
+  );
 });
 
 /* CATCHALL ROUTE: ANGULAR WILL HANDLE THE REST (HOPEFULLY) */
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist/index.html"));
 });
-app.listen(port, function() {
-    console.log('server running on localhost:' + port);
+app.listen(port, function () {
+  console.log("server running on localhost:" + port);
 });
