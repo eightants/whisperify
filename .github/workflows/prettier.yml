@@ -21,9 +21,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - name: Lint Action
-        uses: wearerequired/lint-action@v1.6.0
         
       - name: Prettier Action
         uses: creyD/prettier_action@v3.1
