@@ -1,12 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Run Prettier
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -21,11 +19,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - name: Lint Action
-        uses: wearerequired/lint-action@v1.6.0
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
         
       - name: Prettier Action
         uses: creyD/prettier_action@v3.1
-
-
+        with:
+          only_changed: True
+          same_commit: True
