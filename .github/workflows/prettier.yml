@@ -19,6 +19,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
         
       - name: Prettier Action
         uses: creyD/prettier_action@v3.1
+        with:
+          only_changed: True
+          same_commit: True
