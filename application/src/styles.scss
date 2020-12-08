@@ -87,7 +87,7 @@ h5 {
   border: 0px solid #c4c4c4;
   color: white;
   background: #2e2e2e;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 12px 10px 10px 10px;
   width: 100%;
   opacity: 0.6;
@@ -235,6 +235,109 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.answer-module {
+  text-align: center;
+  border-radius: 25px;
+  z-index: 50;
+  width: 420px;
+  overflow: hidden;
+  padding: 10px 40px;
+  box-sizing: border-box;
+}
+
+.message-card {
+  border-radius: 8px;
+  z-index: 10;
+  width: 100%;
+  max-width: 320px;
+  background-color: white;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin: 20px auto;
+
+  .message-img {
+    display: inline-block;
+    background: url("/assets/reddium-mockup.png");
+    background-size: cover;
+    background-position: top center;
+    width: 100%;
+    height: 80px;
+  }
+
+  .message-card-text {
+    padding: 5px 20px 10px;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    color: black;
+    p {
+      color: $wgrey;
+      font-size: 12px;
+    }
+  }
+}
+
+.message-card:hover {
+  background-color: #f5f5f5;
+  transition: all .3s;
+}
+
+.volume-control {
+  display: inline-block;
+  position: relative;
+  padding: 2px 5px;
+
+  img {
+    filter: invert(1);
+    opacity: 0.4;
+    transition: all .2s;
+  }
+
+  img:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.volume-slider {
+  position: absolute;
+  right: -88px;
+  top: 0px;
+}
+
+.slider-bar {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 80px; /* Full-width */
+  height: 4px; /* Specified height */
+  background: $optionclr; /* Grey background */
+  box-shadow: none;
+  border-radius: 10px;
+  position: relative;
+}
+
+.slider-bar::before {
+  background-color: $optionclr;
+}
+
+.slider-bar::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 10px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  border-radius: 50px;
+  background: $wgrey; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider-bar::-moz-range-thumb {
+  width: 10px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  border-radius: 50px;
+  background: $wgrey; /* Green background */
+  cursor: pointer; /* Cursor on hover */
 }
 
 /* DROPDOWN CODE */
@@ -463,6 +566,18 @@ input:checked + .slider:before {
 }
 
 /* Homepage and Welcome */
+.leaderboard-ad {
+  // position: fixed;
+  // left: 50%;
+  // transform: translate(-50%, 0);
+  // bottom: 0;
+  width: 100%;
+  max-width: 640px;
+  // max-height: 120px;
+  margin: 60px auto 40px auto;
+  overflow: hidden;
+}
+
 .reg-div {
   min-height: 70vh;
 }
@@ -479,9 +594,9 @@ input:checked + .slider:before {
 }
 
 .main-title {
-  font-size: 110px;
+  font-size: 100px;
   margin-top: 60px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .sec-title {
@@ -499,7 +614,7 @@ input:checked + .slider:before {
 }
 
 .main-desc {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .anchor-desc {
@@ -526,13 +641,13 @@ input:checked + .slider:before {
 }
 
 .mode-card {
-  border-radius: 20px;
-  padding: 30px 25px;
+  border-radius: 15px;
+  padding: 25px 22px;
   background-color: rgb(65, 65, 65);
   color: white;
   width: 220px;
   text-align: left;
-  margin: 10px;
+  margin: 8px;
   display: inline-block;
   vertical-align: top;
   min-height: 256px;
@@ -557,7 +672,7 @@ a .mode-card:hover {
   margin-bottom: 40px;
   max-width: 960px;
   padding: 24px 24px 10px 24px;
-  border-radius: 30px;
+  border-radius: 25px;
   color: white;
   background-color: $optionclr;
 }
@@ -816,6 +931,9 @@ Waves Animation
 /* Mobile responsive styles */
 
 @media (max-width: 768px) {
+  .main-div {
+    padding: 0px 10px;
+  }
   .mob-pad {
     margin-bottom: 60px;
   }
@@ -837,9 +955,9 @@ Waves Animation
   .mode-card {
     width: calc(100% - 20px);
     text-align: left;
-    margin: 10px 10px;
+    margin: 5px 8px;
     min-height: auto;
-    padding: 20px 30px;
+    padding: 20px 22px 22px 22px;
 
     img {
       max-height: 30px;
@@ -852,7 +970,7 @@ Waves Animation
     }
   }
   a .mode-card:hover {
-    margin: 10px 10px;
+    margin: 5px 8px;
     transition: all 0.2s ease-in-out;
     background-color: rgb(75, 75, 75);
   }
@@ -903,7 +1021,7 @@ Waves Animation
   .sound-div {
     width: 100%;
     margin: 80px 0px 0px 0px !important;
-    div {
+    .audio-div {
       width: 200px !important;
       height: 60px !important;
     }

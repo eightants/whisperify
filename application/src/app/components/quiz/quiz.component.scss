@@ -23,7 +23,7 @@ $bg-color: #2e2e2e;
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 110px;
+  font-size: 100px;
   margin-top: 3%;
 }
 
@@ -61,7 +61,7 @@ $bg-color: #2e2e2e;
   //width: 500px;
   display: inline-block;
   text-align: center;
-  div {
+  .audio-div {
     position: relative;
     width: 400px;
     height: 120px;
