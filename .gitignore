@@ -1,6 +1,5 @@
 # compiled output
 dist
-server/server.js
 
 serviceAccountKey.json
 .vercel
