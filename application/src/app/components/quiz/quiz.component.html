@@ -20,7 +20,7 @@
       </div>
       <h1 class="ques-num">{{ i + 1 }}.</h1>
       <div class="sound-div col-md-10 offset-1">
-        <div (click)="playAudio()" class="sw relative">
+        <div (click)="playAudio()" class="sw relative audio-div">
           <img class="soundwave-white" src="assets/soundwave-white.svg" />
           <img
             #blueWave
@@ -38,6 +38,26 @@
         </audio>
         <button class="btn audio-btn" (click)="playAudio()">Play</button>
         <button class="btn audio-btn" (click)="stopAudio()">Stop</button>
+        <div class="volume-control">
+          <img
+            src="/assets/volume-high.svg"
+            (click)="showVolume = !showVolume"
+          />
+          <div class="volume-slider" *ngIf="showVolume">
+            <input
+              class="slider-bar"
+              type="range"
+              id="volume"
+              name="volume"
+              min="0.2"
+              max="1"
+              step="0.2"
+              [value]="maxVolume"
+              (input)="handleVolume(volumeControl.value)"
+              #volumeControl
+            />
+          </div>
+        </div>
       </div>
       <div class="timer">
         <div [ngClass]="cycle[1] == 1 ? 'smallcircle' : ''">

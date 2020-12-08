@@ -3,7 +3,7 @@
  * ---
  * A lightweight version of the Whisperify backend for open source development.
  * Most of Whisperify's features are frontend-heavy, the server is mostly used for authentication and database calls.
- * Contribute to Whisperify by creating a new feature and making a pull request at https://whisperify.net/github
+ * Contribute to Whisperify by creating a new feature and making a pull request at https://github.com/eightants/whisperify
  */
 
 const express = require("express");

@@ -1,41 +1,51 @@
-import { TitleTagService } from '../services/title-tag.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { TitleTagService } from "../services/title-tag.service";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-tutorial',
-  templateUrl: './tutorial.component.html',
-  styleUrls: ['./tutorial.component.scss'], 
+  selector: "app-tutorial",
+  templateUrl: "./tutorial.component.html",
+  styleUrls: ["./tutorial.component.scss"],
 })
 export class TutorialComponent implements OnInit {
-
-  constructor(private router: Router, private titleTagService: TitleTagService) { }
+  constructor(
+    private router: Router,
+    private titleTagService: TitleTagService
+  ) {}
 
   ind = 0;
   /* example track item object simulated */
 
-  examples =  [{
-    name: "Careless Whisper", 
-    artists: [{name: "George Michael"}], 
-    album: {
-      images: [{url: 'assets/careless_whisper.jpg'}, {url: 'assets/careless_whisper.jpg'}]
-    }
-  }]
+  examples = [
+    {
+      name: "Careless Whisper",
+      artists: [{ name: "George Michael" }],
+      album: {
+        images: [
+          { url: "assets/careless_whisper.jpg" },
+          { url: "assets/careless_whisper.jpg" },
+        ],
+      },
+    },
+  ];
 
   isLoaded = false;
-  indexes = []
+  indexes = [];
   submitted = false;
   isCorrect = false;
   score = 0;
- 
-  started = false
-  played = false
-  done = false
+
+  maxVolume = 0.8;
+  showVolume = false;
+
+  started = false;
+  played = false;
+  done = false;
 
   ngOnInit() {
-    this.titleTagService.setTitle('Tutorial - Whisperify');
+    this.titleTagService.setTitle("Tutorial - Whisperify");
     this.titleTagService.setSocialMediaTags(
-      'Tutorial - Whisperify',
+      "Tutorial - Whisperify",
       "A quick introduction to Whisperify quizzes with the best song ever. "
     );
     this.started = true;
@@ -44,64 +54,77 @@ export class TutorialComponent implements OnInit {
   nextPage() {
     this.router.navigate(["/welcome"]);
   }
-  
+
+  handleVolume(value) {
+    this.maxVolume = value;
+  }
+
   /* AUDIO CODE */
   // gets the audio DOM element
-  @ViewChild('musicAudio', {static: false}) source;
-  @ViewChild('blueWave', {static: false}) blueWave;
+  @ViewChild("musicAudio", { static: false }) source;
+  @ViewChild("blueWave", { static: false }) blueWave;
 
   stopAudio() {
     this.source.nativeElement.load();
-    this.blueWave.nativeElement.classList.remove('animate-wave','blue-finished');
+    this.blueWave.nativeElement.classList.remove(
+      "animate-wave",
+      "blue-finished"
+    );
   }
   playAudio() {
-    if (!this.source.nativeElement.paused || (this.source.nativeElement.currentTime > 0 && this.source.nativeElement.currentTime < 0)) {
+    if (
+      !this.source.nativeElement.paused ||
+      (this.source.nativeElement.currentTime > 0 &&
+        this.source.nativeElement.currentTime < 0)
+    ) {
       // do nothing
     } else {
       this.source.nativeElement.load();
       this.source.nativeElement.play();
       // adds the animation to bluewave
-      this.blueWave.nativeElement.classList.add('animate-wave', 'blue-finished');
+      this.blueWave.nativeElement.classList.add(
+        "animate-wave",
+        "blue-finished"
+      );
       // removes tutorial element
       this.started = false;
       this.startTimer();
       this.getSoundAndFadeAudio();
     }
   }
-  getSoundAndFadeAudio () {
+  getSoundAndFadeAudio() {
     var sound = this.source.nativeElement;
     var wave = this.blueWave.nativeElement;
     sound.volume = 0;
     // Set the point in playback that fadeout begins. This is for a 1 second fade in and fade out.
     var fadeIn = 0;
+    var currMaxVolume = this.maxVolume
     var fadeInAudio = setInterval(function () {
       // Only fade if past the fade out point or not at zero already
-      if ((sound.currentTime >= fadeIn) && (sound.volume < 1.0)) {
-            try {
-              sound.volume += 0.1;
-            }
-            catch (TypeError) {
-              clearInterval(fadeInAudio);
-            }
+      if (sound.currentTime >= fadeIn && sound.volume < currMaxVolume) {
+        try {
+          sound.volume += currMaxVolume / 10;
+        } catch (TypeError) {
+          clearInterval(fadeInAudio);
+        }
       }
       // When volume at 1 stop all the intervalling
-      else if (sound.volume >= 1.0) {
-            clearInterval(fadeInAudio);
+      else if (sound.volume >= currMaxVolume) {
+        clearInterval(fadeInAudio);
       }
     }, 100);
-    var fadePoint = /* sound end duration */ 4; 
+    var fadePoint = /* sound end duration */ 4;
     var fadeAudio = setInterval(function () {
-        // Only fade if past the fade out point or not at zero already
-        if ((sound.currentTime >= fadePoint) && (sound.volume > 0.0)) {
-            try {
-              sound.volume -= 0.1;
-            }
-            catch (TypeError) {
-              wave.classList.remove('animate-wave');
-              clearInterval(fadeAudio);
-              sound.pause();
-            }
+      // Only fade if past the fade out point or not at zero already
+      if (sound.currentTime >= fadePoint && sound.volume > 0.0) {
+        try {
+          sound.volume -= currMaxVolume / 10;
+        } catch (TypeError) {
+          wave.classList.remove("animate-wave");
+          clearInterval(fadeAudio);
+          sound.pause();
         }
+      }
     }, 100);
   }
 
@@ -121,7 +144,6 @@ export class TutorialComponent implements OnInit {
     }
   }
 
-
   /* TIMER CODE */
   // variable to keep track of time taken to answer question
   timerStarted = false;
@@ -134,7 +156,7 @@ export class TutorialComponent implements OnInit {
       // fixing scope of this.
       var _this = this;
       // increments timer depending on values, and automatic expiry
-      setTimeout(function() {
+      setTimeout(function () {
         _this.timerStarted = true;
         _this.incrementTime = setInterval(() => {
           //console.log(_this.timet, _this.timerStarted)
@@ -150,7 +172,7 @@ export class TutorialComponent implements OnInit {
           }
         }, 1000);
       }, 500);
-      setTimeout(function() {
+      setTimeout(function () {
         _this.played = true;
       }, 5000);
     }
@@ -170,25 +192,24 @@ export class TutorialComponent implements OnInit {
     this.done = true;
   }
 
-  cycle = [0,0,0,0]
+  cycle = [0, 0, 0, 0];
   circleLoop;
 
   /* pulsing effect on timer */
   circlePulse() {
     var curr = 0;
     this.cycle[curr] = 1;
-    this.circleLoop = setInterval(()=> {
-      curr += 1
+    this.circleLoop = setInterval(() => {
+      curr += 1;
       if (curr >= 4) {
-        this.cycle[curr-1] = 0;
+        this.cycle[curr - 1] = 0;
         clearInterval(this.circleLoop);
       } else {
         this.cycle[curr] = 1;
-        this.cycle[curr-1] = 0;
+        this.cycle[curr - 1] = 0;
       }
     }, 250);
   }
-
 
   /* used in ngIf to show or hide circles as timer counts down */
   timeLess(num) {

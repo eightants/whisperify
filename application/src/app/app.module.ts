@@ -24,6 +24,7 @@ import { RadarChartComponent } from './components/analysis/radar-chart/radar-cha
 import { DotPlotComponent } from './components/analysis/dot-plot/dot-plot.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
+import { MediaNetAdComponent } from './components/media-net-ad/media-net-ad.component'
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { DocumentationComponent } from './components/documentation/documentation
     DotPlotComponent,
     NavbarComponent,
     DocumentationComponent,
+    MediaNetAdComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
