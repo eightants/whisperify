@@ -31,21 +31,21 @@ app.use(cors()).use(cookieParser());
  * Please fill this in for the mock-server to function correctly.
  */
 // TODO: YOUR APP CLIENT ID AND SECRET HERE
-var client_id = "id"; 
+var client_id = "id";
 var client_secret = "secret";
 // TODO: Your redirect uri as entered in your Spotify app
 var redirect_uri = "http://localhost:8888/callback/";
 var basePath = "http://localhost:4200"; // For the frontend, this is the default port for Angular
-
 
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-var generateRandomString = function(length) {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+var generateRandomString = function (length) {
+  var text = "";
+  var possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   for (var i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -229,7 +229,7 @@ app.post("/postchallengescore", function (req, res) {
 });
 
 app.get("/cleanchallenges", function (req, res) {
-  return res.json({status: "success"});
+  return res.json({ status: "success" });
 });
 
 app.get("/api/user/:user", function (req, res) {
@@ -243,7 +243,7 @@ app.get("/api/user/:user", function (req, res) {
     instrumentalness: 0.5,
     tempo: 125,
     loudness: 0.5,
-  })
+  });
 });
 
 app.get("/api/features/user/:user", cors(), function (req, res) {
@@ -257,21 +257,23 @@ app.get("/api/features/user/:user", cors(), function (req, res) {
     instrumentalness: 0.5,
     tempo: 125,
     loudness: 0.5,
-  })
+  });
 });
 
 app.get("/api/features/group/:category", cors(), function (req, res) {
-  return res.json([{
-    acousticness: 0.5,
-    danceability: 0.2,
-    energy: 0.2,
-    valence: 0.2,
-    liveness: 0.5,
-    speechiness: 0.3,
-    instrumentalness: 0.3,
-    tempo: 125,
-    loudness: 0.5,
-  }])
+  return res.json([
+    {
+      acousticness: 0.5,
+      danceability: 0.2,
+      energy: 0.2,
+      valence: 0.2,
+      liveness: 0.5,
+      speechiness: 0.3,
+      instrumentalness: 0.3,
+      tempo: 125,
+      loudness: 0.5,
+    },
+  ]);
 });
 
 app.post("/api/postanalysis", function (req, res) {
