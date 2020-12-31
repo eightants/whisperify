@@ -10,12 +10,11 @@
 
 .answer-module {
   text-align: center;
-  border-radius: 25px;
+  border-radius: 15px;
   z-index: 50;
   width: 500px;
-  //height: 560px;
   overflow: hidden;
-  padding: 10px 40px;
+  padding: 10px 30px;
   box-sizing: border-box;
 }
 
@@ -23,7 +22,6 @@
   margin: auto;
   position: fixed;
   top: 8%;
-  //bottom:0;
   left: 0;
   right: 0;
 }
@@ -31,13 +29,15 @@
 .popup-title {
   text-align: left;
   h1 {
-    font-size: 42px;
+    font-size: 40px;
     margin-bottom: 5px;
+    margin-top: 15px;
   }
   p {
     font-size: 20px;
     width: 95%;
-    line-height: 1.5em;
+    line-height: 1.25em;
+    margin-bottom: 0.2em;
   }
 }
 
@@ -73,7 +73,9 @@
 }
 
 .popup-player {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   margin-top: 32px;
   margin-bottom: 20px;
@@ -145,7 +147,7 @@
 @media (max-width: 768px) {
   .answer-module {
     box-sizing: border-box;
-    width: 90%;
+    width: 95%;
     padding: 12px 25px;
   }
 

@@ -30,6 +30,8 @@ body {
   font-size: 16px;
   min-height: 100%;
   margin: 0;
+  background-image: url("/assets/whisperify-bg.svg");
+  background-attachment: fixed;
 }
 
 p {
@@ -168,6 +170,13 @@ h5 {
   }
 }
 
+.flex-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 // CODE FOR SWITCH/SLIDER
 
 .switch {
@@ -239,11 +248,11 @@ input:checked + .slider:before {
 
 .answer-module {
   text-align: center;
-  border-radius: 25px;
+  border-radius: 15px;
   z-index: 50;
   width: 420px;
   overflow: hidden;
-  padding: 10px 40px;
+  padding: 10px 30px;
   box-sizing: border-box;
 }
 
@@ -386,9 +395,9 @@ input:checked + .slider:before {
 
 .coffee {
   font-family: "Open Sans", sans-serif;
-  padding: 15px 30px;
+  padding: 12px 20px;
   background-color: #ff813f;
-  border-radius: 10px;
+  border-radius: 8px;
   border-width: 0px;
   margin: 20px 0px;
   margin-top: 50px;
@@ -401,17 +410,9 @@ input:checked + .slider:before {
 
 .coffee:hover {
   font-family: "Open Sans", sans-serif;
-  padding: 15px 30px;
   background-color: #ff9e6a;
-  border-radius: 10px;
-  border-width: 0px;
-  margin: 20px 0px;
-  margin-top: 40px;
   text-decoration: none;
   color: white;
-  text-transform: uppercase;
-  font-weight: 800;
-  transition: all 0.2s ease-in-out;
 }
 
 .about-btn {
@@ -450,8 +451,8 @@ input:checked + .slider:before {
 .close-mod {
   opacity: 0.6;
   position: absolute;
-  right: 30px;
-  top: 20px;
+  right: 20px;
+  top: 12px;
   width: 15px;
   filter: invert(1);
   transition: all 0.1s ease-in-out;
@@ -498,7 +499,7 @@ input:checked + .slider:before {
 }
 
 .copy-btn {
-  //background: #424242;
+  flex: 0 0 auto;
   font-family: "Open Sans", sans-serif;
   padding: 12px 20px;
   background-color: #646464;
@@ -514,7 +515,7 @@ input:checked + .slider:before {
 }
 
 .link-field {
-  //flex: 1;
+  flex: 0 1 auto;
   border-radius: 5px 0px 0px 5px;
   font-family: "Open Sans", sans-serif;
   padding: 12px 20px;
@@ -527,10 +528,6 @@ input:checked + .slider:before {
   border: 1px solid #646464;
   width: calc(100% - 105px);
 }
-
-/*.link-field:focus {
-  border: 1px solid white;
-}*/
 
 .social-div {
   text-align: left;
@@ -615,6 +612,7 @@ input:checked + .slider:before {
 
 .main-desc {
   font-size: 20px;
+  line-height: 1.6em;
 }
 
 .anchor-desc {
@@ -634,10 +632,9 @@ input:checked + .slider:before {
 .mode-div {
   width: 100%;
   max-width: 920px;
-  margin: auto;
-  /*display: flex;
   justify-content: center;
-  flex-flow: row wrap;*/
+  min-height: 300px;
+  margin: 10px auto;
 }
 
 .mode-card {
@@ -662,7 +659,7 @@ input:checked + .slider:before {
 
 a .mode-card:hover {
   margin-top: 2px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   transition: all 0.2s ease-in-out;
   background-color: rgb(75, 75, 75);
 }
@@ -1126,7 +1123,7 @@ Waves Animation
       width: 50px;
       height: 50px;
       overflow: hidden;
-      margin: 20px 10px;
+      margin: 10px 10px;
 
       img {
         width: 100%;

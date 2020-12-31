@@ -40,17 +40,12 @@
               <span title="{{ tracks[ind].name }}">{{ tracks[ind].name }}</span>
             </h3>
             <p>{{ tracks[ind].artists[0].name }}</p>
+            <p><i>{{ tracks[ind].album.hasOwnProperty("name") ? tracks[ind].album.name : "" }}</i></p>
             <button class="btn playback-btn" (click)="playFull()">Play</button>
             <button class="btn playback-btn" (click)="stopFull()">Stop</button>
           </div>
         </div>
       </div>
-      <!--<div class="popup-streak">
-      <div>
-        <span class="streak-count">3</span>
-        <span>+200</span>
-      </div>
-    </div>-->
       <button class="btn popup-green" (click)="nextQues()">Continue</button>
     </div>
   </div>
@@ -85,6 +80,7 @@
               <span title="{{ tracks[ind].name }}">{{ tracks[ind].name }}</span>
             </h3>
             <p>{{ tracks[ind].artists[0].name }}</p>
+            <p><i>{{ tracks[ind].album.hasOwnProperty("name") ? tracks[ind].album.name : "" }}</i></p>
             <button class="btn playback-btn" (click)="playFull()">Play</button>
             <button class="btn playback-btn" (click)="stopFull()">Stop</button>
           </div>

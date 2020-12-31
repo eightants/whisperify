@@ -1,0 +1,30 @@
+.cookie-banner {
+  z-index: 80;
+  position: fixed;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  padding: 0px 10px;
+
+  div {
+    width: 100%;
+    max-width: 480px;
+    overflow: hidden;
+    background-color: #191919;
+    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
+    margin: auto;
+    text-align: left;
+    font-size: 12px;
+    position: relative;
+
+    p {
+      padding-right: 20px;
+    }
+
+    .close-mod {
+      right: 12px;
+      top: 10px;
+    }
+  }
+}

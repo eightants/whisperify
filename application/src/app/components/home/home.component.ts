@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private titleTagService: TitleTagService, @Inject(PLATFORM_ID) protected platformId: Object) { }
 
+  meh = ""
   ngOnInit() {
     this.titleTagService.setTitle('Whisperify - Spotify Quiz and Music Analysis');
     this.titleTagService.setSocialMediaTags(

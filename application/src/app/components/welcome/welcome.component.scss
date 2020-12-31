@@ -15,8 +15,6 @@ $wgrey: #a8a8a8;
 
 .answer-module {
   background-color: black;
-  padding: 10px 42px;
-  box-sizing: content-box;
 }
 
 .ans-sel {
@@ -31,7 +29,10 @@ $wgrey: #a8a8a8;
   padding: 10px 15px 20px 15px;
   text-align: left;
   border-bottom: 1px solid #2e2e2e;
-  //border-radius: 10px;
+  
+  .p-name h3 {
+    margin: 0.25em 0;
+  }
   .p-len {
     color: #a8a8a8;
   }
@@ -230,7 +231,7 @@ $wgrey: #a8a8a8;
 .popup-title {
   text-align: left;
   h1 {
-    font-size: 36px;
+    font-size: 30px;
   }
   p {
     font-size: 20px;
@@ -250,12 +251,12 @@ $wgrey: #a8a8a8;
 
 @media (max-width: 768px) {
   .popup-title h1 {
-    font-size: 32px;
+    font-size: 28px;
   }
 
   .answer-module {
     box-sizing: border-box;
-    width: 90%;
+    width: 95%;
     padding: 12px 25px;
   }
 

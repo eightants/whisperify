@@ -1,0 +1,68 @@
+<div *ngIf="showPopup">
+  <div class="answer-module absoluteCenter">
+    <div class="close-mod hoverhands" (click)="unLoad.next()">
+      <img src="assets/close.svg" />
+    </div>
+    <div *ngIf="currentLink == ''" class="loading-div"></div>
+    <div *ngIf="currentLink != ''">
+      <div class="ans-text">
+        <h1>Share</h1>
+        <p>
+          Challenge your friends to try to beat your score! They’ll get a
+          multiple choice quiz with the same songs and settings.
+        </p>
+      </div>
+      <div class="link-div">
+        <input
+          class="link-field"
+          readonly
+          value="https://whisperify.net/challenge/{{ currentLink }}"
+          #challengelink
+        />
+        <button class="copy-btn" (click)="copyLink(challengelink.value)">
+          Copy
+        </button>
+      </div>
+      <div class="social-div">
+        <a href="https://whisperify.net/results/{{ currentLink }}"
+          ><button class="btn sq-btn clr-wgreen res-btn">Results</button></a
+        >
+        <a
+          id="fb-share"
+          href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwhisperify.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><button class="btn social-btn" id="fb">
+            <img class="social-icon" src="assets/facebook.svg" /></button
+        ></a>
+        <a
+          id="twitter-share"
+          href="https://twitter.com/intent/tweet?hashtags=Whisperify&text=How%20well%20do%20you%20know%20your%20favourite%20songs?%20I%20scored%20{{
+            score
+          }}%20points!&url=https%3A%2F%2Fwhisperify.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><button class="btn social-btn" id="twitter">
+            <img class="social-icon" src="assets/twitter.svg" /></button
+        ></a>
+        <a
+          id="reddit-share"
+          href="https://www.reddit.com/submit?url=https%3A%2F%2Fwhisperify.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><button class="btn social-btn" id="reddit">
+            <img class="social-icon" src="assets/reddits.svg" /></button
+        ></a>
+        <a
+          id="vk-share"
+          href="https://vk.com/share.php?url=https%3A%2F%2Fwhisperify.net"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><button class="btn social-btn" id="vk">
+            <img class="social-icon" src="assets/vk.svg" /></button
+        ></a>
+      </div>
+    </div>
+  </div>
+  <div class="overlay" (click)="unLoad.next()"></div>
+</div>

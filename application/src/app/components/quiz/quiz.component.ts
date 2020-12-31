@@ -59,7 +59,7 @@ export class QuizComponent implements OnInit {
   // var for challenge
   challengeCode = "";
 
-  maxVolume = 0.8;
+  maxVolume = 0.5;
   showVolume = false;
 
   ngOnInit() {
@@ -96,10 +96,8 @@ export class QuizComponent implements OnInit {
     //console.log("basescore" + this.baseScore);
     /* TIME LIMIT */
     this.timeLimit = parseInt(this.config["timeLimit"]) + 3;
-    //console.log(this.token);
 
     this.challengeCode = sessionStorage.getItem("challenge");
-    //console.log(this.challengeCode);
     if (this.challengeCode != "") {
       this.mode = "challenge";
       this.data.currentSongs.subscribe((songs) => {
@@ -219,6 +217,7 @@ export class QuizComponent implements OnInit {
                       this.trimtracks.push({
                         album: {
                           images: this.tracks[temp].album.images,
+                          name: this.tracks[temp].album.name
                         },
                         artists: [
                           {

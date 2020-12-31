@@ -206,24 +206,6 @@ export class ScoreComponent implements OnInit {
     this.isGenerated = false;
   }
 
-  copyLink(val) {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    selBox.setAttribute('readonly', 'true');
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    selBox.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    // another way to write to clipboard  but idk if the above one already works
-    navigator.clipboard.writeText(val);
-  }
-
   playAgain() {
     sessionStorage.setItem("score", "NaN");
     if (this.challengeCode == "" || this.currentLink != "") {
