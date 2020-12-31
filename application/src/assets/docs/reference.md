@@ -7,12 +7,12 @@ This documentation page gives an overview of the usage of those endpoints and th
 
 | Method | Endpoint | Usage |
 |:---|:---|:---|
-| GET | `/api/features/group/all`  | Gets audio features for all Users  |
-| GET | `/api/features/user/:username`  | Gets audio features for a specific User  |
-| GET | `/api/features/group/country/:code`  | Gets audio features for a Country  |
-| GET | `/api/features/group/personality/:code`  | Gets audio features for a Personality  |
-| GET | `/api/features/album/:album_id/:token`  | Gets audio features for an Album  |
-| GET | `/api/features/playlist/:playlist_id/:token`  | Gets audio features for a Playlist  |
+| GET | `/features/group/all`  | Gets audio features for all Users  |
+| GET | `/features/user/:username`  | Gets audio features for a specific User  |
+| GET | `/features/group/country/:code`  | Gets audio features for a Country  |
+| GET | `/features/group/personality/:code`  | Gets audio features for a Personality  |
+| GET | `/features/album/:album_id/:token`  | Gets audio features for an Album  |
+| GET | `/features/playlist/:playlist_id/:token`  | Gets audio features for a Playlist  |
 
 <br>
 
@@ -23,7 +23,7 @@ Audio Features endpoint provides danceability, energy, valence, and more for all
 The endpoint provides a calculated average of the audio features for all users of Whisperify. 
 
 ### Endpoint
-`/api/features/group/all`
+`/features/group/all`
 
 ### Sample Response
 ```json
@@ -50,7 +50,7 @@ The endpoint provides a calculated average of the audio features for all users o
 The endpoint provides the last logged audio features from a specific user on Whisperify. 
 
 ### Endpoint
-`/api/features/user/:username`
+`/features/user/:username`
 
 ### Request Parameters
 | Parameter | Value |
@@ -80,7 +80,7 @@ The endpoint provides the last logged audio features from a specific user on Whi
 The endpoint provides the average audio features of Spotify users in a country. 
 
 ### Endpoint
-`/api/features/group/country?code={code}`
+`/features/group/country?code={code}`
 
 ### Request Parameters
 | Parameter | Value |
@@ -110,7 +110,7 @@ The endpoint provides the average audio features of Spotify users in a country.
 The endpoint provides the average audio features of Spotify users with the specified personality. 
 
 ### Endpoint
-`/api/features/group/personality?code={code}`
+`/features/group/personality?code={code}`
 
 ### Request Parameters
 | Parameter | Value |
@@ -140,7 +140,7 @@ The endpoint provides the average audio features of Spotify users with the speci
 The endpoint provides the average audio features of a Spotify album. 
 
 ### Endpoint
-`/api/features/album/:album_id/:token`
+`/features/album/:album_id/:token`
 
 ### Request Parameters
 | Parameter | Value |
@@ -174,7 +174,7 @@ The endpoint provides the average audio features of a Spotify album.
 The endpoint provides the average audio features of a Spotify playlist. 
 
 ### Endpoint
-`/api/features/playlist/:playlist_id/:token`
+`/features/playlist/:playlist_id/:token`
 
 ### Request Parameters
 | Parameter | Value |
