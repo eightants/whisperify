@@ -17,6 +17,8 @@ name: Lint Code Base
 on:
   pull_request:
     branches: [master]
+    paths-ignore:
+      - '**.js'
 
 ###############
 # Set the Job #
