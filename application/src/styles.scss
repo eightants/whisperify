@@ -1,12 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* command: sass --watch src/static/index.scss:src/static/index.css */
-
-$bg-color: #2e2e2e;
-$optionclr: #414141;
-$wgrey: #a8a8a8;
-$wgreen: #38a275;
-$wcode: #ededed;
+@import 'global';
 
 @font-face {
   font-family: "Circular";
@@ -30,6 +25,8 @@ body {
   font-size: 16px;
   min-height: 100%;
   margin: 0;
+  background-image: url("/assets/whisperify-bg.svg");
+  background-attachment: fixed;
 }
 
 p {
@@ -51,6 +48,7 @@ h5 {
   font-weight: normal;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+  letter-spacing: -0.05em;
 }
 
 .btn {
@@ -110,62 +108,11 @@ h5 {
   margin-right: 0px;
 }
 
-// CODE FOR NAVBAR
-
-.nav-bar {
-  position: absolute;
-  top: 10px;
-  right: 3%;
-
-  button {
-    background-color: $bg-color;
-    border-color: $wgrey;
-    border: 1px solid;
-    color: $wgrey;
-    display: inline-block;
-    padding: 14px 25px;
-    margin: 20px 10px;
-  }
-
-  #menu {
-    margin: 10%;
-    width: 80%;
-  }
-
-  #info-btn {
-    font-family: "Circular", "sans-serif";
-    text-transform: lowercase;
-    padding: 5px;
-    font-size: 1.2em;
-  }
-
-  #info-icon {
-    margin: 10%;
-    width: 80%;
-    height: 80%;
-    filter: invert(0.8);
-  }
-
-  #docs-icon {
-    margin: 5%;
-    width: 90%;
-    height: 90%;
-  }
-
-  .nav-btn-c {
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    padding: 10px 10px 10px 10px;
-    margin: 20px 10px;
-
-    img {
-      width: 100%;
-      opacity: 0.8;
-      max-height: 100%;
-      transition: none;
-    }
-  }
+.flex-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 // CODE FOR SWITCH/SLIDER
@@ -239,11 +186,11 @@ input:checked + .slider:before {
 
 .answer-module {
   text-align: center;
-  border-radius: 25px;
+  border-radius: 15px;
   z-index: 50;
   width: 420px;
   overflow: hidden;
-  padding: 10px 40px;
+  padding: 10px 30px;
   box-sizing: border-box;
 }
 
@@ -386,9 +333,9 @@ input:checked + .slider:before {
 
 .coffee {
   font-family: "Open Sans", sans-serif;
-  padding: 15px 30px;
+  padding: 12px 20px;
   background-color: #ff813f;
-  border-radius: 10px;
+  border-radius: 8px;
   border-width: 0px;
   margin: 20px 0px;
   margin-top: 50px;
@@ -401,17 +348,9 @@ input:checked + .slider:before {
 
 .coffee:hover {
   font-family: "Open Sans", sans-serif;
-  padding: 15px 30px;
   background-color: #ff9e6a;
-  border-radius: 10px;
-  border-width: 0px;
-  margin: 20px 0px;
-  margin-top: 40px;
   text-decoration: none;
   color: white;
-  text-transform: uppercase;
-  font-weight: 800;
-  transition: all 0.2s ease-in-out;
 }
 
 .about-btn {
@@ -450,8 +389,8 @@ input:checked + .slider:before {
 .close-mod {
   opacity: 0.6;
   position: absolute;
-  right: 30px;
-  top: 20px;
+  right: 20px;
+  top: 12px;
   width: 15px;
   filter: invert(1);
   transition: all 0.1s ease-in-out;
@@ -498,7 +437,7 @@ input:checked + .slider:before {
 }
 
 .copy-btn {
-  //background: #424242;
+  flex: 0 0 auto;
   font-family: "Open Sans", sans-serif;
   padding: 12px 20px;
   background-color: #646464;
@@ -514,7 +453,7 @@ input:checked + .slider:before {
 }
 
 .link-field {
-  //flex: 1;
+  flex: 0 1 auto;
   border-radius: 5px 0px 0px 5px;
   font-family: "Open Sans", sans-serif;
   padding: 12px 20px;
@@ -527,10 +466,6 @@ input:checked + .slider:before {
   border: 1px solid #646464;
   width: calc(100% - 105px);
 }
-
-/*.link-field:focus {
-  border: 1px solid white;
-}*/
 
 .social-div {
   text-align: left;
@@ -583,20 +518,34 @@ input:checked + .slider:before {
 }
 
 .main-div {
-  text-align: center;
-  min-height: 70vh;
-  padding: 0px 20px;
+  height: 100vh;
   width: 100%;
 }
 
 .main-text {
-  padding: 80px 0px 20px 0px;
+  padding: 100px 20px 80px 20px;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .main-title {
-  font-size: 100px;
-  margin-top: 60px;
+  font-size: 96px;
+  margin-top: 40px;
   margin-bottom: 18px;
+
+  span {
+    border-bottom: 0.14em solid $wyellow;
+    z-index: -1;
+    padding: 0px 8px;
+  }
+}
+
+.align-center {
+  text-align: center;
 }
 
 .sec-title {
@@ -614,13 +563,14 @@ input:checked + .slider:before {
 }
 
 .main-desc {
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 1.6em;
 }
 
 .anchor-desc {
-  margin: auto;
-  max-width: 620px;
-  padding: 0px 10px;
+  max-width: 600px;
+  padding: 10px 10px;
+  font-style: italic;
 }
 
 .align-left {
@@ -633,43 +583,17 @@ input:checked + .slider:before {
 
 .mode-div {
   width: 100%;
+  min-height: 90vh;
   max-width: 920px;
+  flex-direction: row;
+  flex-wrap: wrap;
   margin: auto;
-  /*display: flex;
-  justify-content: center;
-  flex-flow: row wrap;*/
-}
-
-.mode-card {
-  border-radius: 15px;
-  padding: 25px 22px;
-  background-color: rgb(65, 65, 65);
-  color: white;
-  width: 220px;
-  text-align: left;
-  margin: 8px;
-  display: inline-block;
-  vertical-align: top;
-  min-height: 256px;
-  transition: all 0.2s ease-in-out;
-
-  img {
-    max-height: 48px;
-    max-width: 48px;
-    margin-bottom: 18px;
-  }
-}
-
-a .mode-card:hover {
-  margin-top: 2px;
-  margin-bottom: 18px;
-  transition: all 0.2s ease-in-out;
-  background-color: rgb(75, 75, 75);
+  align-content: center;
 }
 
 .options-pad {
-  margin: auto;
-  margin-bottom: 40px;
+  text-align: center;
+  margin: 0 auto 40px;
   max-width: 960px;
   padding: 24px 24px 10px 24px;
   border-radius: 25px;
@@ -821,6 +745,10 @@ a .mode-card:hover {
 
 // MISC STYLES
 
+.top-margin {
+  margin-top: 100px;
+}
+
 .loading-div {
   background-image: url("/assets/loading.gif");
   background-size: contain;
@@ -931,9 +859,6 @@ Waves Animation
 /* Mobile responsive styles */
 
 @media (max-width: 768px) {
-  .main-div {
-    padding: 0px 10px;
-  }
   .mob-pad {
     margin-bottom: 60px;
   }
@@ -952,28 +877,6 @@ Waves Animation
   .no-mobile-inline {
     display: none !important;
   }
-  .mode-card {
-    width: calc(100% - 20px);
-    text-align: left;
-    margin: 5px 8px;
-    min-height: auto;
-    padding: 20px 22px 22px 22px;
-
-    img {
-      max-height: 30px;
-      max-width: 30px;
-      margin-bottom: 10px;
-    }
-    h2 {
-      display: inline-block;
-      margin-left: 20px;
-    }
-  }
-  a .mode-card:hover {
-    margin: 5px 8px;
-    transition: all 0.2s ease-in-out;
-    background-color: rgb(75, 75, 75);
-  }
 
   .offset-2 {
     margin: 0px !important;
@@ -986,6 +889,7 @@ Waves Animation
   }
   .main-text {
     padding-top: 10%;
+    display: block;
   }
   .main-desc {
     font-size: 18px;
@@ -1098,41 +1002,5 @@ Waves Animation
 
   .coffee-frame {
     position: relative;
-  }
-
-  .nav-bar {
-    position: relative;
-    top: 10px;
-    right: 0px;
-    width: 100%;
-    text-align: right;
-
-    button {
-      background-color: $bg-color;
-      border-color: $wgrey;
-      border: 1px solid;
-      color: $wgrey;
-      display: inline-block;
-      padding: 14px 25px;
-      margin: 20px 10px;
-    }
-
-    #menu {
-      margin: 10%;
-      width: 80%;
-    }
-
-    .nav-btn-c {
-      width: 50px;
-      height: 50px;
-      overflow: hidden;
-      margin: 20px 10px;
-
-      img {
-        width: 100%;
-        opacity: 0.8;
-        transition: none;
-      }
-    }
   }
 }

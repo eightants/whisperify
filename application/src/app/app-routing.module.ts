@@ -12,6 +12,7 @@ import { AboutComponent } from './components/about/about.component';
 import { ChallengeComponent } from './components/challenge/challenge.component';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'no-info', component: NoInfoComponent}, 
   { path: 'top', component: TracksComponent}, 
   { path: 'about', component: AboutComponent}, 
+  { path: 'leaderboard', component: LeaderboardComponent}, 
   { path: 'survey', component: SurveyComponent}, 
   { path: 'analysis', component: AnalysisComponent},
   { path: 'analysis/user/:username', component: AnalysisComponent},

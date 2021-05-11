@@ -11,7 +11,7 @@ export class SearchComponent implements OnInit {
   @Output() clickSubmit = new EventEmitter<string>();
   searchStr:string;
   @Input() tracks: any;
-  searchRes = this.tracks;
+  searchRes:any;
   searchVal:string;
   focusDrop = false;
 
@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
   constructor(private _spotifyService:SpotifyService) {}
 
   ngOnInit() {
+    this.searchRes = this.tracks;
   }
 
   // these are functions to dynamically change the classes depending on the text in the search field

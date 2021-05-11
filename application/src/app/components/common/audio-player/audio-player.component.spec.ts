@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediaNetAdComponent } from './media-net-ad.component';
+import { AudioPlayerComponent } from './audio-player.component';
 
-describe('MediaNetAdComponent', () => {
-  let component: MediaNetAdComponent;
-  let fixture: ComponentFixture<MediaNetAdComponent>;
+describe('AudioPlayerComponent', () => {
+  let component: AudioPlayerComponent;
+  let fixture: ComponentFixture<AudioPlayerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MediaNetAdComponent ]
+      declarations: [ AudioPlayerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MediaNetAdComponent);
+    fixture = TestBed.createComponent(AudioPlayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

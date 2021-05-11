@@ -35,7 +35,7 @@ export class TutorialComponent implements OnInit {
   isCorrect = false;
   score = 0;
 
-  maxVolume = 0.8;
+  maxVolume = 0.5;
   showVolume = false;
 
   started = false;

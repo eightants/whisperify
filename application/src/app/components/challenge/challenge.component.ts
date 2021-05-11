@@ -21,7 +21,7 @@ export class ChallengeComponent implements OnInit {
   nameStr:string;
   validCode = true;
 
-  ngOnInit() {
+  ngOnInit():void {
     this.titleTagService.setTitle('Whisperify Challenge - Enter your name to start the quiz!');
     this.titleTagService.setSocialMediaTags(
       'Whisperify Challenge - Enter your name to start the quiz!',
@@ -30,7 +30,7 @@ export class ChallengeComponent implements OnInit {
     sessionStorage.setItem("currentLink", "");
     this.validCode = true;
     this.urlchange = this.route.params.subscribe(params => {
-      let isCode = params["code"] || "";
+      const isCode = params["code"] || "";
       if (isCode == "") {
         this.router.navigate(["/"]);
       }
@@ -63,7 +63,7 @@ export class ChallengeComponent implements OnInit {
     })
   }
 
-  startChallenge() {
+  startChallenge():void {
     sessionStorage.setItem("enteredName", this.nameStr);
     this.router.navigate(["/quiz"]);
   }

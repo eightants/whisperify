@@ -10,9 +10,9 @@ function getRandomInt(max) {
 }
 
 function generateid() {
-  var chars = "abcdefghijklmnopqrstuvwxyz1234567890"
-  var ret = ""
-  for (var i = 0; i < 5; i++) {
+  const chars = "abcdefghijklmnopqrstuvwxyz1234567890"
+  let ret = ""
+  for (let i = 0; i < 5; i++) {
     ret += chars[getRandomInt(chars.length)];
   }
   return (ret);
@@ -73,7 +73,7 @@ export class ScoreComponent implements OnInit {
       if (this.challengeCode != "") {
         this.spotify.getChallenge(this.challengeCode).then(
           res => {
-            let tmpboard = res["scoreboard"].slice();
+            const tmpboard = res["scoreboard"].slice();
             if (this.sentDB == "no" && this.score >= 0) {
               // If score from current session not posted to db, use the session stored score for leaderboard
               tmpboard.push({name: this.enteredName, score: this.score, me: true});
@@ -87,7 +87,7 @@ export class ScoreComponent implements OnInit {
             }
             if (this.sentDB == "no") {
               // POST the challenger score to the db
-              let toPostBoard = res["scoreboard"].slice();
+              const toPostBoard = res["scoreboard"].slice();
               toPostBoard.push({name: this.enteredName, score: this.score});
               this.spotify.addChallengeScore(this.challengeCode, toPostBoard);
               sessionStorage.setItem("sentDB", "yes")
@@ -153,6 +153,7 @@ export class ScoreComponent implements OnInit {
       sessionStorage.setItem("sentDB", "yes");
       this.spotify.addScore({
                   _id: this.username,
+                  name: this.displayname,
                   score: this.score
               });
       this.challengeObj["scoreboard"].push({name: this.displayname, score: this.score, host: true});
@@ -206,24 +207,6 @@ export class ScoreComponent implements OnInit {
     this.isGenerated = false;
   }
 
-  copyLink(val) {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    selBox.setAttribute('readonly', 'true');
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    selBox.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    // another way to write to clipboard  but idk if the above one already works
-    navigator.clipboard.writeText(val);
-  }
-
   playAgain() {
     sessionStorage.setItem("score", "NaN");
     if (this.challengeCode == "" || this.currentLink != "") {
@@ -234,7 +217,7 @@ export class ScoreComponent implements OnInit {
   }
 
   toAnalysis() {
-    var token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (sessionStorage.getItem("answered") == "yes") {
       this.router.navigate(["/analysis"]);
     } else if (token != null && token != "") {

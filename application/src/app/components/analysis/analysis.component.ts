@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { TitleTagService } from "../services/title-tag.service";
 import * as d3 from "d3";
 import { SpotifyService } from "../services/spotify.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import {
   COUNTRY_TO_CODE,
   COUNTRIES,
