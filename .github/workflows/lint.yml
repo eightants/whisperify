@@ -18,6 +18,6 @@ jobs:
                   node-version: 15.11.0
                   registry-url: https://registry.npmjs.org
             - name: Install main dependencies
-              run: cd application && npm run install
+              run: cd application && npm install
             - name: Runs linting
               run: cd application && npm run lint
