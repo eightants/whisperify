@@ -1,24 +1,24 @@
-import { Component, OnInit, HostListener } from "@angular/core";
-import { Router } from "@angular/router";
-import { TitleTagService } from "../services/title-tag.service";
-import { SpotifyService } from "../services/spotify.service";
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { TitleTagService } from '../services/title-tag.service';
+import { SpotifyService } from '../services/spotify.service';
 
 function getDateToday() {
   const today = new Date();
-  const dd = String(today.getDate()).padStart(2, "0");
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  const dd = String(today.getDate()).padStart(2, '0');
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   const yyyy = today.getFullYear();
 
-  return dd + "/" + mm + "/" + yyyy;
+  return dd + '/' + mm + '/' + yyyy;
 }
 
 @Component({
-  selector: "app-tracks",
-  templateUrl: "./tracks.component.html",
-  styleUrls: ["./tracks.component.scss"],
+  selector: 'app-tracks',
+  templateUrl: './tracks.component.html',
+  styleUrls: ['./tracks.component.scss'],
 })
 export class TracksComponent implements OnInit {
-  @HostListener("window:scroll", ["$event"])
+  @HostListener('window:scroll', ['$event'])
   scrollCheck(event): void {
     this.upperPart = window.pageYOffset < 1000;
   }
@@ -29,7 +29,7 @@ export class TracksComponent implements OnInit {
     private titleTagService: TitleTagService
   ) {}
 
-  token = "";
+  token = '';
   tracks = [];
   trackprev = [];
   trackshort = [];
@@ -40,37 +40,37 @@ export class TracksComponent implements OnInit {
   artistlong = [];
   isLoaded = false;
   indexes = [];
-  topTypes = ["Tracks", "Artists"];
-  chosenType = "Tracks";
-  timePeriod = ["4 weeks", "6 months", "Lifetime"];
-  chosenPeriod = "6 months";
+  topTypes = ['Tracks', 'Artists'];
+  chosenType = 'Tracks';
+  timePeriod = ['4 weeks', '6 months', 'Lifetime'];
+  chosenPeriod = '6 months';
   songuris = [];
   upperPart = true;
   generated = {
-    "4 weeks": "",
-    "6 months": "",
-    Lifetime: "",
+    '4 weeks': '',
+    '6 months': '',
+    Lifetime: '',
   };
 
   ngOnInit(): void {
-    this.titleTagService.setTitle("Favourites - Whisperify");
+    this.titleTagService.setTitle('Favourites - Whisperify');
     this.titleTagService.setSocialMediaTags(
-      "Favourites - Whisperify",
-      "View and save your top songs and artists on Spotify over time. "
+      'Favourites - Whisperify',
+      'View and save your top songs and artists on Spotify over time. '
     );
-    this.token = sessionStorage.getItem("token");
+    this.token = sessionStorage.getItem('token');
     this.upperPart = true;
     //console.log(this.token);
-    if (this.token == "" || this.token == null) {
-      this.router.navigate(["/"]);
+    if (this.token == '' || this.token == null) {
+      this.router.navigate(['/']);
     }
     // get request
     this.spotify
-      .getTracks(this.token, "0", "medium_term")
+      .getTracks(this.token, '0', 'medium_term')
       .then((res) => {
-        this.spotify.getTracks(this.token, "49", "medium_term").then((res2) => {
+        this.spotify.getTracks(this.token, '49', 'medium_term').then((res2) => {
           //console.log(res);
-          this.trackprev = res["items"].concat(res2["items"].slice(1));
+          this.trackprev = res['items'].concat(res2['items'].slice(1));
           this.tracks = this.trackprev;
           //console.log(this.tracks.length)
           this.isLoaded = true;
@@ -78,60 +78,60 @@ export class TracksComponent implements OnInit {
       })
       .catch((e) => {
         console.log(e);
-        this.router.navigate(["/"]);
+        this.router.navigate(['/']);
       });
-    this.spotify.getArtists(this.token, "0", "medium_term").then((res) => {
-      this.artistprev = res["items"];
+    this.spotify.getArtists(this.token, '0', 'medium_term').then((res) => {
+      this.artistprev = res['items'];
       this.artists = this.artistprev;
     });
   }
 
   calculatePopularity(artists): number {
     return Math.floor(
-      artists.reduce((a, b) => a + (b["popularity"] || 0), 0) / artists.length
+      artists.reduce((a, b) => a + (b['popularity'] || 0), 0) / artists.length
     );
   }
 
   choosePeriod(val: string): void {
     this.chosenPeriod = val;
-    if (val == "4 weeks") {
+    if (val == '4 weeks') {
       if (this.trackshort.length < 1) {
         // SHORT TERM
         this.spotify
-          .getTracks(this.token, "0", "short_term")
+          .getTracks(this.token, '0', 'short_term')
           .then((res) => {
-            this.trackshort = res["items"];
+            this.trackshort = res['items'];
             this.tracks = this.trackshort;
           })
           .catch((e) => {
             console.log(e);
           });
-        this.spotify.getArtists(this.token, "0", "short_term").then((res) => {
-          this.artistshort = res["items"];
+        this.spotify.getArtists(this.token, '0', 'short_term').then((res) => {
+          this.artistshort = res['items'];
           this.artists = this.artistshort;
         });
       } else {
         this.tracks = this.trackshort;
         this.artists = this.artistshort;
       }
-    } else if (val == "Lifetime") {
+    } else if (val == 'Lifetime') {
       if (this.tracklong.length < 1) {
         // LONG TERM
         this.spotify
-          .getTracks(this.token, "0", "long_term")
+          .getTracks(this.token, '0', 'long_term')
           .then((res) => {
             this.spotify
-              .getTracks(this.token, "49", "long_term")
+              .getTracks(this.token, '49', 'long_term')
               .then((res2) => {
-                this.tracklong = res["items"].concat(res2["items"].slice(1));
+                this.tracklong = res['items'].concat(res2['items'].slice(1));
                 this.tracks = this.tracklong;
               });
           })
           .catch((e) => {
             console.log(e);
           });
-        this.spotify.getArtists(this.token, "0", "long_term").then((res) => {
-          this.artistlong = res["items"];
+        this.spotify.getArtists(this.token, '0', 'long_term').then((res) => {
+          this.artistlong = res['items'];
           this.artists = this.artistlong;
         });
       } else {
@@ -150,20 +150,20 @@ export class TracksComponent implements OnInit {
       this.spotify
         .createPlaylist(
           this.token,
-          useres["id"],
-          this.chosenPeriod + " Top Tracks (" + getDateToday() + ")",
+          useres['id'],
+          this.chosenPeriod + ' Top Tracks (' + getDateToday() + ')',
           this.whichDesc()
         )
         .then((playlistObj) => {
           for (let i = 0; i < this.tracks.length; i++) {
-            this.songuris.push(this.tracks[i]["uri"]);
+            this.songuris.push(this.tracks[i]['uri']);
           }
           this.spotify
-            .addPlaylistSongs(this.token, playlistObj["id"], this.songuris)
+            .addPlaylistSongs(this.token, playlistObj['id'], this.songuris)
             .then((snapshot) => {
-              if (snapshot["snapshot_id"]) {
+              if (snapshot['snapshot_id']) {
                 this.generated[this.chosenPeriod] =
-                  playlistObj["external_urls"]["spotify"];
+                  playlistObj['external_urls']['spotify'];
               }
             });
         });
@@ -171,28 +171,28 @@ export class TracksComponent implements OnInit {
   }
 
   whichDesc(): string {
-    if (this.chosenPeriod == "4 weeks") {
+    if (this.chosenPeriod == '4 weeks') {
       return (
-        "Your favorite tracks for the last 4 weeks as of " +
+        'Your favorite tracks for the last 4 weeks as of ' +
         getDateToday() +
-        ". Created from whisperify.net"
+        '. Created from whisperify.net'
       );
-    } else if (this.chosenPeriod == "Lifetime") {
+    } else if (this.chosenPeriod == 'Lifetime') {
       return (
-        "Your favorite tracks of all time as of " +
+        'Your favorite tracks of all time as of ' +
         getDateToday() +
-        ". Created from whisperify.net"
+        '. Created from whisperify.net'
       );
     } else {
       return (
-        "Your favorite tracks for the last 6 months as of " +
+        'Your favorite tracks for the last 6 months as of ' +
         getDateToday() +
-        ". Created from whisperify.net"
+        '. Created from whisperify.net'
       );
     }
   }
 
-  scrollTo(id): void {
+  scrollTo(id: string): void {
     document.getElementById(id).scrollIntoView();
   }
 }
