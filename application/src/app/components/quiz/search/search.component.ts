@@ -52,9 +52,9 @@ export class SearchComponent implements OnInit {
       this.searchVal = this.searchStr;
       // console.log(this.searchStr)
       // splits searchStr so keywords can be found individually, helpful for artist-song
-      let keywords = this.searchStr.toLowerCase().split(' ');
+      const keywords = this.searchStr.toLowerCase().split(' ');
       for (let i = 0; i < keywords.length; i++) {
-        let tempArr = []
+        const tempArr = []
         for (let j = 0; j < this.searchRes.length; j++) {
           // search song title for match with search term searchStr, also convert arr of artists into a string see if match too
           if (this.searchRes[j].name.toLowerCase().includes(keywords[i]) || this.ArtistToStr(this.searchRes[j].artists).toLowerCase().includes(keywords[i])) {

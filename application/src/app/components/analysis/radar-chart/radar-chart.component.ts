@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 
-declare var RadarChart: any;
+declare let RadarChart: any;
 
 @Component({
   selector: 'app-radar-chart',

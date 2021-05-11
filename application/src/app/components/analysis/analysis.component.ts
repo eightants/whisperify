@@ -1,8 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
-import { TitleTagService } from "../services/title-tag.service";
-import * as d3 from "d3";
-import { SpotifyService } from "../services/spotify.service";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { TitleTagService } from '../services/title-tag.service';
+import * as d3 from 'd3';
+import { SpotifyService } from '../services/spotify.service';
+import { ActivatedRoute } from '@angular/router';
 import {
   COUNTRY_TO_CODE,
   COUNTRIES,
@@ -10,26 +10,26 @@ import {
   FEATURES_DESC,
   MAINURL,
   allFeaturesToAdd,
-} from "../../globals";
+} from '../../globals';
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
-  var words = text.split(" ");
-  var line = "";
-  var lineWrites = [];
-  for (var n = 0; n < words.length; n++) {
-    var testLine = line + words[n] + " ";
-    var metrics = context.measureText(testLine);
-    var testWidth = metrics.width;
+  const words = text.split(' ');
+  let line = '';
+  const lineWrites = [];
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + ' ';
+    const metrics = context.measureText(testLine);
+    const testWidth = metrics.width;
     if (testWidth > maxWidth && n > 0) {
       lineWrites.push(line);
-      line = words[n] + " ";
+      line = words[n] + ' ';
     } else {
       line = testLine;
     }
   }
   // write the remaining text
   context.fillText(line, x, y);
-  for (var n = lineWrites.length - 1; n >= 0; n--) {
+  for (let n = lineWrites.length - 1; n >= 0; n--) {
     // then write text from bottom up
     y -= lineHeight;
     context.fillText(lineWrites[n], x, y);
@@ -43,16 +43,16 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
  * @param category
  */
 function findKey(arr, key, category) {
-  var retObj = null;
-  for (var i in arr) {
-    var obj = arr[i];
-    if (category == "country" && obj["_id"] == key) {
+  let retObj = null;
+  for (const i in arr) {
+    const obj = arr[i];
+    if (category == 'country' && obj['_id'] == key) {
       retObj = obj;
       break;
-    } else if (category == "personality") {
-      var match = true;
-      for (var prop in obj["_id"]) {
-        if (obj["_id"][prop] == {} || obj["_id"][prop] != key[prop]) {
+    } else if (category == 'personality') {
+      let match = true;
+      for (const prop in obj['_id']) {
+        if (obj['_id'][prop] == {} || obj['_id'][prop] != key[prop]) {
           match = false;
           break;
         }
@@ -71,7 +71,7 @@ function findKey(arr, key, category) {
  * @param brig
  */
 function parsePersonality(brig) {
-  var str = brig.toLowerCase();
+  const str = brig.toLowerCase();
   return {
     ei: str[0],
     sn: str[1],
@@ -80,31 +80,31 @@ function parsePersonality(brig) {
   };
 }
 
-const COUNTRY_TYPE = "country";
-const PERSONALITY_TYPE = "personality";
+const COUNTRY_TYPE = 'country';
+const PERSONALITY_TYPE = 'personality';
 const featuresToAdd = [
-  "acousticness",
-  "danceability",
-  "energy",
-  "valence",
-  "liveness",
-  "speechiness",
+  'acousticness',
+  'danceability',
+  'energy',
+  'valence',
+  'liveness',
+  'speechiness',
 ];
 
 @Component({
-  selector: "app-analysis",
-  templateUrl: "./analysis.component.html",
-  styleUrls: ["./analysis.component.scss"],
+  selector: 'app-analysis',
+  templateUrl: './analysis.component.html',
+  styleUrls: ['./analysis.component.scss'],
 })
 export class AnalysisComponent implements OnInit {
-  @ViewChild("toSave", { static: false }) toSave: ElementRef;
-  @ViewChild("canvasImg", { static: false }) canvasImg: ElementRef;
-  @ViewChild("radarDraw", { static: false }) radarDraw: ElementRef;
+  @ViewChild('toSave', { static: false }) toSave: ElementRef;
+  @ViewChild('canvasImg', { static: false }) canvasImg: ElementRef;
+  @ViewChild('radarDraw', { static: false }) radarDraw: ElementRef;
 
   urlchange;
   urlNeed = true;
   featuresDesc = FEATURES_DESC;
-  chartName = "main-radar";
+  chartName = 'main-radar';
   chartData;
   chartConfig;
   multiChartConfig;
@@ -128,26 +128,26 @@ export class AnalysisComponent implements OnInit {
   countryAnalysis;
   personalityAnalysis;
   allAnalysis = {};
-  dataType = ["Country", "Personality", "Album", "User"];
-  chosenType = "Country";
+  dataType = ['Country', 'Personality', 'Album', 'User'];
+  chosenType = 'Country';
   sortedCountries = COUNTRIES.sort();
   secondDropdownData = this.sortedCountries;
   chosenSecond = this.sortedCountries[0];
-  inputFieldVal = "";
-  nameFieldVal = "";
-  chartTypes = ["Dot", "Radar", "Multi"];
-  chosenChart = "Radar";
+  inputFieldVal = '';
+  nameFieldVal = '';
+  chartTypes = ['Dot', 'Radar', 'Multi'];
+  chosenChart = 'Radar';
   editLabel = -1;
   showTools = true;
   showPopTip = false;
   userGraphLimit = 32;
   selectedPlot = 1;
-  errorText = "Error";
+  errorText = 'Error';
   errorShow = false;
   personalChart;
   chosenTone;
-  primaryTones = ["#0099FF", "#e91628", "#f65e35"];
-  secondaryTones = ["#1d3162", "#1c3775", "#1e3265"];
+  primaryTones = ['#0099FF', '#e91628', '#f65e35'];
+  secondaryTones = ['#1d3162', '#1c3775', '#1e3265'];
 
   constructor(
     private spotify: SpotifyService,
@@ -157,57 +157,57 @@ export class AnalysisComponent implements OnInit {
 
   ngOnInit() {
     this.titleTagService.setTitle(
-      "Whisperify Analysis - View your music in interesting ways!"
+      'Whisperify Analysis - View your music in interesting ways!'
     );
     this.titleTagService.setSocialMediaTags(
-      "Whisperify Analysis - View your music in interesting ways!",
+      'Whisperify Analysis - View your music in interesting ways!',
       "Compare your listening habits with Spotify users from over 70 countries and the 16 Meyer-Briggs personalities in unique charts. Try analysing your favourite albums, or view a breakdown of your friends' tastes!"
     );
     // INITIALIZING ALL THE INFO WE NEED
     this.chosenTone = Math.floor(Math.random() * 3);
     this.graphColors = [
-      "#414141",
-      "#3366cc",
-      "#dc3912",
-      "#ff9900",
-      "#109618",
-      "#990099",
-      "#0099c6",
-      "#dd4477",
-      "#66aa00",
-      "#b82e2e",
-      "#316395",
-      "#994499",
-      "#22aa99",
-      "#aaaa11",
-      "#6633cc",
-      "#e67300",
-      "#8b0707",
-      "#651067",
-      "#329262",
-      "#5574a6",
-      "#3b3eac",
+      '#414141',
+      '#3366cc',
+      '#dc3912',
+      '#ff9900',
+      '#109618',
+      '#990099',
+      '#0099c6',
+      '#dd4477',
+      '#66aa00',
+      '#b82e2e',
+      '#316395',
+      '#994499',
+      '#22aa99',
+      '#aaaa11',
+      '#6633cc',
+      '#e67300',
+      '#8b0707',
+      '#651067',
+      '#329262',
+      '#5574a6',
+      '#3b3eac',
     ];
     this.changed = true;
-    this.graphTitles = ["Key"];
+    this.graphTitles = ['Key'];
     this.chartData = [
       [
-        { axis: "acousticness", value: 0 },
-        { axis: "danceability", value: 0 },
-        { axis: "energy", value: 0 },
-        { axis: "valence", value: 0 },
-        { axis: "liveness", value: 0 },
-        { axis: "speechiness", value: 0 },
+        { axis: 'acousticness', value: 0 },
+        { axis: 'danceability', value: 0 },
+        { axis: 'energy', value: 0 },
+        { axis: 'valence', value: 0 },
+        { axis: 'liveness', value: 0 },
+        { axis: 'speechiness', value: 0 },
       ],
     ];
     this.personalChart = [
       [
-        { axis: "acousticness", value: 0 },
-        { axis: "danceability", value: 0 },
-        { axis: "energy", value: 0 },
-        { axis: "valence", value: 0 },
-        { axis: "liveness", value: 0 },
-        { axis: "speechiness", value: 0 },
+        { axis: 'acousticness', value: 0 },
+        { axis: 'danceability', value: 0 },
+        { axis: 'energy', value: 0 },
+        { axis: 'valence', value: 0 },
+        { axis: 'liveness', value: 0 },
+        { axis: 'speechiness', value: 0 },
       ],
     ];
     this.chartConfig = {
@@ -220,9 +220,9 @@ export class AnalysisComponent implements OnInit {
       showAxes: false,
       width: 500,
       height: 50,
-      radius: "8px",
-      lineStroke: "4px",
-      lineColor: "#2e2e2e",
+      radius: '8px',
+      lineStroke: '4px',
+      lineColor: '#2e2e2e',
       lineToMatchAxes: true,
       color: this.buildColor(this.graphColors),
     };
@@ -230,7 +230,7 @@ export class AnalysisComponent implements OnInit {
       maxValue: 0.9,
       levels: 5,
       showAxesLabels: true,
-      axesLabelsSize: "20px",
+      axesLabelsSize: '20px',
     };
     this.multiChartConfig = {
       maxValue: 0.9,
@@ -238,7 +238,7 @@ export class AnalysisComponent implements OnInit {
       dotRadius: 5,
       strokeWidth: 5,
       showAxesLabels: false,
-      chartType: "multi",
+      chartType: 'multi',
     };
     this.imageConfig = {
       maxValue: 0.8,
@@ -247,21 +247,21 @@ export class AnalysisComponent implements OnInit {
       strokeWidth: 15,
       showAxesLabels: false,
       opacityArea: 1,
-      labelColor: "none",
-      backgroundColor: "none",
+      labelColor: 'none',
+      backgroundColor: 'none',
       blobGlow: false,
     };
     // -------------------
     // START GETTING DATA
     // -------------------
     // get spotify token
-    sessionStorage.setItem("redirect", "");
-    this.token = sessionStorage.getItem("token");
-    this.username = sessionStorage.getItem("username") || "";
+    sessionStorage.setItem('redirect', '');
+    this.token = sessionStorage.getItem('token');
+    this.username = sessionStorage.getItem('username') || '';
     // if user visits /analysis/:spotifyuserid, the user id is parsed and a graph is plotted for that user id
     this.urlchange = this.route.params.subscribe((params) => {
-      let isCode = params["username"] || "";
-      if (isCode != "") {
+      const isCode = params['username'] || '';
+      if (isCode != '') {
         this.spotify.getUserAnalysis(isCode).then((res) => {
           this.chartData.push(
             this.buildFeatureObject(this.normalizeLowVals(res, featuresToAdd))
@@ -269,14 +269,14 @@ export class AnalysisComponent implements OnInit {
           this.graphTitles.push(isCode);
           this.urlNeed = false;
           this.updateGraph();
-          if (this.token == "" || this.token == null) {
+          if (this.token == '' || this.token == null) {
             this.userGraphLimit = 12;
           } else {
             // grabs listening activity from Spotify
             this.spotify
-              .getTracks(this.token, "0", "medium_term")
+              .getTracks(this.token, '0', 'medium_term')
               .then((res) => {
-                this.trackprev = res["items"];
+                this.trackprev = res['items'];
                 this.tracks = this.trackprev;
                 this.isLoaded = true;
               })
@@ -286,22 +286,21 @@ export class AnalysisComponent implements OnInit {
           }
         });
       } else {
-        if (this.token == "" || this.token == null) {
+        if (this.token == '' || this.token == null) {
           this.userGraphLimit = 12;
         } else {
           // grabs listening activity from Spotify
           this.spotify
-            .getTracks(this.token, "0", "medium_term")
+            .getTracks(this.token, '0', 'medium_term')
             .then((res) => {
-              this.trackprev = res["items"];
+              this.trackprev = res['items'];
               this.tracks = this.trackprev;
               this.isLoaded = true;
-              let songIds = this.tracks.map(({ id }) => id);
-              let artistList = [].concat.apply(
-                [],
-                this.tracks.map(({ artists }) => artists)
+              const songIds = this.tracks.map(({ id }) => id);
+              const artistList = [].concat(
+                ...this.tracks.map(({ artists }) => artists)
               );
-              let artistSet = new Set(artistList.map(({ id }) => id));
+              const artistSet = new Set(artistList.map(({ id }) => id));
               this.artistSpan = artistSet.size;
               this.renderUserAudioFeatures(songIds, featuresToAdd);
             })
@@ -313,13 +312,13 @@ export class AnalysisComponent implements OnInit {
     });
     // gets global stats
     this.spotify
-      .getGroupAnalysis("all")
+      .getGroupAnalysis('all')
       .then((res) => {
         this.allAnalysis = res[0];
         this.chartData.push(
           this.buildFeatureObject(this.normalizeLowVals(res[0], featuresToAdd))
         );
-        this.graphTitles.push("Global");
+        this.graphTitles.push('Global');
         this.updateGraph();
         this.isLoaded = true;
       })
@@ -330,18 +329,18 @@ export class AnalysisComponent implements OnInit {
     /*
     OTHER SPOTIFY CALLS
     */
-    if (this.token == "" || this.token == null) {
+    if (this.token == '' || this.token == null) {
       this.userGraphLimit = 12;
     } else {
-      this.dataType = ["Country", "Personality", "Album", "Playlist", "User"];
+      this.dataType = ['Country', 'Personality', 'Album', 'Playlist', 'User'];
       // get top artists and genres
       this.spotify
-        .getArtists(this.token, "0", "medium_term")
+        .getArtists(this.token, '0', 'medium_term')
         .then((res) => {
-          this.artists = res["items"];
+          this.artists = res['items'];
           // calculate average popularity of artists
           this.popularity = Math.floor(
-            this.artists.reduce((a, b) => a + (b["popularity"] || 0), 0) /
+            this.artists.reduce((a, b) => a + (b['popularity'] || 0), 0) /
               this.artists.length
           );
           //-----------------------------------------------------
@@ -349,15 +348,15 @@ export class AnalysisComponent implements OnInit {
           //-----------------------------------------------------
           // gets all genres into an array
           let genreList = this.artists.map(({ genres }) => genres);
-          genreList = [].concat.apply([], genreList);
+          genreList = [].concat(...genreList);
           // counts the number of each genres (this is where related genres are ignored, thus the need for clustering)
-          var genreCounts = {};
-          for (var i = 0; i < genreList.length; i++) {
-            var num = genreList[i];
+          const genreCounts = {};
+          for (let i = 0; i < genreList.length; i++) {
+            const num = genreList[i];
             genreCounts[num] = genreCounts[num] ? genreCounts[num] + 1 : 1;
           }
           // sorts genres in descending order
-          for (var g in genreCounts) {
+          for (const g in genreCounts) {
             this.genres.push([g, genreCounts[g]]);
           }
           this.genres.sort(function (a, b) {
@@ -373,48 +372,48 @@ export class AnalysisComponent implements OnInit {
   }
 
   getSongsAndPostToDB() {
-    if (this.token != "" && this.token != null && this.username == "") {
+    if (this.token != '' && this.token != null && this.username == '') {
       this.spotify
-        .getTracks(this.token, "0", "medium_term")
+        .getTracks(this.token, '0', 'medium_term')
         .then((res) => {
           this.spotify
-            .getTracks(this.token, "49", "medium_term")
+            .getTracks(this.token, '49', 'medium_term')
             .then((res2) => {
-              this.tracks = res["items"].concat(res2["items"]);
+              this.tracks = res['items'].concat(res2['items']);
               this.spotify.getProfile(this.token).then((useres) => {
-                this.username = useres["id"];
-                let displayName = useres["display_name"];
-                sessionStorage.setItem("displayname", displayName);
-                sessionStorage.setItem("username", this.username);
-                let songList = this.tracks.map(({ id }) => id);
+                this.username = useres['id'];
+                const displayName = useres['display_name'];
+                sessionStorage.setItem('displayname', displayName);
+                sessionStorage.setItem('username', this.username);
+                const songList = this.tracks.map(({ id }) => id);
                 // get audio features for this user
                 this.spotify
                   .getUserAudioFeatures(this.token, songList)
                   .then((feat) => {
-                    let averageFeatures = feat["audio_features"][0];
+                    const averageFeatures = feat['audio_features'][0];
                     //console.log(averageFeatures);
-                    for (let i = 1; i < feat["audio_features"].length; i++) {
+                    for (let i = 1; i < feat['audio_features'].length; i++) {
                       for (let j = 0; j < allFeaturesToAdd.length; j++) {
                         averageFeatures[allFeaturesToAdd[j]] +=
-                          feat["audio_features"][i][allFeaturesToAdd[j]];
+                          feat['audio_features'][i][allFeaturesToAdd[j]];
                       }
                     }
                     for (let j = 0; j < allFeaturesToAdd.length; j++) {
                       averageFeatures[allFeaturesToAdd[j]] /=
-                        feat["audio_features"].length;
+                        feat['audio_features'].length;
                     }
-                    let cleanedFeatures = {};
+                    const cleanedFeatures = {};
                     for (let j = 0; j < allFeaturesToAdd.length; j++) {
                       cleanedFeatures[allFeaturesToAdd[j]] =
                         averageFeatures[allFeaturesToAdd[j]];
                     }
                     this.spotify.addEntry({
-                      _id: useres["id"],
-                      email: useres["email"],
-                      name: useres["display_name"],
+                      _id: useres['id'],
+                      email: useres['email'],
+                      name: useres['display_name'],
                       time: Date.now(),
                       tracks: songList,
-                      country: useres["country"],
+                      country: useres['country'],
                       ...cleanedFeatures,
                     });
                   });
@@ -451,10 +450,10 @@ export class AnalysisComponent implements OnInit {
 
   chooseType(val) {
     this.chosenType = val;
-    if (val == "Personality") {
+    if (val == 'Personality') {
       this.secondDropdownData = PERSONALITIES;
       this.chosenSecond = PERSONALITIES[0];
-    } else if (val == "Country") {
+    } else if (val == 'Country') {
       this.secondDropdownData = this.sortedCountries;
       this.chosenSecond = this.capitalize(this.sortedCountries[0]);
     }
@@ -465,7 +464,7 @@ export class AnalysisComponent implements OnInit {
   }
 
   addGraph() {
-    if (this.chosenType == "Personality") {
+    if (this.chosenType == 'Personality') {
       if (this.personalityAnalysis) {
         this.chartData.push(
           this.buildFeatureObject(
@@ -500,7 +499,7 @@ export class AnalysisComponent implements OnInit {
           this.updateGraph();
         });
       }
-    } else if (this.chosenType == "Country") {
+    } else if (this.chosenType == 'Country') {
       if (this.countryAnalysis) {
         this.chartData.push(
           this.buildFeatureObject(
@@ -531,68 +530,68 @@ export class AnalysisComponent implements OnInit {
           this.updateGraph();
         });
       }
-    } else if (this.chosenType == "Album") {
+    } else if (this.chosenType == 'Album') {
       // Gets album features from Spotify with user token if exists, or with backend if guest
-      var urlSplit = this.inputFieldVal.split("/");
-      var albumID = urlSplit[0];
-      for (var i = 0; i < urlSplit.length; i++) {
-        if (urlSplit[i] == "album") {
+      const urlSplit = this.inputFieldVal.split('/');
+      let albumID = urlSplit[0];
+      for (let i = 0; i < urlSplit.length; i++) {
+        if (urlSplit[i] == 'album') {
           albumID = urlSplit[i + 1];
           break;
         }
       }
-      this.inputFieldVal = "";
-      if (this.token == "" || this.token == null) {
+      this.inputFieldVal = '';
+      if (this.token == '' || this.token == null) {
         this.spotify.getAlbumAnalysisGuest(albumID).then((res) => {
           this.chartData.push(
             this.buildFeatureObject(
-              this.normalizeLowVals(res["features"], featuresToAdd)
+              this.normalizeLowVals(res['features'], featuresToAdd)
             )
           );
-          this.graphTitles.push(res["title"]);
+          this.graphTitles.push(res['title']);
           this.updateGraph();
         });
       } else {
         this.spotify.getAlbumAnalysis(albumID, this.token).then((res) => {
           this.chartData.push(
             this.buildFeatureObject(
-              this.normalizeLowVals(res["features"], featuresToAdd)
+              this.normalizeLowVals(res['features'], featuresToAdd)
             )
           );
-          this.graphTitles.push(res["title"]);
+          this.graphTitles.push(res['title']);
           this.updateGraph();
         });
       }
-    } else if (this.chosenType == "Playlist") {
+    } else if (this.chosenType == 'Playlist') {
       // Gets playlist features from Spotify with user token if exists, or with backend if guest
-      var urlSplit = this.inputFieldVal.split("/");
-      var playlistID = urlSplit[0];
-      for (var i = 0; i < urlSplit.length; i++) {
-        if (urlSplit[i] == "playlist") {
+      const urlSplit = this.inputFieldVal.split('/');
+      let playlistID = urlSplit[0];
+      for (let i = 0; i < urlSplit.length; i++) {
+        if (urlSplit[i] == 'playlist') {
           playlistID = urlSplit[i + 1];
           break;
         }
       }
-      this.inputFieldVal = "";
+      this.inputFieldVal = '';
       this.spotify.getPlaylistAnalysis(playlistID, this.token).then((res) => {
         this.chartData.push(
           this.buildFeatureObject(
-            this.normalizeLowVals(res["features"], featuresToAdd)
+            this.normalizeLowVals(res['features'], featuresToAdd)
           )
         );
-        this.graphTitles.push(res["title"]);
+        this.graphTitles.push(res['title']);
         this.updateGraph();
       });
-    } else if (this.chosenType == "User") {
-      var urlSplit = this.inputFieldVal.split("/");
-      var userID = urlSplit[0];
-      for (var i = 0; i < urlSplit.length; i++) {
-        if (urlSplit[i] == "user") {
+    } else if (this.chosenType == 'User') {
+      const urlSplit = this.inputFieldVal.split('/');
+      let userID = urlSplit[0];
+      for (let i = 0; i < urlSplit.length; i++) {
+        if (urlSplit[i] == 'user') {
           userID = urlSplit[i + 1];
           break;
         }
       }
-      this.inputFieldVal = "";
+      this.inputFieldVal = '';
       this.spotify.getUserAnalysis(userID).then((res) => {
         if (res != null) {
           this.chartData.push(
@@ -602,7 +601,7 @@ export class AnalysisComponent implements OnInit {
           this.updateGraph();
         } else {
           this.errorPopup(
-            "This user is not on Whisperify. Invite them to join Whisperify to compare your music tastes!"
+            'This user is not on Whisperify. Invite them to join Whisperify to compare your music tastes!'
           );
         }
       });
@@ -622,16 +621,16 @@ export class AnalysisComponent implements OnInit {
 
   renderUserAudioFeatures(songIds, featuresToAdd) {
     this.spotify.getUserAudioFeatures(this.token, songIds).then((feat) => {
-      let averageFeatures = feat["audio_features"][0];
+      const averageFeatures = feat['audio_features'][0];
       //console.log(averageFeatures);
-      for (let i = 1; i < feat["audio_features"].length; i++) {
+      for (let i = 1; i < feat['audio_features'].length; i++) {
         for (let j = 0; j < featuresToAdd.length; j++) {
           averageFeatures[featuresToAdd[j]] +=
-            feat["audio_features"][i][featuresToAdd[j]];
+            feat['audio_features'][i][featuresToAdd[j]];
         }
       }
       for (let j = 0; j < featuresToAdd.length; j++) {
-        averageFeatures[featuresToAdd[j]] /= feat["audio_features"].length;
+        averageFeatures[featuresToAdd[j]] /= feat['audio_features'].length;
       }
       //console.log(averageFeatures);
       this.personalChart.push(
@@ -644,7 +643,7 @@ export class AnalysisComponent implements OnInit {
           this.normalizeLowVals(averageFeatures, featuresToAdd)
         )
       );
-      this.graphTitles.push("You");
+      this.graphTitles.push('You');
       this.updateGraph();
       this.isLoaded = true;
       this.generateImage();
@@ -654,38 +653,38 @@ export class AnalysisComponent implements OnInit {
 
   compressFeatureObject(averageFeatures) {
     return {
-      acousticness: averageFeatures["acousticness"],
-      danceability: averageFeatures["danceability"],
-      energy: averageFeatures["energy"],
-      valence: averageFeatures["valence"],
-      liveness: averageFeatures["liveness"],
-      speechiness: averageFeatures["speechiness"],
+      acousticness: averageFeatures['acousticness'],
+      danceability: averageFeatures['danceability'],
+      energy: averageFeatures['energy'],
+      valence: averageFeatures['valence'],
+      liveness: averageFeatures['liveness'],
+      speechiness: averageFeatures['speechiness'],
     };
   }
 
   buildFeatureObject(averageFeatures) {
     return [
-      { axis: "acousticness", value: averageFeatures["acousticness"] },
-      { axis: "danceability", value: averageFeatures["danceability"] },
-      { axis: "energy", value: averageFeatures["energy"] },
-      { axis: "valence", value: averageFeatures["valence"] },
-      { axis: "liveness", value: averageFeatures["liveness"] },
-      { axis: "speechiness", value: averageFeatures["speechiness"] },
+      { axis: 'acousticness', value: averageFeatures['acousticness'] },
+      { axis: 'danceability', value: averageFeatures['danceability'] },
+      { axis: 'energy', value: averageFeatures['energy'] },
+      { axis: 'valence', value: averageFeatures['valence'] },
+      { axis: 'liveness', value: averageFeatures['liveness'] },
+      { axis: 'speechiness', value: averageFeatures['speechiness'] },
     ];
   }
 
   buildDotPlotData(data, labels) {
-    var dataObj = [];
-    var firstObj = data[0];
-    for (var g in firstObj) {
+    const dataObj = [];
+    const firstObj = data[0];
+    for (const g in firstObj) {
       dataObj.push({
-        group: firstObj[g]["axis"],
+        group: firstObj[g]['axis'],
       });
     }
-    for (var plot in data) {
-      for (var axis in data[plot]) {
-        var d = data[plot][axis];
-        dataObj[axis][labels[plot]] = d["value"];
+    for (const plot in data) {
+      for (const axis in data[plot]) {
+        const d = data[plot][axis];
+        dataObj[axis][labels[plot]] = d['value'];
       }
     }
     return dataObj;
@@ -702,13 +701,13 @@ export class AnalysisComponent implements OnInit {
 
   ellipsisName(text, limit) {
     if (text.length > limit) {
-      return text.slice(0, limit - 3) + "...";
+      return text.slice(0, limit - 3) + '...';
     } else {
       return text;
     }
   }
 
-  generateImage(mode = "none") {
+  generateImage() {
     if (
       this.artists.length < 5 ||
       this.genres.length < 1 ||
@@ -717,27 +716,26 @@ export class AnalysisComponent implements OnInit {
       return;
     }
     let imageData;
-    let _this = this;
-    let ctx = this.toSave.nativeElement.getContext("2d");
+    const ctx = this.toSave.nativeElement.getContext('2d');
     ctx.clearRect(
       0,
       0,
       this.toSave.nativeElement.width,
       this.toSave.nativeElement.height
     );
-    let downloadedImg = new Image();
-    downloadedImg.crossOrigin = "";
-    downloadedImg.onload = function () {
+    const downloadedImg = new Image();
+    downloadedImg.crossOrigin = '';
+    downloadedImg.onload = () => {
       ctx.drawImage(downloadedImg, 0, 0, 800, 800);
       // wait for loading graph element
-      var svg = _this.radarDraw.nativeElement.querySelector(
-        "#custom-image-chart svg"
+      const svg = this.radarDraw.nativeElement.querySelector(
+        '#custom-image-chart svg'
       );
       //console.log(svg);
-      var d3img = new Image();
-      var serializer = new XMLSerializer();
-      var svgStr = serializer.serializeToString(svg);
-      d3img.onload = function () {
+      const d3img = new Image();
+      const serializer = new XMLSerializer();
+      const svgStr = serializer.serializeToString(svg);
+      d3img.onload = () => {
         // draws graph to canvas on load
         ctx.globalAlpha = 0.5;
         ctx.drawImage(d3img, -650, -100, 1500, 1500);
@@ -759,83 +757,77 @@ export class AnalysisComponent implements OnInit {
         }
         // puts the duotone image into canvas with multiply and lighten
         ctx.putImageData(imageData, 0, 0);
-        ctx.globalCompositeOperation = "multiply";
-        ctx.fillStyle = _this.primaryTones[_this.chosenTone];
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.fillStyle = this.primaryTones[this.chosenTone];
         ctx.fillRect(0, 0, 800, 800);
-        ctx.globalCompositeOperation = "lighten";
-        ctx.fillStyle = _this.secondaryTones[_this.chosenTone];
+        ctx.globalCompositeOperation = 'lighten';
+        ctx.fillStyle = this.secondaryTones[this.chosenTone];
         ctx.fillRect(0, 0, 800, 800);
         // draws text
-        ctx.fillStyle = "#FFFFFF";
-        ctx.font = "96px Circular";
-        ctx.textBaseline = "bottom";
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '96px Circular';
+        ctx.textBaseline = 'bottom';
         wrapText(
           ctx,
-          _this.genres[0][0] == "pop"
-            ? _this.capitalize(_this.genres[1][0])
-            : _this.capitalize(_this.genres[0][0]),
+          this.genres[0][0] == 'pop'
+            ? this.capitalize(this.genres[1][0])
+            : this.capitalize(this.genres[0][0]),
           60,
           440,
           600,
           112
         );
         ctx.fillRect(0, 460, 450, 12);
-        ctx.textBaseline = "top";
+        ctx.textBaseline = 'top';
         // draws top tracks
-        ctx.font = "20px Open Sans";
+        ctx.font = '20px Open Sans';
         let ycoord = 530;
-        ctx.fillText("TOP TRACKS", 200, ycoord);
-        ctx.font = "24px Circular";
-        for (var i = 0; i < 5; i++) {
+        ctx.fillText('TOP TRACKS', 200, ycoord);
+        ctx.font = '24px Circular';
+        for (let i = 0; i < 5; i++) {
           ycoord += 36;
-          ctx.fillText(
-            _this.ellipsisName(_this.tracks[i].name, 20),
-            200,
-            ycoord
-          );
+          ctx.fillText(this.ellipsisName(this.tracks[i].name, 20), 200, ycoord);
         }
         // draws top artists
-        ctx.font = "20px Open Sans";
+        ctx.font = '20px Open Sans';
         ycoord = 530;
-        ctx.fillText("TOP ARTISTS", 500, ycoord);
-        ctx.font = "24px Circular";
-        for (var i = 0; i < 5; i++) {
+        ctx.fillText('TOP ARTISTS', 500, ycoord);
+        ctx.font = '24px Circular';
+        for (let i = 0; i < 5; i++) {
           ycoord += 36;
           ctx.fillText(
-            _this.ellipsisName(_this.artists[i].name, 20),
+            this.ellipsisName(this.artists[i].name, 20),
             500,
             ycoord
           );
         }
         // draws logo
-        ctx.font = "20px Circular";
-        ctx.fillText("Whisperify", 650, 39);
-        var logo = new Image();
-        logo.onload = function () {
+        ctx.font = '20px Circular';
+        ctx.fillText('Whisperify', 650, 39);
+        const logo = new Image();
+        logo.onload = () => {
           ctx.drawImage(this, 600, 36, 36, 25);
-          _this.canvasImg.nativeElement.src = _this.toSave.nativeElement.toDataURL(
-            "image/png"
-          );
+          this.canvasImg.nativeElement.src =
+            this.toSave.nativeElement.toDataURL('image/png');
         };
-        logo.src = "assets/whisperwave.svg";
+        logo.src = 'assets/whisperwave.svg';
       };
-      d3img.src = "data:image/svg+xml;base64," + window.btoa(svgStr);
+      d3img.src = 'data:image/svg+xml;base64,' + window.btoa(svgStr);
     };
     downloadedImg.src = this.artists[0].images[1].url;
   }
 
   saveImage() {
-    var _this = this;
-    var link = document.createElement("a");
+    const link = document.createElement('a');
     link.addEventListener(
-      "click",
-      function () {
-        link.href = _this.toSave.nativeElement.toDataURL("image/png");
-        link.download = "mymusic.png";
+      'click',
+      () => {
+        link.href = this.toSave.nativeElement.toDataURL('image/png');
+        link.download = 'mymusic.png';
       },
       false
     );
-    link.style.display = "none";
+    link.style.display = 'none';
     document.body.appendChild(link);
 
     link.click();
@@ -846,14 +838,13 @@ export class AnalysisComponent implements OnInit {
   errorPopup(text) {
     this.errorText = text;
     this.errorShow = true;
-    var _this = this;
-    setTimeout(function () {
-      _this.errorShow = false;
+    setTimeout(() => {
+      this.errorShow = false;
     }, 5000);
   }
 
   analysisLogin() {
-    sessionStorage.setItem("redirect", "analysis");
-    document.location.href = MAINURL + "login";
+    sessionStorage.setItem('redirect', 'analysis');
+    document.location.href = MAINURL + 'login';
   }
 }

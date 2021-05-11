@@ -35,9 +35,9 @@ export class MultchoiceComponent implements OnInit {
       this.trks = this.toChoose;
     }
     while (listchoices.length < 4) {
-      let temp = getRandomInt(this.trks.length);
+      const temp = getRandomInt(this.trks.length);
       let unique = true;
-      for (var i = 0; i < listchoices.length; i++) {
+      for (let i = 0; i < listchoices.length; i++) {
         if (listchoices[i] == temp) {
           unique = false;
           break;
@@ -51,7 +51,7 @@ export class MultchoiceComponent implements OnInit {
   }
 
   submitVal(artist, name) {
-    let searchVal = artist + " - " + name;
+    const searchVal = artist + " - " + name;
     if (this.played == true) {
       this.clickSubmit.next(searchVal); // passes searchVal as parameter
     }
