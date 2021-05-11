@@ -37,7 +37,7 @@
     "elliptic": "^6.5.3",
     "express": "^4.15.2",
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "mongodb": "^3.6.2",
     "ngx-bootstrap": "^5.1.2",
     "ngx-markdown": "^8.2.2",
