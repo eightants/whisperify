@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { MAINURL } from "../../globals";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MAINURL } from '../../globals';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class SpotifyService {
   mainUrl = MAINURL;
@@ -11,11 +11,11 @@ export class SpotifyService {
   getTracks(token, offset, term) {
     return this.http
       .get(
-        "https://api.spotify.com/v1/me/top/tracks?time_range=" +
+        'https://api.spotify.com/v1/me/top/tracks?time_range=' +
           term +
-          "&limit=50&offset=" +
+          '&limit=50&offset=' +
           offset,
-        { headers: { Authorization: "Bearer " + token } }
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
@@ -23,11 +23,11 @@ export class SpotifyService {
   getArtists(token, offset, term) {
     return this.http
       .get(
-        "https://api.spotify.com/v1/me/top/artists?time_range=" +
+        'https://api.spotify.com/v1/me/top/artists?time_range=' +
           term +
-          "&limit=50&offset=" +
+          '&limit=50&offset=' +
           offset,
-        { headers: { Authorization: "Bearer " + token } }
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
@@ -35,8 +35,8 @@ export class SpotifyService {
   getPlaylists(token, offset) {
     return this.http
       .get(
-        "https://api.spotify.com/v1/me/playlists?limit=50&offset=" + offset,
-        { headers: { Authorization: "Bearer " + token } }
+        'https://api.spotify.com/v1/me/playlists?limit=50&offset=' + offset,
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
@@ -44,11 +44,11 @@ export class SpotifyService {
   getPlaylistTracks(pid, token, offset) {
     return this.http
       .get(
-        "https://api.spotify.com/v1/playlists/" +
+        'https://api.spotify.com/v1/playlists/' +
           pid +
-          "/tracks?offset=" +
+          '/tracks?offset=' +
           offset,
-        { headers: { Authorization: "Bearer " + token } }
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
@@ -57,15 +57,15 @@ export class SpotifyService {
     return this.http
       .get(
         `https://api.spotify.com/v1/me/tracks?offset=${offset}&limit=${limit}`,
-        { headers: { Authorization: "Bearer " + token } }
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
 
   getProfile(token) {
     return this.http
-      .get("https://api.spotify.com/v1/me", {
-        headers: { Authorization: "Bearer " + token },
+      .get('https://api.spotify.com/v1/me', {
+        headers: { Authorization: 'Bearer ' + token },
       })
       .toPromise();
   }
@@ -73,9 +73,9 @@ export class SpotifyService {
   createPlaylist(token, userid, name, desc) {
     return this.http
       .post(
-        "https://api.spotify.com/v1/users/" + userid + "/playlists",
+        'https://api.spotify.com/v1/users/' + userid + '/playlists',
         { name: name, public: true, description: desc },
-        { headers: { Authorization: "Bearer " + token } }
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
@@ -83,9 +83,9 @@ export class SpotifyService {
   addPlaylistSongs(token, pid, songs) {
     return this.http
       .post(
-        "https://api.spotify.com/v1/playlists/" + pid + "/tracks",
+        'https://api.spotify.com/v1/playlists/' + pid + '/tracks',
         { uris: songs },
-        { headers: { Authorization: "Bearer " + token } }
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
@@ -93,21 +93,21 @@ export class SpotifyService {
   getUserAudioFeatures(token, songs) {
     return this.http
       .get(
-        "https://api.spotify.com/v1/audio-features/?ids=" + songs.toString(),
-        { headers: { Authorization: "Bearer " + token } }
+        'https://api.spotify.com/v1/audio-features/?ids=' + songs.toString(),
+        { headers: { Authorization: 'Bearer ' + token } }
       )
       .toPromise();
   }
 
   addUserAnalysis(obj) {
     return this.http
-      .post(this.mainUrl + "api/postanalysis", obj, { observe: "response" })
+      .post(this.mainUrl + 'api/postanalysis', obj, { observe: 'response' })
       .toPromise();
   }
 
   addEntry(obj) {
     this.http
-      .post(this.mainUrl + "api/postuser", obj, { observe: "response" })
+      .post(this.mainUrl + 'api/postuser', obj, { observe: 'response' })
       .subscribe((response) => {
         // You can access status:
         //console.log(response.status);
@@ -119,72 +119,72 @@ export class SpotifyService {
 
   addScore(obj) {
     this.http
-      .post(this.mainUrl + "api/postscore", obj, { observe: "response" })
+      .post(this.mainUrl + 'api/postscore', obj, { observe: 'response' })
       .subscribe();
   }
 
   getPercent(score) {
     return this.http
       .post(
-        this.mainUrl + "api/postpercent",
+        this.mainUrl + 'api/postpercent',
         { score: score },
-        { observe: "response" }
+        { observe: 'response' }
       )
       .toPromise();
   }
 
   addChallenge(obj) {
     return this.http
-      .post(this.mainUrl + "postchallenge", obj, {
-        observe: "response",
-        responseType: "text",
+      .post(this.mainUrl + 'postchallenge', obj, {
+        observe: 'response',
+        responseType: 'text',
       })
       .toPromise();
   }
 
   getChallenge(mycode) {
-    return this.http.get(this.mainUrl + "getchallenge/" + mycode).toPromise();
+    return this.http.get(this.mainUrl + 'getchallenge/' + mycode).toPromise();
   }
 
   addChallengeScore(code, score) {
     return this.http
       .post(
-        this.mainUrl + "postchallengescore",
+        this.mainUrl + 'postchallengescore',
         { code: code, score: score },
-        { observe: "response" }
+        { observe: 'response' }
       )
       .toPromise();
   }
 
   cleanChallenges() {
-    return this.http.get(this.mainUrl + "cleanchallenges").toPromise();
+    return this.http.get(this.mainUrl + 'cleanchallenges').toPromise();
   }
 
   getUserAnalysis(username) {
-    return this.http.get(this.mainUrl + "api/user/" + username).toPromise();
+    return this.http.get(this.mainUrl + 'api/user/' + username).toPromise();
   }
 
   getGroupAnalysis(category) {
     return this.http
-      .get(this.mainUrl + "api/features/group/" + category)
+      .get(this.mainUrl + 'api/features/group/' + category)
       .toPromise();
   }
 
   getAlbumAnalysisGuest(id) {
     return this.http
-      .get(this.mainUrl + "api/getalbumfeatures/" + id)
+      .get(this.mainUrl + 'api/getalbumfeatures/' + id)
       .toPromise();
   }
 
   getAlbumAnalysis(id, token) {
     return this.http
-      .get(this.mainUrl + "api/features/album/" + id + "/" + token)
+      .get(this.mainUrl + 'api/features/album/' + id + '/' + token)
       .toPromise();
   }
 
   getPlaylistAnalysis(id, token) {
     return this.http
-      .get(this.mainUrl + "api/features/playlist/" + id + "/" + token)
+      .get(this.mainUrl + 'api/features/playlist/' + id + '/' + token)
       .toPromise();
   }
 
