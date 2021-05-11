@@ -4,10 +4,10 @@ import { TitleTagService } from "../services/title-tag.service";
 import { SpotifyService } from "../services/spotify.service";
 
 function getDateToday() {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, "0");
-  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  var yyyy = today.getFullYear();
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  const yyyy = today.getFullYear();
 
   return dd + "/" + mm + "/" + yyyy;
 }
@@ -19,7 +19,7 @@ function getDateToday() {
 })
 export class TracksComponent implements OnInit {
   @HostListener("window:scroll", ["$event"])
-  scrollCheck(event) {
+  scrollCheck(event): void {
     this.upperPart = window.pageYOffset < 1000;
   }
 
@@ -52,7 +52,7 @@ export class TracksComponent implements OnInit {
     Lifetime: "",
   };
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.titleTagService.setTitle("Favourites - Whisperify");
     this.titleTagService.setSocialMediaTags(
       "Favourites - Whisperify",
@@ -86,13 +86,13 @@ export class TracksComponent implements OnInit {
     });
   }
 
-  calculatePopularity(artists) {
+  calculatePopularity(artists): number {
     return Math.floor(
       artists.reduce((a, b) => a + (b["popularity"] || 0), 0) / artists.length
     );
   }
 
-  choosePeriod(val) {
+  choosePeriod(val: string): void {
     this.chosenPeriod = val;
     if (val == "4 weeks") {
       if (this.trackshort.length < 1) {
@@ -144,7 +144,7 @@ export class TracksComponent implements OnInit {
     }
   }
 
-  makePlaylist() {
+  makePlaylist(): void {
     this.songuris = [];
     this.spotify.getProfile(this.token).then((useres) => {
       this.spotify
@@ -170,7 +170,7 @@ export class TracksComponent implements OnInit {
     });
   }
 
-  whichDesc() {
+  whichDesc(): string {
     if (this.chosenPeriod == "4 weeks") {
       return (
         "Your favorite tracks for the last 4 weeks as of " +
@@ -192,7 +192,7 @@ export class TracksComponent implements OnInit {
     }
   }
 
-  scrollTo(id) {
+  scrollTo(id): void {
     document.getElementById(id).scrollIntoView();
   }
 }

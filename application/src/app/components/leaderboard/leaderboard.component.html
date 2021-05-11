@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+<div class="container top-margin">
+  <h1 class="sec-title">Leaderboard</h1>
+  <div class="h-option">
+    <select
+      class="sel-option"
+      [ngModel]="chosenSortBy"
+      (change)="chooseSortBy($event.target.value)"
+    >
+      <option *ngFor="let t of sortBy" [value]="t">{{ t }}</option>
+    </select>
+  </div>
+  <div class="flavor-text">
+    <div *ngIf="!isLoading">
+      <div *ngFor="let user of topScores; index as i" class="user-card">
+        <h1>{{ i + 1 }}</h1>
+        <img src="assets/pfp.jpg" />
+        <div class="user-text">
+          <h3>
+            {{ user.name || "User #" + randomNumberFromString(user._id) }}
+          </h3>
+          <p>{{ user._id }}</p>
+        </div>
+        <div class="lvl-div">
+          <p>{{ displayLabel() }}</p>
+          <h3>{{ displayStats(user) }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

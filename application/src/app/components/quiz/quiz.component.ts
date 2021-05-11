@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation,
-  ViewChild,
-  Directive,
-} from "@angular/core";
+import { Component, OnInit, ViewEncapsulation, ViewChild } from "@angular/core";
 import { TitleTagService } from "../services/title-tag.service";
 import { DatastoreService } from "../services/datastore.service";
 import { Router } from "@angular/router";
@@ -14,6 +8,18 @@ import { SpotifyService } from "../services/spotify.service";
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+// function to check if a song occurs in an array
+const songIsDuplicate = (track, tracks) => {
+  for (let j = 0; j < tracks.length; j++) {
+    if (track.name == tracks[j].name) {
+      if (track.artists[0].name == tracks[j].artists[0].name) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
 
 @Component({
   selector: "app-quiz",
@@ -32,6 +38,7 @@ export class QuizComponent implements OnInit {
   token = "";
   pid = "";
   psize = 0;
+  offset = 0;
   tracks = [];
   trackprev = [];
   trackopt = [];
@@ -59,10 +66,17 @@ export class QuizComponent implements OnInit {
   // var for challenge
   challengeCode = "";
 
+  // Question Navigation
+  // have an array of 10 bools, and an int p keeping track of page
+  // when that page is active the bool_arr[p] = true
+  // when nextPage() is called p++ and bool_arr updated
+  pagesActive = [];
+  page = 0;
+
   maxVolume = 0.5;
   showVolume = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.titleTagService.setTitle("Quiz - Whisperify");
     this.titleTagService.setSocialMediaTags(
       "Quiz - Whisperify",
@@ -81,6 +95,7 @@ export class QuizComponent implements OnInit {
         this.mode = this.config["choice"];
         this.pid = this.config["pid"];
         this.psize = this.config["psize"];
+        this.offset = this.config["offset"] || 0;
         this.timePeriod = this.config["timePeriod"];
         // ADJUST baseScore DEPENDING ON CONFIGS
         if (this.config["whisperLen"] == 10) {
@@ -107,7 +122,7 @@ export class QuizComponent implements OnInit {
           this.tracks = songs["tracks"];
           if (songs["dynamic"] == true) {
             while (this.indexes.length < 10) {
-              let tmpint = getRandomInt(this.tracks.length);
+              const tmpint = getRandomInt(this.tracks.length);
               let unique = true;
               for (let j = 0; j < this.indexes.length; j++) {
                 if (this.indexes[j] == tmpint) {
@@ -162,23 +177,9 @@ export class QuizComponent implements OnInit {
                       this.trackprev[i].artists[0].name
                     )
                   ) {
+                    continue;
                   } else {
-                    // checks for duplicate tracks (thanks spotify for multiple versions of the same track)
-                    let duplicate = false;
-                    for (let j = 0; j < this.tracks.length; j++) {
-                      if (this.trackprev[i].name == this.tracks[j].name) {
-                        if (
-                          this.trackprev[i].artists[0].name ==
-                          this.tracks[j].artists[0].name
-                        ) {
-                          //console.log("DUP", this.trackprev[i].name)
-                          duplicate = true;
-                          break;
-                        }
-                      }
-                    }
-                    if (duplicate == false) {
-                      //console.log(this.trackprev[i].name)
+                    if (!songIsDuplicate(this.trackprev[i], this.tracks)) {
                       this.tracks.push(this.trackprev[i]);
                       this.trackopt.push({
                         artists: [
@@ -198,7 +199,7 @@ export class QuizComponent implements OnInit {
                   this.router.navigate(["/no-info"]);
                 } else {
                   while (this.indexes.length < 10) {
-                    let temp = getRandomInt(this.tracks.length);
+                    const temp = getRandomInt(this.tracks.length);
                     //console.log(this.tracks[temp]);
                     let unique = true;
                     // uniqueness check
@@ -217,7 +218,7 @@ export class QuizComponent implements OnInit {
                       this.trimtracks.push({
                         album: {
                           images: this.tracks[temp].album.images,
-                          name: this.tracks[temp].album.name
+                          name: this.tracks[temp].album.name,
                         },
                         artists: [
                           {
@@ -253,35 +254,18 @@ export class QuizComponent implements OnInit {
             console.log(e);
             this.router.navigate(["/"]);
           });
-      } else {
-        let off = 0;
-        if (this.psize > 100) {
-          off = getRandomInt(this.psize - 100);
-        }
+      } else if (this.mode === "saved") {
         this.spotify
-          .getPlaylistTracks(this.pid, this.token, off.toString())
+          .getSavedSongs(this.token, this.offset.toString())
           .then((res) => {
             this.trackprev = res["items"];
 
             // DEVELOPMENT; for loop to check the number of valid tracks returned
             for (let i = 0; i < this.trackprev.length; i++) {
               if (this.trackprev[i].track.preview_url == null) {
+                continue;
               } else {
-                // checks for duplicate tracks (thanks spotify for multiple versions of the same track)
-                let duplicate = false;
-                for (let j = 0; j < this.tracks.length; j++) {
-                  if (this.trackprev[i].track.name == this.tracks[j].name) {
-                    if (
-                      this.trackprev[i].track.artists[0].name ==
-                      this.tracks[j].artists[0].name
-                    ) {
-                      duplicate = true;
-                      break;
-                    }
-                  }
-                }
-                if (duplicate == false) {
-                  //console.log(this.trackprev[i].name)
+                if (!songIsDuplicate(this.trackprev[i], this.tracks)) {
                   this.tracks.push(this.trackprev[i].track);
                   this.playtracks.push(this.trackprev[i]);
                   this.trackopt.push({
@@ -295,7 +279,6 @@ export class QuizComponent implements OnInit {
                 }
               }
             }
-            //console.log(this.tracks.length)
 
             // checks that more than 10 songs have preview urls
             // generates 10 unique random indexes in the range of the items array returned
@@ -304,10 +287,8 @@ export class QuizComponent implements OnInit {
               this.router.navigate(["/no-info"]);
             } else {
               while (this.indexes.length < 10) {
-                let temp = getRandomInt(this.tracks.length);
-                //console.log(this.tracks[temp]);
+                const temp = getRandomInt(this.tracks.length);
                 let unique = true;
-                // uniqueness check
                 // check that the url has a preview_url
                 if (this.tracks[temp].preview_url == null) {
                   continue;
@@ -336,7 +317,76 @@ export class QuizComponent implements OnInit {
                 }
               }
             }
-            //console.log(this.pagesActive)
+            this.altind = this.indexes;
+            this.isLoaded = true;
+          })
+          .catch((e) => {
+            console.log(e);
+            this.router.navigate(["/"]);
+          });
+      } else {
+        this.spotify
+          .getPlaylistTracks(this.pid, this.token, this.offset.toString())
+          .then((res) => {
+            this.trackprev = res["items"];
+
+            // DEVELOPMENT; for loop to check the number of valid tracks returned
+            for (let i = 0; i < this.trackprev.length; i++) {
+              if (this.trackprev[i].track.preview_url == null) {
+                continue;
+              } else {
+                if (!songIsDuplicate(this.trackprev[i], this.tracks)) {
+                  this.tracks.push(this.trackprev[i].track);
+                  this.playtracks.push(this.trackprev[i]);
+                  this.trackopt.push({
+                    artists: [
+                      {
+                        name: this.trackprev[i].track.artists[0].name,
+                      },
+                    ],
+                    name: this.trackprev[i].track.name,
+                  });
+                }
+              }
+            }
+
+            // checks that more than 10 songs have preview urls
+            // generates 10 unique random indexes in the range of the items array returned
+            if (this.tracks.length < 20) {
+              // say there's not enough info
+              this.router.navigate(["/no-info"]);
+            } else {
+              while (this.indexes.length < 10) {
+                const temp = getRandomInt(this.tracks.length);
+                let unique = true;
+                // check that the url has a preview_url
+                if (this.tracks[temp].preview_url == null) {
+                  continue;
+                }
+                for (let j = 0; j < this.indexes.length; j++) {
+                  if (this.indexes[j] == temp) {
+                    unique = false;
+                    break;
+                  }
+                }
+                if (unique == true) {
+                  this.indexes.push(temp);
+                  this.trimtracks.push({
+                    album: {
+                      images: this.tracks[temp].album.images,
+                    },
+                    artists: [
+                      {
+                        name: this.tracks[temp].artists[0].name,
+                      },
+                    ],
+                    external_urls: this.tracks[temp].external_urls,
+                    name: this.tracks[temp].name,
+                    preview_url: this.tracks[temp].preview_url,
+                  });
+                }
+              }
+            }
             this.altind = this.indexes;
             this.isLoaded = true;
           })
@@ -347,16 +397,6 @@ export class QuizComponent implements OnInit {
       }
     }
   }
-
-  // generating quiz questions
-  // save score in session storage
-
-  // Question Navigation
-  // have an array of 10 bools, and an int p keeping track of page
-  // when that page is active the bool_arr[p] = true
-  // when nextPage() is called p++ and bool_arr updated
-  pagesActive = [];
-  page = 0;
 
   nextPage() {
     // clears overlay
@@ -386,11 +426,10 @@ export class QuizComponent implements OnInit {
   /* AUDIO CODE */
 
   // function to generate dummy preview_audio links
-  generatePreview() {
-    var chars = "abcdefghijklmnopqrstuvwxyz123456789012345678901234567890";
-    //var ex = "https://p.scdn.co/mp3-preview/01c9683137537772861eff821c08166eacb06301?cid=2847cfc683244615b79a93a6e24f375c"
-    var ret = "";
-    for (var i = 0; i < 40; i++) {
+  generatePreview(): string {
+    const chars = "abcdefghijklmnopqrstuvwxyz123456789012345678901234567890";
+    let ret = "";
+    for (let i = 0; i < 40; i++) {
       ret += chars[getRandomInt(chars.length)];
     }
     return (
@@ -446,13 +485,13 @@ export class QuizComponent implements OnInit {
     }
   }
   getSoundAndFadeAudio() {
-    var sound = this.source.nativeElement;
-    var wave = this.blueWave.nativeElement;
+    const sound = this.source.nativeElement;
+    const wave = this.blueWave.nativeElement;
     sound.volume = 0;
     // Set the point in playback that fadeout begins. This is for a 1 second fade in and fade out.
-    var fadeIn = 0;
-    var currMaxVolume = this.maxVolume;
-    var fadeInAudio = setInterval(function () {
+    const fadeIn = 0;
+    const currMaxVolume = this.maxVolume;
+    const fadeInAudio = setInterval(function () {
       // Only fade if past the fade out point or not at zero already
       if (sound.currentTime >= fadeIn && sound.volume < currMaxVolume) {
         try {
@@ -467,8 +506,8 @@ export class QuizComponent implements OnInit {
       }
     }, 100);
     /* WHISPER LENGTH */
-    var fadePoint = this.config["whisperLen"] - 1;
-    var fadeAudio = setInterval(function () {
+    const fadePoint = this.config["whisperLen"] - 1;
+    const fadeAudio = setInterval(function () {
       // Only fade if past the fade out point or not at zero already
       if (sound.currentTime >= fadePoint && sound.volume > 0.0) {
         try {
@@ -501,7 +540,7 @@ export class QuizComponent implements OnInit {
       // Time for streaks!
       this.streak += 1;
       // every 2 questions right, score obtained is multipled by extra 5%
-      let multiplier = 1 + Math.floor(this.streak / 2) * 0.05;
+      const multiplier = 1 + Math.floor(this.streak / 2) * 0.05;
       //console.log(multiplier);
       this.score += Math.floor(this.baseScore * this.prevTime * multiplier);
       this.pointsAdded = Math.floor(
@@ -513,8 +552,8 @@ export class QuizComponent implements OnInit {
       this.isCorrect = false;
       this.streak = 0;
       // Maybe you got the artist right?
-      let submittedArtist = submission.split("-")[0].split(" ");
-      let ansArtist = ans.artists[0].name.split(" ");
+      const submittedArtist = submission.split("-")[0].split(" ");
+      const ansArtist = ans.artists[0].name.split(" ");
       let partial = false;
       submittedArtist.forEach((subword) => {
         ansArtist.forEach((answord) => {
@@ -547,7 +586,7 @@ export class QuizComponent implements OnInit {
   startTimer() {
     if (this.timerStarted != true) {
       // fixing scope of this.
-      var _this = this;
+      let _this = this;
       // increments timer depending on values, and automatic expiry
       setTimeout(function () {
         _this.timerStarted = true;
@@ -589,7 +628,7 @@ export class QuizComponent implements OnInit {
 
   /* pulsing effect on timer */
   circlePulse() {
-    var curr = 0;
+    let curr = 0;
     this.cycle[curr] = 1;
     this.circleLoop = setInterval(() => {
       curr += 1;
@@ -605,7 +644,7 @@ export class QuizComponent implements OnInit {
 
   /* used in ngIf to show or hide circles as timer counts down */
   timeLess(num) {
-    var compnum = num;
+    let compnum = num;
     if (this.timeLimit > 25) {
       compnum = num * 2;
     }

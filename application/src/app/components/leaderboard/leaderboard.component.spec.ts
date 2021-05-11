@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediaNetAdComponent } from './media-net-ad.component';
+import { LeaderboardComponent } from './leaderboard.component';
 
-describe('MediaNetAdComponent', () => {
-  let component: MediaNetAdComponent;
-  let fixture: ComponentFixture<MediaNetAdComponent>;
+describe('LeaderboardComponent', () => {
+  let component: LeaderboardComponent;
+  let fixture: ComponentFixture<LeaderboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MediaNetAdComponent ]
+      declarations: [ LeaderboardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MediaNetAdComponent);
+    fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -10,9 +10,12 @@ export class GenerateQuizPopupComponent implements OnInit {
   @Input() currentLink: string;
   @Input() showPopup: boolean;
 
+  score: number;
+
   constructor() { }
 
   ngOnInit() {
+    this.score = Number(sessionStorage.getItem("score")) || -1;
   }
 
   copyLink(val) {

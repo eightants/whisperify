@@ -3,6 +3,42 @@ $chooseclr: #d4d4d4;
 $bg-color: #2e2e2e;
 $wgrey: #a8a8a8;
 
+.mode-card {
+  border-radius: 15px;
+  padding: 16px 20px;
+  background-color: rgb(65, 65, 65);
+  color: white;
+  width: 250px;
+  text-align: left;
+  margin: 8px;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 180px;
+  transition: all 0.2s ease-in-out;
+
+  .card-title {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 32px;
+      height: 32px;
+      margin-right: 10px;
+    }
+
+    h2 {
+      display: block;
+    }
+  }
+}
+
+a .mode-card:hover {
+  margin-top: 2px;
+  margin-bottom: 14px;
+  transition: all 0.2s ease-in-out;
+  background-color: rgb(75, 75, 75);
+}
+
 .overlay {
   position: fixed;
   top: 0px;
@@ -29,7 +65,7 @@ $wgrey: #a8a8a8;
   padding: 10px 15px 20px 15px;
   text-align: left;
   border-bottom: 1px solid #2e2e2e;
-  
+
   .p-name h3 {
     margin: 0.25em 0;
   }
@@ -250,6 +286,34 @@ $wgrey: #a8a8a8;
 }
 
 @media (max-width: 768px) {
+  .back-btn {
+    margin-top: 20px;
+  }
+  .mode-card {
+    width: calc(100% - 20px);
+    text-align: left;
+    margin: 5px 8px;
+    min-height: auto;
+    padding: 16px 22px 16px 22px;
+
+    img {
+      max-height: 30px;
+      max-width: 30px;
+      margin-bottom: 5px;
+    }
+    h2 {
+      display: inline-block;
+      margin-left: 5px;
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+  a .mode-card:hover {
+    margin: 5px 8px;
+    transition: all 0.2s ease-in-out;
+    background-color: rgb(75, 75, 75);
+  }
   .popup-title h1 {
     font-size: 28px;
   }
@@ -270,6 +334,8 @@ $wgrey: #a8a8a8;
 
   .options-pad {
     padding: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
   .sel-artist {

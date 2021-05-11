@@ -24,10 +24,11 @@ import { RadarChartComponent } from './components/analysis/radar-chart/radar-cha
 import { DotPlotComponent } from './components/analysis/dot-plot/dot-plot.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
-import { MediaNetAdComponent } from './components/common/media-net-ad/media-net-ad.component';
 import { AudioPlayerComponent } from './components/common/audio-player/audio-player.component';
 import { CookieBannerComponent } from './components/common/cookie-banner/cookie-banner.component';
-import { GenerateQuizPopupComponent } from './components/common/generate-quiz-popup/generate-quiz-popup.component'
+import { GenerateQuizPopupComponent } from './components/common/generate-quiz-popup/generate-quiz-popup.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { MenuCardComponent } from './components/common/menu-card/menu-card.component'
 
 @NgModule({
   declarations: [
@@ -50,10 +51,11 @@ import { GenerateQuizPopupComponent } from './components/common/generate-quiz-po
     DotPlotComponent,
     NavbarComponent,
     DocumentationComponent,
-    MediaNetAdComponent,
     AudioPlayerComponent,
     CookieBannerComponent,
-    GenerateQuizPopupComponent
+    GenerateQuizPopupComponent,
+    LeaderboardComponent,
+    MenuCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

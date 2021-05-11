@@ -1,240 +1,134 @@
-<div class="container">
+<div>
   <app-navbar></app-navbar>
-  <h1 class="sec-title">Analysis</h1>
-  <p class="sec-p">
-    The most complete dashboard for Spotify stats. Visualize audio features of
-    Spotify users from over 70 countries and the 16 Meyer-Briggs personalities,
-    try analysing your favourite albums, or view a breakdown of your friends'
-    music tastes!
-  </p>
-  <div class="chart-tabs">
-    <div *ngFor="let c of chartTypes" [ngClass]="{ 'no-mobile': c == 'Multi' }">
-      <button
-        class="tab-btn"
-        [ngClass]="{ 'selected-tab-btn': chosenChart == c }"
-        (click)="chosenChart = c"
-      >
-        {{ c }}
-      </button>
-    </div>
-  </div>
-  <div class="mob-pad fade-in-up options-pad stats-pad" *ngIf="!isLoaded">
-    <div class="loading-div"></div>
-  </div>
-  <div class="mob-pad fade-in-up options-pad stats-pad" *ngIf="isLoaded">
-    <div class="chart-div" *ngIf="chosenChart == 'Radar'">
-      <app-radar-chart
-        [inputId]="chartName"
-        [data]="chartData"
-        [config]="chartConfig"
-        [changed]="changed"
-      ></app-radar-chart>
-    </div>
-    <div class="chart-div" *ngIf="chosenChart == 'Dot'">
+  <div class="container top-margin">
+    <h1 class="sec-title">Analysis</h1>
+    <p class="sec-p">
+      The most complete dashboard for Spotify stats. Visualize audio features of
+      Spotify users from over 70 countries and the 16 Meyer-Briggs
+      personalities, try analysing your favourite albums, or view a breakdown of
+      your friends' music tastes!
+    </p>
+    <div class="chart-tabs">
       <div
-        *ngFor="let d of buildDotPlotData(chartData, graphTitles); index as i"
-        class="audio-features-div"
+        *ngFor="let c of chartTypes"
+        [ngClass]="{ 'no-mobile': c == 'Multi' }"
       >
-        <div class="audio-features-header">
-          <h2>{{ capitalize(d["group"]) }}</h2>
-          <div>
-            <app-dot-plot
-              [inputId]="'dotplot' + i"
-              [data]="[d]"
-              [config]="dotChartConfig"
-              [changed]="changed"
-            ></app-dot-plot>
-          </div>
-          <span>{{ d[graphTitles[selectedPlot]].toFixed(3) }}</span>
-        </div>
-        <p>{{ featuresDesc[d["group"]] }}</p>
+        <button
+          class="tab-btn"
+          [ngClass]="{ 'selected-tab-btn': chosenChart == c }"
+          (click)="chosenChart = c"
+        >
+          {{ c }}
+        </button>
       </div>
     </div>
-    <div class="legend-div" *ngIf="chosenChart != 'Multi'">
-      <div class="legend-space">
-        <div class="flavor-card">
-          <h2>Plots</h2>
-          <div class="legend-colors">
-            <div *ngFor="let item of chartData; index as i">
-              <div class="legend-item" *ngIf="i != 0">
-                <div
-                  class="graph-color hoverhands"
-                  [ngStyle]="{ 'background-color': graphColors[i] }"
-                  (click)="selectedPlot = i"
-                >
+    <div class="mob-pad fade-in-up options-pad stats-pad" *ngIf="!isLoaded">
+      <div class="loading-div"></div>
+    </div>
+    <div class="mob-pad fade-in-up options-pad stats-pad" *ngIf="isLoaded">
+      <div class="chart-div" *ngIf="chosenChart == 'Radar'">
+        <app-radar-chart
+          [inputId]="chartName"
+          [data]="chartData"
+          [config]="chartConfig"
+          [changed]="changed"
+        ></app-radar-chart>
+      </div>
+      <div class="chart-div" *ngIf="chosenChart == 'Dot'">
+        <div
+          *ngFor="let d of buildDotPlotData(chartData, graphTitles); index as i"
+          class="audio-features-div"
+        >
+          <div class="audio-features-header">
+            <h2>{{ capitalize(d["group"]) }}</h2>
+            <div>
+              <app-dot-plot
+                [inputId]="'dotplot' + i"
+                [data]="[d]"
+                [config]="dotChartConfig"
+                [changed]="changed"
+              ></app-dot-plot>
+            </div>
+            <span>{{ d[graphTitles[selectedPlot]].toFixed(3) }}</span>
+          </div>
+          <p>{{ featuresDesc[d["group"]] }}</p>
+        </div>
+      </div>
+      <div class="legend-div" *ngIf="chosenChart != 'Multi'">
+        <div class="legend-space">
+          <div class="flavor-card">
+            <h2>Plots</h2>
+            <div class="legend-colors">
+              <div *ngFor="let item of chartData; index as i">
+                <div class="legend-item" *ngIf="i != 0">
                   <div
-                    *ngIf="
-                      selectedPlot == i && showTools && chosenChart == 'Dot'
-                    "
-                  ></div>
+                    class="graph-color hoverhands"
+                    [ngStyle]="{ 'background-color': graphColors[i] }"
+                    (click)="selectedPlot = i"
+                  >
+                    <div
+                      *ngIf="
+                        selectedPlot == i && showTools && chosenChart == 'Dot'
+                      "
+                    ></div>
+                  </div>
+                  <span *ngIf="editLabel != i">{{ graphTitles[i] }}</span>
+                  <input
+                    class="edit-label"
+                    type="text"
+                    [(ngModel)]="nameFieldVal"
+                    value="{{ nameFieldVal }}"
+                    *ngIf="editLabel == i"
+                  />
+                  <img
+                    class="delete-graph spacing-icon"
+                    *ngIf="showTools && editLabel != i"
+                    (click)="editName(i)"
+                    alt="edit icon to edit graph name"
+                    src="assets/edit.svg"
+                  />
+                  <img
+                    class="delete-graph spacing-icon"
+                    *ngIf="editLabel == i"
+                    (click)="saveName(i)"
+                    alt="checkmark icon to save name"
+                    src="assets/tick.svg"
+                  />
+                  <img
+                    class="delete-graph spacing-icon"
+                    *ngIf="editLabel == i"
+                    (click)="editLabel = -1"
+                    alt="cancel icon to cancel edit"
+                    src="assets/cancel.svg"
+                  />
+                  <img
+                    class="delete-graph spacing-icon"
+                    *ngIf="showTools && editLabel != i"
+                    (click)="deleteGraph(i)"
+                    alt="trash icon to delete graph"
+                    src="assets/trash.svg"
+                  />
+                  <img
+                    class="delete-graph spacing-icon empty-icon"
+                    *ngIf="!showTools"
+                  />
+                  <img
+                    class="delete-graph spacing-icon empty-icon"
+                    *ngIf="!showTools"
+                  />
                 </div>
-                <span *ngIf="editLabel != i">{{ graphTitles[i] }}</span>
-                <input
-                  class="edit-label"
-                  type="text"
-                  [(ngModel)]="nameFieldVal"
-                  value="{{ nameFieldVal }}"
-                  *ngIf="editLabel == i"
-                />
-                <img
-                  class="delete-graph spacing-icon"
-                  *ngIf="showTools && editLabel != i"
-                  (click)="editName(i)"
-                  alt="edit icon to edit graph name"
-                  src="assets/edit.svg"
-                />
-                <img
-                  class="delete-graph spacing-icon"
-                  *ngIf="editLabel == i"
-                  (click)="saveName(i)"
-                  alt="checkmark icon to save name"
-                  src="assets/tick.svg"
-                />
-                <img
-                  class="delete-graph spacing-icon"
-                  *ngIf="editLabel == i"
-                  (click)="editLabel = -1"
-                  alt="cancel icon to cancel edit"
-                  src="assets/cancel.svg"
-                />
-                <img
-                  class="delete-graph spacing-icon"
-                  *ngIf="showTools && editLabel != i"
-                  (click)="deleteGraph(i)"
-                  alt="trash icon to delete graph"
-                  src="assets/trash.svg"
-                />
-                <img
-                  class="delete-graph spacing-icon empty-icon"
-                  *ngIf="!showTools"
-                />
-                <img
-                  class="delete-graph spacing-icon empty-icon"
-                  *ngIf="!showTools"
-                />
               </div>
             </div>
+            <button
+              class="btn submit board-btn"
+              *ngIf="currentLink == '' && score < 0"
+              routerLink="/"
+            >
+              Make Your Own
+            </button>
           </div>
-          <button
-            class="btn submit board-btn"
-            *ngIf="currentLink == '' && score < 0"
-            routerLink="/"
-          >
-            Make Your Own
-          </button>
         </div>
-      </div>
-      <div class="add-graph" *ngIf="showTools">
-        <div class="select-graph">
-          <select
-            class="sel-option"
-            [ngModel]="chosenType"
-            (change)="chooseType($event.target.value)"
-          >
-            <option *ngFor="let t of dataType" [value]="t">{{ t }}</option>
-          </select>
-        </div>
-        <div class="select-graph">
-          <select
-            class="sel-option"
-            [ngModel]="chosenSecond"
-            (change)="chooseSecond($event.target.value)"
-            *ngIf="
-              chosenType != 'Album' &&
-              chosenType != 'User' &&
-              chosenType != 'Playlist'
-            "
-          >
-            <option *ngFor="let t of secondDropdownData" [value]="t">
-              {{
-                chosenType == "Personality" ? t.toUpperCase() : capitalize(t)
-              }}
-            </option>
-          </select>
-          <input
-            class="exclude-option"
-            placeholder="Enter Spotify URL..."
-            type="text"
-            [(ngModel)]="inputFieldVal"
-            value="{{ inputFieldVal }}"
-            *ngIf="
-              chosenType == 'Album' ||
-              chosenType == 'User' ||
-              chosenType == 'Playlist'
-            "
-          />
-        </div>
-        <div>
-          <button
-            class="btn mob-top-pad make-playlist graph-btn"
-            (click)="addGraph()"
-            [attr.disabled]="
-              this.chartData.length >= this.userGraphLimit ? 'disabled' : null
-            "
-          >
-            Add Graph
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="multi-graph-div" *ngIf="chosenChart == 'Multi'">
-      <div class="multi-g" *ngFor="let d of chartData; index as i">
-        <app-radar-chart
-          *ngIf="i == 0"
-          [inputId]="'chart'"
-          [data]="[d]"
-          [config]="keyChartConfig"
-          [changed]="changed"
-          [graphClr]="graphColors[0]"
-        ></app-radar-chart>
-        <app-radar-chart
-          *ngIf="i != 0"
-          [inputId]="'chart' + i"
-          [data]="[d]"
-          [config]="multiChartConfig"
-          [changed]="changed"
-          [graphClr]="graphColors[1]"
-        ></app-radar-chart>
-        <h3 *ngIf="editLabel != i">{{ graphTitles[i] }}</h3>
-        <input
-          class="edit-label multi-edit"
-          type="text"
-          [(ngModel)]="nameFieldVal"
-          value="{{ nameFieldVal }}"
-          *ngIf="editLabel == i"
-        />
-        <img
-          class="delete-graph"
-          *ngIf="showTools && editLabel != i && i != 0"
-          (click)="editName(i)"
-          alt="edit icon to edit graph name"
-          src="assets/edit.svg"
-        />
-        <img
-          class="delete-graph"
-          *ngIf="editLabel == i && i != 0"
-          (click)="saveName(i)"
-          alt="checkmark icon to save name"
-          src="assets/tick.svg"
-        />
-        <img
-          class="delete-graph spacing-icon"
-          *ngIf="editLabel == i && i != 0"
-          (click)="editLabel = -1"
-          alt="cancel icon to cancel edit"
-          src="assets/cancel.svg"
-        />
-        <img
-          class="delete-graph spacing-icon"
-          *ngIf="showTools && editLabel != i && i != 0"
-          (click)="deleteGraph(i)"
-          alt="trash icon to delete graph"
-          src="assets/trash.svg"
-        />
-        <img class="delete-graph empty-icon" *ngIf="!showTools || i == 0" />
-      </div>
-      <div class="multi-g" *ngIf="showTools">
-        <div class="add-graph">
+        <div class="add-graph" *ngIf="showTools">
           <div class="select-graph">
             <select
               class="sel-option"
@@ -287,155 +181,279 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="stats-pad config-div tracks-container">
-    <button class="btn navi-btn" *ngIf="showTools" (click)="showTools = false">
-      <img
-        class="visibility-icon"
-        alt="visibility icon to hide dashboard tools"
-        src="assets/visibility.svg"
-      />
-    </button>
-    <button class="btn navi-btn" *ngIf="!showTools" (click)="showTools = true">
-      <img
-        class="visibility-icon"
-        alt="visibility icon to hide dashboard tools"
-        src="assets/visibility_off.svg"
-      />
-    </button>
-  </div>
-  <div
-    class="mob-pad fade-in-up options-pad login-pad"
-    *ngIf="token == '' || token == null"
-  >
-    <h2>Want More?</h2>
-    <p>
-      Login to view more detailed analytics including your top artists, favorite
-      genres, and a recreation of your Spotify taste profile. The guest graph
-      limit will also be removed, so you can plot more graphs simultaneously.
-    </p>
-    <div>
-      <a (click)="analysisLogin()"
-        ><button class="mob-top-pad btn clr-wgreen">
-          Login With Spotify
-        </button></a
-      >
-    </div>
-  </div>
-  <div
-    class="mob-pad fade-in-up options-pad login-pad"
-    *ngIf="
-      token != '' &&
-      token != null &&
-      artists.length > 5 &&
-      genres.length > 1 &&
-      tracks.length > 5
-    "
-  >
-    <div class="scaled-div">
-      <div class="custom-scaled">
-        <img #canvasImg />
-        <canvas
-          #toSave
-          id="toSave"
-          class="custom-image-div"
-          width="800px"
-          height="800px"
-        ></canvas>
-      </div>
-    </div>
-    <div class="login-right">
-      <h2>Share your music</h2>
-      <p>
-        Your top 50 songs span <strong>{{ artistSpan }}</strong> artists and
-        <strong>{{ genres.length }}</strong> genres, with your favourite genre
-        being
-        <strong>{{
-          genres[0][0] == "pop"
-            ? capitalize(genres[1][0])
-            : capitalize(genres[0][0])
-        }}</strong>
-      </p>
-      <button
-        (click)="saveImage()"
-        class="no-mobile-inline mob-top-pad btn clr-wgreen"
-      >
-        Save Image
-      </button>
-    </div>
-  </div>
-  <!--IMAGE TO SAVE-->
-  <div class="custom-image-div">
-    <div #radarDraw class="colorizer red-purple">
-      <img
-        id="custom-user-image"
-        src="{{ artists[0].images[1].url }}"
-        *ngIf="artists.length > 0 && tracks.length > 0 && genres.length > 0"
-      />
-      <app-radar-chart
-        [inputId]="'custom-image-chart'"
-        [data]="personalChart"
-        [config]="imageConfig"
-        [changed]="changed"
-        [graphClr]="'#000000'"
-        (onDone)="generateImage()"
-      ></app-radar-chart>
-    </div>
-  </div>
-  <div class="fav-container" *ngIf="token != '' && token != null">
-    <div class="track-container">
-      <h1 class="fav-sub-heading">Tracks</h1>
-      <div class="flavor-text">
-        <div
-          *ngFor="let track of tracks.slice(0, 5); index as i"
-          class="track-card"
-        >
-          <h1>{{ i + 1 }}</h1>
-          <img src="{{ track.album.images[1].url }}" />
-          <div class="track-text">
-            <h3>{{ track.name }}</h3>
-            <p>{{ track.artists[0].name }}</p>
+      <div class="multi-graph-div" *ngIf="chosenChart == 'Multi'">
+        <div class="multi-g" *ngFor="let d of chartData; index as i">
+          <app-radar-chart
+            *ngIf="i == 0"
+            [inputId]="'chart'"
+            [data]="[d]"
+            [config]="keyChartConfig"
+            [changed]="changed"
+            [graphClr]="graphColors[0]"
+          ></app-radar-chart>
+          <app-radar-chart
+            *ngIf="i != 0"
+            [inputId]="'chart' + i"
+            [data]="[d]"
+            [config]="multiChartConfig"
+            [changed]="changed"
+            [graphClr]="graphColors[1]"
+          ></app-radar-chart>
+          <h3 *ngIf="editLabel != i">{{ graphTitles[i] }}</h3>
+          <input
+            class="edit-label multi-edit"
+            type="text"
+            [(ngModel)]="nameFieldVal"
+            value="{{ nameFieldVal }}"
+            *ngIf="editLabel == i"
+          />
+          <img
+            class="delete-graph"
+            *ngIf="showTools && editLabel != i && i != 0"
+            (click)="editName(i)"
+            alt="edit icon to edit graph name"
+            src="assets/edit.svg"
+          />
+          <img
+            class="delete-graph"
+            *ngIf="editLabel == i && i != 0"
+            (click)="saveName(i)"
+            alt="checkmark icon to save name"
+            src="assets/tick.svg"
+          />
+          <img
+            class="delete-graph spacing-icon"
+            *ngIf="editLabel == i && i != 0"
+            (click)="editLabel = -1"
+            alt="cancel icon to cancel edit"
+            src="assets/cancel.svg"
+          />
+          <img
+            class="delete-graph spacing-icon"
+            *ngIf="showTools && editLabel != i && i != 0"
+            (click)="deleteGraph(i)"
+            alt="trash icon to delete graph"
+            src="assets/trash.svg"
+          />
+          <img class="delete-graph empty-icon" *ngIf="!showTools || i == 0" />
+        </div>
+        <div class="multi-g" *ngIf="showTools">
+          <div class="add-graph">
+            <div class="select-graph">
+              <select
+                class="sel-option"
+                [ngModel]="chosenType"
+                (change)="chooseType($event.target.value)"
+              >
+                <option *ngFor="let t of dataType" [value]="t">{{ t }}</option>
+              </select>
+            </div>
+            <div class="select-graph">
+              <select
+                class="sel-option"
+                [ngModel]="chosenSecond"
+                (change)="chooseSecond($event.target.value)"
+                *ngIf="
+                  chosenType != 'Album' &&
+                  chosenType != 'User' &&
+                  chosenType != 'Playlist'
+                "
+              >
+                <option *ngFor="let t of secondDropdownData" [value]="t">
+                  {{
+                    chosenType == "Personality"
+                      ? t.toUpperCase()
+                      : capitalize(t)
+                  }}
+                </option>
+              </select>
+              <input
+                class="exclude-option"
+                placeholder="Enter Spotify URL..."
+                type="text"
+                [(ngModel)]="inputFieldVal"
+                value="{{ inputFieldVal }}"
+                *ngIf="
+                  chosenType == 'Album' ||
+                  chosenType == 'User' ||
+                  chosenType == 'Playlist'
+                "
+              />
+            </div>
+            <div>
+              <button
+                class="btn mob-top-pad make-playlist graph-btn"
+                (click)="addGraph()"
+                [attr.disabled]="
+                  this.chartData.length >= this.userGraphLimit
+                    ? 'disabled'
+                    : null
+                "
+              >
+                Add Graph
+              </button>
+            </div>
           </div>
         </div>
-        <div>
-          <button routerLink="/top" class="mob-top-pad btn">View More</button>
-        </div>
       </div>
     </div>
-    <div class="artist-container">
-      <h1>Artists</h1>
-      <div class="artist-card" *ngFor="let a of artists.slice(0, 5)">
-        <div
-          [ngStyle]="{ 'background-image': 'url(' + a.images[1].url + ')' }"
-        ></div>
-        <h3>{{ a.name }}</h3>
-      </div>
-      <div class="artist-card" *ngIf="popularity">
-        <span class="popularity-tip" *ngIf="showPopTip"
-          >Average popularity of your top artists from scores provided by
-          Spotify</span
-        >
+    <div class="stats-pad config-div tracks-container">
+      <button
+        class="btn navi-btn"
+        *ngIf="showTools"
+        (click)="showTools = false"
+      >
         <img
-          src="assets/help2.svg"
-          (mouseenter)="showPopTip = true"
-          (mouseleave)="showPopTip = false"
+          class="visibility-icon"
+          alt="visibility icon to hide dashboard tools"
+          src="assets/visibility.svg"
         />
-        <div>
-          <span>{{ popularity }}</span>
+      </button>
+      <button
+        class="btn navi-btn"
+        *ngIf="!showTools"
+        (click)="showTools = true"
+      >
+        <img
+          class="visibility-icon"
+          alt="visibility icon to hide dashboard tools"
+          src="assets/visibility_off.svg"
+        />
+      </button>
+    </div>
+    <div
+      class="mob-pad fade-in-up options-pad login-pad"
+      *ngIf="token == '' || token == null"
+    >
+      <h2>Want More?</h2>
+      <p>
+        Login to view more detailed analytics including your top artists,
+        favorite genres, and a recreation of your Spotify taste profile. The
+        guest graph limit will also be removed, so you can plot more graphs
+        simultaneously.
+      </p>
+      <div>
+        <a (click)="analysisLogin()"
+          ><button class="mob-top-pad btn clr-wgreen">
+            Login With Spotify
+          </button></a
+        >
+      </div>
+    </div>
+    <div
+      class="mob-pad fade-in-up options-pad login-pad"
+      *ngIf="
+        token != '' &&
+        token != null &&
+        artists.length > 5 &&
+        genres.length > 1 &&
+        tracks.length > 5
+      "
+    >
+      <div class="scaled-div">
+        <div class="custom-scaled">
+          <img #canvasImg />
+          <canvas
+            #toSave
+            id="toSave"
+            class="custom-image-div"
+            width="800px"
+            height="800px"
+          ></canvas>
         </div>
-        <h3>Popularity</h3>
+      </div>
+      <div class="login-right">
+        <h2>Share your music</h2>
+        <p>
+          Your top 50 songs span <strong>{{ artistSpan }}</strong> artists and
+          <strong>{{ genres.length }}</strong> genres, with your favourite genre
+          being
+          <strong>{{
+            genres[0][0] == "pop"
+              ? capitalize(genres[1][0])
+              : capitalize(genres[0][0])
+          }}</strong>
+        </p>
+        <button
+          (click)="saveImage()"
+          class="no-mobile-inline mob-top-pad btn clr-wgreen"
+        >
+          Save Image
+        </button>
       </div>
     </div>
-    <div class="artist-container">
-      <h1>Genres</h1>
-      <div class="genre-card" *ngFor="let g of genres.slice(0, 8)">
-        <h3>{{ capitalize(g[0]) }}</h3>
+    <!--IMAGE TO SAVE-->
+    <div class="custom-image-div">
+      <div #radarDraw class="colorizer red-purple">
+        <img
+          id="custom-user-image"
+          src="{{ artists[0].images[1].url }}"
+          *ngIf="artists.length > 0 && tracks.length > 0 && genres.length > 0"
+        />
+        <app-radar-chart
+          [inputId]="'custom-image-chart'"
+          [data]="personalChart"
+          [config]="imageConfig"
+          [changed]="changed"
+          [graphClr]="'#000000'"
+          (onDone)="generateImage()"
+        ></app-radar-chart>
       </div>
     </div>
+    <div class="fav-container" *ngIf="token != '' && token != null">
+      <div class="track-container">
+        <h1 class="fav-sub-heading">Tracks</h1>
+        <div class="flavor-text">
+          <div
+            *ngFor="let track of tracks.slice(0, 5); index as i"
+            class="track-card"
+          >
+            <h1>{{ i + 1 }}</h1>
+            <img src="{{ track.album.images[1].url }}" />
+            <div class="track-text">
+              <h3>{{ track.name }}</h3>
+              <p>{{ track.artists[0].name }}</p>
+            </div>
+          </div>
+          <div>
+            <button routerLink="/top" class="mob-top-pad btn">View More</button>
+          </div>
+        </div>
+      </div>
+      <div class="artist-container">
+        <h1>Artists</h1>
+        <div class="artist-card" *ngFor="let a of artists.slice(0, 5)">
+          <div
+            [ngStyle]="{ 'background-image': 'url(' + a.images[1].url + ')' }"
+          ></div>
+          <h3>{{ a.name }}</h3>
+        </div>
+        <div class="artist-card" *ngIf="popularity">
+          <span class="popularity-tip" *ngIf="showPopTip"
+            >Average popularity of your top artists from scores provided by
+            Spotify</span
+          >
+          <img
+            src="assets/help2.svg"
+            (mouseenter)="showPopTip = true"
+            (mouseleave)="showPopTip = false"
+          />
+          <div>
+            <span>{{ popularity }}</span>
+          </div>
+          <h3>Popularity</h3>
+        </div>
+      </div>
+      <div class="artist-container">
+        <h1>Genres</h1>
+        <div class="genre-card" *ngFor="let g of genres.slice(0, 8)">
+          <h3>{{ capitalize(g[0]) }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="error-popup" *ngIf="errorShow">
+      <div (click)="errorShow = false">{{ errorText }}</div>
+    </div>
+    <section></section>
   </div>
-  <div class="error-popup" *ngIf="errorShow">
-    <div (click)="errorShow = false">{{ errorText }}</div>
-  </div>
-  <section></section>
 </div>

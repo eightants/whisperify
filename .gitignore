@@ -4,7 +4,6 @@ server.js
 
 serviceAccountKey.json
 .vercel
-.now
 .env.build
 .env
 

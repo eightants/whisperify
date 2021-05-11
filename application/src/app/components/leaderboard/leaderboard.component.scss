@@ -2,53 +2,6 @@
   box-sizing: border-box;
 }
 
-.ccc {
-  margin: 20px auto;
-  max-width: 200px;
-  width: 40%;
-}
-
-.btn-c {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20vh;
-}
-
-.navi-btn {
-  z-index: 50;
-  position: fixed;
-  bottom: 10px;
-  right: 3%;
-  padding: 15px;
-  width: 50px;
-  height: 50px;
-}
-
-.create-p {
-  z-index: 50;
-  position: fixed;
-  bottom: 10px;
-  right: calc(3% + 65px);
-}
-
-.chart-tabs {
-  width: 100%;
-  text-align: center;
-
-  div {
-    display: inline-block;
-    width: calc(50% - 20px);
-    max-width: 160px;
-    margin: 20px 10px 30px 10px;
-  }
-}
-
-.artist-card {
-  img {
-    width: 20px !important;
-  }
-}
-
 .flavor-text {
   margin-top: 4%;
   text-align: center;
@@ -57,24 +10,19 @@
   display: inline-block;
 
   h1 {
-    width: 10%;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 42px;
+    width: 100%;
+    font-size: 36px;
     margin: 5px 10px 5px 0%;
+    padding-right: 10px;
   }
 
   img {
-    width: 15%;
-    display: inline-block;
-    vertical-align: top;
-    border-radius: 5px;
-    max-width: 80px;
+    width: 100%;
+    border-radius: 50px;
   }
 
-  .track-text {
-    width: 70%;
-    display: inline-block;
+  .user-text {
+    width: 100%;
     margin: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -82,31 +30,46 @@
     h3,
     p {
       margin: 0.2em 0;
+      overflow: hidden;
+    }
+
+    p {
+      color: #a8a8a8;
     }
   }
 }
 
-.track-card,
-.track-text {
-  width: 640px;
+.user-card,
+.user-text {
+  width: 100%;
+  max-width: 640px;
   overflow: hidden;
   background-color: #191919;
-  padding: 15px 30px 15px 30px;
+  padding: 15px 24px 15px 24px;
   margin: 6px auto;
   text-align: left;
 }
 
-.track-card {
+.user-card {
   border-radius: 10px;
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 10% 60px auto 60px;
   align-items: center;
 }
 
-.ind-space {
-  padding-left: 15px;
+.lvl-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  h1 {
-    width: calc(10% + 15px);
+  p {
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 30px;
+    margin: 5px 0 5px;
   }
 }
 
@@ -145,27 +108,24 @@
 
 @media (max-width: 768px) {
   h1 {
-    width: 15%;
     margin-top: 20%;
   }
 
-  .track-card {
-    width: 100% !important;
+  .user-card {
     padding: 10px 20px !important;
     margin: 5px auto !important;
     min-height: 86px;
 
     h1 {
       font-size: 28px;
-      width: 35px;
       margin: 0px 10px 0px 0%;
     }
   }
 
-  .track-text {
-    width: calc(100% - 100px) !important;
+  .user-text {
     margin: 0px !important;
     padding: 0px 10px 0px 20px !important;
+
     h3 {
       font-size: 16px;
       margin: 1px 0 !important;
@@ -176,15 +136,18 @@
     }
   }
 
+  .lvl-div {
+    p {
+      font-size: 14px;
+    }
+    h3 {
+      font-size: 24px;
+    }
+  }
+
   .flavor-text img {
     width: 50px !important;
     margin-left: 2%;
-  }
-
-  .artist-card {
-    img {
-      width: 20px !important;
-    }
   }
 
   .h-option {
@@ -200,17 +163,6 @@
 
   .row-option {
     width: 100%;
-  }
-
-  .create-p {
-    width: 100%;
-    left: 0;
-    right: 0;
-    text-align: center;
-
-    button {
-      width: auto;
-    }
   }
 
   .sec-title {
