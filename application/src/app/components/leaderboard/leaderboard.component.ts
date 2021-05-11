@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { formatNumberCustom } from "src/app/globals";
-import { SpotifyService } from "../services/spotify.service";
+import { Component, OnInit } from '@angular/core';
+import { formatNumberCustom } from 'src/app/globals';
+import { SpotifyService } from '../services/spotify.service';
 
 type LeaderboardUser = {
   attempts: number;
@@ -12,15 +12,15 @@ type LeaderboardUser = {
 const LVL_MULT = 0.5;
 
 @Component({
-  selector: "app-leaderboard",
-  templateUrl: "./leaderboard.component.html",
-  styleUrls: ["./leaderboard.component.scss"],
+  selector: 'app-leaderboard',
+  templateUrl: './leaderboard.component.html',
+  styleUrls: ['./leaderboard.component.scss'],
 })
 export class LeaderboardComponent implements OnInit {
   sortByMap = {
-    "High Score": "top",
-    "Total Score": "total",
-    Experience: "level",
+    'High Score': 'top',
+    'Total Score': 'total',
+    Experience: 'level',
   };
   topScores;
   sortBy: Array<string>;
@@ -31,19 +31,18 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.sortBy = ["High Score", "Total Score", "Experience"];
-    this.chosenSortBy = "High Score";
+    this.sortBy = ['High Score', 'Total Score', 'Experience'];
+    this.chosenSortBy = 'High Score';
     this.getLeaderboardHook();
   }
 
-  getLeaderboardHook() {
+  getLeaderboardHook(): void {
     this.isLoading = true;
     this.spotify
       .getLeaderboard(this.sortByMap[this.chosenSortBy])
       .then((res) => {
         this.topScores = res;
         this.isLoading = false;
-        console.log(res);
       });
   }
 
@@ -61,14 +60,14 @@ export class LeaderboardComponent implements OnInit {
   }
 
   displayStats(user: LeaderboardUser): string {
-    return this.chosenSortBy === "High Score"
+    return this.chosenSortBy === 'High Score'
       ? user.score.toString()
-      : this.chosenSortBy === "Total Score"
+      : this.chosenSortBy === 'Total Score'
       ? formatNumberCustom(user.total)
       : this.calculateLevelFromXP(user.xp).toString();
   }
 
   displayLabel(): string {
-    return this.chosenSortBy === "Experience" ? "LVL" : "SCORE";
+    return this.chosenSortBy === 'Experience' ? 'LVL' : 'SCORE';
   }
 }

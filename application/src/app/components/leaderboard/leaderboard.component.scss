@@ -94,13 +94,13 @@
 }
 
 .down-arrow {
-  background-image: url("/assets/down-arrow.svg");
+  background-image: url('/assets/down-arrow.svg');
   background-size: contain;
   filter: invert(1);
 }
 
 .up-arrow {
-  background-image: url("/assets/down-arrow.svg");
+  background-image: url('/assets/down-arrow.svg');
   background-size: contain;
   filter: invert(1);
   transform: rotate(180deg);

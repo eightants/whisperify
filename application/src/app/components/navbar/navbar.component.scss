@@ -1,4 +1,4 @@
-@import "../../../global";
+@import '../../../global';
 
 .nav-logo {
   height: 36px;
@@ -22,7 +22,7 @@
   margin: auto;
 
   .nav-link {
-    font-family: "Circular", "sans-serif";
+    font-family: 'Circular', 'sans-serif';
     padding: 5px 8px;
     font-size: 1.1em;
     color: #fff;
@@ -65,7 +65,7 @@
       max-width: 120px;
       line-height: 36px;
       margin-left: 10px;
-      font-family: "Circular", sans-serif;
+      font-family: 'Circular', sans-serif;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -75,7 +75,7 @@
       height: 36px;
       width: 36px;
       border-radius: 50px;
-      background-image: url("/assets/pfp.jpg");
+      background-image: url('/assets/pfp.jpg');
       background-size: cover;
     }
 
@@ -84,7 +84,7 @@
     }
 
     .nav-down::before {
-      content: "\25BE";
+      content: '\25BE';
       font-size: 16px;
     }
   }
