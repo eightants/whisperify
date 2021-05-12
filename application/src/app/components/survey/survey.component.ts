@@ -29,7 +29,7 @@ export class SurveyComponent implements OnInit {
   }
 
   validRes() {
-    let arr = Object.getOwnPropertyNames(this.model);
+    const arr = Object.getOwnPropertyNames(this.model);
     for (let i = 1; i < arr.length; i++) {
       if (this.model[arr[i]] == "") {
         return false;

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 
-declare var DotPlot: any;
+declare let DotPlot: any;
 
 @Component({
   selector: 'app-dot-plot',

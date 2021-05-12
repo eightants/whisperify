@@ -1,11 +1,11 @@
-import { TitleTagService } from "../services/title-tag.service";
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Router } from "@angular/router";
+import { TitleTagService } from '../services/title-tag.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-tutorial",
-  templateUrl: "./tutorial.component.html",
-  styleUrls: ["./tutorial.component.scss"],
+  selector: 'app-tutorial',
+  templateUrl: './tutorial.component.html',
+  styleUrls: ['./tutorial.component.scss'],
 })
 export class TutorialComponent implements OnInit {
   constructor(
@@ -18,12 +18,12 @@ export class TutorialComponent implements OnInit {
 
   examples = [
     {
-      name: "Careless Whisper",
-      artists: [{ name: "George Michael" }],
+      name: 'Careless Whisper',
+      artists: [{ name: 'George Michael' }],
       album: {
         images: [
-          { url: "assets/careless_whisper.jpg" },
-          { url: "assets/careless_whisper.jpg" },
+          { url: 'assets/careless_whisper.jpg' },
+          { url: 'assets/careless_whisper.jpg' },
         ],
       },
     },
@@ -43,16 +43,16 @@ export class TutorialComponent implements OnInit {
   done = false;
 
   ngOnInit() {
-    this.titleTagService.setTitle("Tutorial - Whisperify");
+    this.titleTagService.setTitle('Tutorial - Whisperify');
     this.titleTagService.setSocialMediaTags(
-      "Tutorial - Whisperify",
-      "A quick introduction to Whisperify quizzes with the best song ever. "
+      'Tutorial - Whisperify',
+      'A quick introduction to Whisperify quizzes with the best song ever. '
     );
     this.started = true;
   }
 
   nextPage() {
-    this.router.navigate(["/welcome"]);
+    this.router.navigate(['/welcome']);
   }
 
   handleVolume(value) {
@@ -61,14 +61,14 @@ export class TutorialComponent implements OnInit {
 
   /* AUDIO CODE */
   // gets the audio DOM element
-  @ViewChild("musicAudio", { static: false }) source;
-  @ViewChild("blueWave", { static: false }) blueWave;
+  @ViewChild('musicAudio', { static: false }) source;
+  @ViewChild('blueWave', { static: false }) blueWave;
 
   stopAudio() {
     this.source.nativeElement.load();
     this.blueWave.nativeElement.classList.remove(
-      "animate-wave",
-      "blue-finished"
+      'animate-wave',
+      'blue-finished'
     );
   }
   playAudio() {
@@ -83,8 +83,8 @@ export class TutorialComponent implements OnInit {
       this.source.nativeElement.play();
       // adds the animation to bluewave
       this.blueWave.nativeElement.classList.add(
-        "animate-wave",
-        "blue-finished"
+        'animate-wave',
+        'blue-finished'
       );
       // removes tutorial element
       this.started = false;
@@ -93,13 +93,13 @@ export class TutorialComponent implements OnInit {
     }
   }
   getSoundAndFadeAudio() {
-    var sound = this.source.nativeElement;
-    var wave = this.blueWave.nativeElement;
+    const sound = this.source.nativeElement;
+    const wave = this.blueWave.nativeElement;
     sound.volume = 0;
     // Set the point in playback that fadeout begins. This is for a 1 second fade in and fade out.
-    var fadeIn = 0;
-    var currMaxVolume = this.maxVolume
-    var fadeInAudio = setInterval(function () {
+    const fadeIn = 0;
+    const currMaxVolume = this.maxVolume;
+    const fadeInAudio = setInterval(function () {
       // Only fade if past the fade out point or not at zero already
       if (sound.currentTime >= fadeIn && sound.volume < currMaxVolume) {
         try {
@@ -113,14 +113,14 @@ export class TutorialComponent implements OnInit {
         clearInterval(fadeInAudio);
       }
     }, 100);
-    var fadePoint = /* sound end duration */ 4;
-    var fadeAudio = setInterval(function () {
+    const fadePoint = /* sound end duration */ 4;
+    const fadeAudio = setInterval(function () {
       // Only fade if past the fade out point or not at zero already
       if (sound.currentTime >= fadePoint && sound.volume > 0.0) {
         try {
           sound.volume -= currMaxVolume / 10;
         } catch (TypeError) {
-          wave.classList.remove("animate-wave");
+          wave.classList.remove('animate-wave');
           clearInterval(fadeAudio);
           sound.pause();
         }
@@ -132,7 +132,7 @@ export class TutorialComponent implements OnInit {
     this.endTimer();
     this.submitted = true;
     // checks answer after getting thing from event emitter
-    if (submission == ans.artists[0].name + " - " + ans.name) {
+    if (submission == ans.artists[0].name + ' - ' + ans.name) {
       this.isCorrect = true;
       this.score += 100 * this.prevTime;
       //console.log(submission + " = " + ans.artists[0].name + " - " + ans.name);
@@ -153,27 +153,24 @@ export class TutorialComponent implements OnInit {
 
   startTimer() {
     if (this.timerStarted != true) {
-      // fixing scope of this.
-      var _this = this;
       // increments timer depending on values, and automatic expiry
-      setTimeout(function () {
-        _this.timerStarted = true;
-        _this.incrementTime = setInterval(() => {
-          //console.log(_this.timet, _this.timerStarted)
-          if (_this.timet < 43 && _this.timerStarted == true) {
-            _this.timet += 1;
-            if (_this.timet % 2 == 1) {
-              _this.circlePulse();
+      setTimeout(() => {
+        this.timerStarted = true;
+        this.incrementTime = setInterval(() => {
+          if (this.timet < 43 && this.timerStarted == true) {
+            this.timet += 1;
+            if (this.timet % 2 == 1) {
+              this.circlePulse();
             }
-          } else if (_this.timet >= 43 && _this.timerStarted == true) {
-            _this.submitted = true;
-            _this.isCorrect = false;
-            _this.endTimer();
+          } else if (this.timet >= 43 && this.timerStarted == true) {
+            this.submitted = true;
+            this.isCorrect = false;
+            this.endTimer();
           }
         }, 1000);
       }, 500);
       setTimeout(function () {
-        _this.played = true;
+        this.played = true;
       }, 5000);
     }
   }
@@ -197,7 +194,7 @@ export class TutorialComponent implements OnInit {
 
   /* pulsing effect on timer */
   circlePulse() {
-    var curr = 0;
+    let curr = 0;
     this.cycle[curr] = 1;
     this.circleLoop = setInterval(() => {
       curr += 1;

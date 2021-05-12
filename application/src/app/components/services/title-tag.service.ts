@@ -7,11 +7,11 @@ import { MetaTag } from '../../globals'
 })
 export class TitleTagService {
 
-  private description: string = "description";
-  private titleMeta: string = "og:title";
-  private descriptionMeta: string = "og:description";
-  private twitterTitleMeta: string = "twitter:title";
-  private twitterDescMeta: string = "twitter:description";
+  private description = "description";
+  private titleMeta = "og:title";
+  private descriptionMeta = "og:description";
+  private twitterTitleMeta = "twitter:title";
+  private twitterDescMeta = "twitter:description";
 
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -20,7 +20,7 @@ export class TitleTagService {
   }
 
   public setSocialMediaTags(title: string, description: string): void {
-    var tags = [
+    const tags = [
       new MetaTag(this.description, description, false),
       new MetaTag(this.titleMeta, title, true),
       new MetaTag(this.descriptionMeta, description, true),
