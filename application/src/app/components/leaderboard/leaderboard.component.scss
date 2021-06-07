@@ -1,9 +1,12 @@
+@import "src/global";
+
 * {
   box-sizing: border-box;
 }
 
 .flavor-text {
   margin-top: 4%;
+  margin-bottom: 100px;
   text-align: center;
   width: 100%;
   min-width: none;
@@ -44,17 +47,21 @@
   width: 100%;
   max-width: 640px;
   overflow: hidden;
-  background-color: #191919;
-  padding: 15px 24px 15px 24px;
+  padding: 12px 24px 12px 24px;
   margin: 6px auto;
   text-align: left;
 }
 
 .user-card {
+  background-color: $grey-3;
   border-radius: 10px;
   display: grid;
   grid-template-columns: 10% 60px auto 60px;
   align-items: center;
+}
+
+.current-user {
+  background-color: $optionclr;
 }
 
 .lvl-div {

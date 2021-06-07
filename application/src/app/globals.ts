@@ -1,6 +1,6 @@
 'use strict';
 
-// export const MAINURL = "http://localhost:8888/";
+// export const MAINURL = 'http://localhost:8888/';
 export const MAINURL = 'https://whisperify.net/';
 
 // Format large numbers for display

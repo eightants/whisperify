@@ -245,7 +245,6 @@ export class QuizComponent implements OnInit {
                   false,
                 ];
                 this.page = 0;
-                //console.log(this.pagesActive)
                 this.altind = this.indexes;
                 this.isLoaded = true;
               });
@@ -399,7 +398,6 @@ export class QuizComponent implements OnInit {
   }
 
   nextPage() {
-    // clears overlay
     this.submitted = false;
     // checks if quiz is done
     if (this.page >= 9) {
@@ -407,7 +405,6 @@ export class QuizComponent implements OnInit {
       if (this.challengeCode != '') {
         this.router.navigate(['/results', this.challengeCode]);
       } else {
-        //console.log(this.tracks);
         this.data.changeSongs(this.trimtracks);
         this.data.changeSongList(this.trackopt);
         this.data.changeIndexes(this.indexes);
@@ -532,6 +529,7 @@ export class QuizComponent implements OnInit {
   checkAns(submission, ans) {
     this.stopAudio();
     this.endTimer();
+    if (this.submitted) return;
     this.submitted = true;
     this.partialArtist = false;
     // checks answer after getting thing from event emitter
@@ -539,15 +537,12 @@ export class QuizComponent implements OnInit {
       this.isCorrect = true;
       // Time for streaks!
       this.streak += 1;
-      // every 2 questions right, score obtained is multipled by extra 5%
+      // For every 2 questions correct, score obtained is multipled by extra 5%
       const multiplier = 1 + Math.floor(this.streak / 2) * 0.05;
-      //console.log(multiplier);
       this.score += Math.floor(this.baseScore * this.prevTime * multiplier);
       this.pointsAdded = Math.floor(
         this.baseScore * this.prevTime * multiplier
       );
-      //console.log(submission + " = " + ans.artists[0].name + " - " + ans.name);
-      //console.log("score: " + this.score);
     } else {
       this.isCorrect = false;
       this.streak = 0;
@@ -557,7 +552,6 @@ export class QuizComponent implements OnInit {
       let partial = false;
       submittedArtist.forEach((subword) => {
         ansArtist.forEach((answord) => {
-          //console.log(subword + "=" + answord);
           if (subword == answord) {
             partial = true;
           }
@@ -566,13 +560,10 @@ export class QuizComponent implements OnInit {
       if (partial) {
         this.score += Math.floor(this.baseScore * this.prevTime * 0.5);
         this.pointsAdded = Math.floor(this.baseScore * this.prevTime * 0.5);
-        //console.log("partial" + Math.floor(100 * this.prevTime));
         this.partialArtist = true;
       } else {
         this.pointsAdded = 0;
       }
-      //console.log(submission + " != " + ans.artists[0].name + " - " + ans.name);
-      //console.log("score: " + this.score);
     }
   }
 

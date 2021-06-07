@@ -26,11 +26,13 @@ export class LeaderboardComponent implements OnInit {
   sortBy: Array<string>;
   chosenSortBy: string;
   isLoading: boolean;
+  currUser: string;
 
   constructor(private spotify: SpotifyService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.currUser = sessionStorage.getItem('username');
     this.sortBy = ['High Score', 'Total Score', 'Experience'];
     this.chosenSortBy = 'High Score';
     this.getLeaderboardHook();

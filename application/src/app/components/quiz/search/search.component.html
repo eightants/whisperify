@@ -6,7 +6,7 @@
       name="searchStr"
       placeholder="Search Music..."
       [(ngModel)]="searchStr"
-      (keyup)="searchMusic()"
+      (keyup)="handleKeyup($event)"
       value="{{ searchVal }}"
     />
     <div
@@ -15,11 +15,13 @@
       class="autocomplete-items"
     >
       <div
-        *ngFor="let res of searchRes"
+        *ngFor="let res of searchRes; index as i"
         class="each-item"
         (click)="selectVal(res.artists[0].name, res.name)"
+        (mouseenter)="hoverElement(i)"
+        [ngClass]="{ 'hover-item': i === hoverItem }"
       >
-        <div class="song-elem">
+        <div class="song-elem" id="item-{{ i + 1 }}">
           {{ res.name }}<span>{{ res.artists[0].name }}</span>
         </div>
         <input type="hidden" value="{{ res.name }}" />
@@ -28,7 +30,7 @@
   </div>
   <button
     class="btn submit clr-wgreen"
-    type="submit"
+    type="button"
     (click)="submitVal()"
     [attr.disabled]="
       this.searchStr == '' || this.searchStr == null ? 'disabled' : null

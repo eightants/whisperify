@@ -12,7 +12,11 @@
   </div>
   <div class="flavor-text">
     <div *ngIf="!isLoading">
-      <div *ngFor="let user of topScores; index as i" class="user-card">
+      <div
+        *ngFor="let user of topScores; index as i"
+        class="user-card"
+        [ngClass]="{ 'current-user': currUser == user._id }"
+      >
         <h1>{{ i + 1 }}</h1>
         <img src="assets/pfp.jpg" />
         <div class="user-text">
