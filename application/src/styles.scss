@@ -140,9 +140,7 @@ h5 {
   left: 0;
   right: 0;
   bottom: 0;
-  //border: 1px solid #c4c4c4;
   box-shadow: 0px 0px 0px 1px #d4d4d4;
-  /*background-color: #c4c4c4;*/
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -154,7 +152,6 @@ h5 {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  /*background-color: #2e2e2e;*/
   background-color: white;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -301,7 +298,7 @@ input:checked + .slider:before {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  background-color: #2e2e2e;
+  background-color: $bg-color;
   background-image: url("/assets/dd.svg");
   background-repeat: no-repeat, repeat;
   background-position: right 0.7em top 50%, 0 0;
@@ -326,20 +323,26 @@ input:checked + .slider:before {
 
 .coffee-frame {
   position: fixed;
-  padding: 20px 20px;
-  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px 20px;
+  bottom: 20px;
   right: 3%;
+
+  span {
+    margin-bottom: 12px;
+  }
 }
 
 .coffee {
   font-family: "Open Sans", sans-serif;
-  padding: 12px 20px;
+  padding: 10px 18px;
   background-color: #ff813f;
   border-radius: 8px;
   border-width: 0px;
-  margin: 20px 0px;
-  margin-top: 50px;
+  margin: 5px 0px;
   text-decoration: none;
+  text-align: center;
   color: white;
   text-transform: uppercase;
   font-weight: 800;
@@ -351,6 +354,14 @@ input:checked + .slider:before {
   background-color: #ff9e6a;
   text-decoration: none;
   color: white;
+}
+
+.twitter {
+  background-color: #1DA1F2;
+}
+
+.twitter:hover {
+  background-color: #43b4fa;
 }
 
 .about-btn {
@@ -1002,5 +1013,6 @@ Waves Animation
 
   .coffee-frame {
     position: relative;
+    right: 0;
   }
 }

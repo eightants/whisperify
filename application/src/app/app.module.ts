@@ -28,7 +28,8 @@ import { AudioPlayerComponent } from './components/common/audio-player/audio-pla
 import { CookieBannerComponent } from './components/common/cookie-banner/cookie-banner.component';
 import { GenerateQuizPopupComponent } from './components/common/generate-quiz-popup/generate-quiz-popup.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
-import { MenuCardComponent } from './components/common/menu-card/menu-card.component'
+import { MenuCardComponent } from './components/common/menu-card/menu-card.component';
+import { AutofocusDirective } from './directives/autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -55,16 +56,17 @@ import { MenuCardComponent } from './components/common/menu-card/menu-card.compo
     CookieBannerComponent,
     GenerateQuizPopupComponent,
     LeaderboardComponent,
-    MenuCardComponent
+    MenuCardComponent,
+    AutofocusDirective,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule, 
-    HttpClientModule, 
+    AppRoutingModule,
+    HttpClientModule,
     FormsModule,
-    MarkdownModule.forRoot({loader: HttpClientModule})
+    MarkdownModule.forRoot({ loader: HttpClientModule }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -27,7 +27,7 @@
         Make Your Own
       </button>
     </div>
-    <div class="flavor-text" *ngIf="challengeCode == ''">
+    <div class="flavor-text container" *ngIf="challengeCode == ''">
       <div class="flavor-card">
         <h3>You know your music!</h3>
         <p>
@@ -51,7 +51,7 @@
       >
     </div>
     <div
-      class="flavor-text"
+      class="flavor-text container"
       [ngClass]="{ 'mid-table': score < 0 }"
       *ngIf="challengeCode != ''"
     >
@@ -111,12 +111,18 @@
     </div>
   </div>
   <div class="coffee-frame">
-    <span>Enjoyed this app?</span><br /><br />
+    <span>Enjoyed this app?</span>
+    <a
+      class="coffee twitter"
+      href="https://twitter.com/yihonganthony"
+      target="_blank"
+      >🐦 Follow on Twitter</a
+    >
     <a
       class="coffee"
       href="https://github.com/eightants/whisperify"
       target="_blank"
-      >✨ Star it on Github</a
+      >✨ Star on Github</a
     >
   </div>
 </div>
