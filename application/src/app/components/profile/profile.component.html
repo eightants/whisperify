@@ -159,25 +159,31 @@
           </div>
         </div>
       </div>
-      <!--<div class="profile-badges">
+      <div class="profile-badges">
         <img
           class="profile-badge-icon"
           src="{{
-            PLAYERS_KEY[getAchievedBadge(totalPlayers, PLAYERS_KEY).toString()]
+            PLAYERS_KEY[
+              getAchievedBadge(
+                totalPlayers + pastPlayers,
+                PLAYERS_KEY
+              ).toString()
+            ]
           }}"
         />
         <div>
           <h3>Popular</h3>
           <p>
-            Get {{ getAchievedBadge(totalPlayers, PLAYERS_KEY) }} friends to
-            play your challenges.
+            Get
+            {{ getAchievedBadge(totalPlayers + pastPlayers, PLAYERS_KEY) }}
+            friends to play your challenges.
           </p>
           <div *ngIf="displayProfile">
-            Next Badge: {{ totalPlayers }} /
-            {{ getNextBadge(totalPlayers, PLAYERS_KEY) }}
+            Next Badge: {{ totalPlayers + pastPlayers }} /
+            {{ getNextBadge(totalPlayers + pastPlayers, PLAYERS_KEY) }}
           </div>
         </div>
-      </div>-->
+      </div>
     </div>
     <div
       *ngIf="!isLoading && currTab == 'challenge'"

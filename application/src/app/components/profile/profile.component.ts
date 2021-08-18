@@ -53,6 +53,7 @@ export class ProfileComponent implements OnInit {
   user: any;
   isLoading = true;
   totalPlayers = 0;
+  pastPlayers = 0;
   selectedChallenge: string;
   displayProfile = false;
 
@@ -72,10 +73,10 @@ export class ProfileComponent implements OnInit {
       if (usernameParam) {
         this.username = usernameParam;
 
-        this.titleTagService.setTitle(`${this.username} - Whisperify`);
+        this.titleTagService.setTitle('View User - Whisperify');
         this.titleTagService.setSocialMediaTags(
-          `${this.username} - Whisperify`,
-          `User quiz statistics and created challenges for ${this.username} on Whisperify.`
+          'View User - Whisperify',
+          'User quiz statistics and created challenges. '
         );
       } else {
         this.username = sessionStorage.getItem('username') || '';
@@ -95,6 +96,7 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
         this.user = res;
         this.displayname = res.name;
+        this.pastPlayers = res.challengePlayers || 0;
       });
     }
   }
