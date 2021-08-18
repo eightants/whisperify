@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { formatNumberCustom } from 'src/app/globals';
+import { formatNumberCustom, LVL_MULT } from 'src/app/globals';
 import { SpotifyService } from '../services/spotify.service';
+import { TitleTagService } from '../services/title-tag.service';
 
 type LeaderboardUser = {
   attempts: number;
@@ -8,8 +9,6 @@ type LeaderboardUser = {
   total: number;
   xp: number;
 };
-
-const LVL_MULT = 0.5;
 
 @Component({
   selector: 'app-leaderboard',
@@ -28,13 +27,23 @@ export class LeaderboardComponent implements OnInit {
   isLoading: boolean;
   currUser: string;
 
-  constructor(private spotify: SpotifyService) {}
+  constructor(
+    private titleTagService: TitleTagService,
+    private spotify: SpotifyService
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
     this.currUser = sessionStorage.getItem('username');
     this.sortBy = ['High Score', 'Total Score', 'Experience'];
     this.chosenSortBy = 'High Score';
+
+    this.titleTagService.setTitle('Leaderboard - Whisperify');
+    this.titleTagService.setSocialMediaTags(
+      'Leaderboard - Whisperify',
+      'View all time high scores and most active Whisperify users. '
+    );
+
     this.getLeaderboardHook();
   }
 

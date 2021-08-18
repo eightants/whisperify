@@ -1,0 +1,249 @@
+<app-navbar></app-navbar>
+<div class="container top-margin">
+  <div *ngIf="isLoading" class="loading-div"></div>
+  <div *ngIf="!isLoading" class="profile-page">
+    <div *ngIf="showModal">
+      <div class="answer-module absoluteCenter">
+        <div class="close-mod hoverhands" (click)="showModal = false">
+          <img src="assets/close.svg" />
+        </div>
+        <div class="popup-title">
+          <h2>Confirm deletion</h2>
+          <p>
+            Would you like to delete challenge
+            <strong>{{ selectedChallenge }}</strong
+            >?
+          </p>
+        </div>
+        <button
+          class="btn clr-wgreen mob-top-pad"
+          (click)="deleteChallenge(selectedChallenge)"
+        >
+          Delete
+        </button>
+      </div>
+      <div class="overlay" (click)="showModal = false"></div>
+    </div>
+    <div *ngIf="user" class="profile-section">
+      <div class="profile-text">
+        <h2>{{ displayname }}</h2>
+        <a
+          href="https://open.spotify.com/user/{{ username }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          >open.spotify.com/user/{{ username }}</a
+        >
+        <div class="stats-div">
+          <div class="lvl-div">
+            <p>High Score</p>
+            <h3>{{ user.score }}</h3>
+          </div>
+          <div class="lvl-div">
+            <p>Played</p>
+            <h3>{{ user.attempts }}</h3>
+          </div>
+          <div class="lvl-div">
+            <p>Challenges</p>
+            <h3>{{ user.challengesMade || 0 }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="profile-img no-mobile">
+        <img src="assets/pfp.jpg" />
+        <div class="profile-lvl">
+          <h3>
+            {{
+              calculateLevelFromXP(
+                user.score * 2 + user.attempts * 5 + user.total / 50
+              )
+            }}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="profile-section">
+      <a
+        (click)="selectTab('profile')"
+        class="nav-link"
+        [ngClass]="{ 'nav-link-selected': currTab == 'profile' }"
+        >Badges</a
+      >
+      <a
+        (click)="selectTab('challenge')"
+        class="nav-link"
+        [ngClass]="{ 'nav-link-selected': currTab == 'challenge' }"
+        >Challenges</a
+      >
+    </div>
+    <div
+      *ngIf="!isLoading && currTab == 'profile' && user"
+      class="profile-section challenge-list"
+    >
+      <div class="profile-badges">
+        <img
+          class="profile-badge-icon"
+          src="{{
+            SCORE_KEY[getAchievedBadge(user.score, SCORE_KEY).toString()]
+          }}"
+        />
+        <div>
+          <h3>High Roller</h3>
+          <p>
+            Get a high score of {{ getAchievedBadge(user.score, SCORE_KEY) }}.
+          </p>
+          <div *ngIf="displayProfile">
+            Next Badge: {{ user.score }} /
+            {{ getNextBadge(user.score, SCORE_KEY) }}
+          </div>
+        </div>
+      </div>
+      <div class="profile-badges">
+        <img
+          class="profile-badge-icon"
+          src="{{
+            AVERAGE_KEY[
+              getAchievedBadge(
+                user.total / user.attempts,
+                AVERAGE_KEY
+              ).toString()
+            ]
+          }}"
+        />
+        <div>
+          <h3>Above Average</h3>
+          <p>
+            Get an average score of
+            {{ getAchievedBadge(user.total / user.attempts, AVERAGE_KEY) }}.
+          </p>
+          <div *ngIf="displayProfile">
+            Next Badge: {{ roundToInt(user.total / user.attempts) }} /
+            {{ getNextBadge(user.total / user.attempts, AVERAGE_KEY) }}
+          </div>
+        </div>
+      </div>
+      <div class="profile-badges">
+        <img
+          class="profile-badge-icon"
+          src="{{
+            GAMES_KEY[getAchievedBadge(user.attempts, GAMES_KEY).toString()]
+          }}"
+        />
+        <div>
+          <h3>Riddle Me This</h3>
+          <p>Played {{ getAchievedBadge(user.attempts, GAMES_KEY) }} games.</p>
+          <div *ngIf="displayProfile">
+            Next Badge: {{ user.attempts }} /
+            {{ getNextBadge(user.attempts, GAMES_KEY) }}
+          </div>
+        </div>
+      </div>
+      <div class="profile-badges">
+        <img
+          class="profile-badge-icon"
+          src="{{
+            CHALLENGES_KEY[
+              getAchievedBadge(user.challengesMade, CHALLENGES_KEY).toString()
+            ]
+          }}"
+        />
+        <div>
+          <h3>The Organiser</h3>
+          <p>
+            Shared
+            {{ getAchievedBadge(user.challengesMade, CHALLENGES_KEY) }}
+            challenges.
+          </p>
+          <div *ngIf="displayProfile">
+            Next Badge: {{ user.challengesMade }} /
+            {{ getNextBadge(user.challengesMade, CHALLENGES_KEY) }}
+          </div>
+        </div>
+      </div>
+      <!--<div class="profile-badges">
+        <img
+          class="profile-badge-icon"
+          src="{{
+            PLAYERS_KEY[getAchievedBadge(totalPlayers, PLAYERS_KEY).toString()]
+          }}"
+        />
+        <div>
+          <h3>Popular</h3>
+          <p>
+            Get {{ getAchievedBadge(totalPlayers, PLAYERS_KEY) }} friends to
+            play your challenges.
+          </p>
+          <div *ngIf="displayProfile">
+            Next Badge: {{ totalPlayers }} /
+            {{ getNextBadge(totalPlayers, PLAYERS_KEY) }}
+          </div>
+        </div>
+      </div>-->
+    </div>
+    <div
+      *ngIf="!isLoading && currTab == 'challenge'"
+      class="profile-section challenge-list"
+    >
+      <div class="profile-challenge-div" *ngFor="let challenge of challenges">
+        <a
+          href="/challenge/{{ challenge._id }}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="profile-challenge">
+            <div>
+              <h3>{{ challenge._id }}</h3>
+              <div class="profile-challenge-info">
+                {{ processDate(challenge.time) }} |
+                {{ challenge.scoreboard.length }} plays
+              </div>
+            </div>
+            <div></div>
+          </div>
+        </a>
+        <div class="icon-container" *ngIf="displayProfile">
+          <div class="edit-icon hoverhands">
+            <div class="tooltip">Copy challenge URL</div>
+            <img
+              (click)="
+                copyLink('https://whisperify.net/challenge/' + challenge._id)
+              "
+              src="assets/copy.svg"
+            />
+          </div>
+          <div class="edit-icon hoverhands">
+            <div class="tooltip">Delete challenge</div>
+            <img
+              (click)="confirmDelete(challenge._id)"
+              src="assets/trash.svg"
+            />
+          </div>
+        </div>
+      </div>
+      <div *ngIf="challenges.length == 0">
+        <a href="/welcome" target="_blank" rel="noopener noreferrer">
+          <div class="profile-challenge">
+            <div>
+              <h3>No challenges found.</h3>
+              <div class="profile-challenge-info">
+                Play a quiz to start challenging your friends!
+              </div>
+            </div>
+            <div></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <app-banner
+    *ngIf="copiedBanner"
+    resetFunction="{{ resetBanner }}"
+    bannerText="Copied!"
+    bgColor="#2cb77c"
+  ></app-banner>
+  <app-banner
+    *ngIf="deletedBanner"
+    resetFunction="{{ resetBanner }}"
+    bannerText="Successfully deleted."
+    bgColor="#2cb77c"
+  ></app-banner>
+</div>

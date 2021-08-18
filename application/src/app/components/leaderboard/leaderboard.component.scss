@@ -25,6 +25,7 @@
   }
 
   .user-text {
+    color:white;
     width: 100%;
     margin: 0px;
     padding-top: 0px;
@@ -56,7 +57,7 @@
   background-color: $grey-3;
   border-radius: 10px;
   display: grid;
-  grid-template-columns: 10% 60px auto 60px;
+  grid-template-columns: 10% 60px minmax(0,auto) 60px;
   align-items: center;
 }
 

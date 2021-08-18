@@ -40,7 +40,7 @@
           class="audio-features-div"
         >
           <div class="audio-features-header">
-            <h2>{{ capitalize(d["group"]) }}</h2>
+            <h2>{{ capitalize(d['group']) }}</h2>
             <div>
               <app-dot-plot
                 [inputId]="'dotplot' + i"
@@ -51,7 +51,7 @@
             </div>
             <span>{{ d[graphTitles[selectedPlot]].toFixed(3) }}</span>
           </div>
-          <p>{{ featuresDesc[d["group"]] }}</p>
+          <p>{{ featuresDesc[d['group']] }}</p>
         </div>
       </div>
       <div class="legend-div" *ngIf="chosenChart != 'Multi'">
@@ -151,7 +151,7 @@
             >
               <option *ngFor="let t of secondDropdownData" [value]="t">
                 {{
-                  chosenType == "Personality" ? t.toUpperCase() : capitalize(t)
+                  chosenType == 'Personality' ? t.toUpperCase() : capitalize(t)
                 }}
               </option>
             </select>
@@ -261,7 +261,7 @@
               >
                 <option *ngFor="let t of secondDropdownData" [value]="t">
                   {{
-                    chosenType == "Personality"
+                    chosenType == 'Personality'
                       ? t.toUpperCase()
                       : capitalize(t)
                   }}
@@ -369,7 +369,7 @@
           <strong>{{ genres.length }}</strong> genres, with your favourite genre
           being
           <strong>{{
-            genres[0][0] == "pop"
+            genres[0][0] == 'pop'
               ? capitalize(genres[1][0])
               : capitalize(genres[0][0])
           }}</strong>
@@ -451,9 +451,7 @@
         </div>
       </div>
     </div>
-    <div class="error-popup" *ngIf="errorShow">
-      <div (click)="errorShow = false">{{ errorText }}</div>
-    </div>
+    <app-banner *ngIf="errorShow" bannerText="{{ errorText }}"></app-banner>
     <section></section>
   </div>
 </div>

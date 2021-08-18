@@ -806,7 +806,7 @@ export class AnalysisComponent implements OnInit {
         ctx.fillText('Whisperify', 650, 39);
         const logo = new Image();
         logo.onload = () => {
-          ctx.drawImage(this, 600, 36, 36, 25);
+          ctx.drawImage(logo, 600, 36, 36, 25);
           this.canvasImg.nativeElement.src =
             this.toSave.nativeElement.toDataURL('image/png');
         };

@@ -1,0 +1,126 @@
+.music-player {
+  display: none;
+}
+
+.sound-div {
+  margin-top: 6%;
+  //padding-top: 160px;
+  position: relative;
+  //width: 500px;
+  display: inline-block;
+  text-align: center;
+  .audio-div {
+    position: relative;
+    width: 400px;
+    height: 120px;
+    margin: 20px auto;
+  }
+}
+.soundwave-white,
+.soundwave-blue {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 120px;
+  display: block;
+  object-fit: none;
+  object-position: 0 50%;
+}
+
+.sw {
+  transition: all 0.2s ease-in-out;
+}
+
+.sw:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.soundwave-blue {
+  width: 0%;
+  object-fit: none;
+  object-position: 0 50%;
+}
+
+.blue-finished {
+  width: 100%;
+}
+
+.audio-btn {
+  padding: 10px 40px;
+  margin: 10px 12px;
+}
+
+.animate-wave-short {
+  animation-name: showHide;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-duration: 2.5s;
+  animation-direction: normal;
+}
+
+.animate-wave {
+  animation-name: showHide;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-duration: 5.5s;
+  animation-direction: normal;
+}
+
+.animate-wave-long {
+  animation-name: showHide;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-duration: 10.5s;
+  animation-direction: normal;
+}
+
+@-webkit-keyframes showHide {
+  /* Chrome, Safari */
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@-moz-keyframes showHide {
+  /* FF */
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@-ms-keyframes showHide {
+  /* IE10 */
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@-o-keyframes showHide {
+  /* Opera */
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes showHide {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

@@ -589,9 +589,10 @@ export class QuizComponent implements OnInit {
             this.timet >= this.timeLimit &&
             this.timerStarted == true
           ) {
-            this.submitted = true;
-            this.isCorrect = false;
-            this.endTimer();
+            this.checkAns('Timer', {
+              name: 'dummy',
+              artists: [{ name: 'dummy' }],
+            });
           }
         }, 1000);
       }, 500);

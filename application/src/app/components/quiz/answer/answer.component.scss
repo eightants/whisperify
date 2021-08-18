@@ -34,7 +34,7 @@
     margin-top: 15px;
   }
   p {
-    font-size: 20px;
+    font-size: 16px;
     width: 95%;
     line-height: 1.25em;
     margin-bottom: 0.2em;
@@ -47,11 +47,11 @@
 
 .popup-streak {
   height: 42px;
-  margin-top: 10px;
+  margin-bottom: 16px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
+  font-size: 16px;
   width: 100%;
   div {
     text-align: left;
@@ -77,7 +77,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 32px;
+  margin-top: 20px;
   margin-bottom: 20px;
 
   img {
@@ -97,8 +97,9 @@
       margin-bottom: 0px;
       display: inline-block;
       width: 100%;
-      max-height: 28px;
+      max-height: 42px;
       line-height: 1.2em;
+      overflow: hidden;
     }
     p {
       margin-top: 0px;
@@ -148,6 +149,9 @@
   .answer-module {
     box-sizing: border-box;
     width: 95%;
+    max-height: 95%;
+    max-width: 420px;
+    overflow: auto;
     padding: 12px 25px;
   }
 
@@ -157,19 +161,17 @@
 
   .popup-title {
     p {
-      font-size: 18px;
+      font-size: 16px;
       width: 95%;
     }
   }
 
   .popup-player {
-    margin-bottom: 20px;
-
     .inner-player-flex {
       height: 30%;
-      padding-left: 20px;
+      padding-left: 18px;
       width: 70%;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     img {
@@ -178,7 +180,6 @@
   }
 
   .playback-btn {
-    min-width: 72px;
-    max-width: calc(50% - 30px);
+    width: auto;
   }
 }

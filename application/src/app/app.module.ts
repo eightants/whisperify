@@ -30,6 +30,9 @@ import { GenerateQuizPopupComponent } from './components/common/generate-quiz-po
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { MenuCardComponent } from './components/common/menu-card/menu-card.component';
 import { AutofocusDirective } from './directives/autofocus.directive';
+import { PlayerComponent } from './components/player/player.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { BannerComponent } from './components/common/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { AutofocusDirective } from './directives/autofocus.directive';
     LeaderboardComponent,
     MenuCardComponent,
     AutofocusDirective,
+    PlayerComponent,
+    ProfileComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

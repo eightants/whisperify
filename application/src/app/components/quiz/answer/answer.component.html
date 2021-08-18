@@ -24,14 +24,6 @@
           </span>
         </p>
       </div>
-      <div class="popup-streak">
-        <div>
-          <span class="streak-count" *ngIf="streak > 1"
-            ><strong>Streak: </strong>{{ streak }}</span
-          >
-          <span><strong>Score: </strong>{{ score }} (+{{ pointsAdded }})</span>
-        </div>
-      </div>
       <div class="popup-player">
         <img src="{{ tracks[ind].album.images[1].url }}" />
         <div class="inner-player-flex">
@@ -40,10 +32,24 @@
               <span title="{{ tracks[ind].name }}">{{ tracks[ind].name }}</span>
             </h3>
             <p>{{ tracks[ind].artists[0].name }}</p>
-            <p><i>{{ tracks[ind].album.hasOwnProperty("name") ? tracks[ind].album.name : "" }}</i></p>
+            <p>
+              <i>{{
+                tracks[ind].album.hasOwnProperty('name')
+                  ? tracks[ind].album.name
+                  : ''
+              }}</i>
+            </p>
             <button class="btn playback-btn" (click)="playFull()">Play</button>
             <button class="btn playback-btn" (click)="stopFull()">Stop</button>
           </div>
+        </div>
+      </div>
+      <div class="popup-streak">
+        <div>
+          <span class="streak-count" *ngIf="streak > 1"
+            ><strong>Streak: </strong>{{ streak }}</span
+          >
+          <span><strong>Score: </strong>{{ score }} (+{{ pointsAdded }})</span>
         </div>
       </div>
       <button class="btn popup-green" (click)="nextQues()">Continue</button>
@@ -56,7 +62,7 @@
         <p>
           <span *ngIf="mode == 'challenge'"
             >Better luck on the next question! This was their
-            {{ rankStr(altind + 1) }} most played song.</span
+            {{ rankStr(altind + 1) }} most played song. </span
           ><span *ngIf="mode == 'top'"
             >This was your {{ rankStr(ind + 1) }} most played song over the past
             {{ timePeriod.toLowerCase() }}. </span
@@ -67,11 +73,6 @@
           ><span *ngIf="!partial">Maybe you should listen to it more!</span>
         </p>
       </div>
-      <div class="popup-streak">
-        <div>
-          <span><strong>Score: </strong>{{ score }} (+{{ pointsAdded }})</span>
-        </div>
-      </div>
       <div class="popup-player">
         <img src="{{ tracks[ind].album.images[1].url }}" />
         <div class="inner-player-flex">
@@ -80,10 +81,21 @@
               <span title="{{ tracks[ind].name }}">{{ tracks[ind].name }}</span>
             </h3>
             <p>{{ tracks[ind].artists[0].name }}</p>
-            <p><i>{{ tracks[ind].album.hasOwnProperty("name") ? tracks[ind].album.name : "" }}</i></p>
+            <p>
+              <i>{{
+                tracks[ind].album.hasOwnProperty('name')
+                  ? tracks[ind].album.name
+                  : ''
+              }}</i>
+            </p>
             <button class="btn playback-btn" (click)="playFull()">Play</button>
             <button class="btn playback-btn" (click)="stopFull()">Stop</button>
           </div>
+        </div>
+      </div>
+      <div class="popup-streak">
+        <div>
+          <span><strong>Score: </strong>{{ score }} (+{{ pointsAdded }})</span>
         </div>
       </div>
       <button class="btn" (click)="nextQues()">Continue</button>

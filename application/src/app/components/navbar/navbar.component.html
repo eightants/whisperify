@@ -6,9 +6,15 @@
     ><img class="nav-logo-min" src="assets/whisperwave.svg"
   /></a>
   <div class="nav-items">
-    <a (click)="toMenu()" class="nav-link no-mobile"> Home </a>
-    <a (click)="toAnalysis()" class="nav-link no-mobile"> Analysis </a>
-    <a routerLink="/about" class="nav-link no-mobile"> About </a>
+    <a (click)="toMenu()" class="nav-link">
+      <img src="assets/home.svg" />
+    </a>
+    <!--<a (click)="toAnalysis()" class="nav-link">
+      <img src="assets/radar.svg" />
+    </a>-->
+    <a routerLink="/about" class="nav-link">
+      <img src="assets/bookmarks.svg" />
+    </a>
     <div class="nav-profile" *ngIf="displayname != ''">
       <div class="profile-btn" (click)="toggleProfile($event)">
         <div class="nav-pfp" [ngStyle]="{ 'background-image': pfp }"></div>
@@ -16,7 +22,7 @@
         <span class="nav-down"></span>
       </div>
       <ul class="profile-menu" *ngIf="showProfile">
-        <!--<li><a>Profile</a></li>-->
+        <li><a routerLink="/profile">Profile</a></li>
         <li><a routerLink="/top">Favourites</a></li>
         <li><a routerLink="/documentation">Documentation</a></li>
         <li><a routerLink="/">Log out</a></li>

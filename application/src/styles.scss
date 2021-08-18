@@ -539,14 +539,13 @@ input:checked + .slider:before {
   display: flex;
   text-align: center;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
 }
 
 .main-title {
-  font-size: 96px;
-  margin-top: 40px;
-  margin-bottom: 18px;
+  font-size: 90px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 
   span {
     border-bottom: 0.14em solid $wyellow;
@@ -568,7 +567,7 @@ input:checked + .slider:before {
 .sec-p {
   max-width: 640px;
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 40px;
   opacity: 0.9;
 }
@@ -600,6 +599,11 @@ input:checked + .slider:before {
   flex-wrap: wrap;
   margin: auto;
   align-content: center;
+  justify-content: center;
+
+  .preview-card {
+    display: inline-block;
+  }
 }
 
 .options-pad {
@@ -838,6 +842,7 @@ Waves Animation
   max-height: 250px;
   z-index: -10;
   display: block;
+  opacity: 0.8;
 }
 .parallax > use {
   animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
@@ -871,7 +876,7 @@ Waves Animation
 
 @media (max-width: 768px) {
   .mob-pad {
-    margin-bottom: 60px;
+    margin-bottom: 64px;
   }
   .mob-top-pad {
     margin-top: 20px !important;
@@ -903,7 +908,11 @@ Waves Animation
     display: block;
   }
   .main-desc {
-    font-size: 18px;
+    font-size: 16px;
+  }
+
+  .preview-card {
+    width: 100%;
   }
 
   .btn {

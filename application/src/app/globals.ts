@@ -3,6 +3,8 @@
 // export const MAINURL = 'http://localhost:8888/';
 export const MAINURL = 'https://whisperify.net/';
 
+export const LVL_MULT = 0.5;
+
 // Format large numbers for display
 export const formatNumberCustom = (n: number, decimals = 1): string => {
   if (n == 0) return '0';

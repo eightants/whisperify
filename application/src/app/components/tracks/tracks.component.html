@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<div *ngIf="!isLoaded" class="loading-div"></div>
 <div *ngIf="isLoaded" class="container top-margin">
   <div class="create-p" *ngIf="generated[chosenPeriod] == ''">
     <button
