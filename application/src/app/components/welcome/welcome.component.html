@@ -133,6 +133,7 @@
     >
       <a (click)="isSingleplayer = true"
         ><app-menu-card
+          class="preview-card"
           imagePath="assets/wave.svg"
           title="Play"
           body="How well do you know your music library?"
@@ -147,6 +148,7 @@
       ></a>-->
       <a routerLink="/top">
         <app-menu-card
+          class="preview-card"
           imagePath="assets/star.svg"
           title="Favourites"
           body="View and save your top songs and artists."
@@ -154,6 +156,7 @@
       </a>
       <a (click)="toAnalysis()"
         ><app-menu-card
+          class="preview-card"
           imagePath="assets/radar.svg"
           title="Analysis"
           body="View your audio report and visualize worldwide data."
@@ -161,22 +164,25 @@
       ></a>
       <a routerLink="/leaderboard"
         ><app-menu-card
-          imagePath="assets/table.svg"
+          class="preview-card"
+          imagePath="assets/cup.svg"
           title="Leaderboard"
           body="How does your score compare to everyone else?"
         ></app-menu-card
       ></a>
-      <!--<a routerLink="/profile"
+      <a routerLink="/profile"
         ><app-menu-card
+          class="preview-card"
           imagePath="assets/profile.svg"
           title="My Profile"
           body="Personal stats and generated quizzes."
         ></app-menu-card
-      ></a>-->
+      ></a>
     </div>
     <div *ngIf="isSingleplayer" class="main-text mob-pad fade-in-up mode-div">
       <a routerLink="/tutorial"
         ><app-menu-card
+          class="preview-card"
           imagePath="assets/question.svg"
           title="How To Play"
           body="A quick introduction to Whisperify with the best song ever."
@@ -184,6 +190,7 @@
       ></a>
       <a (click)="chooseTop()"
         ><app-menu-card
+          class="preview-card"
           imagePath="assets/flame.svg"
           title="Top Tracks"
           body="Recommended. Quiz yourself on your top songs!"
@@ -191,6 +198,7 @@
       ></a>
       <a (click)="choosePlaylist(0)"
         ><app-menu-card
+          class="preview-card"
           imagePath="assets/playlist.svg"
           title="My Playlists"
           body="Quiz yourself on any of your playlists."

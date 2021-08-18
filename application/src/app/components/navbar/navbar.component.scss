@@ -26,10 +26,12 @@
     padding: 5px 8px;
     font-size: 1.1em;
     color: #fff;
-    margin: 0px 12px;
+    margin: 0px 8px;
+    opacity: 0.6;
 
     &:hover {
       cursor: pointer;
+      opacity: 1;
       border-bottom: 4px solid #fff;
       margin-bottom: -4px;
     }

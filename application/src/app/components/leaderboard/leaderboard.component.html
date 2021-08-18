@@ -19,12 +19,14 @@
       >
         <h1>{{ i + 1 }}</h1>
         <img src="assets/pfp.jpg" />
-        <div class="user-text">
-          <h3>
-            {{ user.name || 'User #' + randomNumberFromString(user._id) }}
-          </h3>
-          <p>{{ user._id }}</p>
-        </div>
+        <a href="/user/{{ user._id }}"
+          ><div class="user-text">
+            <h3>
+              {{ user.name || 'User #' + randomNumberFromString(user._id) }}
+            </h3>
+            <p>{{ user._id }}</p>
+          </div></a
+        >
         <div class="lvl-div">
           <p>{{ displayLabel() }}</p>
           <h3>{{ displayStats(user) }}</h3>

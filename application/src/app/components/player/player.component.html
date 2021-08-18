@@ -1,0 +1,33 @@
+<!-- <div class="sound-div col-md-10 offset-1">
+  <div (click)="playAudio()" class="sw relative audio-div">
+    <img class="soundwave-white" src="assets/soundwave-white.svg" />
+    <img #blueWave class="soundwave-blue" src="assets/soundwave-blue.svg" />
+  </div>
+  <audio controls #musicAudio class="music-player" id="musicPlayer1">
+    <source
+      allow="autoplay"
+      src="{{ tracks[ind].preview_url }}"
+      type="audio/mpeg"
+    />
+    Your browser does not support the audio element.
+  </audio>
+  <button class="btn audio-btn" (click)="playAudio()">Play</button>
+  <button class="btn audio-btn" (click)="stopAudio()">Stop</button>
+  <div class="volume-control">
+    <img src="/assets/volume-high.svg" (click)="showVolume = !showVolume" />
+    <div class="volume-slider" *ngIf="showVolume">
+      <input
+        class="slider-bar"
+        type="range"
+        id="volume"
+        name="volume"
+        min="0.1"
+        max="0.7"
+        step="0.1"
+        [value]="maxVolume"
+        (input)="handleVolume(volumeControl.value)"
+        #volumeControl
+      />
+    </div>
+  </div>
+</div> -->

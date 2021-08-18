@@ -1,3 +1,4 @@
+<div *ngIf="!isLoaded" class="loading-div"></div>
 <div class="reg-div col-md-10 offset-1" *ngIf="isLoaded">
   <div *ngFor="let ind of indexes; index as i">
     <div *ngIf="i == page" class="">

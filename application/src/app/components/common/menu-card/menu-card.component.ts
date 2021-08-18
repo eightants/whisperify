@@ -9,6 +9,7 @@ export class MenuCardComponent implements OnInit {
   @Input() imagePath: string;
   @Input() title: string;
   @Input() body: string;
+  @Input() height: string;
 
   ngOnInit(): void {
     return;

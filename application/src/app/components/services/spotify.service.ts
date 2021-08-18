@@ -108,9 +108,9 @@ export class SpotifyService {
   addEntry(obj) {
     this.http
       .post(this.mainUrl + 'api/postuser', obj, { observe: 'response' })
-      .subscribe((response) => {
+      .subscribe(() => {
         // You can access status:
-        //console.log(response.status);
+        // console.log(response.status);
         // Or any other header:
         //console.log(response.headers.get('X-Custom-Header'));
       });
@@ -142,8 +142,14 @@ export class SpotifyService {
       .toPromise();
   }
 
-  getChallenge(mycode) {
+  getChallenge(mycode: string) {
     return this.http.get(this.mainUrl + 'getchallenge/' + mycode).toPromise();
+  }
+
+  getChallengesByUser(user: string) {
+    return this.http
+      .get(this.mainUrl + 'getchallenge/user/' + user)
+      .toPromise();
   }
 
   addChallengeScore(code, score) {
@@ -153,6 +159,12 @@ export class SpotifyService {
         { code: code, score: score },
         { observe: 'response' }
       )
+      .toPromise();
+  }
+
+  deleteChallenge(code) {
+    return this.http
+      .post(this.mainUrl + 'deletechallenge', { code: code })
       .toPromise();
   }
 
@@ -190,6 +202,10 @@ export class SpotifyService {
 
   getLeaderboard(sort: string) {
     return this.http.get(this.mainUrl + `leaderboard/${sort}`).toPromise();
+  }
+
+  getUserProfile(user: string) {
+    return this.http.get(this.mainUrl + `api/profile/${user}`).toPromise();
   }
 
   constructor(private http: HttpClient) {}

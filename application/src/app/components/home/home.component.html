@@ -9,6 +9,32 @@
     <a href="/login"
       ><button class="btn clr-wgreen">Login With Spotify</button></a
     >
+    <div class="mob-pad fade-in-up preview-div">
+      <a routerLink="/tutorial"
+        ><app-menu-card
+          imagePath="assets/question.svg"
+          title="How To Play"
+          body="A quick introduction to a Whisperify quiz. "
+          height="150px"
+        ></app-menu-card
+      ></a>
+      <a routerLink="/analysis"
+        ><app-menu-card
+          imagePath="assets/radar.svg"
+          title="Analysis"
+          body="Visualize worldwide music data."
+          height="150px"
+        ></app-menu-card
+      ></a>
+      <a routerLink="/leaderboard"
+        ><app-menu-card
+          imagePath="assets/cup.svg"
+          title="Leaderboard"
+          body="View high scores and top users."
+          height="150px"
+        ></app-menu-card
+      ></a>
+    </div>
   </div>
   <app-cookie-banner></app-cookie-banner>
 </div>
