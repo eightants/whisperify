@@ -24,22 +24,26 @@ challengekey = os.getenv('CHALLENGE_DB')
 challengeclient = MongoClient(challengekey)
 challengedb = challengeclient.get_database('challenge-prod')
 challenges = challengedb.codes
-cursors = challenges.find({"hostid": { '$exists': True}})
-print(challenges.count_documents( {} ))
+cursors = challenges.delete_many(
+    {"hostid": {'$exists': False}, "dynamic": {'$ne': True}})
+# print(challenges.count_documents({}))
 
-count = 0
-for user in cursors:
-    count += 1
-    if count % 100 == 0:
-        print(count, "done")
-    if count < 0:
-        continue
+print(cursors.deleted_count)
 
-    username = user.get("hostid")
+# count = 0
+# for user in cursors:
+#     count += 1
+#     if count % 100 == 0:
+#         print(count, "done")
+#     if count < 0:
+#         continue
 
-    if (username):
-      ## Post to new dataset db
-      #print(username, score, attempts, time)
-      nv.update_one({"_id": username}, {"$inc": { "challengesMade": 1}}, upsert=True)
+#     username = user.get("hostid")
+
+#     if (username):
+#         # Post to new dataset db
+#         #print(username, score, attempts, time)
+#         nv.update_one({"_id": username}, {
+#                       "$inc": {"challengesMade": 1}}, upsert=True)
 
 print("completed")

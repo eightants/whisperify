@@ -36,6 +36,10 @@ export class AppComponent implements OnInit {
           'page_title': "Whisperify",
           'page_path': event.urlAfterRedirects
         });
+        gtag('config', 'G-J414001ELM', {
+          'page_title': "Whisperify",
+          'page_path': event.urlAfterRedirects
+        });
         if (event.url == "/about" || event.url == "/documentation") {
           this.showWaves = false;
         } else {

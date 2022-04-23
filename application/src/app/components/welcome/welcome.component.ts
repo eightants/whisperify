@@ -17,7 +17,7 @@ export class WelcomeComponent implements OnInit {
     private spotify: SpotifyService,
     private data: DatastoreService,
     private titleTagService: TitleTagService
-  ) {}
+  ) { }
   token = "";
   username = "";
   displayName = "";
@@ -42,7 +42,7 @@ export class WelcomeComponent implements OnInit {
   searchStr = "";
   searchVal: string;
   searchList = [];
-  off = 0;
+  off = [0];
   pid = 0;
   psize = 0;
   savedSongsSize = 0;
@@ -184,7 +184,7 @@ export class WelcomeComponent implements OnInit {
       .getPlaylists(this.token, count.toString())
       .then((res) => {
         for (let i = 0; i < res["items"].length; i++) {
-          if (res["items"][i].tracks.total >= 30) {
+          if (res["items"][i].tracks.total >= 20) {
             this.playlists.push(res["items"][i]);
           }
         }
@@ -234,7 +234,10 @@ export class WelcomeComponent implements OnInit {
     this.config["psize"] = this.psize;
     this.config["choice"] = "playlist";
     if (p.tracks.total > 100) {
-      this.off = getRandomInt(p.tracks.total - 100);
+      this.off = []
+      for (let i = 0; i < 4; i++) {
+        this.off.push(getRandomInt(p.tracks.total - 100))
+      }
       this.config["offset"] = this.off;
     } else {
       this.config["offset"] = this.off;
@@ -249,7 +252,10 @@ export class WelcomeComponent implements OnInit {
     this.config["psize"] = this.savedSongsSize;
     this.config["choice"] = "saved";
     if (this.savedSongsSize > 100) {
-      this.off = getRandomInt(this.savedSongsSize - 100);
+      this.off = [];
+      for (let i = 0; i < 4; i++) {
+        this.off.push(getRandomInt(this.savedSongsSize - 100))
+      }
       this.config["offset"] = this.off;
     } else {
       this.config["offset"] = this.off;
@@ -284,24 +290,24 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
-  unLoad():void {
+  unLoad(): void {
     this.isLoaded = false;
     this.excludeModule = false;
   }
 
-  unLoadExclude():void {
+  unLoadExclude(): void {
     this.excludeModule = false;
     this.searchList = this.artistList;
     this.searchStr = "";
     this.config["excludeArtists"] = this.prevExclude.slice();
   }
 
-  toExclude():void {
+  toExclude(): void {
     this.loadArtists();
     this.excludeModule = true;
   }
 
-  loadArtists():void {
+  loadArtists(): void {
     if (this.token == "" || this.token == null) {
       this.router.navigate(["/"]);
     }
@@ -364,49 +370,63 @@ export class WelcomeComponent implements OnInit {
             });
         }
       } else if (this.modeChoice === "saved") {
-        const off = this.off;
-        this.spotify
-          .getSavedSongs(this.token, off.toString())
-          .then((res) => {
-            const trackprev = res["items"];
-            this.totsongs = trackprev.length;
-            for (let i = 0; i < trackprev.length; i++) {
-              if (this.artists.has(trackprev[i].track.artists[0].name)) {
-                this.artists.get(trackprev[i].track.artists[0].name).val++;
-              } else {
-                this.artists.set(trackprev[i].track.artists[0].name, {
-                  val: 1,
-                  id: trackprev[i].track.artists[0].id,
-                });
-              }
+        const allOffsets = [];
+        for (const off of this.off) {
+          allOffsets.push(this.spotify
+            .getSavedSongs(this.token, off.toString()));
+        }
+        const getAllSongSamples = Promise.all(allOffsets);
+
+        getAllSongSamples.then((values) => {
+          const trackprev = [];
+          for (const res of values) {
+            trackprev.push(...res["items"]);
+          }
+          this.totsongs = trackprev.length;
+          for (let i = 0; i < trackprev.length; i++) {
+            if (this.artists.has(trackprev[i].track.artists[0].name)) {
+              this.artists.get(trackprev[i].track.artists[0].name).val++;
+            } else {
+              this.artists.set(trackprev[i].track.artists[0].name, {
+                val: 1,
+                id: trackprev[i].track.artists[0].id,
+              });
             }
-            this.artistList = Array.from(this.artists.keys()).sort();
-            this.searchArtists();
-          })
+          }
+          this.artistList = Array.from(this.artists.keys()).sort();
+          this.searchArtists();
+        })
           .catch((e) => {
             console.log(e);
             this.router.navigate(["/"]);
           });
       } else {
-        const off = this.off;
-        this.spotify
-          .getPlaylistTracks(this.pid, this.token, off.toString())
-          .then((res) => {
-            const trackprev = res["items"];
-            this.totsongs = trackprev.length;
-            for (let i = 0; i < trackprev.length; i++) {
-              if (this.artists.has(trackprev[i].track.artists[0].name)) {
-                this.artists.get(trackprev[i].track.artists[0].name).val++;
-              } else {
-                this.artists.set(trackprev[i].track.artists[0].name, {
-                  val: 1,
-                  id: trackprev[i].track.artists[0].id,
-                });
-              }
+        const allOffsets = [];
+        for (const off of this.off) {
+          allOffsets.push(this.spotify
+            .getPlaylistTracks(this.pid, this.token, off.toString()));
+        }
+        const getAllSongSamples = Promise.all(allOffsets);
+
+        getAllSongSamples.then((values) => {
+          const trackprev = [];
+          for (const res of values) {
+            trackprev.push(...res["items"]);
+          }
+          this.totsongs = trackprev.length;
+          for (let i = 0; i < trackprev.length; i++) {
+            if (this.artists.has(trackprev[i].track.artists[0].name)) {
+              this.artists.get(trackprev[i].track.artists[0].name).val++;
+            } else {
+              this.artists.set(trackprev[i].track.artists[0].name, {
+                val: 1,
+                id: trackprev[i].track.artists[0].id,
+              });
             }
-            this.artistList = Array.from(this.artists.keys()).sort();
-            this.searchArtists();
-          })
+          }
+          this.artistList = Array.from(this.artists.keys()).sort();
+          this.searchArtists();
+        })
           .catch((e) => {
             console.log(e);
             this.router.navigate(["/"]);

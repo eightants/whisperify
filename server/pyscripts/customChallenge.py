@@ -7,11 +7,11 @@ from spotipy.oauth2 import SpotifyClientCredentials
 load_dotenv()
 
 #info needed to make calls
-challengetitle = "folklore"
-cc = "folklore"
-choice = 1
-givenURL = "https://open.spotify.com/album/2fenSS68JI1h4Fo296JfGr"
-username = "eightants"
+challengetitle = "All BTOB Songs"
+cc = "btoball" # challenge code (used in url)
+choice = 2
+givenURL = "https://open.spotify.com/playlist/6wnuLkPAXtayZgYxNRiqLz?si=DX5PofNhSDW6a__I4VH6xQ&dl_branch=1&nd=1"
+username = "eightants" # not used for option 1/2
 
 
 albumlist = {}
@@ -24,6 +24,17 @@ if choice == 1:
     albumlist = sp.album_tracks(givenURL)
     albuminfo = sp.album(givenURL)
     albumlist = albumlist["items"]
+elif choice == 2:
+    client_credentials_manager = SpotifyClientCredentials(client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'))
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+    albumlist = sp.playlist_tracks(givenURL)
+    albuminfo = sp.playlist(givenURL)
+    albumlist = albumlist["items"]
+    innertracks = []
+    for item in albumlist:
+        innertracks.append(item["track"])
+    albumlist = innertracks
 else:
     mongokey = os.getenv('MONGO')
     client = MongoClient(mongokey)
@@ -46,6 +57,8 @@ tracklist = []
 tracks = []
 
 for song in albumlist:
+    if song["preview_url"] == None:
+        continue
     print(song["preview_url"])
     
     tladd = {
