@@ -55,6 +55,7 @@ export class WelcomeComponent implements OnInit {
   };
   isSingleplayer = false;
   isMultiplayer = false;
+  followedTwitter = false;
 
   ngOnInit(): void {
     this.titleTagService.setTitle("Menu - Whisperify");
@@ -85,6 +86,16 @@ export class WelcomeComponent implements OnInit {
     } else {
       this.router.navigate(["/"]);
     }
+  }
+
+  onFollow(): void {
+    setTimeout(() => {
+      this.followedTwitter = true;
+      this.spotify.addEntry({
+        _id: this.username,
+        followedTwitter: true
+      });
+    }, 7000)
   }
 
   getSongsAndPostToDB(): void {
@@ -140,6 +151,9 @@ export class WelcomeComponent implements OnInit {
                     if (res["ei"]) {
                       this.answered = "yes";
                     }
+                    if (res['followedTwitter']) {
+                      this.followedTwitter = true;
+                    }
                   }
                   sessionStorage.setItem("answered", this.answered);
                 });
@@ -156,6 +170,9 @@ export class WelcomeComponent implements OnInit {
         if (res != null) {
           if (res["ei"]) {
             this.answered = "yes";
+          }
+          if (res['followedTwitter']) {
+            this.followedTwitter = true;
           }
         }
         sessionStorage.setItem("answered", this.answered);

@@ -23,7 +23,7 @@
 
   .nav-link {
     font-family: 'Circular', 'sans-serif';
-    padding: 5px 8px;
+    padding: 5px 5px;
     font-size: 1.1em;
     color: #fff;
     margin: 0px 8px;
@@ -155,6 +155,7 @@
     right: 0px;
     width: 100%;
     text-align: right;
+    padding: 10px 20px;
   }
 
   .nav-logo {
@@ -162,7 +163,7 @@
   }
 
   .nav-logo-min {
-    height: 28px;
+    height: 20px;
     display: block;
   }
 }
