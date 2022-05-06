@@ -233,15 +233,9 @@ export class WelcomeComponent implements OnInit {
     this.config["pid"] = this.pid;
     this.config["psize"] = this.psize;
     this.config["choice"] = "playlist";
-    if (p.tracks.total > 100) {
-      this.off = []
-      for (let i = 0; i < 4; i++) {
-        this.off.push(getRandomInt(p.tracks.total - 100))
-      }
-      this.config["offset"] = this.off;
-    } else {
-      this.config["offset"] = this.off;
-    }
+    const TRACKS_PER_REQUEST_PLAYLIST = 100;
+    this.off = this.createOffsets(p.tracks.total, TRACKS_PER_REQUEST_PLAYLIST);
+    this.config['offset'] = this.off;
     this.modeChoice = "playlist";
     this.unLoad();
     this.options = true;
@@ -251,15 +245,9 @@ export class WelcomeComponent implements OnInit {
     this.totsongs = this.savedSongsSize;
     this.config["psize"] = this.savedSongsSize;
     this.config["choice"] = "saved";
-    if (this.savedSongsSize > 100) {
-      this.off = [];
-      for (let i = 0; i < 4; i++) {
-        this.off.push(getRandomInt(this.savedSongsSize - 100))
-      }
-      this.config["offset"] = this.off;
-    } else {
-      this.config["offset"] = this.off;
-    }
+    const TRACKS_PER_REQUEST_SAVED_SONGS = 50;
+    this.off = this.createOffsets(this.savedSongsSize, TRACKS_PER_REQUEST_SAVED_SONGS);
+    this.config['offset'] = this.off;
     this.modeChoice = "saved";
     this.unLoad();
     this.options = true;
@@ -484,5 +472,86 @@ export class WelcomeComponent implements OnInit {
     } else {
       this.router.navigate(["/analysis"]);
     }
+  }
+
+  createOffsets(totalTrackCount, tracksPerRequest) {
+    // increase this number for better autocompletion
+    const MAX_API_CALLS = 4;
+
+    if (totalTrackCount > MAX_API_CALLS * tracksPerRequest) {
+      return this.createNonOverlappingIntervals(
+        MAX_API_CALLS,
+        tracksPerRequest,
+        totalTrackCount
+      );
+    } else {
+      const off = [];
+      for (let i = 0; i < totalTrackCount; i += tracksPerRequest) {
+        off.push(i);
+      }
+      return off;
+    }
+  }
+
+  /**
+   * Create `count` intervals of size `intervalSize` which are all subsets of the interval `[0, totalsize[`.
+   *
+   * Returns the starting value of each resulting interval.
+   *
+   * Example: Let count = 3 and intervalSize = 100 and totalSize = 1000.
+   * If the algorithm chooses the three intervals [7, 106], [333, 432] and [900, 999]
+   * then the array [7, 333, 900] is returned.
+   */
+   createNonOverlappingIntervals(count, intervalSize, totalSize) {
+    const totalIntervalSize = intervalSize * count;
+    let totalSpaceBetweenIntervals = totalSize - totalIntervalSize;
+
+    if (totalSpaceBetweenIntervals < 0) {
+      totalSpaceBetweenIntervals = 0;
+    }
+
+    // the space between intervals
+    // Example: If spaceBetweenIntervals is [12, 34, 56] and size is 10, then the result will be [12, 21] | [56, 65]
+    const spaceBetweenIntervals = this.getRandomNumbersWithFixedSum(
+      count + 1,
+      totalSpaceBetweenIntervals
+    );
+
+    const result = [];
+    let index = 0;
+    for (let i = 0; i < count; i++) {
+      index += spaceBetweenIntervals[i];
+      result.push(index);
+      index += intervalSize;
+    }
+    return result;
+  }
+
+  getRandomNumbersWithFixedSum(count, expectedSum) {
+    // Step 1: Create an array of `count` random floating point values
+    let randomFloats = Array.from({ length: count }, () => Math.random());
+
+    // Step 2: Calculate sum of those values
+    let randomTotal = randomFloats.reduce((partialSum, a) => partialSum + a, 0);
+
+    // Step 3: Scale the values so that they sum to `expectedSum` instead of `randomTotal`
+    // while handling the practically impossible case that all calls to Math.random returned exactly 0
+    if (randomTotal == 0) {
+      // all values are equal, so they all get the same value
+      randomFloats = Array.from({ length: count }, () => 1);
+      randomTotal = randomFloats.reduce((partialSum, a) => partialSum + a, 0);
+    }
+    const factor = expectedSum / randomTotal;
+    const result = randomFloats.map((value) => Math.floor(value * factor));
+
+    // Step 4: Resolve rounding errors by increasing some elements randomly until the given sum is reached
+    // The actual sum will always be less than or equal to the target sum since Math.floor was used in the previous step
+    let actualSum = result.reduce((partialSum, a) => partialSum + a, 0);
+    while (actualSum < expectedSum) {
+      const incrementAt = getRandomInt(count);
+      result[incrementAt]++;
+      actualSum = result.reduce((partialSum, a) => partialSum + a, 0);
+    }
+    return result;
   }
 }
