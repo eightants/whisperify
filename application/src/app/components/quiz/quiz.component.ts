@@ -269,7 +269,7 @@ export class QuizComponent implements OnInit {
             if (this.trackprev[i].track.preview_url == null) {
               continue;
             } else {
-              if (!songIsDuplicate(this.trackprev[i], this.tracks)) {
+              if (!songIsDuplicate(this.trackprev[i].track, this.tracks)) {
                 this.tracks.push(this.trackprev[i].track);
                 this.playtracks.push(this.trackprev[i]);
                 this.trackopt.push({
@@ -346,7 +346,7 @@ export class QuizComponent implements OnInit {
             if (this.trackprev[i].track.preview_url == null) {
               continue;
             } else {
-              if (!songIsDuplicate(this.trackprev[i], this.tracks)) {
+              if (!songIsDuplicate(this.trackprev[i].track, this.tracks)) {
                 this.tracks.push(this.trackprev[i].track);
                 this.playtracks.push(this.trackprev[i]);
                 this.trackopt.push({
