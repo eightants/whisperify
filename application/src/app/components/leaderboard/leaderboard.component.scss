@@ -1,4 +1,4 @@
-@import "src/global";
+@import 'src/global';
 
 * {
   box-sizing: border-box;
@@ -25,7 +25,7 @@
   }
 
   .user-text {
-    color:white;
+    color: white;
     width: 100%;
     margin: 0px;
     padding-top: 0px;
@@ -57,7 +57,7 @@
   background-color: $grey-3;
   border-radius: 10px;
   display: grid;
-  grid-template-columns: 50px 50px minmax(0,auto) 60px;
+  grid-template-columns: 50px 50px minmax(0, auto) 60px;
   align-items: center;
 }
 

@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 // I decided to use sessionStorage instead of this, but saving it here in case of another use case
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DatastoreService {
   private tokenSource = new BehaviorSubject('no_token');
@@ -21,7 +21,7 @@ export class DatastoreService {
   currentIndexes = this.quizIndexes.asObservable();
   currentUsername = this.username.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   changeToken(token: string) {
     this.tokenSource.next(token);

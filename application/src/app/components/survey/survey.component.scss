@@ -45,7 +45,7 @@ $wgreen: #38a275;
     width: 90%;
   }
 
-  ul li input[type="radio"] {
+  ul li input[type='radio'] {
     position: absolute;
     visibility: hidden;
   }
@@ -88,7 +88,7 @@ $wgreen: #38a275;
   ul li .check::before {
     display: block;
     position: absolute;
-    content: "";
+    content: '';
     border-radius: 100%;
     height: 14px;
     width: 14px;
@@ -100,15 +100,15 @@ $wgreen: #38a275;
   }
 }
 
-input[type="radio"]:checked ~ .check {
+input[type='radio']:checked ~ .check {
   border: 5px solid $wgreen;
 }
 
-input[type="radio"]:checked ~ .check::before {
+input[type='radio']:checked ~ .check::before {
   background: $wgreen;
 }
 
-input[type="radio"]:checked ~ label {
+input[type='radio']:checked ~ label {
   color: $wgreen;
 }
 

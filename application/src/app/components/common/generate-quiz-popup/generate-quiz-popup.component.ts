@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-generate-quiz-popup',
   templateUrl: './generate-quiz-popup.component.html',
-  styleUrls: ['./generate-quiz-popup.component.scss']
+  styleUrls: ['./generate-quiz-popup.component.scss'],
 })
 export class GenerateQuizPopupComponent implements OnInit {
   @Output() unLoad = new EventEmitter<string>();
@@ -12,10 +12,10 @@ export class GenerateQuizPopupComponent implements OnInit {
 
   score: number;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.score = Number(sessionStorage.getItem("score")) || -1;
+    this.score = Number(sessionStorage.getItem('score')) || -1;
   }
 
   copyLink(val) {
@@ -35,5 +35,4 @@ export class GenerateQuizPopupComponent implements OnInit {
     // another way to write to clipboard  but idk if the above one already works
     navigator.clipboard.writeText(val);
   }
-
 }

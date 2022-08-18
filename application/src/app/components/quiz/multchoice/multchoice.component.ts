@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SpotifyService } from '../../services/spotify.service';
 
 // function for a random int
@@ -9,11 +9,10 @@ function getRandomInt(max) {
 @Component({
   selector: 'app-multchoice',
   templateUrl: './multchoice.component.html',
-  styleUrls: ['./multchoice.component.scss'], 
-  providers:[SpotifyService],
+  styleUrls: ['./multchoice.component.scss'],
+  providers: [SpotifyService],
 })
 export class MultchoiceComponent implements OnInit {
-
   @Output() clickSubmit = new EventEmitter<string>();
   @Input() tracks: any;
   @Input() toChoose: any;
@@ -23,9 +22,7 @@ export class MultchoiceComponent implements OnInit {
   trks = [];
   choices = [];
 
-
-  constructor(private _spotifyService:SpotifyService) {}
-
+  constructor(private _spotifyService: SpotifyService) {}
 
   ngOnInit() {
     let listchoices = [this.chosen];
@@ -51,10 +48,9 @@ export class MultchoiceComponent implements OnInit {
   }
 
   submitVal(artist, name) {
-    const searchVal = artist + " - " + name;
+    const searchVal = artist + ' - ' + name;
     if (this.played == true) {
       this.clickSubmit.next(searchVal); // passes searchVal as parameter
     }
   }
-
 }

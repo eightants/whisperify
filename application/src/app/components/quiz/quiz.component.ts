@@ -33,7 +33,7 @@ export class QuizComponent implements OnInit {
     private data: DatastoreService,
     private spotify: SpotifyService,
     private titleTagService: TitleTagService
-  ) { }
+  ) {}
 
   token = '';
   pid = '';
@@ -253,77 +253,79 @@ export class QuizComponent implements OnInit {
       } else if (this.mode === 'saved') {
         const allOffsets = [];
         for (const off of this.offset) {
-          allOffsets.push(this.spotify
-            .getSavedSongs(this.token, off.toString()));
+          allOffsets.push(
+            this.spotify.getSavedSongs(this.token, off.toString())
+          );
         }
         const getAllSongSamples = Promise.all(allOffsets);
 
-        getAllSongSamples.then((values) => {
-          this.trackprev = [];
-          for (const res of values) {
-            this.trackprev.push(...res["items"]);
-          }
-
-          // DEVELOPMENT; for loop to check the number of valid tracks returned
-          for (let i = 0; i < this.trackprev.length; i++) {
-            if (this.trackprev[i].track.preview_url == null) {
-              continue;
-            } else {
-              if (!songIsDuplicate(this.trackprev[i].track, this.tracks)) {
-                this.tracks.push(this.trackprev[i].track);
-                this.playtracks.push(this.trackprev[i]);
-                this.trackopt.push({
-                  artists: [
-                    {
-                      name: this.trackprev[i].track.artists[0].name,
-                    },
-                  ],
-                  name: this.trackprev[i].track.name,
-                });
-              }
+        getAllSongSamples
+          .then((values) => {
+            this.trackprev = [];
+            for (const res of values) {
+              this.trackprev.push(...res['items']);
             }
-          }
 
-          // checks that more than 10 songs have preview urls
-          // generates 10 unique random indexes in the range of the items array returned
-          if (this.tracks.length < 20) {
-            // say there's not enough info
-            this.router.navigate(['/no-info']);
-          } else {
-            while (this.indexes.length < 10) {
-              const temp = getRandomInt(this.tracks.length);
-              let unique = true;
-              // check that the url has a preview_url
-              if (this.tracks[temp].preview_url == null) {
+            // DEVELOPMENT; for loop to check the number of valid tracks returned
+            for (let i = 0; i < this.trackprev.length; i++) {
+              if (this.trackprev[i].track.preview_url == null) {
                 continue;
-              }
-              for (let j = 0; j < this.indexes.length; j++) {
-                if (this.indexes[j] == temp) {
-                  unique = false;
-                  break;
+              } else {
+                if (!songIsDuplicate(this.trackprev[i].track, this.tracks)) {
+                  this.tracks.push(this.trackprev[i].track);
+                  this.playtracks.push(this.trackprev[i]);
+                  this.trackopt.push({
+                    artists: [
+                      {
+                        name: this.trackprev[i].track.artists[0].name,
+                      },
+                    ],
+                    name: this.trackprev[i].track.name,
+                  });
                 }
               }
-              if (unique == true) {
-                this.indexes.push(temp);
-                this.trimtracks.push({
-                  album: {
-                    images: this.tracks[temp].album.images,
-                  },
-                  artists: [
-                    {
-                      name: this.tracks[temp].artists[0].name,
+            }
+
+            // checks that more than 10 songs have preview urls
+            // generates 10 unique random indexes in the range of the items array returned
+            if (this.tracks.length < 20) {
+              // say there's not enough info
+              this.router.navigate(['/no-info']);
+            } else {
+              while (this.indexes.length < 10) {
+                const temp = getRandomInt(this.tracks.length);
+                let unique = true;
+                // check that the url has a preview_url
+                if (this.tracks[temp].preview_url == null) {
+                  continue;
+                }
+                for (let j = 0; j < this.indexes.length; j++) {
+                  if (this.indexes[j] == temp) {
+                    unique = false;
+                    break;
+                  }
+                }
+                if (unique == true) {
+                  this.indexes.push(temp);
+                  this.trimtracks.push({
+                    album: {
+                      images: this.tracks[temp].album.images,
                     },
-                  ],
-                  external_urls: this.tracks[temp].external_urls,
-                  name: this.tracks[temp].name,
-                  preview_url: this.tracks[temp].preview_url,
-                });
+                    artists: [
+                      {
+                        name: this.tracks[temp].artists[0].name,
+                      },
+                    ],
+                    external_urls: this.tracks[temp].external_urls,
+                    name: this.tracks[temp].name,
+                    preview_url: this.tracks[temp].preview_url,
+                  });
+                }
               }
             }
-          }
-          this.altind = this.indexes;
-          this.isLoaded = true;
-        })
+            this.altind = this.indexes;
+            this.isLoaded = true;
+          })
           .catch((e) => {
             console.log(e);
             this.router.navigate(['/']);
@@ -331,76 +333,78 @@ export class QuizComponent implements OnInit {
       } else {
         const allOffsets = [];
         for (const off of this.offset) {
-          allOffsets.push(this.spotify
-            .getPlaylistTracks(this.pid, this.token, off.toString()));
+          allOffsets.push(
+            this.spotify.getPlaylistTracks(this.pid, this.token, off.toString())
+          );
         }
         const getAllSongSamples = Promise.all(allOffsets);
 
-        getAllSongSamples.then((values) => {
-          this.trackprev = [];
-          for (const res of values) {
-            this.trackprev.push(...res["items"]);
-          }
-          // DEVELOPMENT; for loop to check the number of valid tracks returned
-          for (let i = 0; i < this.trackprev.length; i++) {
-            if (this.trackprev[i].track.preview_url == null) {
-              continue;
-            } else {
-              if (!songIsDuplicate(this.trackprev[i].track, this.tracks)) {
-                this.tracks.push(this.trackprev[i].track);
-                this.playtracks.push(this.trackprev[i]);
-                this.trackopt.push({
-                  artists: [
-                    {
-                      name: this.trackprev[i].track.artists[0].name,
-                    },
-                  ],
-                  name: this.trackprev[i].track.name,
-                });
-              }
+        getAllSongSamples
+          .then((values) => {
+            this.trackprev = [];
+            for (const res of values) {
+              this.trackprev.push(...res['items']);
             }
-          }
-
-          // checks that more than 10 songs have preview urls
-          // generates 10 unique random indexes in the range of the items array returned
-          if (this.tracks.length < 20) {
-            // say there's not enough info
-            this.router.navigate(['/no-info']);
-          } else {
-            while (this.indexes.length < 10) {
-              const temp = getRandomInt(this.tracks.length);
-              let unique = true;
-              // check that the url has a preview_url
-              if (this.tracks[temp].preview_url == null) {
+            // DEVELOPMENT; for loop to check the number of valid tracks returned
+            for (let i = 0; i < this.trackprev.length; i++) {
+              if (this.trackprev[i].track.preview_url == null) {
                 continue;
-              }
-              for (let j = 0; j < this.indexes.length; j++) {
-                if (this.indexes[j] == temp) {
-                  unique = false;
-                  break;
+              } else {
+                if (!songIsDuplicate(this.trackprev[i].track, this.tracks)) {
+                  this.tracks.push(this.trackprev[i].track);
+                  this.playtracks.push(this.trackprev[i]);
+                  this.trackopt.push({
+                    artists: [
+                      {
+                        name: this.trackprev[i].track.artists[0].name,
+                      },
+                    ],
+                    name: this.trackprev[i].track.name,
+                  });
                 }
               }
-              if (unique == true) {
-                this.indexes.push(temp);
-                this.trimtracks.push({
-                  album: {
-                    images: this.tracks[temp].album.images,
-                  },
-                  artists: [
-                    {
-                      name: this.tracks[temp].artists[0].name,
+            }
+
+            // checks that more than 10 songs have preview urls
+            // generates 10 unique random indexes in the range of the items array returned
+            if (this.tracks.length < 20) {
+              // say there's not enough info
+              this.router.navigate(['/no-info']);
+            } else {
+              while (this.indexes.length < 10) {
+                const temp = getRandomInt(this.tracks.length);
+                let unique = true;
+                // check that the url has a preview_url
+                if (this.tracks[temp].preview_url == null) {
+                  continue;
+                }
+                for (let j = 0; j < this.indexes.length; j++) {
+                  if (this.indexes[j] == temp) {
+                    unique = false;
+                    break;
+                  }
+                }
+                if (unique == true) {
+                  this.indexes.push(temp);
+                  this.trimtracks.push({
+                    album: {
+                      images: this.tracks[temp].album.images,
                     },
-                  ],
-                  external_urls: this.tracks[temp].external_urls,
-                  name: this.tracks[temp].name,
-                  preview_url: this.tracks[temp].preview_url,
-                });
+                    artists: [
+                      {
+                        name: this.tracks[temp].artists[0].name,
+                      },
+                    ],
+                    external_urls: this.tracks[temp].external_urls,
+                    name: this.tracks[temp].name,
+                    preview_url: this.tracks[temp].preview_url,
+                  });
+                }
               }
             }
-          }
-          this.altind = this.indexes;
-          this.isLoaded = true;
-        })
+            this.altind = this.indexes;
+            this.isLoaded = true;
+          })
           .catch((e) => {
             console.log(e);
             this.router.navigate(['/']);
@@ -501,7 +505,7 @@ export class QuizComponent implements OnInit {
     const fadeIn = 0;
     const currMaxVolume = this.maxVolume;
     // No audio fading when whisperLen is 2
-    if (this.config["whisperLen"] == 2) {
+    if (this.config['whisperLen'] == 2) {
       sound.volume = currMaxVolume;
     }
     const fadeInAudio = setInterval(function () {

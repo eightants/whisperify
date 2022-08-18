@@ -62,8 +62,8 @@
 }
 
 .streak-count::after {
-  content: "";
-  background-image: url("/assets/streak.svg");
+  content: '';
+  background-image: url('/assets/streak.svg');
   background-size: contain;
   background-repeat: no-repeat;
   height: 0.8em;

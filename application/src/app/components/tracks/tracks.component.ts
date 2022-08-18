@@ -19,7 +19,7 @@ function getDateToday() {
 })
 export class TracksComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
-  scrollCheck(event): void {
+  scrollCheck(): void {
     this.upperPart = window.pageYOffset < 1000;
   }
 

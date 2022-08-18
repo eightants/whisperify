@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { MetaTag } from '../../globals'
+import { MetaTag } from '../../globals';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TitleTagService {
+  private description = 'description';
+  private titleMeta = 'og:title';
+  private descriptionMeta = 'og:description';
+  private twitterTitleMeta = 'twitter:title';
+  private twitterDescMeta = 'twitter:description';
 
-  private description = "description";
-  private titleMeta = "og:title";
-  private descriptionMeta = "og:description";
-  private twitterTitleMeta = "twitter:title";
-  private twitterDescMeta = "twitter:description";
-
-  constructor(private titleService: Title, private metaService: Meta) { }
+  constructor(private titleService: Title, private metaService: Meta) {}
 
   public setTitle(title: string): void {
     this.titleService.setTitle(title);
@@ -31,12 +30,17 @@ export class TitleTagService {
   }
 
   private setTags(tags: MetaTag[]): void {
-    tags.forEach(siteTag => {
-      const tag = siteTag.isFacebook ?  this.metaService.getTag(`property='${siteTag.name}'`) : this.metaService.getTag(`name='${siteTag.name}'`);
+    tags.forEach((siteTag) => {
       if (siteTag.isFacebook) {
-        this.metaService.updateTag({ property: siteTag.name, content: siteTag.value });
+        this.metaService.updateTag({
+          property: siteTag.name,
+          content: siteTag.value,
+        });
       } else {
-        this.metaService.updateTag({ name: siteTag.name, content: siteTag.value });
+        this.metaService.updateTag({
+          name: siteTag.name,
+          content: siteTag.value,
+        });
       }
     });
   }

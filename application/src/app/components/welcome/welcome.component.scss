@@ -150,7 +150,7 @@ $wgrey: #a8a8a8;
 }
 
 #add-img {
-  background-image: url("/assets/plus.svg");
+  background-image: url('/assets/plus.svg');
   background-size: contain;
   filter: invert(1);
   width: 14px;
@@ -159,7 +159,7 @@ $wgrey: #a8a8a8;
 }
 
 #plus-img {
-  background-image: url("/assets/plus.svg");
+  background-image: url('/assets/plus.svg');
   background-size: contain;
 }
 
@@ -210,7 +210,7 @@ $wgrey: #a8a8a8;
   -webkit-appearance: none;
   appearance: none;
   background-color: $optionclr;
-  background-image: url("/assets/dd.svg");
+  background-image: url('/assets/dd.svg');
   background-repeat: no-repeat, repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;

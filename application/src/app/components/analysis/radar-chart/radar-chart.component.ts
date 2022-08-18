@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 
 declare let RadarChart: any;
@@ -6,7 +6,7 @@ declare let RadarChart: any;
 @Component({
   selector: 'app-radar-chart',
   templateUrl: './radar-chart.component.html',
-  styleUrls: ['./radar-chart.component.scss']
+  styleUrls: ['./radar-chart.component.scss'],
 })
 export class RadarChartComponent implements OnInit {
   @Input() inputId: any;
@@ -14,9 +14,9 @@ export class RadarChartComponent implements OnInit {
   @Input() config: any;
   @Input() changed: any;
   @Input() graphClr: any;
-  @Output() onDone:EventEmitter<any> = new EventEmitter();
+  @Output() onDone: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     if (this.graphClr) {
@@ -25,15 +25,14 @@ export class RadarChartComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    RadarChart("#" + this.inputId, this.data, this.config);
+    RadarChart('#' + this.inputId, this.data, this.config);
     //this.onDone.emit("generated");
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     if (this.config && this.data) {
-      RadarChart("#" + this.inputId, this.data, this.config);
+      RadarChart('#' + this.inputId, this.data, this.config);
       //this.onDone.emit("generated");
     }
   }
-
 }

@@ -201,7 +201,7 @@ button:hover .visibility-icon {
 }
 
 .multi-edit {
-  font-family: "Circular", sans-serif;
+  font-family: 'Circular', sans-serif;
   width: 100%;
   font-size: 1.17em;
   text-align: center;
@@ -413,7 +413,7 @@ button:disabled:hover {
 
   h2 {
     text-align: left;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.2em;
     margin: 5px 0px;
     text-transform: uppercase;
@@ -421,7 +421,7 @@ button:disabled:hover {
 
   p {
     text-align: left;
-    font-family: "Circular", sans-serif;
+    font-family: 'Circular', sans-serif;
     font-size: 1.5em;
     margin: 0px 0px;
   }
@@ -486,7 +486,7 @@ button:disabled:hover {
 .colorizer::after {
   // blending for spotify colorizer
   mix-blend-mode: lighten;
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;

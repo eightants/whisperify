@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import * as d3 from 'd3';
+import { Component, OnInit, Input } from '@angular/core';
 
 declare let DotPlot: any;
 
 @Component({
   selector: 'app-dot-plot',
   templateUrl: './dot-plot.component.html',
-  styleUrls: ['./dot-plot.component.scss']
+  styleUrls: ['./dot-plot.component.scss'],
 })
 export class DotPlotComponent implements OnInit {
   @Input() inputId: any;
@@ -15,20 +14,17 @@ export class DotPlotComponent implements OnInit {
   @Input() changed: any;
   @Input() graphClr: any;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
-    DotPlot("#" + this.inputId, this.data,this.config);
+    DotPlot('#' + this.inputId, this.data, this.config);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    //console.log(changes)
+  ngOnChanges() {
     if (this.config && this.data) {
-      DotPlot("#" + this.inputId, this.data ,this.config);
+      DotPlot('#' + this.inputId, this.data, this.config);
     }
   }
-
 }

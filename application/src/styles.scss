@@ -4,8 +4,8 @@
 @import 'global';
 
 @font-face {
-  font-family: "Circular";
-  src: url("assets/CircularStd-Bold.otf") format("opentype");
+  font-family: 'Circular';
+  src: url('assets/CircularStd-Bold.otf') format('opentype');
 }
 
 html {
@@ -21,11 +21,11 @@ html {
 body {
   background-color: $bg-color;
   color: white;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   min-height: 100%;
   margin: 0;
-  background-image: url("/assets/whisperify-bg.svg");
+  background-image: url('/assets/whisperify-bg.svg');
   background-attachment: fixed;
 }
 
@@ -44,7 +44,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Circular", sans-serif;
+  font-family: 'Circular', sans-serif;
   font-weight: normal;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -52,7 +52,7 @@ h5 {
 }
 
 .btn {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 15px 30px;
   background-color: rgb(100, 100, 100);
   border-radius: 40px;
@@ -80,7 +80,7 @@ h5 {
 }
 
 .tab-btn {
-  font-family: "Circular", "sans-serif";
+  font-family: 'Circular', 'sans-serif';
   font-size: 20px;
   border: 0px solid #c4c4c4;
   color: white;
@@ -147,7 +147,7 @@ h5 {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 26px;
   width: 26px;
   left: 4px;
@@ -203,7 +203,7 @@ input:checked + .slider:before {
 
   .message-img {
     display: inline-block;
-    background: url("/assets/reddium-mockup.png");
+    background: url('/assets/reddium-mockup.png');
     background-size: cover;
     background-position: top center;
     width: 100%;
@@ -225,7 +225,7 @@ input:checked + .slider:before {
 
 .message-card:hover {
   background-color: #f5f5f5;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .volume-control {
@@ -236,7 +236,7 @@ input:checked + .slider:before {
   img {
     filter: invert(1);
     opacity: 0.4;
-    transition: all .2s;
+    transition: all 0.2s;
   }
 
   img:hover {
@@ -252,7 +252,7 @@ input:checked + .slider:before {
 }
 
 .slider-bar {
-  -webkit-appearance: none;  /* Override default CSS styles */
+  -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 80px; /* Full-width */
   height: 4px; /* Specified height */
@@ -299,7 +299,7 @@ input:checked + .slider:before {
   -webkit-appearance: none;
   appearance: none;
   background-color: $bg-color;
-  background-image: url("/assets/dd.svg");
+  background-image: url('/assets/dd.svg');
   background-repeat: no-repeat, repeat;
   background-position: right 0.7em top 50%, 0 0;
   background-size: 0.65em auto, 100%;
@@ -336,7 +336,7 @@ input:checked + .slider:before {
 
 .coffee {
   display: inline-block;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 10px 18px;
   background-color: #ff813f;
   border-radius: 8px;
@@ -351,14 +351,14 @@ input:checked + .slider:before {
 }
 
 .coffee:hover {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background-color: #ff9e6a;
   text-decoration: none;
   color: white;
 }
 
 .twitter {
-  background-color: #1DA1F2;
+  background-color: #1da1f2;
   margin-top: 20px;
 }
 
@@ -451,7 +451,7 @@ input:checked + .slider:before {
 
 .copy-btn {
   flex: 0 0 auto;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 12px 20px;
   background-color: #646464;
   border-width: 0px;
@@ -468,7 +468,7 @@ input:checked + .slider:before {
 .link-field {
   flex: 0 1 auto;
   border-radius: 5px 0px 0px 5px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 12px 20px;
   background-color: #323232;
   border-width: 0px;
@@ -685,7 +685,7 @@ input:checked + .slider:before {
       top: 0;
       left: 2px;
       margin: auto;
-      font-family: "Circular", "sans-serif";
+      font-family: 'Circular', 'sans-serif';
       font-size: 4em;
     }
   }
@@ -767,7 +767,7 @@ input:checked + .slider:before {
 }
 
 .loading-div {
-  background-image: url("/assets/loading.gif");
+  background-image: url('/assets/loading.gif');
   background-size: contain;
   width: 40px;
   height: 40px;
