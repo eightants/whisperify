@@ -13,6 +13,14 @@ $wgrey: #a8a8a8;
   z-index: 30;
 }
 
+.actionBtn {
+  margin: 30px 0;
+
+  a {
+    cursor: pointer;
+  }
+}
+
 .answer-module {
   background-color: black;
 }

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "dev": "nodemon server.js",
     "build": "node server.js"
   },
   "author": "",
@@ -23,5 +24,8 @@
     "request": "^2.88.0",
     "supports-color": "^7.1.0",
     "zone.js": "^0.11.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }

@@ -55,6 +55,7 @@ export class WelcomeComponent implements OnInit {
   };
   isSingleplayer = false;
   isMultiplayer = false;
+  hasFollowed = false;
 
   ngOnInit(): void {
     this.titleTagService.setTitle("Menu - Whisperify");
@@ -89,7 +90,7 @@ export class WelcomeComponent implements OnInit {
 
   getSongsAndPostToDB(): void {
     // checks that token is present and we haven't already sent this user to DB
-    if (this.token != "" && this.token != null && this.username == "") {
+    if (this.token != "" && this.token != null && this.username != "d") {
       this.spotify
         .getTracks(this.token, "0", "medium_term")
         .then((res) => {
@@ -140,6 +141,9 @@ export class WelcomeComponent implements OnInit {
                     if (res["ei"]) {
                       this.answered = "yes";
                     }
+                    if (res["followedTwitter"]) {
+                      this.hasFollowed = true
+                    }
                   }
                   sessionStorage.setItem("answered", this.answered);
                 });
@@ -156,6 +160,9 @@ export class WelcomeComponent implements OnInit {
         if (res != null) {
           if (res["ei"]) {
             this.answered = "yes";
+          }
+          if (res["followedTwitter"]) {
+            this.hasFollowed = true
           }
         }
         sessionStorage.setItem("answered", this.answered);
@@ -274,6 +281,17 @@ export class WelcomeComponent implements OnInit {
   togglePlay(): void {
     this.isSingleplayer = false;
     this.isMultiplayer = false;
+  }
+
+  followTwitter():void {
+    window.open("https://twitter.com/yihonganthony",'_blank')
+    setTimeout(() => {
+      this.hasFollowed = true
+      this.spotify.addEntry({
+        _id: this.username,
+        followedTwitter: this.hasFollowed
+      });
+    }, 8000)
   }
 
   startQuiz(): void {

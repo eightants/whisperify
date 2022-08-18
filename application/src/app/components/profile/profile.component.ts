@@ -110,7 +110,6 @@ export class ProfileComponent implements OnInit {
         totalCount += challenge.scoreboard.length;
       }
       this.totalPlayers = totalCount;
-      console.log(res);
     });
   }
 

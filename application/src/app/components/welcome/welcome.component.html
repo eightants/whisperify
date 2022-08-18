@@ -5,8 +5,19 @@
       <div class="close-mod hoverhands" (click)="unLoad()">
         <img src="assets/close.svg" />
       </div>
-      <div *ngIf="!playlistsLoaded" class="loading-div"></div>
-      <div *ngIf="playlistsLoaded">
+      <div *ngIf="hasFollowed && !playlistsLoaded" class="loading-div"></div>
+      <div *ngIf="!hasFollowed">
+        <div class="popup-title">
+          <h1>Select playlist...</h1>
+        </div>
+        <div>
+          Support the developer to create quizzes based on custom playlists!
+        </div><div class="actionBtn">
+        <a class="coffee twitter" (click)="followTwitter()"
+          >Follow on Twitter</a
+        ></div>
+      </div>
+      <div *ngIf="hasFollowed && playlistsLoaded">
         <div class="popup-title">
           <h1>Select playlist...</h1>
         </div>
