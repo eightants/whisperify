@@ -284,7 +284,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   followTwitter():void {
-    window.open("https://twitter.com/yihonganthony",'_blank')
     setTimeout(() => {
       this.hasFollowed = true
       this.spotify.addEntry({
