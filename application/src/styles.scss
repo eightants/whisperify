@@ -335,12 +335,13 @@ input:checked + .slider:before {
 }
 
 .coffee {
+  display: inline-block;
   font-family: "Open Sans", sans-serif;
   padding: 10px 18px;
   background-color: #ff813f;
   border-radius: 8px;
   border-width: 0px;
-  margin: 5px 0px;
+  margin: 10px 0px;
   text-decoration: none;
   text-align: center;
   color: white;
@@ -358,6 +359,7 @@ input:checked + .slider:before {
 
 .twitter {
   background-color: #1DA1F2;
+  margin-top: 20px;
 }
 
 .twitter:hover {
@@ -904,7 +906,7 @@ Waves Animation
     font-size: 54px;
   }
   .main-text {
-    padding-top: 10%;
+    padding: 10% 10px 80px 10px;
     display: block;
   }
   .main-desc {
@@ -1014,10 +1016,14 @@ Waves Animation
 
   .artist-card {
     background: #191919;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 10px;
+    padding: 15px;
     margin: 10px;
     width: calc(50% - 20px);
+
+    div span {
+      font-size: 3em;
+    }
   }
 
   .coffee-frame {

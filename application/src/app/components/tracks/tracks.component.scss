@@ -60,7 +60,7 @@
     width: 10%;
     display: inline-block;
     vertical-align: top;
-    font-size: 42px;
+    font-size: 36px;
     margin: 5px 10px 5px 0%;
   }
 
@@ -69,7 +69,7 @@
     display: inline-block;
     vertical-align: top;
     border-radius: 5px;
-    max-width: 80px;
+    max-width: 50px;
   }
 
   .track-text {
@@ -81,6 +81,7 @@
 
     h3,
     p {
+      font-size: 14px;
       margin: 0.2em 0;
     }
   }
@@ -91,8 +92,8 @@
   width: 640px;
   overflow: hidden;
   background-color: #191919;
-  padding: 15px 30px 15px 30px;
-  margin: 6px auto;
+  padding: 12px 24px;
+  margin: 4px auto;
   text-align: left;
 }
 
@@ -152,7 +153,7 @@
   .track-card {
     width: 100% !important;
     padding: 10px 20px !important;
-    margin: 5px auto !important;
+    margin: 4px auto !important;
     min-height: 86px;
 
     h1 {
@@ -167,17 +168,17 @@
     margin: 0px !important;
     padding: 0px 10px 0px 20px !important;
     h3 {
-      font-size: 16px;
+      font-size: 14px;
       margin: 1px 0 !important;
     }
     p {
-      font-size: 16px;
+      font-size: 14px;
       margin: 1px 0 !important;
     }
   }
 
   .flavor-text img {
-    width: 50px !important;
+    width: 40px !important;
     margin-left: 2%;
   }
 
