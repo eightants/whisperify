@@ -91,7 +91,11 @@ $addfieldclr: #2e2e2e;
     padding-top: 0px;
     padding-bottom: 0px;
 
-    h3,
+    h3 {
+      font-size: 18px;
+      margin: 0.2em 0;
+    }
+
     p {
       font-size: 14px;
       margin: 0.2em 0;
@@ -546,7 +550,7 @@ button:disabled:hover {
     width: 100% !important;
     padding: 10px 20px !important;
     margin: 4px auto !important;
-    min-height: 86px;
+    min-height: 64px;
 
     h1 {
       font-size: 28px;
@@ -560,11 +564,11 @@ button:disabled:hover {
     margin: 0px !important;
     padding: 0px 10px 0px 20px !important;
     h3 {
-      font-size: 14px;
+      font-size: 14px !important;
       margin: 1px 0 !important;
     }
     p {
-      font-size: 14px;
+      font-size: 12px !important;
       margin: 1px 0 !important;
     }
   }
@@ -579,7 +583,7 @@ button:disabled:hover {
   }
 
   .flavor-text img {
-    width: 50px !important;
+    width: 36px !important;
     margin-left: 2%;
   }
 

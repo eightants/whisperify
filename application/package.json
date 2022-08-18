@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "prettier --check --write 'src/**/*.{ts,tsx,scss}' && npm run lint:es",
+    "lint": "prettier --check --write \"src/**/*.{ts,tsx,scss}\" && npm run lint:es",
     "lint:es": "eslint --fix src/**/*.{ts,tsx}",
     "e2e": "ng e2e",
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
