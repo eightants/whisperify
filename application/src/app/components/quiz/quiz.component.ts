@@ -549,7 +549,9 @@ export class QuizComponent implements OnInit {
   checkAns(submission, ans) {
     this.stopAudio();
     this.endTimer();
-    if (this.submitted) return;
+    if (this.submitted) {
+        this.nextPage();
+    }
     this.submitted = true;
     this.partialArtist = false;
     // checks answer after getting thing from event emitter
