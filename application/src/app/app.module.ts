@@ -13,6 +13,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HomeComponent } from './components/home/home.component';
 import { ScoreComponent } from './components/score/score.component';
 import { AboutComponent } from './components/about/about.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { NoInfoComponent } from './components/no-info/no-info.component';
 import { TracksComponent } from './components/tracks/tracks.component';
@@ -64,6 +65,7 @@ import { BannerComponent } from './components/common/banner/banner.component';
     PlayerComponent,
     ProfileComponent,
     BannerComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

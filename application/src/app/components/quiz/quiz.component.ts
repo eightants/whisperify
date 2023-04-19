@@ -550,7 +550,9 @@ export class QuizComponent implements OnInit {
     this.stopAudio();
     this.endTimer();
     if (this.submitted) {
-        this.nextPage();
+      this.submitted = false;
+      this.nextPage();
+      return
     }
     this.submitted = true;
     this.partialArtist = false;

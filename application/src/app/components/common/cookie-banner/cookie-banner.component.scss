@@ -2,11 +2,17 @@
   z-index: 80;
   position: fixed;
   bottom: 20px;
-  right: 0;
-  left: 0;
+  left: 20px;
   padding: 0px 10px;
 
-  div {
+  .info-button {
+    display: flex;
+    gap: 8px;
+    padding: 0 0 8px;
+    align-items: center;
+  }
+
+  .inner-cookie {
     width: 100%;
     max-width: 480px;
     overflow: hidden;
@@ -27,4 +33,9 @@
       top: 10px;
     }
   }
+}
+
+#ncmp-consent-link {
+  padding: 2px 0;
+  color: #191919
 }

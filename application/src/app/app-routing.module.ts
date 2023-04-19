@@ -14,6 +14,7 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'no-info', component: NoInfoComponent },
   { path: 'top', component: TracksComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'privacy', component: PrivacyComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'user/:username', component: ProfileComponent },

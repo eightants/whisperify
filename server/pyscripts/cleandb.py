@@ -1,8 +1,6 @@
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
 import numpy as np
 
 # loads env vars
@@ -25,8 +23,8 @@ challengeclient = MongoClient(challengekey)
 challengedb = challengeclient.get_database('challenge-prod')
 challenges = challengedb.codes
 cursors = challenges.delete_many(
-    {"hostid": {'$exists': False}, "dynamic": {'$ne': True}})
-# print(challenges.count_documents({}))
+   {"name.3": {'$exists': False}, "dynamic": {'$ne': True}, "time": {"$lte": 1637892877233}})
+print(challenges.count_documents({"name.3": {'$exists': False}, "dynamic": {'$ne': True}, "time": {"$lte": 1637892877233}}))
 
 print(cursors.deleted_count)
 
